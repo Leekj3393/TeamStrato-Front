@@ -16,7 +16,7 @@ function App() {
             <Route index element={<MyPage />} />
             <Route path="/myPage/myToDoList" element={<MyToDoList />} />
           </Route>
-        </Route>
+        </Route>    
       </Routes>
     </BrowserRouter>
   );
