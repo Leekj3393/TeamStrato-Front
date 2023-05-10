@@ -44,7 +44,7 @@ function Navbar() {
         <NavLink to="/">
           <div className="manager nav"><img className="menuIcon navImg" src="image/Management.png"></img>장비 & 리프트 관리</div>
         </NavLink>
-        <NavLink to="/">
+        <NavLink to="/approval">
           <div className="home nav" ><img className="menuIcon navImg" src="image/Auto.png"></img>전자 결재</div>
         </NavLink>
         <NavLink to="/">

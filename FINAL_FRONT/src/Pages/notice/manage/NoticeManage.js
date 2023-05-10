@@ -1,4 +1,4 @@
-import NoticeCSS from './Notice.css';
+import NoticeCSS from '../Notice.css';
 
 
 function NoticeManage() {

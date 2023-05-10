@@ -8,7 +8,16 @@ import Notice from "./Pages/notice/Notice";
 import NoticeSubLayout from "./layouts/NoticeSubLayout";
 import NoticePart from "./Pages/notice/NoticePart";
 import NoticeStatus from "./Pages/notice/NoticeStatus";
-import NoticeManage from "./Pages/notice/NoticeManage";
+import NoticeManage from "./Pages/notice/manage/NoticeManage";
+import NoticePartManage from "./Pages/notice/manage/NoticePartManage";
+import NoticeStatusManage from "./Pages/notice/manage/NoticeStatusManage";
+import Approval from "./Pages/approval/Approval";
+import ApprovalSubLayout from "./layouts/ApprovalSubLayout";
+import ApprovalRegist from "./Pages/approval/ApprovalRegist";
+import ApprovalWait from "./Pages/approval/ApprovalInProgress";
+import ApprovalInProgress from "./Pages/approval/ApprovalInProgress";
+import ApprovalAccessed from "./Pages/approval/ApprovalAccessed";
+import ApprovalReturned from "./Pages/approval/ApprovalReturned";
 
 function App() {
   return (
@@ -31,8 +40,18 @@ function App() {
 
           <Route path="/notice-manage" element={<NoticeSubLayout />}>
             <Route index element={<NoticeManage />} />
-            <Route path="/notice-manage/part" element={<NoticePart />} />
-            <Route path="/notice-manage/status" element={<NoticeStatus />} />
+            <Route path="/notice-manage/part" element={<NoticePartManage />} />
+            <Route path="/notice-manage/status" element={<NoticeStatusManage />} />
+          </Route>
+
+          
+          <Route path="/approval" element={<ApprovalSubLayout />}>
+            <Route index element={<Approval />} />
+            <Route path="/approval/regist" element={<ApprovalRegist />} />
+            <Route path="/approval/wait" element={<ApprovalWait />} />
+            <Route path="/approval/inProgress" element={<ApprovalInProgress />} />
+            <Route path="/approval/accessed" element={<ApprovalAccessed />} />
+            <Route path="/approval/returned" element={<ApprovalReturned />} />
           </Route>
 
           

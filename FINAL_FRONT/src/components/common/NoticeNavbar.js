@@ -23,11 +23,16 @@ function NoticeNavbar() {
 
   const imgPath2 = 'image/manager-page-btn-off.png'
 
+// 추가해야할 것 -> 접근제한
+// 톱니바퀴 버튼을 클릭하면 관리자페이지로 이동하는 버튼 핸들러~~
+const onClickToManage = () => {
+  SetTurnBtn(imgPath2);
+};
 
-
-  const onClickToManage = () => {
-      SetTurnBtn(imgPath2)
-  };
+// 톱니바퀴 버튼을 클릭하면 사용자페이지로 이동하는 버튼 핸들러~~
+  const onClickToUser = () => {
+    SetTurnBtn(imgPath);
+  }
 
   
   return (
@@ -35,10 +40,16 @@ function NoticeNavbar() {
       <div className="title1">
         <div className="title2">
           <NavLink to="/notice-manage">
-            <img className="btn" src={turnBtn} onClick={onClickToManage}/>
+            <>
+              {turnBtn === imgPath ? 
+                (<img className="btn" src={turnBtn} onClick={onClickToManage}/>) 
+                : (<NavLink to="/notice"><img className="btn" src={turnBtn} onClick={onClickToUser}/></NavLink>)
+              }
+            </>
           </NavLink>
           <b>공지사항</b>
         </div>
+        
         <div className="navbar2-wrapper">
           <NavLink to="/notice">
             <div className={`navbar2 ${activeMenu === "notice" ? "active" : ""}`} onClick={() => handleClick("notice")}>전체</div>
