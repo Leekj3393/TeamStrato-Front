@@ -1,18 +1,50 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import styles from './NoticeNavbar.css';
 
 function NoticeNavbar() {
+
+  const navigate = useNavigate();
+
   const [activeMenu, setActiveMenu] = useState("");
+  
   const [selectedMenu, setSelectedMenu] = useState('notice, part, status');
+
+  const imgPath = 'image/manager-page-btn.png'
+
+  const isManage = useState(false);
+
+  const [turnBtn, SetTurnBtn] = useState(imgPath);
+
+
+
+
   const handleClick = (menuName) => {
     setActiveMenu(menuName);
+  };
+
+  const imgPath2 = 'image/manager-page-btn-off.png'
+
+
+
+  const onClickToManage = () => {
+    if(isManage === false) {
+      isManage(true);
+      SetTurnBtn(imgPath2)
+    } else if(isManage === true) {
+      isManage(false);
+      SetTurnBtn(imgPath)
+      navigate("/notice");
+    }
   };
   
   return (
     <div className={styles.Navbar2}>
       <div className="title1">
         <div className="title2">
+          <NavLink to="/notice-manage">
+            <img className="btn" src={turnBtn} onClick={onClickToManage}/>
+          </NavLink>
           <b>공지사항</b>
         </div>
         <div className="navbar2-wrapper">

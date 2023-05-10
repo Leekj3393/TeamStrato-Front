@@ -21,9 +21,13 @@
   
   .title2 {
     font-size: 30px;
-    text-align: center;
+    /* text-align: center; */
     margin-left: 500px;
     padding-bottom: 10px;
+  }
+
+  .title2 b{
+    text-align: center;
   }
   
   .navbar2-wrapper {
@@ -60,3 +64,10 @@
     margin: 1%;
   }
   
+
+  .btn {
+    width: 30px;
+    height: 30px;
+    left: 150%;
+    position: absolute;
+  }

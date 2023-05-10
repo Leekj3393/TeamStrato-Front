@@ -1,14 +1,14 @@
 import NoticeCSS from './Notice.css';
 
 
-function Notice() {
+function NoticeManage() {
     return(
         <div className={NoticeCSS}>
             <div className='content'>
-                공지사항!
+                공지사항 관리자페이지~~!
             </div>
         </div>
     );
 }
 
-export default Notice;
+export default NoticeManage;

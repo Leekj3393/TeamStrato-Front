@@ -8,6 +8,7 @@ import Notice from "./Pages/notice/Notice";
 import NoticeSubLayout from "./layouts/NoticeSubLayout";
 import NoticePart from "./Pages/notice/NoticePart";
 import NoticeStatus from "./Pages/notice/NoticeStatus";
+import NoticeManage from "./Pages/notice/NoticeManage";
 
 function App() {
   return (
@@ -27,6 +28,14 @@ function App() {
             <Route path="/notice/part" element={<NoticePart />} />
             <Route path="/notice/status" element={<NoticeStatus />} />
           </Route>
+
+          <Route path="/notice-manage" element={<NoticeSubLayout />}>
+            <Route index element={<NoticeManage />} />
+            <Route path="/notice-manage/part" element={<NoticePart />} />
+            <Route path="/notice-manage/status" element={<NoticeStatus />} />
+          </Route>
+
+          
 
 
         </Route>
