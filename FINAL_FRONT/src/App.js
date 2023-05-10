@@ -4,6 +4,10 @@ import Main from "./Pages/Main";
 import MyPage from "./Pages/MyPage";
 import SubLayout from "./layouts/SubLayout";
 import MyToDoList from "./Pages/myPage/MyToDoList";
+import Notice from "./Pages/notice/Notice";
+import NoticeSubLayout from "./layouts/NoticeSubLayout";
+import NoticePart from "./Pages/notice/NoticePart";
+import NoticeStatus from "./Pages/notice/NoticeStatus";
 
 function App() {
   return (
@@ -16,6 +20,15 @@ function App() {
             <Route index element={<MyPage />} />
             <Route path="/myPage/myToDoList" element={<MyToDoList />} />
           </Route>
+
+
+          <Route path="/notice" element={<NoticeSubLayout />}>
+            <Route index element={<Notice />} />
+            <Route path="/notice/part" element={<NoticePart />} />
+            <Route path="/notice/status" element={<NoticeStatus />} />
+          </Route>
+
+
         </Route>
       </Routes>
     </BrowserRouter>
