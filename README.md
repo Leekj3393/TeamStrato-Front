@@ -1,4 +1,4 @@
-# TeamStrato
+# TeamStrato - FRONT
 팀 스트라토 SKY LIFT 그룹웨어 프로젝트
 
 - 메인 브랜치, 서브 브랜치(작업용) 운용
