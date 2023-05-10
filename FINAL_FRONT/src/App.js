@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./layouts/Layout";
-import Main from "./Pages/Main";
-import MyPage from "./Pages/MyPage";
+import Main from "./pages/Main";
+import MyPage from "./pages/MyPage";
 import SubLayout from "./layouts/SubLayout";
-import Document from "./Pages/Document";
+import Document from "./pages/Document";
 
 function App() {
   return (
