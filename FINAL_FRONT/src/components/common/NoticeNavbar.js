@@ -12,8 +12,6 @@ function NoticeNavbar() {
 
   const imgPath = 'image/manager-page-btn.png'
 
-  const isManage = useState(false);
-
   const [turnBtn, SetTurnBtn] = useState(imgPath);
 
 
@@ -28,15 +26,9 @@ function NoticeNavbar() {
 
 
   const onClickToManage = () => {
-    if(isManage === false) {
-      isManage(true);
       SetTurnBtn(imgPath2)
-    } else if(isManage === true) {
-      isManage(false);
-      SetTurnBtn(imgPath)
-      navigate("/notice");
-    }
   };
+
   
   return (
     <div className={styles.Navbar2}>
