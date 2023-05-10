@@ -9,6 +9,6 @@ function Footer() {
             </h3>
         </div>
     );
-}
+}  
 
 export default Footer;
