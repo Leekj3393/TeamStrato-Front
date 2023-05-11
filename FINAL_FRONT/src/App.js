@@ -28,7 +28,6 @@ import LoginLayout from "./layouts/LoginLayout";
 import LoginBackground from "./components/login/LoginBackground";
 import MemberSubLayout from "./layouts/MemberSubLayout";
 import Member from "./pages/member/Member";
-import Calendar from "./pages/calendar/Calendar";
 import EquipmentSubLayout from "./layouts/EquipmentSubLayout";
 import Equipment from "./pages/equipment/Equipment";
 
