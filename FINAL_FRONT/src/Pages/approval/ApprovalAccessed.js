@@ -1,0 +1,14 @@
+import ApprovalCSS from './Approval.css';
+
+
+function ApprovalAccessed() {
+    return(
+        <div className={ApprovalCSS}>
+            <div className='content'>
+                전자결재 완료 문서함!
+            </div>
+        </div>
+    );
+}
+
+export default ApprovalAccessed;
