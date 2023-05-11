@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import NavbarCSS from './Navbar.css';
-import Main from '../../Pages/Main';
-import Calendar from "../../Pages/calendar/Calendar";
+import Main from '../../pages/Main';
+import Calendar from "../../pages/calendar/Calendar";
 
 function Navbar() {
   const [activeMenu, setActiveMenu] = useState("");
