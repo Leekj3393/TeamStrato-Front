@@ -18,6 +18,7 @@ import ApprovalWait from "./pages/approval/ApprovalWait";
 import ApprovalInProgress from "./pages/approval/ApprovalInProgress";
 import ApprovalAccessed from "./pages/approval/ApprovalAccessed";
 import ApprovalReturned from "./pages/approval/ApprovalReturned";
+import Calendar from "./pages/calendar/Calendar";
 function App() {
   return (
     <BrowserRouter>
@@ -46,6 +47,7 @@ function App() {
             <Route path="/approval/accessed" element={<ApprovalAccessed />} />
             <Route path="/approval/returned" element={<ApprovalReturned />} />
           </Route>
+          <Route path="/calendar" element={<Calendar/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
