@@ -1,7 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import NavbarCSS from './Navbar.css';
-import Main from '../../pages/Main';
+import Main from '../../Pages/Main';
+import Calendar from "../../Pages/calendar/Calendar";
 
 function Navbar() {
   const [activeMenu, setActiveMenu] = useState("");
@@ -32,7 +33,7 @@ function Navbar() {
         <NavLink to="/salary">
           <div className="salary nav"><img className="menuIcon navImg" src="image/salary.png"></img>급여 내역</div>
         </NavLink>
-        <NavLink to="/">
+        <NavLink to="/calendar">
           <div className="home nav"><img className="menuIcon navImg" src="image/Cal.png"></img>일정</div>
         </NavLink>
         <NavLink to="/">
