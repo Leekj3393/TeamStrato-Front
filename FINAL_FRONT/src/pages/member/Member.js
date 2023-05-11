@@ -61,8 +61,9 @@ function Member() {
                     {data && data.map((member) => (
                         <tr key={member.memberCode}>
                             <td>{member.memberName}</td>
+                            <td>{member.memberStatus}</td>
                             <td>{member.memberCode}</td>
-                            <td>{member.memberHireDate}</td>
+                            <td>{member.memberHireDate.split("T")[0]}</td>
                             <td>근속기간</td>
                             <td>근무일수</td>
                             <td>{member.department.deptName}</td>
