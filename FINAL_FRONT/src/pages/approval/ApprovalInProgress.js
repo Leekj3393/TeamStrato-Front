@@ -4,7 +4,7 @@ import ApprovalCSS from './Approval.css';
 function ApprovalInProgress() {
     return(
         <div className={ApprovalCSS}>
-            <div className='content'>
+            <div className='content0'>
                 전자결재 진행함 페이지!!!
             </div>
         </div>
