@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import NavbarCSS from './Navbar.css';
-import Main from '../../Pages/Main';
+import Main from '../../pages/Main';
 
 function Navbar() {
   const [activeMenu, setActiveMenu] = useState("");

@@ -1,23 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./layouts/Layout";
-import Main from "./Pages/Main";
-import MyPage from "./Pages/MyPage";
+import Main from "./pages/Main";
+import MyPage from "./pages/MyPage";
 import SubLayout from "./layouts/SubLayout";
-import MyToDoList from "./Pages/myPage/MyToDoList";
-import Notice from "./Pages/notice/Notice";
-import NoticeSubLayout from "./layouts/NoticeSubLayout";
-import NoticePart from "./Pages/notice/NoticePart";
-import NoticeStatus from "./Pages/notice/NoticeStatus";
-import NoticeManage from "./Pages/notice/manage/NoticeManage";
-import NoticePartManage from "./Pages/notice/manage/NoticePartManage";
-import NoticeStatusManage from "./Pages/notice/manage/NoticeStatusManage";
-import Approval from "./Pages/approval/Approval";
-import ApprovalSubLayout from "./layouts/ApprovalSubLayout";
-import ApprovalRegist from "./Pages/approval/ApprovalRegist";
-import ApprovalWait from "./Pages/approval/ApprovalInProgress";
-import ApprovalInProgress from "./Pages/approval/ApprovalInProgress";
-import ApprovalAccessed from "./Pages/approval/ApprovalAccessed";
-import ApprovalReturned from "./Pages/approval/ApprovalReturned";
 
 function App() {
   return (
@@ -28,7 +13,8 @@ function App() {
 
           <Route path="/myPage" element={<SubLayout />}>
             <Route index element={<MyPage />} />
-            <Route path="/myPage/myToDoList" element={<MyToDoList />} />
+            <Route path="/myPage/Document" element={<Document />} />
+          
           </Route>
 
 
