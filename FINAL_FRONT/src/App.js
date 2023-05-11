@@ -18,11 +18,8 @@ import ApprovalWait from "./pages/approval/ApprovalWait";
 import ApprovalInProgress from "./pages/approval/ApprovalInProgress";
 import ApprovalAccessed from "./pages/approval/ApprovalAccessed";
 import ApprovalReturned from "./pages/approval/ApprovalReturned";
-<<<<<<< HEAD
 import Calendar from "./pages/calendar/Calendar";
-=======
 
->>>>>>> ba01854e0772bc860e2b64b47e6ba62cacb911dd
 function App() {
   return (
     <BrowserRouter>

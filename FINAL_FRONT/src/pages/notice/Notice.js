@@ -4,7 +4,7 @@ import NoticeCSS from './Notice.module.css';
 function Notice() {
     return(
         <div className={NoticeCSS}>
-            <div className='content0'>
+            <div className={NoticeCSS.content}>
                 공지사항!
             </div>
         </div>
