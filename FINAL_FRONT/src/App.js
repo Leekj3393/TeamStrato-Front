@@ -3,6 +3,23 @@ import Layout from "./layouts/Layout";
 import Main from "./pages/Main";
 import MyPage from "./pages/MyPage";
 import SubLayout from "./layouts/SubLayout";
+import Document from "./pages/Document";
+import NoticeSubLayout from "./layouts/NoticeSubLayout";
+import Notice from "./pages/notice/Notice";
+import NoticePart from "./pages/notice/NoticePart";
+import NoticeStatus from "./pages/notice/NoticeStatus";
+import NoticeManage from "./pages/notice/manage/NoticeManage";
+import NoticePartManage from "./pages/notice/manage/NoticePartManage";
+import NoticeStatusManage from "./pages/notice/manage/NoticeStatusManage";
+import ApprovalSubLayout from "./layouts/ApprovalSubLayout";
+import Approval from "./pages/approval/Approval";
+import ApprovalRegist from "./pages/approval/ApprovalRegist";
+import ApprovalWait from "./pages/approval/ApprovalWait";
+import ApprovalInProgress from "./pages/approval/ApprovalInProgress";
+import ApprovalAccessed from "./pages/approval/ApprovalAccessed";
+import ApprovalReturned from "./pages/approval/ApprovalReturned";
+
+
 
 function App() {
   return (
