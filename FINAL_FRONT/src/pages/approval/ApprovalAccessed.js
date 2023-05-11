@@ -1,4 +1,4 @@
-import ApprovalCSS from './Approval.css';
+import ApprovalCSS from './Approval.module.css';
 
 
 function ApprovalAccessed() {
