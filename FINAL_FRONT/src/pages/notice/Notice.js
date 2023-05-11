@@ -9,6 +9,15 @@ function Notice() {
                     공지사항!
                 </div>
                 <div className={NoticeCSS.square}>
+                <div className="noticeSearch">
+                    <select>
+                        <option>제목</option>
+                        <option>내용</option>
+                    </select>
+                </div>
+                <div className="noticeSearchBar">
+                    <input type="text"/>
+                </div>
                     <div className={NoticeCSS.tableInfo}>
                         게시물 100000 개 || 페이지 1/1000
                     </div>
