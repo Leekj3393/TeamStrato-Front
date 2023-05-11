@@ -1,9 +1,9 @@
-import NoticeCSS from './Notice.css';
+import NoticeCSS from './Notice.module.css';
 
 function NoticePart() {
     return(
         <div className={NoticeCSS}>
-            <div className='content'>
+            <div className='content0'>
                 공지사항 부서별 페이지!!
             </div>
         </div>

@@ -18,7 +18,11 @@ import ApprovalWait from "./pages/approval/ApprovalWait";
 import ApprovalInProgress from "./pages/approval/ApprovalInProgress";
 import ApprovalAccessed from "./pages/approval/ApprovalAccessed";
 import ApprovalReturned from "./pages/approval/ApprovalReturned";
+<<<<<<< HEAD
 import Calendar from "./pages/calendar/Calendar";
+=======
+
+>>>>>>> ba01854e0772bc860e2b64b47e6ba62cacb911dd
 function App() {
   return (
     <BrowserRouter>
@@ -43,7 +47,7 @@ function App() {
             <Route index element={<Approval />} />
             <Route path="/approval/regist" element={<ApprovalRegist />} />
             <Route path="/approval/wait" element={<ApprovalWait />} />
-            <Route path="/approval/inProgress" element={<ApprovalInProgress />} />
+            <Route path="/approval/inProgress" element={<ApprovalInProgress />} />            
             <Route path="/approval/accessed" element={<ApprovalAccessed />} />
             <Route path="/approval/returned" element={<ApprovalReturned />} />
           </Route>
