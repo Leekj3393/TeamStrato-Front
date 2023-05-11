@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./layouts/Layout";
 import Main from "./pages/Main";
-import MyPage from "./pages/MyPage";
+import MyPage from "./pages/myPage/MyPage";
 import SubLayout from "./layouts/SubLayout";
-import Document from "./pages/Document";
+import Document from "./pages/myPage/Document";
 import NoticeSubLayout from "./layouts/NoticeSubLayout";
 import Notice from "./pages/notice/Notice";
 import NoticePart from "./pages/notice/NoticePart";
