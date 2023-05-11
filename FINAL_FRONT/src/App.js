@@ -19,13 +19,13 @@ import ApprovalInProgress from "./pages/approval/ApprovalInProgress";
 import ApprovalAccessed from "./pages/approval/ApprovalAccessed";
 import ApprovalReturned from "./pages/approval/ApprovalReturned";
 
-function App() {
-  return (
+function App() {   
+  return ( 
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Main />} />
-          <Route path="/myPage" element={<SubLayout />}>
+          <Route path="/myPage" element={<SubLayout/>}>
             <Route index element={<MyPage />} />
             <Route path="/myPage/Document" element={<Document />} />
 
