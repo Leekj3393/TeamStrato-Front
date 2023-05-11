@@ -7,9 +7,10 @@
 }
 
 /* 폰트 적용할 요소에 속성 적용 */
- table {
-  background-color: white !important;
- }
+th{
+  background-color: transparent;
+}
+
 .content{
   position: absolute;
   top: 200px;
@@ -22,9 +23,9 @@
 .square {
   background-color: white;
   border-radius: 20px;
-  height: 650px;
+  height: 700px;
   width: 1400px;
-  padding-left: 100px;
+  /* padding-left: 20px; */
 }
 
 .noticeTitle{
@@ -33,20 +34,22 @@
 }
 
 .tableInfo{
-  margin-top: 50px;
-  margin-left: 20px;
+  margin-top: 0px;
+  margin-left: 150px;
+  padding-top: 30px;
+
 
 }
 
 .noticeMainTable{
   /* position: absolute; */
   border-style: solid none solid none;
-  background-color: transparent !important;
   border-width: thick;
   border-radius: 0%;
   top: 100px;
   max-height: 10px;
   width:  1100px;
+  margin-left: 150px;
 }
 
 .noticeMainTable th {
