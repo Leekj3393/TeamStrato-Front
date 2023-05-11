@@ -10,7 +10,7 @@ export const callMemberListAPI = ({ currentPage = 1}) => {
 
     return async (dispatch, getState) => {
 
-        const result = await fetch(reqeustURL).then(res => res.json());
+        const result = await fetch(reqeustURL).then(response => response.json());
 
         if(result.status === 200) {
             console.log('result', result);
