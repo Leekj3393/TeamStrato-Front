@@ -21,6 +21,8 @@ import ApprovalReturned from "./pages/approval/ApprovalReturned";
 import MemberSubLayout from "./layouts/MemberSubLayout";
 import Member from "./pages/member/Member";
 import Calendar from "./pages/calendar/Calendar";
+import EquipmentSubLayout from "./layouts/EquipmentSubLayout";
+import Equipment from "./pages/equipment/Equipment";
 
 function App() {
   return (
@@ -49,6 +51,9 @@ function App() {
             <Route path="/approval/inProgress" element={<ApprovalInProgress />} />            
             <Route path="/approval/accessed" element={<ApprovalAccessed />} />
             <Route path="/approval/returned" element={<ApprovalReturned />} />
+          </Route>
+          <Route path="/equipment" element={<EquipmentSubLayout/>}>
+            <Route index element={<Equipment/>} />
           </Route>
           <Route path="/member" element={<MemberSubLayout/>}>
             <Route index element={<Member/>}/>
