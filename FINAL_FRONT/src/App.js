@@ -19,6 +19,7 @@ import ApprovalInProgress from "./pages/approval/ApprovalInProgress";
 import ApprovalAccessed from "./pages/approval/ApprovalAccessed";
 import ApprovalReturned from "./pages/approval/ApprovalReturned";
 import Calendar from "./pages/calendar/Calendar";
+import ApprovalLineRegist from "./pages/approval/ApprovalLineRegist";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route path="/approval" element={<ApprovalSubLayout />}>
             <Route index element={<Approval />} />
             <Route path="/approval/regist" element={<ApprovalRegist />} />
+            <Route path="/approval/appline" element={<ApprovalLineRegist />} />
             <Route path="/approval/wait" element={<ApprovalWait />} />
             <Route path="/approval/inProgress" element={<ApprovalInProgress />} />            
             <Route path="/approval/accessed" element={<ApprovalAccessed />} />
