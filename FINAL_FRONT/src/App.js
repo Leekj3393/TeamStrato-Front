@@ -18,6 +18,8 @@ import ApprovalWait from "./pages/approval/ApprovalWait";
 import ApprovalInProgress from "./pages/approval/ApprovalInProgress";
 import ApprovalAccessed from "./pages/approval/ApprovalAccessed";
 import ApprovalReturned from "./pages/approval/ApprovalReturned";
+import MemberSubLayout from "./layouts/MemberSubLayout";
+import Member from "./pages/member/Member";
 import Calendar from "./pages/calendar/Calendar";
 
 function App() {
@@ -47,6 +49,9 @@ function App() {
             <Route path="/approval/inProgress" element={<ApprovalInProgress />} />            
             <Route path="/approval/accessed" element={<ApprovalAccessed />} />
             <Route path="/approval/returned" element={<ApprovalReturned />} />
+          </Route>
+          <Route path="/member" element={<MemberSubLayout/>}>
+            <Route index element={<Member/>}/>
           </Route>
           <Route path="/calendar" element={<Calendar/>}/>
         </Route>
