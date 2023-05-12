@@ -30,6 +30,7 @@ import MemberSubLayout from "./layouts/MemberSubLayout";
 import Member from "./pages/member/Member";
 import EquipmentSubLayout from "./layouts/EquipmentSubLayout";
 import Equipment from "./pages/equipment/Equipment";
+import Cal from "./pages/myPage/Cal";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
           <Route path="/myPage" element={<SubLayout />}>
             <Route index element={<MyPage />} />
             <Route path="/myPage/Document" element={<Document />} />
+            <Route path="/myPage/Cal" element={<Cal />} />
           </Route>
           <Route path="/notice" element={<NoticeSubLayout />}>
             <Route index element={<Notice />} />
