@@ -36,6 +36,22 @@ export const callNoticeDepartmentListAPI = ({ deptCode, currentPage = 1}) => {
 }
 
 
+export const callNoticeStatusListAPI = ({ noticeStatus, currentPage = 1}) => {
+
+    const requestURL = `${PRE_URL}/notice/status/${noticeStatus}?page=${currentPage}`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log("[NoticeAPICalls] callNoticeStatusListAPI result : ", result);
+            dispatch(getNotices(result));
+        }
+    }
+}
+
+
 export const callNoticeSearchListAPI = ({ search, currentPage = 1}) => {
 
     const requestURL = `${PRE_URL}/notice/search?search=${search}&page=${currentPage}`;
