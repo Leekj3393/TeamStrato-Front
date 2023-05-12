@@ -7,13 +7,13 @@
 }
 
 .pagingBtn{
-    margin: 5px;
-    border-radius: 25px;
+    margin: 2px;
+    border-radius: 5px;
     background-color: white;
     font-weight: bold;
 }
 
 .pagingBtn:hover{
     cursor: pointer;
-    background-color: burlywood;
+    background-color: lightgray;
 }

@@ -6,7 +6,7 @@ const PRE_URL = `http://${SERVER_IP}:${SERVER_PORT}/skylift/notice`;
 
 export const callNoticeListAPI = ({ currentPage = 1}) => {
 
-    const requestURL = `${PRE_URL}/notice?page=${currentPage}`;
+    const requestURL = `${PRE_URL}?page=${currentPage}`;
     
     return async (dispatch, getState) => {
 
