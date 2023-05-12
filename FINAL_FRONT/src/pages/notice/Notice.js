@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useSearchParams } from "react-router-dom";
-import PagingBar from "../../components/common/PagingBar";
 import NoticeCSS from './Notice.module.css';
 import { callNoticeListAPI, callNoticeSearchListAPI } from "../../apis/NoticeAPICalls";
+import PagingBarForNotice from "../../components/common/pagingbar/PagingBarForNotice";
 
 function Notice() {
 
@@ -12,12 +12,7 @@ function Notice() {
     const notices = useSelector(state => state.noticeReducer);
     const noticeList = notices.data;
     const pageInfo = notices.pageInfo;
-
     const [currentPage, setCurrentPage] = useState(1);
-
-    // 부서 선택 시 사용할 값!
-    // const params = useParams();
-    // const deptCode = params.deptCode;
 
     /* 검색어 요청시 사용할 값 */
     const [searchParams] = useSearchParams();
@@ -71,7 +66,7 @@ function Notice() {
                             {data && data.map((notice) => (
                                 <tr className={NoticeCSS.lists} key={notice.noticeCode}>
                                     <th>{notice.noticeCode}</th>
-                                    <th>{/* {notice.department.deptName} */}</th>
+                                    <th>{notice.department.deptName}</th>
                                     <th>{notice.noticeTitle}</th>
                                     <th>{notice.noticeRegistDate}</th>
                                     <th>1000</th>
@@ -82,7 +77,7 @@ function Notice() {
                 </div>
             </div>
             <div>
-                { pageInfo && <PagingBar pageInfo={ pageInfo } setCurrentPage={ setCurrentPage } /> }
+                { pageInfo && <PagingBarForNotice pageInfo={ pageInfo } setCurrentPage={ setCurrentPage } /> }
             </div>
         </div>
     );

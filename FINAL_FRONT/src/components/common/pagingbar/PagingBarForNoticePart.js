@@ -1,6 +1,6 @@
-import PagingBarCSS from './PagingBar.module.css';
+import PagingBarCSS from './PagingBarForNoticePart.module.css';
 
-function PagingBar({ pageInfo, setCurrentPage }) {
+function PagingBarForNoticePart({ pageInfo, setCurrentPage }) {
 
     const pageNumber = [];
     if(pageInfo) {
@@ -10,26 +10,26 @@ function PagingBar({ pageInfo, setCurrentPage }) {
     }
 
     return (
-        <div style={ {listStyleType : 'none', display : 'flex', justifyContent: 'center', position:'relative', top: '-1000px', left: '100px'} }>
+        <div>
             <button 
-                className={ PagingBarCSS.pagingBtn }
+                className={ PagingBarCSS.pagingBtn2 }
                 onClick={ () => setCurrentPage(1) }
                 disabled={ pageInfo.currentPage <= 1 }
             >
                 &lt;&lt;
             </button>
             <button 
-                className={ PagingBarCSS.pagingBtn }
+                className={ PagingBarCSS.pagingBtn2 }
                 onClick={ () => setCurrentPage(pageInfo.currentPage - 1) }
                 disabled={ pageInfo.currentPage <= 1 }
             >
                 &lt;
             </button>
             { pageNumber.map(num => (
-                <li key={num} onClick={ () => setCurrentPage(num) }>
+                <li className={PagingBarCSS.pagingLi2} key={num} onClick={ () => setCurrentPage(num) }>
                     <button 
-                        className={ PagingBarCSS.pagingBtn }
-                        style={ pageInfo.currentPage === num ? { backgroundColor : 'orange' } : null }
+                        className={ PagingBarCSS.pagingBtn2 }
+                        style={ pageInfo.currentPage === num ? { backgroundColor : 'lightblue' } : null }
                     >
                         {num}
                     </button>
@@ -37,14 +37,14 @@ function PagingBar({ pageInfo, setCurrentPage }) {
             ))
             }
             <button 
-                className={ PagingBarCSS.pagingBtn }
+                className={ PagingBarCSS.pagingBtn2 }
                 onClick={ () => setCurrentPage(pageInfo.currentPage + 1) }
                 disabled={ pageInfo.currentPage <= pageInfo.maxPage }
             >
                 &gt;
             </button>
             <button 
-                className={PagingBarCSS.pagingBtn}
+                className={PagingBarCSS.pagingBtn2}
                 onClick={() => setCurrentPage(pageInfo.maxPage)}
                 disabled={pageInfo.currentPage <= pageInfo.maxPage}
             >
@@ -55,4 +55,4 @@ function PagingBar({ pageInfo, setCurrentPage }) {
     );
 }
 
-export default PagingBar;
+export default PagingBarForNoticePart;
