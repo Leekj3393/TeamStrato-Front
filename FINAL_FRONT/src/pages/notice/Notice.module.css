@@ -2,11 +2,8 @@
 @font-face {
   font-family: 'SUITE-Regular';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
-  /* font-weight: 400; */
-  /* font-style: normal; */
 }
 
-/* 폰트 적용할 요소에 속성 적용 */
 th{
   background-color: transparent;
 }
@@ -14,18 +11,25 @@ th{
 .content{
   position: absolute;
   top: 200px;
-  left: 290px; /* Changed 'right' to 'left' */
+  left: 290px;
   width: 1350px;
   height: 207px;
   font-family: 'SUITE-Regular';
 }
 
 .square {
+  position: sticky;
   background-color: white;
-  border-radius: 20px;
+  border-radius: 10px;
   height: 700px;
   width: 1400px;
-  /* padding-left: 20px; */
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.contentDiv{
+  position: relative;
+  top: -600px;
 }
 
 .noticeTitle{
@@ -33,29 +37,83 @@ th{
   margin-top: 0%;
 }
 
+.noticeSearch {
+  margin-left: 970px;
+  /* padding-top: 120px; */
+}
+
+.noticeSearch select {
+  height: 25px;
+  width: 100px;
+  text-align: center;
+  border-radius: 5px;
+  border-width: 2px;
+}
+
+.noticeSearch select option {
+  border-radius: 1000px;
+  text-align: center;
+  width: 100px;
+}
+
+.noticeSearch input {
+  margin-left: 5px;
+  border-radius: 5px;
+  height: 20px;
+  
+}
+
 .tableInfo{
   margin-top: 0px;
   margin-left: 150px;
-  padding-top: 30px;
+  /* padding-top: 10px; */
 
 
 }
 
-.noticeMainTable{
-  /* position: absolute; */
+.noticeMainTable,
+.noticePartTable
+{
   border-style: solid none solid none;
   border-width: thick;
   border-radius: 0%;
-  top: 100px;
+  /* top: 100px; */
   max-height: 10px;
   width:  1100px;
   margin-left: 150px;
 }
 
-.noticeMainTable th {
+.noticeMainTable th,
+.noticePartTable th {
   text-align: center;
   border-style: none none solid none;
   border-width: 1px;
 }
 
+.partSelect {
+  position: relative;
+  top: -850px;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  flex-wrap: wrap;
+  min-width: 800px;
+  list-style:none;
+  padding-top: 30px;    
+}
 
+.partSelect li {
+    min-width: 100px;
+    height: auto;
+    text-align: center;
+}
+
+
+
+.noticeDiv{
+  display: flex;
+  flex-wrap: wrap;
+  width: 850px;
+  height: 100%;
+  margin: 10px auto;
+}
