@@ -1,4 +1,7 @@
-.productDiv {
+.noticeDiv {
+    position: relative;
+    top: -100px;
+    left: 800px;
     display: flex;
     flex-wrap: wrap;
     width: 850px;
@@ -11,9 +14,15 @@
     border-radius: 5px;
     background-color: white;
     font-weight: bold;
+    height: 30px;
+    width: 30px;
 }
 
 .pagingBtn:hover{
     cursor: pointer;
     background-color: lightgray;
+}
+
+li {
+    list-style: none;
 }

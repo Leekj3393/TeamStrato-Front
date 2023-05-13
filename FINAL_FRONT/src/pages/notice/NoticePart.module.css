@@ -8,17 +8,19 @@ th{
   background-color: transparent;
 }
 
-.content{
+.content2{
   position: absolute;
-  top: 160px;
+  top: 200px;
   left: 290px;
   width: 1350px;
   height: 207px;
   font-family: 'SUITE-Regular';
 }
 
-.square {
-  position: sticky;
+.square2 {
+  position: relative;
+  top: -800px;
+  left: 280px;
   background-color: white;
   border-radius: 10px;
   height: 700px;
@@ -27,23 +29,22 @@ th{
   padding-bottom: 20px;
 }
 
-
-.contentDiv{
+.contentDiv2{
   position: relative;
-  top: -600px;
+  top: 100px;
 }
 
-.noticeTitle{
+.noticeTitle2{
   font-size: large;
   margin-top: 0%;
 }
 
-.noticeSearch {
+.noticeSearch2 {
   margin-left: 970px;
   /* padding-top: 120px; */
 }
 
-.noticeSearch select {
+.noticeSearch2 select {
   height: 25px;
   width: 100px;
   text-align: center;
@@ -51,20 +52,20 @@ th{
   border-width: 2px;
 }
 
-.noticeSearch select option {
+.noticeSearch2 select option {
   border-radius: 1000px;
   text-align: center;
   width: 100px;
 }
 
-.noticeSearch input {
+.noticeSearch2 input {
   margin-left: 5px;
   border-radius: 5px;
   height: 20px;
   
 }
 
-.tableInfo{
+.tableInfo2{
   margin-top: 0px;
   margin-left: 150px;
   /* padding-top: 10px; */
@@ -72,8 +73,7 @@ th{
 
 }
 
-.noticeMainTable,
-.noticePartTable
+.noticePartTable2
 {
   border-style: solid none solid none;
   border-width: thick;
@@ -84,14 +84,13 @@ th{
   margin-left: 150px;
 }
 
-.noticeMainTable th,
-.noticePartTable th {
+.noticePartTable2 th {
   text-align: center;
   border-style: none none solid none;
   border-width: 1px;
 }
 
-.partSelect {
+.partSelect2 {
   position: relative;
   top: -1600px;
   left: 280px;
@@ -104,7 +103,7 @@ th{
   padding-top: 30px;    
 }
 
-.partSelect li {
+.partSelect2 li {
     min-width: 100px;
     height: auto;
     text-align: center;
@@ -112,7 +111,7 @@ th{
 
 
 
-.noticeDiv{
+.noticeDiv2 {
   display: flex;
   flex-wrap: wrap;
   width: 850px;
