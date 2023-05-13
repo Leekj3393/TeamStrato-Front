@@ -12,13 +12,16 @@ const getDate = (date) => {
   return `${year}-${month}-${day}`
 }
 
+
 function MyPage() {
   const dispatch = useDispatch();
 
   //useSelector를 사용해서 화면에 데이터를 보여주기 
   // 추가적으로 지금 여러 리듀서가 있어서 만든 리듀서만 가져오도록 한 로직
-  const {totalMemberCount, time} = useSelector(state => state.myPageReducer);
+  const {totalMemberCount, time,membersData} = useSelector(state => state.myPageReducer);
   const [activeModal, setActiveModal] = useState(null);
+  
+  console.log("membersData",membersData);
 
   useEffect(() => {
     dispatch(callMyPageAPI())
@@ -40,11 +43,11 @@ function MyPage() {
   };
 
   const handleWorknClick = () => {
-    dispatch(callGoToWorkAPI({id: 5}))
+    dispatch(callGoToWorkAPI({id: 6}))
   }
 
   const handleEndOnClick = () => {
-    dispatch(callEndWorkAPI({id: 5}))
+    dispatch(callEndWorkAPI({id: 6}))
   }
 
 
@@ -119,7 +122,11 @@ function MyPage() {
 <table>
   <tr>
     <th>이름</th>
-    <td>John Doe</td>
+    {membersData && membersData.map((myMembers) => (
+      <tr key={myMembers.memberCode}>
+        <td>{myMembers.memberName}</td>
+        </tr>
+    ))}
     <th>성별</th>
     <td>남성</td>
   </tr>
