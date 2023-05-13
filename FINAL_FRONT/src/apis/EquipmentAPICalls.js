@@ -1,3 +1,4 @@
+import { getEquipments } from "../modules/EquipmentModule";
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
@@ -10,10 +11,10 @@ export const callEquipmentListAPI = ({ currentPage = 1 }) =>
     return async (dispatch,getState) => {
         const result = await fetch(requestURL).then(resp => resp.json());
         
-        if( result.status === 200)
+        if(result.status === 200)
         {
             console.log("[callEquipmentListAPI] result : ", result);
-            dispatch(getEquipment(result));
+            dispatch(getEquipments(result));
         }
 
     };
