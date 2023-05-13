@@ -51,8 +51,8 @@ function Main() {
     return (
       <div className="weather" style={{ flex: 1 }}>
         <div className="weather-text">
-          <span role="img" aria-label="weather-icon">🌤</span> 오늘의 날씨는 {weatherData.weather[0].description}이에요~
-          <span role="img" aria-label="temperature-icon">✨</span> 온도는 {temperatureCelsius}℃입니다.
+          <span role="img" aria-label="weather-icon">🌤</span> 오늘의 날씨는 <b>{weatherData.weather[0].description}</b>이에요~
+          <span role="img" aria-label="temperature-icon">✨</span> 온도는 <b>{temperatureCelsius}℃</b>입니다.
         </div>
       </div>
     );
