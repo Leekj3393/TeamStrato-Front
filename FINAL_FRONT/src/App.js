@@ -30,6 +30,7 @@ import MemberSubLayout from "./layouts/MemberSubLayout";
 import Member from "./pages/member/Member";
 import EquipmentSubLayout from "./layouts/EquipmentSubLayout";
 import Equipment from "./pages/equipment/Equipment";
+import ApprovalLineRegist from "./pages/approval/ApprovalLineRegist";
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
           <Route path="/approval" element={<ApprovalSubLayout />}>
             <Route index element={<Approval />} />
             <Route path="/approval/regist" element={<ApprovalRegist />} />
+            <Route path="/approval/appline" element={<ApprovalLineRegist />} />
             <Route path="/approval/wait" element={<ApprovalWait />} />
             <Route path="/approval/inProgress" element={<ApprovalInProgress />} />            
             <Route path="/approval/accessed" element={<ApprovalAccessed />} />
