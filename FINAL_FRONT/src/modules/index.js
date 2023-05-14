@@ -6,7 +6,7 @@ import equipmentReducer from "./EquipmentModule";
 
 const rootReducer = combineReducers({
     memberReducer,
-    myPageReducer,
+    myPageReducer,  
     noticeReducer,
     equipmentReducer
 });
