@@ -3,13 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from 'react';
 import { callMemberListAPI } from '../../apis/MemberAPICalls';
 import PagingBar from '../../components/common/PagingBar';
+import { useNavigate } from 'react-router-dom';
 
 
 function Member() {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { data, pageInfo } = useSelector((state) => state.memberReducer);
     const [currentPage, setCurrentPage] = useState(1);
+    
+    const onClickMemberHandler = (memberCode) => {
+        navigate(`/member/${memberCode}`);
+    }
 
     console.log("data", data);
 
@@ -59,7 +65,9 @@ function Member() {
                 </thead>
                 <tbody>
                     {data && data.map((member) => (
-                        <tr key={member.memberCode}>
+                        <tr key={member.memberCode}
+                            onClick ={ () => onClickMemberHandler(member.memberCode)}
+                        >
                             <td>{member.memberName}</td>
                             <td>{member.memberStatus}</td>
                             <td>{member.memberCode}</td>

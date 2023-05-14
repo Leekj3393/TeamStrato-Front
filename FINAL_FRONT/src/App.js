@@ -31,6 +31,7 @@ import Member from "./pages/member/Member";
 import EquipmentSubLayout from "./layouts/EquipmentSubLayout";
 import Equipment from "./pages/equipment/Equipment";
 import ApprovalLineRegist from "./pages/approval/ApprovalLineRegist";
+import MemberDetail from "./pages/member/MemberDetail";
 
 function App() {
   return (
@@ -76,6 +77,7 @@ function App() {
           </Route>
           <Route path="/member" element={<MemberSubLayout/>}>
             <Route index element={<Member/>}/>
+            <Route path="/member/:memberCode" element={<MemberDetail/>}/>
           </Route>
           <Route path="/calendar" element={<Calendar/>}/>
         </Route>
