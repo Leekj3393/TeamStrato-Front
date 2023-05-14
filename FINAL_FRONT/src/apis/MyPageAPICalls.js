@@ -22,6 +22,28 @@ export const callMyPageAPI = () => {
   };
 };
 
+//멤버 상세페이지 조회
+
+export const callMyPageMemberAPI = ({id = 0}) => {
+
+  const reqeustURL = `${PRE_URL}/members/${id}`;
+
+  return async (dispatch, getState) => {
+    try {
+      const response = await fetch(reqeustURL);
+      const result = await response.json();
+
+      if (response.status === 200) {
+        // 요부분 타입은 만든 액션으로 바꾸기 
+        dispatch({type: 'MyPage/GET_MY_MEMBERS', payload: {membersData: result.data.membersData}});
+      }
+    } catch (error) {
+      console.error('Failed to fetch member list:', error);
+    }
+
+  }
+}
+
 export const callGoToWorkAPI = ({id = 0}) => {
   const requestURL = `${PRE_URL}/attendance/${id}`;
 
