@@ -6,7 +6,7 @@ const PRE_URL = `http://${SERVER_IP}:${SERVER_PORT}/skylift/equipment`;
 
 export const callEquipmentListAPI = ({ currentPage = 1 }) =>
 {
-    const requestURL = `${PRE_URL}/equipmentList?page=${currentPage}`;
+    const requestURL = `${PRE_URL}/findCategory?page=${currentPage}`;
 
     return async (dispatch,getState) => {
         const result = await fetch(requestURL).then(resp => resp.json());
