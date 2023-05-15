@@ -10,7 +10,7 @@ function PagingBar({ pageInfo, setCurrentPage }) {
     }
 
     return (
-        <div style={ {listStyleType : 'none', display : 'flex', justifyContent: 'center', position:'relative', top: '-1000px', left: '100px'} }>
+        <div  className ={PagingBarCSS.memberPaging}>
             <button 
                 className={ PagingBarCSS.pagingBtn }
                 onClick={ () => setCurrentPage(1) }

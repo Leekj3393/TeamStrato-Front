@@ -3,19 +3,34 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from 'react';
 import { callMemberListAPI } from '../../apis/MemberAPICalls';
 import PagingBar from '../../components/common/PagingBar';
+import { useNavigate } from 'react-router-dom';
 
 
 function Member() {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { data, pageInfo } = useSelector((state) => state.memberReducer);
     const [currentPage, setCurrentPage] = useState(1);
+    
+    
+    const onClickMemberHandler = (memberCode) => {
+        navigate(`/member/${memberCode}`);
+    }
+
+    const onClickMemberRegistHandler = (e) => {
+        navigate(`/member/regist`);
+    }
 
     console.log("data", data);
+    console.log("pageInfo", pageInfo);
 
     useEffect(() => {
-        dispatch(callMemberListAPI({currentPage}));
+            dispatch(callMemberListAPI({currentPage}));        
     }, [currentPage]);
+
+    
+
 
     return (
         <>
@@ -24,14 +39,17 @@ function Member() {
             </div>
             <div className="mbSearch">
                 <select>
-                    <option>아이디</option>
+                    <option value="none">선택</option>
+                    <option value="memberId">아이디</option>
+                    <option value="memberName">이름</option>
                 </select>
             </div>
             <div className="mbSearchBar">
-                <input type="text"/>
+                <input type="text" 
+                />
             </div>
             <div className="mbInsert">
-                <button>직원 등록</button>
+                <button onClick={onClickMemberRegistHandler}>직원 등록</button>
             </div>
             <div className='mbTableDiv'>
             <table className='mbTable'>
@@ -59,7 +77,9 @@ function Member() {
                 </thead>
                 <tbody>
                     {data && data.map((member) => (
-                        <tr key={member.memberCode}>
+                        <tr key={member.memberCode}
+                            onClick ={ () => onClickMemberHandler(member.memberCode)}
+                        >
                             <td>{member.memberName}</td>
                             <td>{member.memberStatus}</td>
                             <td>{member.memberCode}</td>

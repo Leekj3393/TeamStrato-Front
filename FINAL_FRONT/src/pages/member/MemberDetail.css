@@ -1,0 +1,168 @@
+.memberDtTitle {
+    position:absolute;
+    top: 100px;
+    left: 1000px; 
+    font-family: 'Inria Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 35px;
+    line-height: 54px;
+
+    color: #4A4848;
+}
+
+.memberDtBack {
+      
+      background-color: #ffffff;
+      border-radius: 15px;
+      width: 1500px;
+      height: 780px;
+      left: 300px;
+      top : 170px;
+      position: absolute;
+      
+}
+
+.memberImageDiv {
+    position:absolute;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    top: 120px;
+    left: 150px; 
+    padding: auto;
+}
+
+.memberImagePreview {
+    height: 200px;
+    width: 200px;
+    border : 1px solid;
+    margin-bottom: 30px;
+    padding: 3px;
+}
+
+.memberDtTop {
+    position:absolute;
+    top: 120px;
+    left: 380px; 
+}
+
+.memberDtName {
+    font-family: 'Inria Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+}
+
+.memberDtBt1 {
+    margin-left: 50px;
+    background-color: white;
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+.memberDtBt2 {
+    margin-left: 20px;
+    background-color: white;
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+.memberDtBt3 {
+    margin-left: 700px;
+    border : none;
+    background-color: white;
+}
+
+.memberDtDpt {
+    position:absolute;
+    top: 180px;
+    left: 380px;
+}
+
+.memberDptName {
+    font-family: 'Inria Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+}
+
+.memberDptDes {
+    margin-left: 60px;
+}
+
+.memberDtJob {
+    position:absolute;
+    top: 230px;
+    left: 380px;
+}
+
+.memberJobName {
+    font-family: 'Inria Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+}
+
+.memberJobDes {
+    margin-left: 60px;
+}
+
+.memberDtPhone {
+    position:absolute;
+    top: 260px;
+    left: 380px;
+    display: flex;
+}
+
+.memberDtPhone span {
+    margin-left: 40px;
+    margin-top: 35px;
+}
+
+.memberDtEmail {
+    position:absolute;
+    top: 290px;
+    left: 800px;
+    display: flex;
+}
+
+.memberDtEmail span {
+    margin-left: 30px;
+    margin-top: 5px;
+}
+
+.memberDtEmp {
+    position:absolute;
+    top: 380px;
+    left: 150px;
+}
+
+.memberDtPer {
+    position:absolute;
+    top: 380px;
+    left: 800px;
+}
+
+.memberEmpTitle {
+    font-family: 'Inria Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+}
+
+.memberEmpDiv {
+    margin-top: 50px;
+}
+
+.memberEmpDiv span {
+    font-family: 'Inria Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+}
+
+.memberEmpDiv2 {
+    margin-left: 50px;
+}
+
