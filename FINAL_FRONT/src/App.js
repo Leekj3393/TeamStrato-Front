@@ -31,6 +31,7 @@ import Member from "./pages/member/Member";
 import EquipmentSubLayout from "./layouts/EquipmentSubLayout";
 import Equipment from "./pages/equipment/Equipment";
 import ApprovalLineRegist from "./pages/approval/ApprovalLineRegist";
+import FindId from "./pages/login/FindId";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<LoginLayout/>}>
           <Route index element={<Login/>}/>
+          <Route path="/login/findid" element={<FindId/>}/>
           
         </Route>
         <Route path="/" element={<Layout />}>
