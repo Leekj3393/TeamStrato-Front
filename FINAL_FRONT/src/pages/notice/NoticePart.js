@@ -53,9 +53,9 @@ function NoticePart() {
             </div>
                 <div className={NoticeCSS.square2}></div>                  {/* 본문 하얀 네모 */}
                 <div className={NoticeCSS.partSelect2}>
-                    <li><NavLink to="/notice/part/d1" style={ activeStyle }>인사</NavLink></li>
-                    <li><NavLink to="/notice/part/d2" style={ activeStyle }>안전/교육</NavLink></li>
-                    <li><NavLink to="/notice/part/d3" style={ activeStyle }>장비관리</NavLink></li>
+                    <li><NavLink to="/notice/part/:deptCode" style={ activeStyle }>인사</NavLink></li>
+                    <li><NavLink to="/notice/part/:deptCode" style={ activeStyle }>안전/교육</NavLink></li>
+                    <li><NavLink to="/notice/part/:deptCode" style={ activeStyle }>장비관리</NavLink></li>
                 </div>
             <div className={NoticeCSS.content2}>
                 <div className={NoticeCSS.contentDiv2}>

@@ -1,0 +1,29 @@
+<ul id="treePopAdmRegist" role='tree' tabIndex={0} aria-busy="false">
+                                <ul id='jstreeContainerUl' role='group'>
+                                    { members && members.map((member) => (
+                                    <li key={member.memberCode} role='treeitem' datatype='root'>
+                                        <i role='presentation'>
+                                        </i>
+                                        <a href='#' tabIndex={-1}>
+                                            <i role='presentation'></i>
+                                            <span>{member.memberName}</span>
+                                        </a>
+                                        <ul role='group'>
+                                            <li role='treeitem' datatype='node'>
+                                                <i role='presentation'></i>
+                                                <a href='#' tabIndex={-1}>
+                                                    <i role='presentation'></i>
+                                                    <div>
+                                                        <input type="radio" id={member.memberCode} name="selectMember"/*  value={qntjdnjs} */></input>
+                                                        <label for={member.memberCode}>{member.memberName}</label>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    ))}
+                                    <li role='treeitem' datatype='root'>부서2</li>
+                                    <li role='treeitem' datatype='root'>부서3</li>
+                                </ul>
+                            </ul>
+                        </div>

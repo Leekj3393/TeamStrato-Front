@@ -1,7 +1,92 @@
-.content0{
-  position: absolute;
-  top: 200px;
-  left: 290px; /* Changed 'right' to 'left' */
-  width: 1350px;
-  height: 207px;
+@font-face {
+  font-family: 'SUITE-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
 }
+
+.square {
+  position: absolute;
+  top: 180px;
+  left: 290px;
+  background-color: white;
+  border-radius: 10px;
+  height: 670px;
+  width: 1200px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.appLineContentDiv {
+  font-family: 'SUITE-Regular';
+  position: absolute;
+  top: 180px;
+  left: 290px; /* Changed 'right' to 'left' */
+  height: 670px;
+  width: 1200px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  /* text-align: center; */
+}
+
+.flowInfo {
+  position: absolute;
+  left: 20px;
+}
+
+.organChart {
+  position:absolute;
+  left: 150px;
+  top: 60px;
+}
+
+.organChart fieldset {
+  height: 500px;
+  width: 200px;
+}
+
+.memberSelect {
+  padding-left: 10px;
+  padding-top: 5px;
+}
+
+.memberSelect label {
+  padding-left: 5px;
+}
+
+
+.selectedDiv {
+  position:absolute;
+  left: 800px;
+  top: 90px;
+}
+
+.selectedAppLine {
+  width: 200px;
+  height: 250px;
+}
+
+.selectedPerUser {
+  width: 200px;
+  height: 150px;
+}
+
+
+.selectBtnDiv {
+  position: absolute;
+  top: 130px;
+  left: 550px;
+}
+
+.registFormDiv {
+  position: absolute;
+  left: 900px;
+}
+
+.registFormDiv button {
+  border-color: transparent;
+  background-color: transparent;
+}
+
+.registFormDiv img {
+  width: 100px;
+}
+
