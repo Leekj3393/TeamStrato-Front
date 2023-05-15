@@ -1,4 +1,4 @@
-import { getMember, getMembers, getMembersId, getMembersName } from "../modules/MemberModule";
+import { getMember,getMembers, getMembersId, getMembersName } from "../modules/MemberModule";
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;

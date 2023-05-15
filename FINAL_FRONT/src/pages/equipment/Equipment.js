@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { callEquipmentListAPI } from "../../apis/EquipmentAPICalls";
-import Pagingbar from "../../components/pagingbar/PagingBar";
+import Pageingbar from "../../components/pagingbar/Pageingbar";
+import EquipmentCSS from './EquipmentCSS.css';
+
 
 
 
@@ -28,8 +30,8 @@ function Equipment()
 
     return(
         <>
-            <div>
-                <table>
+            <div className='equDiv'>
+                <table className="equTable">
                     <thead>
                         <th> 장비 코드 </th>
                         <th> 장비 분류 </th>
@@ -45,14 +47,17 @@ function Equipment()
                                 <td>{ equ.equCategory.categoryName }</td>
                                 <td>{ equ.categoryName }</td>
                                 <td>{ equ.categoryCount }</td>
+                                <td>{ equ.equipmentCreateDate }</td>
+                                <td>{ equ.equipmentModifyDate ? equ.equipmentModifyDate : '수정 시간이 존재 하지 않음' }</td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
+                <div>
+                { pagInfo && <Pageingbar pagInfo={pagInfo} setCurrentPage={setCurrentPage}/>}
+                </div>
             </div>
-            <div>
-                { pagInfo && <Pagingbar pagInfo={pagInfo} setCurrentPage={setCurrentPage}/>}
-            </div>
+          
                 
         </>
     );

@@ -1,0 +1,55 @@
+.EquTitle
+{
+    position: absolute;
+    top: 1px;
+    left: 300px;
+    font-family: 'Inria Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 35px;
+    line-height: 54px;
+    color: #4A4848;
+}
+
+.EquSTitle
+{
+    position: absolute;
+    top: 150px;
+    left: 800px;
+}
+
+.category
+{
+    position : absolute;
+    top : 180px;
+    left: 300px;
+    width: 130px;
+    height: 30px;
+}
+
+.Select-Box 
+{
+    width: 120px;
+    height: 30px;
+    padding: 5px 30px 5px 10px;
+    border-radius: 8px;
+}
+
+.EquInput
+{
+    position: absolute;
+    width: 150px;
+    height: 15px;
+    margin-left: 10px ;
+    padding: 5px 0px 5px 10px;
+    border-radius: 8px;
+}
+
+.inputBtn
+{
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    top: 2px;
+    left: 300px;
+}
