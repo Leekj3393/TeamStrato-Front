@@ -1,6 +1,6 @@
 import MyPageCSS from '../../components/main/MyPage.css';
 import React, { useState, useEffect } from 'react';
-import { callMyPageAPI, callGoToWorkAPI, callEndWorkAPI } from '../../apis/MyPageAPICalls';
+import { callMyPageAPI, callGoToWorkAPI, callEndWorkAPI, callOutWorkAPI } from '../../apis/MyPageAPICalls';
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -18,21 +18,27 @@ function MyPage() {
 
   //useSelector를 사용해서 화면에 데이터를 보여주기 
   // 추가적으로 지금 여러 리듀서가 있어서 만든 리듀서만 가져오도록 한 로직
-  const {totalMemberCount, time,membersData} = useSelector(state => state.myPageReducer);
-  const [activeModal, setActiveModal] = useState(null);
   
+  const {totalMemberCount, time, membersData, endTime,outTime} = useSelector(state => state.myPageReducer);
+  const [activeModal, setActiveModal] = useState(null);
+
   console.log("membersData",membersData);
 
   useEffect(() => {
     dispatch(callMyPageAPI())
-  }, [])
+  }, []) 
 
   const date = new Date(time)
   const goToWorkDate = getDate(date)
   const goToWorkTime = `${date.getHours()}:${date.getMinutes()}`
 
-  const endWorkDate = getDate(date)
-  const endWorkTime = `${date.getHours()}:${date.getMinutes()}`
+  const endDate = new Date(endTime)
+  const endWorkDate = getDate(endDate)
+  const endWorkTime = `${endDate.getHours()}:${endDate.getMinutes()}`
+
+  const outDate = new Date(outTime)
+  const outWorkDate = getDate(outDate)
+  const outWorkTime = `${outDate.getHours()}:${outDate.getMinutes()}`
 
   const openModal = (modalIndex) => {
     setActiveModal(modalIndex);
@@ -43,11 +49,15 @@ function MyPage() {
   };
 
   const handleWorknClick = () => {
-    dispatch(callGoToWorkAPI({id: 6}))
+    dispatch(callGoToWorkAPI({id: 1}))
   }
 
   const handleEndOnClick = () => {
-    dispatch(callEndWorkAPI({id: 6}))
+    dispatch(callEndWorkAPI({id: 1}))
+  }
+
+  const handleOutOnClick = () => {
+    dispatch(callOutWorkAPI({id: 1}))
   }
 
 
@@ -71,8 +81,8 @@ function MyPage() {
                 </div>
                 <img className="workImg" src="image/image 416.png"/>
                 <div class="workNemo">
-                   <div class="workNemoTitle1">{endWorkDate}</div> 
-                   <div class="workNemoTitle2">{endWorkTime}</div> 
+                   <div class="workNemoTitle1">{goToWorkDate}</div> 
+                   <div class="workNemoTitle2">{goToWorkTime}</div> 
                     
                 </div>
             </div>
@@ -83,14 +93,14 @@ function MyPage() {
                 </div>
                 <img className="getoffworkImg" src="image/image 418.png"/>
                 <div class="getoffworkNemo">
-                <div class="workNemoTitle1">{goToWorkDate}</div> 
-                   <div class="workNemoTitle2">{goToWorkTime}</div> 
+                <div class="workNemoTitle1">{endWorkDate}</div> 
+                   <div class="workNemoTitle2">{endWorkTime}</div> 
                     
                 </div>
             </div>
 
             <div class="going">
-                <div class="outTitle">
+                <div class="outTitle" onClick={handleOutOnClick}>
                     외출  /
                 </div>
                 
@@ -99,8 +109,8 @@ function MyPage() {
                 </div>
                 <img className="goingImg" src="image/image 419.png"/>
                 <div class="goingNemo">
-                   <div class="returnTitle1">2023-05-01</div> 
-                   <div class="returnTitle2">16:53<br/><br/><br/> ~</div> 
+                   <div class="returnTitle1">{outWorkDate}</div> 
+                   <div class="returnTitle2">{outWorkDate}<br/><br/><br/> ~</div> 
                 <div class="outTitle1">2023-05-01</div> 
                    <div class="outTitle2">16:53</div> 
                     
