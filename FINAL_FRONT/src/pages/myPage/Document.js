@@ -1,10 +1,23 @@
 import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import DocumentCSS from '../../components/main/Document.css';
+import { callInsertRequestAPI } from "../../apis/MyPageAPICalls";
+
+const getDate = (date) => {
+  const newDate = new Date(date);
+  const year = newDate.getFullYear();
+  const month = ("0" + (newDate.getMonth() + 1)).slice(-2);
+  const day = ("0" + newDate.getDate()).slice(-2);
+  return `${year}-${month}-${day}`
+}
 
 function Document() {
+  const dispatch = useDispatch();
+  const {} = useSelector(state => state.myPageReducer);
+
   useEffect(() => {
     const menuItems = document.querySelectorAll(".menu-item");
     const contents = document.querySelectorAll(".content");
@@ -39,13 +52,15 @@ function Document() {
     };
   }, []);
 
+  const reasonInputRef = useRef(null);
+
   //캘린더
   const calendarRef1 = useRef(null);
   const calendarRef2 = useRef(null);
   const calendarRef3 = useRef(null);
-  const [selectedDates1, setSelectedDates1] = useState([]);
-  const [selectedDates2, setSelectedDates2] = useState([]);
-  const [selectedDates3, setSelectedDates3] = useState([]);
+  const [selectedDates1, setSelectedDates1] = useState([]); // 이거는 대충알겠는데
+  const [selectedDates2, setSelectedDates2] = useState([]); // 이거는 뭐에요? 아 요건
+  const [selectedDates3, setSelectedDates3] = useState([]);//3개에요!
 
   useEffect(() => {
     const calendarApi1 = calendarRef1.current.getApi();
@@ -63,6 +78,27 @@ function Document() {
     };
   }, []);
 
+  // useEffect(() => {
+  //   if(selectedDates1.length >= 2){
+  //     dispatch(callInsertRequestAPI({
+  //       id:1,
+  //       requestStart: getDate(selectedDates1[0]),
+  //       requestEnd: getDate(selectedDates1[1])
+  //     }))
+  //   }
+  // }, [selectedDates1])
+
+  const handleRequestVacation = () => {
+    const value = reasonInputRef.current.value
+  
+    dispatch(callInsertRequestAPI({
+      id:1,
+      requestReason: value,
+      requestStart: getDate(selectedDates1[0]),
+      requestEnd: getDate(selectedDates1[1])
+    }))
+  }
+
   const handleDateClick1 = (info) => {
     handleDateClick(info, setSelectedDates1);
   };
@@ -77,7 +113,11 @@ function Document() {
 
   const handleDateClick = (info, setSelectedDates) => {
     const { date } = info;
+
     setSelectedDates((prevDates) => {
+      console.log('prevDates', prevDates)
+      console.log('prevDates next index', prevDates.length%2)
+
       if (prevDates.includes(date)) {
         return prevDates.filter((d) => d !== date);
       } else {
@@ -104,7 +144,7 @@ function Document() {
           <div class="content">
             <form>
             <div class="title">휴가 신청</div>
-            <div class="modi0">
+            <div class="modi0" onClick={handleRequestVacation}>
                     신청하기
                 </div>
               
@@ -112,8 +152,7 @@ function Document() {
     
 
         <label htmlFor="reason" style={{ marginLeft: "50px", fontSize: "20px" }}>신청사유:</label><br/><br/>
-
-        <textarea id="reason" name="reason" rows="32" cols="85" required style={{ backgroundColor: "lightgray", border: "none",marginLeft: "40px" }}></textarea><br />
+        <textarea ref={reasonInputRef} id="reason1" name="reason" rows="32" cols="85" required style={{ backgroundColor: "lightgray", border: "none",marginLeft: "40px" }}></textarea><br />
       
       </form>  
       <div class="cal">
@@ -149,11 +188,8 @@ function Document() {
                 </div>
               
         <label htmlFor="name" style={{ marginLeft: "40px",padding: "10px", fontSize: "20px" }}>신청인 이름: 김상엽 </label><br/><br/>
-    
-
         <label htmlFor="reason" style={{ marginLeft: "50px", fontSize: "20px" }}>신청사유:</label><br/><br/>
-
-        <textarea id="reason" name="reason" rows="32" cols="85" required style={{ backgroundColor: "lightgray", border: "none",marginLeft: "40px" }}></textarea><br />
+        <textarea ref={reasonInputRef} id="reason" name="reason" rows="32" cols="85" required style={{ backgroundColor: "lightgray", border: "none",marginLeft: "40px" }}></textarea><br />
       
       </form> 
       <div class="cal">
