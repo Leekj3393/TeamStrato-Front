@@ -68,3 +68,25 @@
   width: 200px;
   height: 150px;
 }
+
+
+.selectBtnDiv {
+  position: absolute;
+  top: 130px;
+  left: 550px;
+}
+
+.registFormDiv {
+  position: absolute;
+  left: 900px;
+}
+
+.registFormDiv button {
+  border-color: transparent;
+  background-color: transparent;
+}
+
+.registFormDiv img {
+  width: 100px;
+}
+
