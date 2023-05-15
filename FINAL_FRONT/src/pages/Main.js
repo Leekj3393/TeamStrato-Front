@@ -1,11 +1,60 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MainCSS from "../components/main/Main.css";
+import {  callGoToWorkAPI, callEndWorkAPI, callOutWorkAPI, callReturnWorkAPI } from '../apis/MyPageAPICalls';
+import { useDispatch, useSelector } from 'react-redux';
+
+
+const getDate = (date) => {
+  const newDate = new Date(date);
+  const year = newDate.getFullYear();
+  const month = ("0" + (newDate.getMonth() + 1)).slice(-2);
+  const day = ("0" + newDate.getDate()).slice(-2);
+  return `${year}-${month}-${day}`
+}
 
 function Main() {
+
+  const dispatch = useDispatch();
+
+  const { time, endTime,outTime,returnTime} = useSelector(state => state.myPageReducer);
+
   const [weatherData, setWeatherData] = useState(null);
   const [newsData, setNewsData] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const date = new Date(time)
+  const goToWorkDate = getDate(date)
+  const goToWorkTime = `${date.getHours()}:${date.getMinutes()}`
+
+  const endDate = new Date(endTime)
+  const endWorkDate = getDate(endDate)
+  const endWorkTime = `${endDate.getHours()}:${endDate.getMinutes()}`
+
+  const outDate = new Date(outTime)
+  const outWorkDate = getDate(outDate)
+  const outWorkTime = `${outDate.getHours()}:${outDate.getMinutes()}`
+
+  const returnDate = new Date(returnTime)
+  const returnWorkDate = getDate(returnDate)
+  const returnWorkTime = `${returnDate.getHours()}:${returnDate.getMinutes()}`
+
+
+  const handleWorknClick = () => {
+    dispatch(callGoToWorkAPI({id: 6}))
+  }
+
+  const handleEndOnClick = () => {
+    dispatch(callEndWorkAPI({id: 6}))
+  }
+
+  const handleOutOnClick = () => {
+    dispatch(callOutWorkAPI({id: 6}))
+  }
+
+  const handleReturnOnClick = () => {
+    dispatch(callReturnWorkAPI({id: 6}))
+  }
 
   useEffect(() => {  
     const fetchWeatherData = async () => {
@@ -138,44 +187,44 @@ function Main() {
       <div className="partBoard" style={{ flex: 1 }}>Strato News</div>
       <div className="att">
         <div className="attNemo1">
-          <div className="dd">출근하기</div>
+          <div className="dd" onClick={handleWorknClick}>출근하기</div>
           <img className="imgAtt" src="image/att1.png" alt="Attendance Image" />
         </div>
         <div className="attSubNemo1">
-        2023-05-01 16:53
+        {goToWorkDate} {goToWorkTime}
                     
                 </div>
                 
 
 
                 <div class="attNemo2">
-                <div class="dd">
+                <div class="dd" onClick={handleEndOnClick}>
                     퇴근하기</div>
                     <img className="imgAtt" src="image/att2.png"/>   
                 </div>
                 <div class="attSubNemo2">
-                    2023-05-01
-                    <div class="clock">16:53</div>
+                {endWorkDate} {endWorkTime}
+                    <div class="clock"></div>
                 </div>
 
                 <div class="attNemo3">
-                <div class="dd">
+                <div class="dd" onClick={handleOutOnClick}>
                     외출하기</div>
                     <img className="imgAtt" src="image/att3.png"/>   
                 </div>
                 <div class="attSubNemo3">
-                    2023-05-01
-                    <div class="clock">16:53</div>
+                {outWorkDate} {outWorkTime}
+                    <div class="clock">{outWorkTime}</div>
                 </div>
 
                 <div class="attNemo4">
-                <div class="dd">
-                    급여확인</div>
+                <div class="dd" onClick={handleReturnOnClick}>
+                    복귀하기</div>
                     <img className="imgAtt" src="image/att4.png"/>   
                 </div>
                 <div class="attSubNemo4">
-                    2023-05-01
-                    <div class="clock">16:53</div>
+                {returnWorkDate} {returnWorkTime}
+                    <div class="clock"></div>
                 </div>
                 </div>
                 
