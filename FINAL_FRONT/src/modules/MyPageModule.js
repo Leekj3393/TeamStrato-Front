@@ -13,15 +13,22 @@ const initialState = {
 
 // Action types
 const GET_MEMBERS_ALL = 'MyPage/GET_MEMBERS_ALL';
-const GET_MY_MEMBERS = 'MyPage/GET_MY_MEMBERS'
+
+const GET_MY_MEMBERS = 'MyPage/GET_MY_MEMBERS';
+const PUT_MODIFY_MYMEMBER =  'MyPage/PUT_MODIFY_MYMEMBER';
+
 const POST_GO_TO_WORK = 'MyPage/POST_GO_TO_WORK';
 const POST_END_WORK = 'MyPage/END_WORK';
 const POST_OUT_WORK = 'MyPage/OUT_WORK';
+const POST_RETURN_WORK = 'MyPage/RETURN_WORK';
+
+
 
 const POST_INSERT_REQUEST = 'MyPage/INSERT_REQUEST';
 
 // Action creators
 export const data = createActions({
+
   [GET_MEMBERS_ALL]: (totalMemberCount) => {
     console.log(totalMemberCount)
     return ({ totalMemberCount })
@@ -32,6 +39,10 @@ export const data = createActions({
     return ({membersData})
   },
 
+  [PUT_MODIFY_MYMEMBER]: (phone) => {
+    console.log(phone);
+    return { phone };
+  },
   [POST_GO_TO_WORK]: (data) => {
     console.log(data)
     return ({})
@@ -51,6 +62,10 @@ export const data = createActions({
   [POST_OUT_WORK]: (outTime) => {
 
     return ({outTime})
+  },
+  [POST_RETURN_WORK]: (returnTime) => {
+
+    return ({returnTime})
   }
 });
 
@@ -73,6 +88,18 @@ const myPageReducer = handleActions(
       })
     },
 
+    [PUT_MODIFY_MYMEMBER]: (state, { payload: { phone } }) => {
+      console.log('GET_MY_MEMBERS', phone)
+      return {
+        ...state,
+        membersData: {
+          ...state.membersData,
+          phone: phone,
+        },
+      };
+    },
+  
+
     [POST_GO_TO_WORK]: (state, {payload: {time}}) => {
       return ({
         ...state,
@@ -91,6 +118,12 @@ const myPageReducer = handleActions(
       return ({
         ...state,
         outTime,
+      })
+    },
+    [POST_RETURN_WORK]: (state, {payload: {returnTime}}) => {
+      return ({
+        ...state,
+        returnTime,
       })
     },
     [POST_INSERT_REQUEST]: (state, {payload: {selectedDates1}}) => {

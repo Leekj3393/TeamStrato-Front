@@ -152,8 +152,8 @@ function Document() {
     
 
         <label htmlFor="reason" style={{ marginLeft: "50px", fontSize: "20px" }}>신청사유:</label><br/><br/>
-        <textarea ref={reasonInputRef} id="reason1" name="reason" rows="32" cols="85" required style={{ backgroundColor: "lightgray", border: "none",marginLeft: "40px" }}></textarea><br />
-      
+        <textarea ref={reasonInputRef} id="reason1" name="reason" rows="32" cols="85" required style={{ backgroundColor: "lightgray", border: "none",marginLeft: "40px" }}></textarea>
+
       </form>  
       <div class="cal">
       선택한 날짜 1:

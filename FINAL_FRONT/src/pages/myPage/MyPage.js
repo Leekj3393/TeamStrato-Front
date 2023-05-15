@@ -1,7 +1,8 @@
 import MyPageCSS from '../../components/main/MyPage.css';
 import React, { useState, useEffect } from 'react';
-import { callMyPageAPI, callGoToWorkAPI, callEndWorkAPI, callOutWorkAPI } from '../../apis/MyPageAPICalls';
+import { callMyPageAPI, callGoToWorkAPI, callEndWorkAPI, callOutWorkAPI, callReturnWorkAPI, callMyPageMemberAPI, updateMemberAPI } from '../../apis/MyPageAPICalls';
 import { useDispatch, useSelector } from 'react-redux';
+import { parseISO, differenceInMonths } from 'date-fns';
 
 
 const getDate = (date) => {
@@ -15,18 +16,42 @@ const getDate = (date) => {
 
 function MyPage() {
   const dispatch = useDispatch();
+  const membersData = useSelector(state => state.myPageReducer.membersData);
+  const [editMode, setEditMode] = useState(false);
+  const [phone, setPhone] = useState(membersData ? membersData.phone : '');
+
+  const handlePhoneClick = () => {
+    setEditMode(true);
+  };
+
+  const handlePhoneChange = (e) => {
+    setPhone(e.target.value);
+  };
+
+  const handleUpdateClick = () => {
+    const updatedData = {
+      id: 1,
+      phone,
+    };
+    dispatch(updateMemberAPI(updatedData));
+    setEditMode(false);
+  };
+
+  
 
   //useSelector를 사용해서 화면에 데이터를 보여주기 
   // 추가적으로 지금 여러 리듀서가 있어서 만든 리듀서만 가져오도록 한 로직
   
-  const {totalMemberCount, time, membersData, endTime,outTime} = useSelector(state => state.myPageReducer);
+  const {totalMemberCount, time, endTime,outTime,returnTime} = useSelector(state => state.myPageReducer);
   const [activeModal, setActiveModal] = useState(null);
 
-  console.log("membersData",membersData);
+  console.log("membersData",membersData); //여기로 조회해오게
 
   useEffect(() => {
-    dispatch(callMyPageAPI())
-  }, []) 
+    dispatch(callMyPageAPI());
+    dispatch(callMyPageMemberAPI({ id: 1 }));
+  }, []);
+  
 
   const date = new Date(time)
   const goToWorkDate = getDate(date)
@@ -40,6 +65,23 @@ function MyPage() {
   const outWorkDate = getDate(outDate)
   const outWorkTime = `${outDate.getHours()}:${outDate.getMinutes()}`
 
+  const returnDate = new Date(returnTime)
+  const returnWorkDate = getDate(returnDate)
+  const returnWorkTime = `${returnDate.getHours()}:${returnDate.getMinutes()}`
+
+  //근속 시간 계산
+  const hireDate = membersData ? parseISO(membersData.memberHireDate) : null;
+  const currentDate = new Date();
+  const duration = hireDate ? differenceInMonths(currentDate, hireDate) : null;
+  
+  const years = Math.floor(duration / 12);
+const months = duration % 12;
+
+console.log("Duration:", duration);
+console.log("Years:", years);
+console.log("Months:", months);
+
+  
   const openModal = (modalIndex) => {
     setActiveModal(modalIndex);
   };
@@ -49,17 +91,20 @@ function MyPage() {
   };
 
   const handleWorknClick = () => {
-    dispatch(callGoToWorkAPI({id: 1}))
+    dispatch(callGoToWorkAPI({id: 3}))
   }
 
   const handleEndOnClick = () => {
-    dispatch(callEndWorkAPI({id: 1}))
+    dispatch(callEndWorkAPI({id: 3}))
   }
 
   const handleOutOnClick = () => {
-    dispatch(callOutWorkAPI({id: 1}))
+    dispatch(callOutWorkAPI({id: 3}))
   }
 
+  const handleReturnOnClick = () => {
+    dispatch(callReturnWorkAPI({id: 3}))
+  }
 
     return (
         <div className={MyPageCSS}>
@@ -104,15 +149,15 @@ function MyPage() {
                     외출  /
                 </div>
                 
-                <div class="comeTitle">
+                <div class="comeTitle" onClick={handleReturnOnClick}>
                     복귀
                 </div>
                 <img className="goingImg" src="image/image 419.png"/>
                 <div class="goingNemo">
                    <div class="returnTitle1">{outWorkDate}</div> 
-                   <div class="returnTitle2">{outWorkDate}<br/><br/><br/> ~</div> 
-                <div class="outTitle1">2023-05-01</div> 
-                   <div class="outTitle2">16:53</div> 
+                   <div class="returnTitle2">{outWorkTime}<br/><br/><br/> ~</div> 
+                <div class="outTitle1">{returnWorkDate}</div> 
+                   <div class="outTitle2">{returnWorkTime}</div> 
                     
                 </div>
             </div>
@@ -132,41 +177,49 @@ function MyPage() {
 <table>
   <tr>
     <th>이름</th>
-    {membersData && membersData.map((myMembers) => (
-      <tr key={myMembers.memberCode}>
-        <td>{myMembers.memberName}</td>
-        </tr>
-    ))}
+    <td> {membersData ? membersData.memberName : '직원 정보를 가져오는 중입니다.'}</td>
     <th>성별</th>
-    <td>남성</td>
+    <td>{membersData ? (membersData.gender === 'M' ? '남자' : '여자') : '직원 정보를 가져오는 중입니다.'}</td>
+
   </tr>
   <tr>
     <th>생년월일</th>
-    <td>1980-01-01</td>
+    <td>
+  {membersData ? `${membersData.residentNo.slice(0, 4)}년 ${membersData.residentNo.slice(4, 6)}월 ${membersData.residentNo.slice(6, 8)}일` : '직원 정보를 가져오는 중입니다.'}
+</td>
+
+
+
     <th>급여 계좌</th>
-    <td>1234-5678-9012</td>
+    <td> {membersData ? membersData.bankName : '직원 정보를 가져오는 중입니다.'} {membersData ? membersData.bankNo : '직원 정보를 가져오는 중입니다.'}</td>
   </tr>
   <tr>
     <th>휴대폰 번호</th>
-    <td>010-1234-5678</td>
+    <td> {membersData ? membersData.phone : '직원 정보를 가져오는 중입니다.'}</td>
     <th>부서</th>
-    <td>영업부</td>
+    <td> {membersData ? membersData.department.deptName : '직원 정보를 가져오는 중입니다.'}</td>
+
   </tr>
   <tr>
     <th>입사년월일</th>
-    <td>2022-01-01</td>
+    <td>
+   {membersData ? `${membersData.residentNo.slice(0, 4)}년 ${membersData.residentNo.slice(4, 6)}월 ${membersData.residentNo.slice(6, 8)}일` : '직원 정보를 가져오는 중입니다.'}
+</td>
+
     <th>직급</th>
-    <td>대리</td>
+    <td>{membersData ? membersData.job.jobName : '직원 정보를 가져오는 중입니다.'}</td>
   </tr>
   <tr>
     <th rowspan="2">주소</th>
-    <td rowspan="2">서울시 강남구</td>
+    <td rowspan="2">{membersData ? membersData.address : '직원 정보를 가져오는 중입니다.'}</td>
     <th>상태</th>
-    <td>재직</td>
+    <td>{membersData ? membersData.memberStatus : '직원 정보를 가져오는 중입니다.'}</td>
   </tr>
   <tr>
     <th>근속 기간</th>
-    <td>2년</td>
+    <td>
+  {membersData ? `${years}년 ${months}개월` : '직원 정보를 가져오는 중입니다.'}
+</td>
   </tr>
 </table>
                 </div>
@@ -189,43 +242,55 @@ function MyPage() {
                 <table>
                 <tr>
                     <th>이름</th>
-                    <td>John Doe</td>
+                    <td> {membersData ? membersData.memberName : '직원 정보를 가져오는 중입니다.'}</td>
                     <th>성별</th>
-                    <td>남성</td>
+                    <td>{membersData ? (membersData.gender === 'M' ? '남자' : '여자') : '직원 정보를 가져오는 중입니다.'}</td>
                 </tr>
                 <tr>
                     <th>생년월일</th>
-                    <td>1980-01-01</td>
+                    <td>  {membersData ? `${membersData.residentNo.slice(0, 4)}년 ${membersData.residentNo.slice(4, 6)}월 ${membersData.residentNo.slice(6, 8)}일` : '직원 정보를 가져오는 중입니다.'}</td>
                     <th>급여 계좌</th>
-                    <td>1234-5678-9012</td>
+                    <td> {membersData ? membersData.bankName : '직원 정보를 가져오는 중입니다.'} {membersData ? membersData.bankNo : '직원 정보를 가져오는 중입니다.'}</td>
                 </tr>
                 <tr>
-                    <th>휴대폰 번호</th>
-                    <td>010-1234-5678</td>
+                <th>휴대폰 번호</th>
+                {editMode ? (
+  <td>
+    <input type="text" value={phone} onChange={handlePhoneChange} />
+  </td>
+) : (
+  <td onClick={handlePhoneClick}>{membersData ? membersData.phone : '직원 정보를 가져오는 중입니다.'}</td>
+)}
+
+
                     <th>부서</th>
-                    <td>영업부</td>
+                    <td> {membersData ? membersData.department.deptName : '직원 정보를 가져오는 중입니다.'}</td>
                 </tr>
                 <tr>
                     <th>입사년월일</th>
-                    <td>2022-01-01</td>
+                    <td>
+   {membersData ? `${membersData.residentNo.slice(0, 4)}년 ${membersData.residentNo.slice(4, 6)}월 ${membersData.residentNo.slice(6, 8)}일` : '직원 정보를 가져오는 중입니다.'}
+</td>
                     <th>직급</th>
-                    <td>대리</td>
+                    <td>{membersData ? membersData.job.jobName : '직원 정보를 가져오는 중입니다.'}</td>
                 </tr>
                 <tr>
                     <th rowspan="2">주소</th>
-                    <td rowspan="2">서울시 강남구</td>
+                    <td rowspan="2">{membersData ? membersData.address : '직원 정보를 가져오는 중입니다.'}</td>
                     <th>상태</th>
-                    <td>재직</td>
+                    <td>{membersData ? membersData.memberStatus : '직원 정보를 가져오는 중입니다.'}</td>
                 </tr>
                 <tr>
                     <th>근속 기간</th>
-                    <td>2년</td>
+                    <td>{membersData ? `${years}년 ${months}개월` : '직원 정보를 가져오는 중입니다.'}</td>
                 </tr>
                 </table>
                 </div>
-                <div class="modiFianl">
-                    수정완료
-                </div>
+    {editMode && (
+                <div class="modiFianl" onClick={handleUpdateClick}>
+                수정완료
+            </div>
+    )}
             </div>
           </div>
         )}
