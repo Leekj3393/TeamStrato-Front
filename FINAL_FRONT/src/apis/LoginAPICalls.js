@@ -1,5 +1,10 @@
 import { postLogin } from "../modules/MemberModule";
 
+const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
+const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
+const PRE_URL = `http://${SERVER_IP}:${SERVER_PORT}`;
+
+
 /* 로그인 API 호출 */
 export const callLoginAPI = (form) => {
 
