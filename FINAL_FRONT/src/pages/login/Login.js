@@ -27,7 +27,7 @@ function Login(){
     )
 
     const onClickFindIdHandler = () => {
-        navigate('/findid');
+        navigate('/login/findid');
     }
 
     const onClickFindPwdHandler = () => {
