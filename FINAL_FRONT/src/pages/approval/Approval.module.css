@@ -1,7 +1,25 @@
-.content0{
+@font-face {
+  font-family: 'SUITE-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+}
+
+.square {
   position: absolute;
   top: 200px;
-  left: 290px; /* Changed 'right' to 'left' */
+  left: 290px;
+  background-color: white;
+  border-radius: 10px;
+  height: 650px;
+  width: 1200px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.content0{
+  position: absolute;
+  top: 220px;
+  left: 310px; /* Changed 'right' to 'left' */
   width: 1350px;
   height: 207px;
+  font-family: 'SUITE-Regular';
 }
