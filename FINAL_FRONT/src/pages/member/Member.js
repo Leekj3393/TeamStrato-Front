@@ -12,6 +12,8 @@ function Member() {
     const navigate = useNavigate();
     const { data, pageInfo } = useSelector((state) => state.memberReducer);
     const [currentPage, setCurrentPage] = useState(1);
+    const [searchOption, setSearchOption] = useState('memberId');
+    const [search, setSearch] = useState('');
     
     const onClickMemberHandler = (memberCode) => {
         navigate(`/member/${memberCode}`);
@@ -23,18 +25,25 @@ function Member() {
         dispatch(callMemberListAPI({currentPage}));
     }, [currentPage]);
 
+    const onEnterKeyHandler = (e) => {
+        if(e.key === 'Enter') {
+            navigate(`/search?value=${search}`);
+        }
+    }
+
     return (
         <>
             <div className="memberListTitle">
                 직원목록
             </div>
             <div className="mbSearch">
-                <select>
-                    <option>아이디</option>
+                <select onChange={(e) => setSearchOption(e.target.value)}>
+                    <option value="memberId">아이디</option>
+                    <option value="memberName">이름</option>
                 </select>
             </div>
             <div className="mbSearchBar">
-                <input type="text"/>
+                <input type="text" value={search} onKeyUp={onEnterKeyHandler}/>
             </div>
             <div className="mbInsert">
                 <button>직원 등록</button>
