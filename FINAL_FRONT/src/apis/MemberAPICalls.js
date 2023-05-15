@@ -1,4 +1,4 @@
-import { getMember,getMembers, getMembersId, getMembersName } from "../modules/MemberModule";
+import { getMember,getMembers, getMembersId, getMembersName, postMemberRg } from "../modules/MemberModule";
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
@@ -33,4 +33,23 @@ export const callMemberDetailAPI = ({memberCode}) => {
         }
     }
 
+}
+
+export const callMemberRegistAPI = (formData) => {
+
+    const requestURL = `${PRE_URL}/members`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL, {
+            method : 'POST',
+            body : formData
+        }).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log('[ProductAPICalls] : callProductRegistAPI result : ', result);
+            dispatch(postMemberRg(result));
+        
+        }
+    }
 }

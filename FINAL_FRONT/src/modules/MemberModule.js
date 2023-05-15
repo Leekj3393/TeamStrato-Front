@@ -9,8 +9,9 @@ const RESET_MEMBER = 'member/RESET_MEMBER';
 const GET_MEMBERSID = 'member/GET_MEMBERSID';
 const GET_MEMBERSNAME = 'member/GET_MEMBERSNAME';
 const POST_MEMBER = 'member/POST_MEMBER';
+const POST_MEMBERRG = 'member/POST_MEMBERRG';
 
-export const { member : {getMember , getMembers, postLogin, resetMember, postMember}} = createActions({
+export const { member : {getMember , getMembers, postLogin, resetMember, postMember, postMemberRg}} = createActions({
     [GET_MEMBERS] : res => res.data,
     [GET_MEMBER] : res => res.data,
     [POST_LOGIN] : res => res,
@@ -18,6 +19,7 @@ export const { member : {getMember , getMembers, postLogin, resetMember, postMem
     [GET_MEMBERSID] : res => res.data,
     [GET_MEMBERSNAME] : res => res.data,
     [POST_MEMBER] : res => res.data,
+    [POST_MEMBERRG] : res => res,
 });
 
 const memberReducer = handleActions(
@@ -29,6 +31,7 @@ const memberReducer = handleActions(
         [GET_MEMBERSID] : (state, {payload}) => payload,
         [GET_MEMBERSNAME] : (state, {payload}) => payload,
         [POST_MEMBER] : (state, {payload}) => ({ member : payload }),
+        [POST_MEMBERRG] : (state, { payload }) => ({ regist : payload }),
     }
     , initialState);
 
