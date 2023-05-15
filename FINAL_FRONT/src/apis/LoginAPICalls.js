@@ -1,4 +1,9 @@
-import { postLogin } from "../modules/MemberModule";
+import { postMember, postLogin } from "../modules/MemberModule";
+
+const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
+const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
+const PRE_URL = `http://${SERVER_IP}:${SERVER_PORT}`;
+
 
 /* 로그인 API 호출 */
 export const callLoginAPI = (form) => {
@@ -26,5 +31,26 @@ export const callLoginAPI = (form) => {
 
         dispatch(postLogin(result));
         
+    }
+}
+
+export const callGetMemberAPI = (form) => {
+
+    const requestURL = `${PRE_URL}/auth/findid`;
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        }).then((response) => response.json());
+
+        console.log('[MemberAPICalls] callGetMemberAPI result : ', result);
+
+        if(result.status === 200){
+            dispatch(postMember(result));
+        }
     }
 }

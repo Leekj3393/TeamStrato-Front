@@ -15,7 +15,10 @@ const initialState = {
 const GET_MEMBERS_ALL = 'MyPage/GET_MEMBERS_ALL';
 const GET_MY_MEMBERS = 'MyPage/GET_MY_MEMBERS'
 const POST_GO_TO_WORK = 'MyPage/POST_GO_TO_WORK';
-const PATCH_END_WORK = 'MyPage/END_WORK';
+const POST_END_WORK = 'MyPage/END_WORK';
+const POST_OUT_WORK = 'MyPage/OUT_WORK';
+
+const POST_INSERT_REQUEST = 'MyPage/INSERT_REQUEST';
 
 // Action creators
 export const data = createActions({
@@ -25,7 +28,7 @@ export const data = createActions({
   }, 
 
   [GET_MY_MEMBERS]: (membersData) => {
-    console.log(membersData)
+    console.log('action_GET_MY_MEMBERS', membersData)
     return ({membersData})
   },
 
@@ -34,9 +37,20 @@ export const data = createActions({
     return ({})
   },
 
-  [PATCH_END_WORK]: (endTime) => {
+
+  [POST_INSERT_REQUEST]: (selectedDates1) => {
+    console.log(selectedDates1)
+    return ({selectedDates1})
+  },
+
+  [POST_END_WORK]: (endTime) => {
     console.log(endTime)
-    return ({})
+
+    return ({endTime})
+  },
+  [POST_OUT_WORK]: (outTime) => {
+
+    return ({outTime})
   }
 });
 
@@ -50,7 +64,9 @@ const myPageReducer = handleActions(
       })
     },
 
+    //회원의 정보를 조회하는거 이렇게 하는게 맞나
     [GET_MY_MEMBERS]: (state, {payload: {membersData}}) => {
+      console.log('GET_MY_MEMBERS', membersData)
       return ({
       ...state,
       membersData,
@@ -63,15 +79,31 @@ const myPageReducer = handleActions(
         time,
       })
     },
-    [PATCH_END_WORK]: (state, {payload: {endTime}}) => {
+
+    [POST_END_WORK]: (state, {payload: {endTime}}) => {
       return ({
         ...state,
         endTime,
       })
     },
+
+    [POST_OUT_WORK]: (state, {payload: {outTime}}) => {
+      return ({
+        ...state,
+        outTime,
+      })
+    },
+    [POST_INSERT_REQUEST]: (state, {payload: {selectedDates1}}) => {
+      return ({
+        ...state,
+        selectedDates1,
+      })
+    },
   },
   initialState
 );
+
+
 
 
 export default myPageReducer;
