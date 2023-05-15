@@ -1,4 +1,4 @@
-import { getMembers } from "../modules/MemberModule";
+import { getMember, getMembers, getMembersId, getMembersName } from "../modules/MemberModule";
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
@@ -6,7 +6,7 @@ const PRE_URL = `http://${SERVER_IP}:${SERVER_PORT}/skylift/member`;
 
 export const callMemberListAPI = ({ currentPage = 1}) => {
 
-    const reqeustURL = `${PRE_URL}/memberList?page=${currentPage}`;
+    const reqeustURL = `${PRE_URL}/members?page=${currentPage}`;
 
     return async (dispatch, getState) => {
 
@@ -20,32 +20,17 @@ export const callMemberListAPI = ({ currentPage = 1}) => {
     }
 }
 
-export const callMemberIdSearchListAPI = ({ search, currentPage = 1}) => {
+export const callMemberDetailAPI = ({memberCode}) => {
 
-    const requestURL = `${PRE_URL}/memberList/searchMbId?search=${search}&page=${currentPage}`;
-
-    return async (dispatch, getState) => {
-
-        const result = await fetch(requestURL).then(response => response.json());
-
-        if(result.status === 200) {
-            console.log("[MemberAPICalls] callMemberIdSearchListAPI result : ", result);
-            
-        }
-    }
-}
-
-export const callMemberNameSearchListAPI = ({ search, currentPage = 1}) => {
-
-    const requestURL = `${PRE_URL}/memberList/searchMbName?search=${search}&page=${currentPage}`;
+    const reqeustURL = `${PRE_URL}/members/${memberCode}`;
 
     return async (dispatch, getState) => {
 
-        const result = await fetch(requestURL).then(response => response.json());
+        const result = await fetch(reqeustURL).then(res => res.json());
 
         if(result.status === 200) {
-            console.log("[MemberAPICalls] callMemberNameSearchListAPI result : ", result);
-            
+            dispatch(getMember(result));
         }
     }
+
 }

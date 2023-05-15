@@ -32,6 +32,7 @@ import EquipmentSubLayout from "./layouts/EquipmentSubLayout";
 import Equipment from "./pages/equipment/Equipment";
 import ApprovalLineRegist from "./pages/approval/ApprovalLineRegist";
 import MemberDetail from "./pages/member/MemberDetail";
+import MemberReigst from "./pages/member/MemberRegist";
 
 function App() {
   return (
@@ -78,6 +79,7 @@ function App() {
           <Route path="/member" element={<MemberSubLayout/>}>
             <Route index element={<Member/>}/>
             <Route path="/member/:memberCode" element={<MemberDetail/>}/>
+            <Route path="/member/regist" element={<MemberReigst/>}/>
           </Route>
           <Route path="/calendar" element={<Calendar/>}/>
         </Route>

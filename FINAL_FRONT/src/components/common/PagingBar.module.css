@@ -17,3 +17,13 @@
     cursor: pointer;
     background-color: lightgray;
 }
+
+.memberPaging {
+    position: relative;
+    top: -100px;
+    left: 800px;
+    display: flex;
+    flex-wrap: wrap;
+    height: 15%;
+    margin: 10px;
+}

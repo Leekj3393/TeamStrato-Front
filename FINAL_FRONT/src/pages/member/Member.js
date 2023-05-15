@@ -12,24 +12,25 @@ function Member() {
     const navigate = useNavigate();
     const { data, pageInfo } = useSelector((state) => state.memberReducer);
     const [currentPage, setCurrentPage] = useState(1);
-    const [searchOption, setSearchOption] = useState('memberId');
-    const [search, setSearch] = useState('');
+    
     
     const onClickMemberHandler = (memberCode) => {
         navigate(`/member/${memberCode}`);
     }
 
+    const onClickMemberRegistHandler = (e) => {
+        navigate(`/member/regist`);
+    }
+
     console.log("data", data);
+    console.log("pageInfo", pageInfo);
 
     useEffect(() => {
-        dispatch(callMemberListAPI({currentPage}));
+            dispatch(callMemberListAPI({currentPage}));        
     }, [currentPage]);
 
-    const onEnterKeyHandler = (e) => {
-        if(e.key === 'Enter') {
-            navigate(`/search?value=${search}`);
-        }
-    }
+    
+
 
     return (
         <>
@@ -37,16 +38,18 @@ function Member() {
                 직원목록
             </div>
             <div className="mbSearch">
-                <select onChange={(e) => setSearchOption(e.target.value)}>
+                <select>
+                    <option value="none">선택</option>
                     <option value="memberId">아이디</option>
                     <option value="memberName">이름</option>
                 </select>
             </div>
             <div className="mbSearchBar">
-                <input type="text" value={search} onKeyUp={onEnterKeyHandler}/>
+                <input type="text" 
+                />
             </div>
             <div className="mbInsert">
-                <button>직원 등록</button>
+                <button onClick={onClickMemberRegistHandler}>직원 등록</button>
             </div>
             <div className='mbTableDiv'>
             <table className='mbTable'>
