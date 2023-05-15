@@ -22,11 +22,11 @@ body, html {
 .circleLogin1{
 
 position: absolute;
-width: 25%;
-height: 40%;
+width: 500px;
+height: 500px;
 border-radius: 100%;
 top: -15%;
-right: 0%;
+right: 5%;
 
 background: rgba(255, 255, 255, 0.25);
 }
@@ -34,8 +34,8 @@ background: rgba(255, 255, 255, 0.25);
 
 .circleLogin2{
     position: absolute;
-    width: 45%;
-    height: 68%;
+    width: 800px;
+    height: 800px;
     border-radius: 100%;
     top: 40%;
     right: 0%;
@@ -43,10 +43,10 @@ background: rgba(255, 255, 255, 0.25);
 }
 .circleLogin3{
     position: absolute;
-    width: 40%;
-    height: 60%;
+    width: 800px;
+    height: 800px;
 border-radius: 100%;
-top: 50%;
+top: 55%;
 right: 75%;
 background: rgba(255, 255, 255, 0.25);
 }
@@ -54,10 +54,10 @@ background: rgba(255, 255, 255, 0.25);
 .circleLogin4{
 
     position: absolute;
-    width: 13%;
-    height: 20%;
+    width: 250px;
+    height: 250px;
 border-radius: 100%;
-top: 20%;
+top: 30%;
 right: 70%;
 
 background: rgba(233, 196, 242, 0.4);

@@ -11,7 +11,7 @@ function LoginBackground() {
           <div className={styles.circleLogin4}></div>
           <div className={styles.rectangle1}></div>
           </body>
-        </div>
+        </div>  
     );
 }
 
