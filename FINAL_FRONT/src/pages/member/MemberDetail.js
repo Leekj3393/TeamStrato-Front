@@ -14,6 +14,7 @@ function MemberDetail () {
     const memberCode = params.memberCode;
 
     console.log("member", member);
+    
     useEffect(
         () => {
             dispatch(callMemberDetailAPI({memberCode}));

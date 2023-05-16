@@ -29,7 +29,7 @@ table {
 
 .memberRgTable {
     margin-left: 600px;
-    margin-top : 100px;
+    margin-top : 50px;
 }
 
 .MemberRgImg {
@@ -58,7 +58,7 @@ table {
 }
 
 .memberRgTd {
-    padding-top: 20px;
+    /* padding-top: 20px; */
 }
 
 .memberRgBt button {
