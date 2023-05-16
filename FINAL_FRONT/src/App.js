@@ -34,6 +34,7 @@ import ApprovalLineRegist from "./pages/approval/ApprovalLineRegist";
 import MemberDetail from "./pages/member/MemberDetail";
 import MemberReigst from "./pages/member/MemberRegist";
 import FindId from "./pages/login/FindId";
+import EquipmentDetail from "./pages/equipment/EquipmentDetail";
 import FindPwd from "./pages/login/FindPwd";
 
 function App() {
@@ -79,6 +80,7 @@ function App() {
           </Route>
           <Route path="/equipment" element={<EquipmentSubLayout/>}>
             <Route index element={<Equipment/>} />
+            <Route path="detail/:categoryCode" element={<EquipmentDetail/>} />
           </Route>
           <Route path="/member" element={<MemberSubLayout/>}>
             <Route index element={<Member/>}/>

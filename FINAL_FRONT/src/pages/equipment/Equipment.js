@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { callEquipmentListAPI } from "../../apis/EquipmentAPICalls";
 import EquipmentCSS from './EquipmentCSS.css';
-import PagingBar from "../../components/common/PagingBar";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -14,6 +14,7 @@ function Equipment()
     const [currentPage , setCurrentPage] = useState(1);
     const equimentList = equipments.data;
     const pageInfo = equipments.pageInfo;
+    const navigate = useNavigate();
 
     useEffect(
         () =>
@@ -23,10 +24,11 @@ function Equipment()
         [currentPage]
     );
     
-    console.log("equipments : " , equipments);
-    console.log("EquipmentList : " ,equimentList);
-    console.log("pageInfo : " , pageInfo);
-    
+    const onClickEquipmentHandler = (categoryCode) =>
+    {
+        console.log(categoryCode);
+        navigate(`/equipment/detail/${categoryCode}`)
+    }
 
     return(
         <>
@@ -42,7 +44,9 @@ function Equipment()
                     </thead>
                     <tbody>
                         {equimentList && equimentList.map((equ) => (
-                            <tr key={ equ.categoryCode }>
+                            <tr 
+                                key={ equ.categoryCode }
+                                onClick={ () => onClickEquipmentHandler(equ.categoryCode)}>
                                 <td>{ equ.categoryCode }</td>
                                 <td>{ equ.equCategory.categoryName }</td>
                                 <td>{ equ.categoryName }</td>

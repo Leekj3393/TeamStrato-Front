@@ -1,13 +1,27 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "../components/common/Navbar";
 import EquNavbar from "../components/common/EquNavbar";
-import Footer from "../components/common/Footer";
+import { useEffect, useState } from "react";
 
-function EquipmentSubLayout() {
+function EquipmentSubLayout() 
+{
+
+    const [url , setUrl] = useState(window.location.href.replace("http://localhost:3000/",""));
+
+    useEffect(() =>{
+        const handleUrlChange = () => {
+            const currentURL = window.location.href.replace("http://localhost:3000/", "");
+            setUrl(currentURL);
+        };
+            },
+            [window.location.href]
+      );
+    
+      console.log("url",url);
+
 
     return (
         <>  
-            <EquNavbar/>
+            <EquNavbar url={url}/>
             <Outlet/>
         
         </>
