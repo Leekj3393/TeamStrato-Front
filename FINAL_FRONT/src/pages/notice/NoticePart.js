@@ -4,7 +4,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import NoticeCSS from './NoticePart.module.css';
 import { NavLink } from 'react-router-dom';
 import { callNoticeDepartmentListAPI, callNoticeListAPI, callNoticeSearchListAPI } from "../../apis/NoticeAPICalls";
-import PagingBarForNoticePart from "../../components/common/pagingbar/PagingBarForNoticePart";
+import PagingBar from "../../components/common/PagingBar";
 
 function NoticePart() {
 
@@ -97,7 +97,7 @@ function NoticePart() {
                 </div>
             </div>
             <div>
-                { pageInfo && <PagingBarForNoticePart pageInfo={ pageInfo } setCurrentPage={ setCurrentPage } /> }
+                { pageInfo && <PagingBar pageInfo={ pageInfo } setCurrentPage={ setCurrentPage } /> }
             </div>
         </div>
     );

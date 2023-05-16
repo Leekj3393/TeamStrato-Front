@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { callEquipmentListAPI } from "../../apis/EquipmentAPICalls";
-import Pageingbar from "../../components/pagingbar/Pageingbar";
 import EquipmentCSS from './EquipmentCSS.css';
+import PagingBar from "../../components/common/PagingBar";
 
 
 
@@ -13,7 +13,7 @@ function Equipment()
     const equipments  = useSelector(state => state.equipmentReducer);
     const [currentPage , setCurrentPage] = useState(1);
     const equimentList = equipments.data;
-    const pagInfo = equipments.pageInfo;
+    const pageInfo = equipments.pageInfo;
 
     useEffect(
         () =>
@@ -25,7 +25,7 @@ function Equipment()
     
     console.log("equipments : " , equipments);
     console.log("EquipmentList : " ,equimentList);
-    console.log("pageInfo : " , pagInfo);
+    console.log("pageInfo : " , pageInfo);
     
 
     return(
@@ -54,7 +54,7 @@ function Equipment()
                     </tbody>
                 </table>
                 <div>
-                { pagInfo && <Pageingbar pagInfo={pagInfo} setCurrentPage={setCurrentPage}/>}
+                { pageInfo && <PagingBar pageInfo={pageInfo} setCurrentPage={setCurrentPage}/>}
                 </div>
             </div>
           
