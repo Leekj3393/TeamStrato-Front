@@ -22,6 +22,10 @@ function MemberDetail () {
         []
     );
 
+    const onClickMemberModify = () => {
+        navigate(`/member/modify/${memberCode}`);
+    }
+
     return (
         <>  
             <div className="memberDtTitle">
@@ -38,7 +42,7 @@ function MemberDetail () {
                 </span>
                 <button className='memberDtBt1'>권한</button>
                 <button className='memberDtBt2'>인사이동</button>
-                <button className='memberDtBt3'>수정하기</button>
+                <button className='memberDtBt3' onClick={onClickMemberModify}>수정하기</button>
             </div>
             <div className='memberDtDpt'>
                 <span className="memberDptName">부서</span>

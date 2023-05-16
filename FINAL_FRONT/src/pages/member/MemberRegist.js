@@ -101,7 +101,7 @@ function MemberReigst () {
         formData.append("job.jobCode", form.job.jobCode);
     
         if(image) {
-            formData.append("memberImage", image);
+            formData.append("file", image);
         }
 
         dispatch(callMemberRegistAPI(formData));
@@ -124,7 +124,7 @@ function MemberReigst () {
                     <input 
                         style={{display : 'none'}}
                         type="file"
-                        name="files"
+                        name="file"
                         accept='image/jpg,image/png,image/jpeg,image/gif'
                         ref={imageInput}
                         onChange={onChangeImageUpload}
