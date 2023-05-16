@@ -36,7 +36,9 @@ function ApprovalRegist() {
         dispatch(callApprovalRegistAPI(formData));
     }
 
-    const onClickResetHandler = () => {}
+    const onClickResetHandler = () => {
+        navigate("/approval", {replace : true});
+    }
 
     return(
         <div className={ApprovalCSS}>
@@ -51,20 +53,20 @@ function ApprovalRegist() {
                 </div>
                 <div className={ApprovalCSS.appFormDiv}>
                     <label>제목 : </label><br/>
-                    <input type='text' id='apptitle' value={form.appTitle}></input><br/><br/>
+                    <input type='text' id='appTitle' value={form.appTitle}></input><br/><br/>
 
                     <label>내용 : </label><br/>
                     <input type='text' id='appContent'  value={form.appContent}></input><br/><br/>
 
                     <label>기안 구분 : </label><br/>
-                    <input type='radio' id='appType' value={form.appType} checked></input>
+                    <input type='radio' id='appType' value={form.appType} readOnly></input>
                     <label for='appType'>기안문</label>
                     <br/><br/>
 
                     <label>기안상태 : </label><br/>
-                    <input type='radio' id='appStatus' value={form.appStatus} checked></input>
-                    <label for='appStatus'>대기중</label>
-                    <br/><br/>
+                    <input type='radio' id='appStatus' value={form.appStatus} readOnly></input>
+                    <label for='appStatus'>대기</label>
+                    <br/><br/> 
                 </div>
 
             </div>                                                               {/* 본문 내용 끝 */}

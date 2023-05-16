@@ -5,13 +5,14 @@ const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
 const PRE_URL = `http://${SERVER_IP}:${SERVER_PORT}/skylift/approval`;
 
 export const callApprovalRegistAPI = (formData) => {
-    const requestURL = `${PRE_URL}`;
+    const requestURL = `${PRE_URL}/regist`;
 
     return async (dispatch, getState) => {
         const result = await fetch(requestURL, {
             method: 'POST',
             headers: {
-                // "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+                "Content-Type" : "application/json",
+                "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
             },
             body: formData
         }).then(response => response.json());
