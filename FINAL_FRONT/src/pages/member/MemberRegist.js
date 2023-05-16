@@ -44,7 +44,7 @@ function MemberReigst () {
         () => {
             if(regist?.status === 200) {
                 alert('상품 등록이 완료됐습니다.');
-                navigate('/product-management', {replace : true});
+                navigate('/member', {replace : true});
             }
         },
         [regist]
