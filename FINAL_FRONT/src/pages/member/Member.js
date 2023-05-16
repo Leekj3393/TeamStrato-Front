@@ -14,6 +14,7 @@ function Member() {
     const [currentPage, setCurrentPage] = useState(1);
     
     
+    
     const onClickMemberHandler = (memberCode) => {
         navigate(`/member/${memberCode}`);
     }
