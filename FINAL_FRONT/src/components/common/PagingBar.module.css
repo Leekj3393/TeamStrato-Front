@@ -1,4 +1,7 @@
-.productDiv {
+.noticeDiv {
+    position: absolute;
+    top: 800px;
+    left: 850px;
     display: flex;
     flex-wrap: wrap;
     width: 850px;
@@ -11,6 +14,8 @@
     border-radius: 5px;
     background-color: white;
     font-weight: bold;
+    height: 30px;
+    width: 30px;
 }
 
 .pagingBtn:hover{
@@ -18,12 +23,6 @@
     background-color: lightgray;
 }
 
-.memberPaging {
-    position: relative;
-    top: -100px;
-    left: 800px;
-    display: flex;
-    flex-wrap: wrap;
-    height: 15%;
-    margin: 10px;
+li {
+    list-style: none;
 }
