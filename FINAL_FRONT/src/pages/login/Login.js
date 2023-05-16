@@ -31,16 +31,16 @@ function Login(){
     }
 
     const onClickFindPwdHandler = () => {
-        navigate('/findpwd');
+        navigate('/login/findpwd');
     }
 
 
     return(
         <div className="whiteBox">
             <div className="blueBox">
-            <img className="stratoLogo" src="image/SkyLift.png"></img>
-            <img className="cloudImg" src="image/cloud.png"></img>
-            <img className="GroupwareImg" src="image/GroupwareImg.png"></img>
+            <img className="stratoLogo" src="/image/SkyLift.png"></img>
+            <img className="cloudImg" src="/image/cloud.png"></img>
+            <img className="GroupwareImg" src="/image/GroupwareImg.png"></img>
             </div>
             <div className="loginForm">
                 <LoginForm/><br></br>
