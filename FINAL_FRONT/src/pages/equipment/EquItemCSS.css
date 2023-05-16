@@ -1,0 +1,30 @@
+
+.imgbox{
+    position: absolute;
+    top: 300px;
+    left: 350px;
+}
+
+.text-box1{
+    position: absolute;
+    top: 300px;
+    left: 950px;
+} 
+
+.text-box2{
+    position: absolute;
+    top: 300px;
+    left: 1200px;
+}
+
+.text-box3{
+    position: absolute;
+    top: 400px;
+    left: 950px;
+}
+
+.text-box4{
+  position: absolute;
+    top: 400px;
+    left : 1200px;
+}

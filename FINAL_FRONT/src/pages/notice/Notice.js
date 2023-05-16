@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useSearchParams } from "react-router-dom";
 import NoticeCSS from './Notice.module.css';
 import { callNoticeListAPI, callNoticeSearchListAPI } from "../../apis/NoticeAPICalls";
-import PagingBarForNotice from "../../components/common/pagingbar/PagingBarForNotice";
+import PagingBar from "../../components/common/PagingBar";
 
 function Notice() {
 
@@ -77,7 +77,7 @@ function Notice() {
                 </div>
             </div>
             <div>
-                { pageInfo && <PagingBarForNotice pageInfo={ pageInfo } setCurrentPage={ setCurrentPage } /> }
+                { pageInfo && <PagingBar pageInfo={ pageInfo } setCurrentPage={ setCurrentPage } /> }
             </div>
         </div>
     );

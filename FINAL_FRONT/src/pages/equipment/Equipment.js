@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { callEquipmentListAPI } from "../../apis/EquipmentAPICalls";
-import Pageingbar from "../../components/pagingbar/Pageingbar";
 import EquipmentCSS from './EquipmentCSS.css';
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -13,7 +13,8 @@ function Equipment()
     const equipments  = useSelector(state => state.equipmentReducer);
     const [currentPage , setCurrentPage] = useState(1);
     const equimentList = equipments.data;
-    const pagInfo = equipments.pageInfo;
+    const pageInfo = equipments.pageInfo;
+    const navigate = useNavigate();
 
     useEffect(
         () =>
@@ -23,10 +24,11 @@ function Equipment()
         [currentPage]
     );
     
-    console.log("equipments : " , equipments);
-    console.log("EquipmentList : " ,equimentList);
-    console.log("pageInfo : " , pagInfo);
-    
+    const onClickEquipmentHandler = (categoryCode) =>
+    {
+        console.log(categoryCode);
+        navigate(`/equipment/detail/${categoryCode}`)
+    }
 
     return(
         <>
@@ -42,7 +44,9 @@ function Equipment()
                     </thead>
                     <tbody>
                         {equimentList && equimentList.map((equ) => (
-                            <tr key={ equ.categoryCode }>
+                            <tr 
+                                key={ equ.categoryCode }
+                                onClick={ () => onClickEquipmentHandler(equ.categoryCode)}>
                                 <td>{ equ.categoryCode }</td>
                                 <td>{ equ.equCategory.categoryName }</td>
                                 <td>{ equ.categoryName }</td>
@@ -54,7 +58,7 @@ function Equipment()
                     </tbody>
                 </table>
                 <div>
-                { pagInfo && <Pageingbar pagInfo={pagInfo} setCurrentPage={setCurrentPage}/>}
+                { pageInfo && <PagingBar pageInfo={pageInfo} setCurrentPage={setCurrentPage}/>}
                 </div>
             </div>
           

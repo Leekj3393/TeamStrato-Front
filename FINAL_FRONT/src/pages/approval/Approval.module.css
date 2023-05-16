@@ -32,49 +32,29 @@
   left: 20px;
 }
 
-.organChart {
+.selectApplineDiv {
   position:absolute;
   left: 150px;
   top: 60px;
 }
 
-.organChart fieldset {
+.selectApplineDiv fieldset {
   height: 500px;
   width: 200px;
 }
 
-.memberSelect {
-  padding-left: 10px;
-  padding-top: 5px;
-}
-
-.memberSelect label {
-  padding-left: 5px;
-}
-
-
-.selectedDiv {
-  position:absolute;
-  left: 800px;
-  top: 90px;
-}
-
-.selectedAppLine {
-  width: 200px;
-  height: 250px;
-}
-
-.selectedPerUser {
-  width: 200px;
-  height: 150px;
-}
-
-
-.selectBtnDiv {
+.selectPeruserDiv {
   position: absolute;
-  top: 130px;
-  left: 550px;
+  top: 60px;
+  left: 500px;
 }
+
+.selectPeruserDiv fieldset {
+  height: 500px;
+  width: 200px;
+}
+
+
 
 .registFormDiv {
   position: absolute;
@@ -90,3 +70,24 @@
   width: 100px;
 }
 
+.nextBtnDiv {
+  position: absolute;
+  left : 750px;
+  top: 830px;
+}
+
+
+.nextBtnDiv button {
+  border-color: transparent;
+  background-color: transparent;
+}
+
+.nextBtnDiv img {
+  width: 100px;
+}
+
+.appFormDiv {
+  position: absolute;
+  top: 70px;
+  left: 30px
+}
