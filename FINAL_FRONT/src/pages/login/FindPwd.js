@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { resetMember } from "../../modules/MemberModule";
+import FindPwdForm from "../../components/form/FindPwdform";
 
-function Login(){
+function FindPwd(){
 
     return(
         <div className="whiteBox">
@@ -15,10 +16,10 @@ function Login(){
             <img className="GroupwareImg" src="/image/GroupwareImg.png"></img>
             </div>
             <div className="loginForm">
-                <FindIdForm/><br></br>
+                <FindPwdForm/><br></br>
             </div>
         </div>
     );
 };
 
-export default Login;
+export default FindPwd;
