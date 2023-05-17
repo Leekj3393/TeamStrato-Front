@@ -4,23 +4,21 @@ const initialState = [];
 
 const POST_APPROVAL = 'approval/POST_APPROVAL';
 const POST_APPLINE = 'approval/POST_APPLINE';
-const GET_MEMBERS_FOR_APP = 'approval/GET_MEMBERS_FOR_APP';
-const GET_DEPARTMENTS_FOR_APP = 'approval/GET_DEPARTMENTS_FOR_APP';
+const GET_MEMBERS_FOR_APPLINE = 'aproval/GET_MEMBERS_FOR_APPLINE';
 
 
-export const { approval : { postApproval, postAppLine, getMembersForApp, getDepartmentsForApp }} = createActions({
+export const { approval : { postApproval, postAppLine, getMembersForAppline }} = createActions({
     [POST_APPROVAL] : res => res,
     [POST_APPLINE] : res => res,
-    [GET_MEMBERS_FOR_APP] : res => res.data,
-    [GET_DEPARTMENTS_FOR_APP] : res => res.data,
+    [GET_MEMBERS_FOR_APPLINE] : res => res.data,
 });
+
 
 const approvalReducer = handleActions (
     {
         [POST_APPROVAL] : (state, {payload}) => ({regist: payload}),
-        [POST_APPLINE] : (state, {payload}) => ({regist: payload}),
-        [GET_MEMBERS_FOR_APP] : (state, {payload}) => payload,
-        [GET_DEPARTMENTS_FOR_APP] : (state, {payload}) => payload,
+        [POST_APPLINE] : (state, {payload}) => ({regist2: payload}),
+        [GET_MEMBERS_FOR_APPLINE] : (state, {payload}) => payload,
     }
 , initialState);
 
