@@ -4,10 +4,6 @@
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
 }
 
-th{
-  background-color: transparent;
-}
-
 .content{
   font-family: 'SUITE-Regular';
   position: absolute;
@@ -101,6 +97,7 @@ th{
   text-align: center;
   border-style: none none solid none;
   border-width: 1px;
+  background: transparent;
 }
 
 .partSelect {
