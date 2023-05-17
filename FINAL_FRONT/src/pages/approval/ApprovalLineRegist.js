@@ -10,7 +10,7 @@ function ApprovalLineRegist() {
     
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {jobDept} = useSelector((state) => state.memberReducer);
+    // const {jobDept} = useSelector((state) => state.memberReducer);
     const {regist2, member} = useSelector((state) => state.approvalReducer);
     const {memberCode, deptCode} = useParams();
     const [params] = useSearchParams();
@@ -57,12 +57,12 @@ function ApprovalLineRegist() {
     const onClickResetHandler = () => {}
 
     /* 부서 값 변경 이벤트 */
-    const onChangeDeptHandler = (e) => {
-        setForm2({
-            ...form2,
-            department : { deptCode : e.target.value}
-        })     
-    }
+    // const onChangeDeptHandler = (e) => {
+    //     setForm2({
+    //         ...form2,
+    //         department : { deptCode : e.target.value}
+    //     })     
+    // }
 
     /* 멤버 변경 이벤트 */
     const onChangeMemberHandler = (e) => {
@@ -71,12 +71,14 @@ function ApprovalLineRegist() {
             member : { memberCode : e.target.value}
         })     
     }
-
-
+    
     useEffect(() => {
         // dispatch(calljobDeptListAPI());
         dispatch(callMemberListForAppAPI());
-    }, []);
+    }, [member]);
+    
+
+
 
     
  
