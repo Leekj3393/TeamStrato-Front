@@ -8,7 +8,10 @@ const initialState = {
   totalMemberCount: 0,
   time: '',
   endTime:'',
-  membersData:''
+  membersData:'',
+  workInfo:'',
+  memberRequest:'',
+  getAllRequest:''
 };
 
 // Action types
@@ -17,10 +20,14 @@ const GET_MEMBERS_ALL = 'MyPage/GET_MEMBERS_ALL';
 const GET_MY_MEMBERS = 'MyPage/GET_MY_MEMBERS';
 const PUT_MODIFY_MYMEMBER =  'MyPage/PUT_MODIFY_MYMEMBER';
 
+//docu
+const GET_DOCU_REQUEST_MEMBER ='request/GET_DOCU_REQUEST_MEMBER';
+
 const POST_GO_TO_WORK = 'MyPage/POST_GO_TO_WORK';
 const POST_END_WORK = 'MyPage/END_WORK';
 const POST_OUT_WORK = 'MyPage/OUT_WORK';
 const POST_RETURN_WORK = 'MyPage/RETURN_WORK';
+const GET_INFO_WORK ='MyPage/GET_INFO_WORK';
 
 
 
@@ -28,6 +35,11 @@ const POST_INSERT_REQUEST = 'MyPage/INSERT_REQUEST';
 
 // Action creators
 export const data = createActions({
+
+    [GET_DOCU_REQUEST_MEMBER]: (memberRequest) => {
+    console.log(memberRequest)
+    return ({ memberRequest })
+  }, 
 
   [GET_MEMBERS_ALL]: (totalMemberCount) => {
     console.log(totalMemberCount)
@@ -43,6 +55,11 @@ export const data = createActions({
     console.log(phone);
     return { phone };
   },
+
+  [GET_INFO_WORK] : (workInfo) => {
+    return {workInfo};
+  },
+
   [POST_GO_TO_WORK]: (data) => {
     console.log(data)
     return ({})
@@ -79,6 +96,13 @@ const myPageReducer = handleActions(
       })
     },
 
+    [GET_DOCU_REQUEST_MEMBER]: (state, { payload: { memberRequest } }) => {
+      console.log('모듈 memberRequest:', memberRequest);
+      return {
+        ...state,
+        memberRequest,
+      };
+    },
     //회원의 정보를 조회하는거 이렇게 하는게 맞나
     [GET_MY_MEMBERS]: (state, {payload: {membersData}}) => {
       console.log('GET_MY_MEMBERS', membersData)
@@ -97,6 +121,13 @@ const myPageReducer = handleActions(
           phone: phone,
         },
       };
+    },
+
+    [GET_INFO_WORK] :(state, {payload : { workInfo}}) =>{
+      return{
+        ...state,
+        workInfo,
+      }
     },
   
 
