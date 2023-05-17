@@ -23,34 +23,66 @@ export const callMyPageAPI = () => {
   };
 };
 
-// 마이페이지 멤버 조회
-export const callMyPageMemberAPI = ({ id = 0 }) => {
-  const reqeustURL = `${PRE_URL}/members/${id}`;
+// 마이페이지 기본 정보 조회
+export const callMyPageMemberAPI = () => {
+  const reqeustURL = `${PRE_URL}/membersInfo`;
+
+  return async (dispatch, getState) => {
+
+    const response = await fetch(reqeustURL,{
+      method : 'GET',
+      headers : {
+        "Content-Type" : "application/json",
+        "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+      }
+    });
+
+    const result = await response.json();
+
+    if (response.status === 200) {
+      dispatch({ type: 'MyPage/GET_MY_MEMBERS', payload: { membersData: result.data } });
+    }
+  };
+};
+
+export const callDocuMember = () => {
+  const requestURL = `${PRE_URL}/request`;
 
   return async (dispatch, getState) => {
     try {
-      const response = await fetch(reqeustURL);
+      const response = await fetch(requestURL);
       const result = await response.json();
 
       if (response.status === 200) {
-        console.log('Member data:', result.data.membersData); // 로그 추가
-        dispatch({ type: 'MyPage/GET_MY_MEMBERS', payload: { membersData: result.data } });
+        console.log('memberRequest:', result); // 로그 추가
+        dispatch({ type: 'request/GET_DOCU_REQUEST_MEMBER', payload: { memberRequest: result } });
       }
+
+      // 여기서 Promise를 반환합니다.
+      return Promise.resolve();
     } catch (error) {
       console.error('Failed to fetch member list:', error);
+      // 에러 발생 시에도 Promise를 반환합니다.
+      return Promise.reject(error);
     }
   };
 };
 
 
-export const callGoToWorkAPI = ({id = 0}) => {
-  const requestURL = `${PRE_URL}/attendance/${id}`;
 
+//로그인 된 사람의 정보로 출근하기
+export const callGoToWorkAPI = () => {
+  const requestURL = `${PRE_URL}/attendance`;
 
   return async (dispatch, getState) => {
     try {
-      const response = await fetch(requestURL, {method: 'POST'});
-      // const result = await response.json();
+      const response = await fetch(requestURL, {
+        method: 'POST',
+        headers: {
+          "Content-Type" : "application/json",
+          "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+        }
+      });
 
       if (response.status === 200) {
         // 넘어온 시간값 넘기기
@@ -63,93 +95,74 @@ export const callGoToWorkAPI = ({id = 0}) => {
 };
 
 
-export const callEndWorkAPI = ({id = 0}) => {
-  const requestURL = `${PRE_URL}/attendance/endTime/${id}`;
-
-  const endTime = new Date().toISOString();
-
-  return async (dispatch, getState) => {
-    try {
-      console.log(requestURL)
-
-      const response = await fetch(requestURL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ endTime }),  // 서버에 퇴근 시간을 전달
-      });
-
-      if (response.status === 200) {
-        dispatch({type: 'MyPage/END_WORK', payload: {endTime}});  // 리듀서에 퇴근 시간을 전달
-      }
-
-      console.log(response)
-    } catch (error) {
-      console.log(error)
-      console.error('Failed to fetch member list:', error);
-    }
-  };
-
-
-
-};
-
-export const callOutWorkAPI = ({id = 0}) => {
-  const requestURL = `${PRE_URL}/attendance/outTime/${id}`;
-
-  const outTime = new Date().toISOString();
+//로그인 된 사람의 정보로 퇴근하기
+export const callEndWorkAPI = () => {
+  const requestURL = `${PRE_URL}/attendance/endTime`;
 
   return async (dispatch, getState) => {
     try {
-      console.log(requestURL)
-
       const response = await fetch(requestURL, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-        },
-        // body: JSON.stringify({ outTime }),  // 서버에 퇴근 시간을 전달
+          "Content-Type" : "application/json",
+          "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+        }
       });
 
       if (response.status === 200) {
-        dispatch({type: 'MyPage/OUT_WORK', payload: {outTime}});  // 리듀서에 퇴근 시간을 전달
+        // 넘어온 시간값 넘기기
+        dispatch({type: 'MyPage/END_WORK', payload: {endTime: (new Date().toISOString())}});
       }
-
-      console.log(response)
     } catch (error) {
-      console.log(error)
       console.error('Failed to fetch member list:', error);
     }
   };
 };
 
 
-
-export const callReturnWorkAPI = ({id = 0}) => {
-  const requestURL = `${PRE_URL}/attendance/returnTime/${id}`;
-
-  const returnTime = new Date().toISOString();
+//외출
+export const callOutWorkAPI = () => {
+  const requestURL = `${PRE_URL}/attendance/outTime`;
 
   return async (dispatch, getState) => {
     try {
-      console.log(requestURL)
-
       const response = await fetch(requestURL, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-        },
-        // body: JSON.stringify({ outTime }),  // 서버에 퇴근 시간을 전달
+          "Content-Type" : "application/json",
+          "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+        }
       });
 
       if (response.status === 200) {
-        dispatch({type: 'MyPage/RETURN_WORK', payload: {returnTime}});  // 리듀서에 퇴근 시간을 전달
+        // 넘어온 시간값 넘기기
+        dispatch({type: 'MyPage/OUT_WORK', payload: {outTime: (new Date().toISOString())}});
       }
-
-      console.log(response)
     } catch (error) {
-      console.log(error)
+      console.error('Failed to fetch member list:', error);
+    }
+  };
+};
+
+//복귀
+export const callReturnWorkAPI = () => {
+  const requestURL = `${PRE_URL}/attendance/returnTime`;
+
+  return async (dispatch, getState) => {
+    try {
+      const response = await fetch(requestURL, {
+        method: 'POST',
+        headers: {
+          "Content-Type" : "application/json",
+          "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+        }
+      });
+
+      if (response.status === 200) {
+        // 넘어온 시간값 넘기기
+        dispatch({type: 'MyPage/RETURN_WORK', payload: {returnTime: (new Date().toISOString())}});
+      }
+    } catch (error) {
       console.error('Failed to fetch member list:', error);
     }
   };
@@ -167,6 +180,7 @@ export const updateMemberAPI = ({ id = 0, phone }) => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
         },
         body: JSON.stringify({
           phone,
@@ -185,9 +199,31 @@ export const updateMemberAPI = ({ id = 0, phone }) => {
 };
 
 
+//리퀘스트 전체조회
+export const callMyPageAllRequestAPI = () => {
+  const reqeustURL = `${PRE_URL}/request`;
+
+  return async (dispatch, getState) => {
+
+    const response = await fetch(reqeustURL,{
+      method : 'GET',
+      headers : {
+        "Content-Type" : "application/json",
+        "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+      }
+    });
+
+    const result = await response.json();
+
+    if (response.status === 200) {
+      dispatch({ type: 'MyPage/GET_ALL_REQUEST', payload: { getAllRequest: result.data } });
+    }
+  };
+};
 
 
-export const callInsertRequestAPI = ({id = 0,requestReason, requestStart, requestEnd}) => {
+
+export const callInsertRequestAPI = ({id = 0,requestReason, requestStart, requestEnd, requestType}) => {
   const requestURL = `${PRE_URL}/request/insert/${id}`;
   const selectedDates1 = new Date().toISOString();
 
@@ -204,13 +240,17 @@ export const callInsertRequestAPI = ({id = 0,requestReason, requestStart, reques
           requestReason,
           requestStart,
           requestEnd,
-          requsetType: "some type"
+          requsetType: requestType
         }),
       });
 
-      if (response.status === 200) {
+      if (response.ok) {  
         console.log('response', response)
-        dispatch({type: 'MyPage/INSERT_REQUEST', payload: {selectedDates1}});  // 리듀서에 퇴근 시간을 전달
+        dispatch({type: 'MyPage/INSERT_REQUEST', payload: {selectedDates1}});  
+        alert(requestType + ' 완료되었습니다');
+      } else {  
+        const message = await response.text();
+        alert(message);
       }
 
       console.log(response)
@@ -222,3 +262,34 @@ export const callInsertRequestAPI = ({id = 0,requestReason, requestStart, reques
 };
 
 
+
+
+//출근한 정보 얻어오기
+export const callWorkInfoAPI = () => {
+  const requestURL = `${PRE_URL}/workInfo`;
+
+  return async (dispatch, getState) => {
+    try {
+      const response = await fetch(requestURL, {
+        method: 'GET',
+        headers: {
+          "Content-Type" : "application/json",
+          "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+        }
+      });
+
+      if (response.status === 200) {
+        // result는 fetch 호출에서 반환된 응답의 내용을 담는 변수입니다.
+        const result = await response.json();
+
+        // workInfo는 result를 파싱한 결과를 담는 변수입니다.
+        const workInfo = result; //이 부분은 실제 응답 형식에 맞게 수정해야 합니다.
+
+        // 넘어온 시간값 넘기기
+        dispatch({type: 'MyPage/GET_INFO_WORK', payload: {workInfo}});
+      }
+    } catch (error) {
+      console.error('Failed to fetch member list:', error);
+    }
+  };
+};
