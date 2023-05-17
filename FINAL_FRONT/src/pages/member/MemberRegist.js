@@ -7,16 +7,15 @@ import { callMemberRegistAPI, calldeptListAPI, calljobDeptListAPI, calljobListAP
 function MemberReigst () {
 
     const navigate = useNavigate();
-    const imageInput = useRef();
+    const ImageInput = useRef();
     const { regist, jobDept } = useSelector(state => state.memberReducer);
     const dispatch = useDispatch();
     const [image, setImage] = useState(null);
     const [imageUrl, setImageUrl] = useState('');
     const [form, setForm] = useState({});
-
-    // console.log("jobDept",jobDept);
+    
     console.log("form", form);
-    // console.log("imgae", image);
+    
 
     useEffect (
         () => {
@@ -44,7 +43,7 @@ function MemberReigst () {
         () => {
             if(regist?.status === 200) {
                 alert('상품 등록이 완료됐습니다.');
-                navigate('/member', {replace : true});
+                navigate('/', {replace : true});
             }
         },
         [regist]
@@ -68,7 +67,7 @@ function MemberReigst () {
 
     /* 이미지 업로드 버튼 클릭 이벤트 */
     const onClickImgageUpload = () => {
-        imageInput.current.click();
+        ImageInput.current.click();
     }
 
     /* 파일 첨부시 동작하는 이벤트 */
@@ -84,24 +83,26 @@ function MemberReigst () {
         });
     }
 
-    const onClickProductRegistrationHandler = () => {
+    const onClickMemberRegistrationHandler = () => {
         
         /* 서버로 전달할 FormData 형태의 객체 설정 */
         const formData = new FormData();
+        formData.append("memberId", form.memberId);
+        formData.append("memberPwd", form.memberPwd);
         formData.append("memberName", form.memberName);
         formData.append("residentNo", form.residentNo);
+        formData.append("department.deptCode", form.department.deptCode);
+        formData.append("job.jobCode", form.job.jobCode);
         formData.append("gender", form.gender);
         formData.append("phone", form.phone);
         formData.append("address", form.address);
         formData.append("bankName", form.bankName);
         formData.append("bankNo", form.bankNo);
         formData.append("memberSalary", form.memberSalary);
-        formData.append("memberAnnual", form.memeberAnnual);
-        formData.append("department.deptCode", form.department.deptCode);
-        formData.append("job.jobCode", form.job.jobCode);
-    
+        formData.append("memberAnnual", form.memberAnnual);
+
         if(image) {
-            formData.append("file", image);
+            formData.append("memberImage", image);
         }
 
         dispatch(callMemberRegistAPI(formData));
@@ -124,9 +125,9 @@ function MemberReigst () {
                     <input 
                         style={{display : 'none'}}
                         type="file"
-                        name="file"
+                        name="memberImage"
                         accept='image/jpg,image/png,image/jpeg,image/gif'
-                        ref={imageInput}
+                        ref={ImageInput}
                         onChange={onChangeImageUpload}
                     />
                     <button 
@@ -177,7 +178,7 @@ function MemberReigst () {
                                 <td><label>부서</label></td>
                                 <td>
                                     <select name="deptCode" onChange={onChangeDeptHandler}>
-                                        <option value="selection" disabled>선택</option>
+                                        <option value="selection">선택</option>
                                         {jobDept?.dept &&
                                             jobDept.dept.map((dept) => (
                                                 <option 
@@ -195,7 +196,7 @@ function MemberReigst () {
                                 <td><label>직급</label></td>
                                 <td>
                                 <select name="jobCode" onChange={onChangeJobHandler}>
-                                    <option value="selection" disabled>선택</option>
+                                    <option value="selection">선택</option>
                                     {jobDept?.job &&
                                         jobDept.job.map((job) => (
                                             <option 
@@ -232,6 +233,7 @@ function MemberReigst () {
                                 <td className="memberRgTd"><label>급여계좌</label></td>
                                 <td>
                                 <select name="bankName" onChange={onChangeHandler}>
+                                    <option>선택</option>
                                     <option>농협</option>
                                     <option>국민</option>
                                     <option>신한</option>
@@ -250,14 +252,14 @@ function MemberReigst () {
                             <tr>
                                 <td className="memberRgTd" ><label>잔여연차</label></td>
                                 <td>
-                                    <input name="memberAnnual" onChange={onChangeHandler}/>
+                                    <input name="memberAnnual" type="number" onChange={onChangeHandler}/>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <div className="memberRgBt">
-                    <button className="memberRgBt1" onClick={onClickProductRegistrationHandler}>등록</button>
+                    <button className="memberRgBt1" onClick={onClickMemberRegistrationHandler}>등록</button>
                     <button className="memberRgBt2" onClick={ () => navigate(-1)}>취소</button>
                 </div>
             </div>

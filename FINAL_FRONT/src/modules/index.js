@@ -4,6 +4,7 @@ import myPageReducer from "./MyPageModule";
 import noticeReducer from "./NoticeModule";
 import equipmentReducer from "./EquipmentModule";
 import approvalReducer from "./ApprovalModule";
+import memberFileReducer from "./MemberFileModule";
 
 const rootReducer = combineReducers({
     memberReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
     noticeReducer,
     equipmentReducer,
     approvalReducer,
+    memberFileReducer,
 });
 
 export default rootReducer;
