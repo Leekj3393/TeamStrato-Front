@@ -1,10 +1,10 @@
-import { postApproval, postAppLine, getMembersForApp, getDepartmentsForApp } from "../modules/ApprovalModule";
+import { postApproval, postAppLine, getMembersForAppline} from "../modules/ApprovalModule";
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
 const PRE_URL = `http://${SERVER_IP}:${SERVER_PORT}/skylift/approval`;
 
-export const callApprovalRegistAPI = (formData) => {
+export const callApprovalRegistAPI = (form) => {
     const requestURL = `${PRE_URL}/regist`;
 
     return async (dispatch, getState) => {
@@ -12,9 +12,9 @@ export const callApprovalRegistAPI = (formData) => {
             method: 'POST',
             headers: {
                 "Content-Type" : "application/json",
-                "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+                Authorization : "Bearer " + window.localStorage.getItem('accessToken')
             },
-            body: formData
+            body: JSON.stringify(form),
         }).then(response => response.json());
 
         if(result.status === 200) {
@@ -25,16 +25,17 @@ export const callApprovalRegistAPI = (formData) => {
 }
 
 
-export const callAppLineInsertAPI = (formData) => {
+export const callAppLineInsertAPI = (form2) => {
     const requestURL = `${PRE_URL}/appline`;
 
     return async (dispatch, getState) => {
         const result = await fetch(requestURL, {
             method: 'POST',
             headers : {
-                // "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+                "Content-Type" : "application/json",
+                "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
             },
-            body : formData
+            body : JSON.stringify(form2),
         }).then(response => response.json());
 
         if(result.status === 200) {
@@ -44,41 +45,20 @@ export const callAppLineInsertAPI = (formData) => {
     }
 }
 
+
 export const callMemberListForAppAPI = () => {
-    const requestURL = `${PRE_URL}/appline/members`;
+
+    const reqeustURL = `${PRE_URL}/memberList`;
 
     return async (dispatch, getState) => {
-        const result = await fetch(requestURL, {
-            method : 'GET',
-            headers : {
-                "Content-Type" : "application/json",
-                // "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
-            }
-        }).then(response => response.json());
+
+        const result = await fetch(reqeustURL).then(response => response.json());
 
         if(result.status === 200) {
-            console.log('[ApprovalAPICalls] :  callMemberListForAppAPI result : ', result);
-            dispatch(getMembersForApp(result));
+            console.log('result', result);
+            dispatch(getMembersForAppline(result));
         }
-    }
 
-    
-}
-export const callDepartmentListForAppAPI = () => {
-    const requestURL = `${PRE_URL}/appline/department`;
-
-    return async (dispatch, getState) => {
-        const result = await fetch(requestURL, {
-            method : 'GET',
-            headers : {
-                "Content-Type" : "application/json",
-                // "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
-            }
-        }).then(response => response.json());
-
-        if(result.status === 200) {
-            console.log('[ApprovalAPICalls] :  callDepartmentListForAppAPI result : ', result);
-            dispatch(getDepartmentsForApp(result));
-        }
     }
 }
+
