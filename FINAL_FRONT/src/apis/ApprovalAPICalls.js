@@ -45,7 +45,6 @@ export const callAppLineInsertAPI = (form2) => {
     }
 }
 
-
 export const callMemberListForAppAPI = () => {
 
     const reqeustURL = `${PRE_URL}/memberList`;

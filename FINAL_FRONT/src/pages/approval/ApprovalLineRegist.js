@@ -2,8 +2,9 @@ import { NavLink, useNavigate, useParams, useSearchParams } from 'react-router-d
 import ApprovalCSS from './Approval.module.css';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { callAppLineInsertAPI, callMemberListForAppAPI} from '../../apis/ApprovalAPICalls';
-import { calljobDeptListAPI } from '../../apis/MemberAPICalls';
+import { callAppLineInsertAPI } from '../../apis/ApprovalAPICalls';
+import { callMemberListForAppAPI } from '../../apis/ApprovalAPICalls';
+// import { calljobDeptListAPI } from '../../apis/MemberAPICalls';
 
 
 function ApprovalLineRegist() {
@@ -11,8 +12,8 @@ function ApprovalLineRegist() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     // const {jobDept} = useSelector((state) => state.memberReducer);
-    const {regist2, member} = useSelector((state) => state.approvalReducer);
-    const {memberCode, deptCode} = useParams();
+    const {regist2, members} = useSelector(state => state.approvalReducer);
+    const {memberCode} = useParams();
     const [params] = useSearchParams();
     const deptName = params.get("deptName");
     const [form2, setForm2] = useState({
@@ -68,20 +69,15 @@ function ApprovalLineRegist() {
     const onChangeMemberHandler = (e) => {
         setForm2({
             ...form2,
-            member : { memberCode : e.target.value}
+            members : { memberCode : e.target.value}
         })     
     }
     
     useEffect(() => {
         // dispatch(calljobDeptListAPI());
         dispatch(callMemberListForAppAPI());
-    }, [member]);
-    
+    }, []);
 
-
-
-    
- 
     return(
         <div className={ApprovalCSS}>
             <div className={ApprovalCSS.square}></div>                           {/* 본문 하얀 네모 */}
@@ -93,34 +89,20 @@ function ApprovalLineRegist() {
                     <fieldset>
                         <legend>결재선 선택</legend>
                         <div>
-                            <h4>결재선 1</h4>
-                                {/* <label>부서 선택</label><br/>
-                                <select name="deptCode" onChange={onChangeDeptHandler}>
-                                    {jobDept?.dept &&
-                                        jobDept.dept.map((dept) => (
-                                            <option 
-                                                key={dept.deptCode} 
-                                                value={dept.deptCode}
-                                                
-                                            >
-                                                {dept.deptCode}. {dept.deptName}
-                                            </option>
+
+                            <label>결재선 1 선택</label><br/>
+                            <select name='memberCode' onChange={onChangeMemberHandler}>
+                                <option value="selection" disabled>선택</option>    
+                                {members?.member && 
+                                    members.member.map((member) => (
+                                        <option
+                                            key={member.memberCode}
+                                            value={member.memberCode}
+                                        >
+                                            {member.memberCode} - {member.memberName}
+                                        </option>
                                     ))}
-                                </select><br/>
-                                 */}
-                                <label>결재선 선택</label><br/>
-                                <select name='memberCode' onChange={onChangeMemberHandler}>
-                                    <option value="selection" disabled>선택</option>    
-                                    {member?.mb && 
-                                        member.mb.map((mb) => (
-                                            <option
-                                                key={mb.deptCode}
-                                                value={mb.memberCode}
-                                            >
-                                                {mb.deptCode} - {mb.memberName}
-                                            </option>
-                                        ))}
-                                </select>
+                            </select>
                         
                         </div>
                     </fieldset>
@@ -148,3 +130,20 @@ function ApprovalLineRegist() {
 }
 
 export default ApprovalLineRegist;
+
+
+
+{/* <label>부서 선택</label><br/>
+<select name="deptCode" onChange={onChangeDeptHandler}>
+    {jobDept?.dept &&
+        jobDept.dept.map((dept) => (
+            <option 
+                key={dept.deptCode} 
+                value={dept.deptCode}
+                
+            >
+                {dept.deptCode}. {dept.deptName}
+            </option>
+    ))}
+</select><br/>
+    */}

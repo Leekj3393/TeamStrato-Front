@@ -4,7 +4,7 @@ const initialState = [];
 
 const POST_APPROVAL = 'approval/POST_APPROVAL';
 const POST_APPLINE = 'approval/POST_APPLINE';
-const GET_MEMBERS_FOR_APPLINE = 'aproval/GET_MEMBERS_FOR_APPLINE';
+const GET_MEMBERS_FOR_APPLINE = 'aprovalMember/GET_MEMBERS_FOR_APPLINE';
 
 
 export const { approval : { postApproval, postAppLine, getMembersForAppline }} = createActions({
@@ -18,7 +18,7 @@ const approvalReducer = handleActions (
     {
         [POST_APPROVAL] : (state, {payload}) => ({regist: payload}),
         [POST_APPLINE] : (state, {payload}) => ({regist2: payload}),
-        [GET_MEMBERS_FOR_APPLINE] : (state, {payload}) => payload,
+        [GET_MEMBERS_FOR_APPLINE] : (state, {payload}) => ({members : payload}),
     }
 , initialState);
 
