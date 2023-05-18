@@ -1,40 +1,61 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { callEquipmentDetailAPI } from "../../apis/EquipmentAPICalls";
 import EquipmentDetailItem from "./EquipmentDetailItem";
 import EquipmentDetailCSS from "./EquipmentDetailCSS.css";
+import PagingBar from "../../components/common/PagingBar";
 
 
 function EquipmentDetail()
 {
     const params = useParams();
-    const categoryCode = params.categoryCode;
+    const navigate = useNavigate();
+    const [equ , setEqu] = useState();
+    const [pageInfo,setPageInfo] = useState({});
+    const [currentPage , setCurrentPage] = useState(1);
     const dispatch = useDispatch();
     const data = useSelector((state) => state.equipmentReducer);
-    const equipment = data.data;
-    const pagingInfo = data.pageInfo;
-    const [equ , setEqu] = useState();
+    const categoryCode = params.categoryCode;
+    const equipment = data.detail;
+
+    console.log('data :' , data)
+    console.log("equipment",equipment)
 
     useEffect(
         () =>
         {
-            dispatch(callEquipmentDetailAPI({categoryCode}));
-            setEqu(equipment[0]);
+            dispatch(callEquipmentDetailAPI({categoryCode , currentPage}));
         },
-        []
+        [currentPage]
     );
+
+    useEffect(
+        () =>
+        {
+            { equipment && setEqu(equipment.data[0]); }
+            { equipment && setPageInfo(equipment.pageInfo)}
+        },
+        [data]
+    );
+    
+    const onClickRegist = () =>
+    {
+        navigate('/equipment/regist');
+    }
     
     const onClickEquipmentHandler = (equ) =>{
         setEqu(equ);
-    } 
-
-    console.log("equ" , equ);
+    }
 
     return(
         <div>
             <div className="equipmentInfo">
-                { equ && <EquipmentDetailItem key={equ.equipmentCode} equipment={equ}/>}
+                { equ && <EquipmentDetailItem key={equ.equipmentCode} equ={equ}/>}
+            </div>
+            <div className="buttonInfo">
+                <button className="regist" onClick={ onClickRegist }>장비 추가</button>
+                <button className="modify">장비 수정</button>
             </div>
             <div className="equipmentList">
                 <table>
@@ -47,7 +68,7 @@ function EquipmentDetail()
                         <th> 장비 등록 일 </th>
                     </thead>
                     <tbody>
-                        { equipment && equipment.map((equ) => (
+                        {  equipment?.data.map((equ) => (
                             <tr key={equ.equipmentCode}
                                 onClick={ () => onClickEquipmentHandler(equ) }
                             >
@@ -56,11 +77,14 @@ function EquipmentDetail()
                                 <td>{ equ.equipmentName }</td>
                                 <td>{ equ.equipmentStatus }</td>
                                 <td>{ equ.equipmentCreateDate }</td>
-                                <td>{  equ.equipmentModifyDate ? equ.equipmentModifyDate : '수정 시간이 존재 하지 않음' }</td>
+                                <td>{ equ.equipmentModifyDate ? equ.equipmentModifyDate : '수정 시간이 존재 하지 않음' }</td>
                         </tr>
-                        ))}
+                        )) }
                     </tbody>
                 </table>
+                <div className="pagebar">
+                    { equipment && <PagingBar pageInfo={pageInfo} setCurrentPage={setCurrentPage}/> }
+                </div>
             </div>
         </div>
     );

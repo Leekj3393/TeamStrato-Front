@@ -42,6 +42,7 @@ function EquNavbar({url})
              type="text"
               onChange={onChangeHandler}></input>
           <button className="inputBtn"><img src=""/></button>
+          <hr/>
         </>
       }
       </div>

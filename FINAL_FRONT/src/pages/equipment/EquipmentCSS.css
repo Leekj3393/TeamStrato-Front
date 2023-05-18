@@ -6,7 +6,9 @@
     width: 1100px;
 }
 
-.equTable
+.pageBar
 {
-    
+    position: relative;
+    bottom: 750px; 
+    right: 400px;
 }

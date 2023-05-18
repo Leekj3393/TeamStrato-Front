@@ -1,0 +1,87 @@
+.Ref-div
+{
+    position: relative;
+    bottom: 680px;
+    width: 1250px;
+    left: 380px;
+    height: 500px;
+    background-color: rgb(255, 255, 255);
+
+}
+
+.image-div
+{
+    position: relative;
+    width: 250px;
+    height: 250px;
+    left: 150px;
+    top: 100px;
+}
+
+.imageBox
+{
+    position: relative;
+    width: 250px;
+    height: 250px;
+
+    background-color: rgb(218, 255, 139);
+}
+
+.image
+{
+    position: relative;
+    width: 240px;
+    height: 240px;
+    top: 5px;
+    left: 5px;
+}
+
+.inputText
+{
+    position: relative;
+    width: 650px;
+    height: 300px;
+    left: 500px;
+    bottom: 200px;
+}
+
+.inputText tr
+{
+    position: relative;
+    margin-left: 20px;
+    height: 50px;
+    text-align: center;
+
+}
+
+.equipmentName
+{
+    position: relative;
+    right: 10px;
+}
+
+.select-box
+{
+    position: relative;
+    top : 10px;
+}
+
+.appTitle
+{
+    position: relative;
+    top: 10px;
+}
+
+.appContent
+{
+    position: relative;
+    bottom: 10px;
+}
+
+.appContent-text
+{
+    position: relative;
+    top: 5px;
+    height: 100px;  
+}
+

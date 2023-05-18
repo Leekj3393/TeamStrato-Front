@@ -1,11 +1,12 @@
 import EquItemCSS from "./EquItemCSS.css";
 
-function EquipmentDetailItem({equipment : {equipmentCode , equipmentName , equipmentStatus , equCategory }})
-{
+function EquipmentDetailItem({equ : { files , equipmentCode , equipmentName , equipmentStatus , equCategory}})
+{   
+    console.log(files[0]);
     return(
         <>
             <div className="imgbox">
-                <img src="" alt="이미지입니다 감사합니다"></img>
+              <img src={ files[0].filePath } alt="이미지입니다 감사합니다"></img>
             </div>
             <div className="text-box1">
                 <span>장비 코드 : </span>
@@ -23,6 +24,7 @@ function EquipmentDetailItem({equipment : {equipmentCode , equipmentName , equip
                 <span>장비 장비 분류 : </span>
                 <span>{ equCategory.equCategory.categoryName +' '+ equCategory.categoryName }</span>
             </div>
+            
         </>
     );
 }
