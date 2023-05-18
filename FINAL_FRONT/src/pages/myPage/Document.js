@@ -18,7 +18,6 @@ function Document() {
     const dispatch = useDispatch();
     const [attendanceInfo, setAttendanceInfo] = useState(null); // 출근 정보 상태 추가
     const state = useSelector(state => state);
-console.log('state:',state);
     const [isModalOpen, setIsModalOpen] = useState(false);
   
     const membersData = useSelector(state => state.myPageReducer.membersData);
@@ -32,7 +31,7 @@ console.log('state:',state);
     }, []);
     
 
-    //모달열이기기기
+    //모달열기
     const openModal = () => {
       setIsModalOpen(true);
     };
@@ -114,16 +113,6 @@ console.log('state:',state);
     };
   }, []);
 
-  // useEffect(() => {
-  //   if(selectedDates1.length >= 2){
-  //     dispatch(callInsertRequestAPI({
-  //       id:1,
-  //       requestStart: getDate(selectedDates1[0]),
-  //       requestEnd: getDate(selectedDates1[1])
-  //     }))
-  //   }
-  // }, [selectedDates1])
-
   //여기 한개
   const handleRequestVacation = () => {
     const today = new Date();  // 오늘 날짜를 가져옵니다. 시간은 무시하기 위해 시, 분, 초, 밀리초를 0으로 설정합니다.
@@ -141,7 +130,6 @@ console.log('state:',state);
   
     
     dispatch(callInsertRequestAPI({
-      id:1,
       requestReason: textareaValue,
       requestStart: getDate(selectedDates1[0]),
       requestEnd: getDate(selectedDates1[1]),
@@ -168,7 +156,6 @@ console.log('state:',state);
     console.log(textareaValue)
   
     dispatch(callInsertRequestAPI({
-      id: 1,
       requestReason: textareaValue,
       requestStart: getDate(selectedDates2[0]),
       requestEnd: getDate(selectedDates2[1]),
@@ -176,27 +163,67 @@ console.log('state:',state);
     }))
   }
 
-    //퇴직
+
     const handleWorkOutRequest = () => {
       const today = new Date();  // 오늘 날짜를 가져옵니다. 시간은 무시하기 위해 시, 분, 초, 밀리초를 0으로 설정합니다.
       today.setHours(0, 0, 0, 0);
     
     
       if (selectedDates1[0] < today || selectedDates1[1] < today) {  // 선택한 날짜가 오늘 이후인지 확인
-        alert('퇴직 신청 시작일과 종료일은 오늘 날짜 이후여야 합니다.');
+        alert('퇴직 신청 시작일과 종료일은 오늘 날짜 이후여야 합니다.',
+        '아닐 시에 결재관리자가 알아서 회수하겠습니다. ');
         return;
       }
     
       console.log(textareaValue);
       
       dispatch(callInsertRequestAPI({
-        id:1,
         requestReason: textareaValue,
-        requestStart: getDate(selectedDates1[0]),
-        requestEnd: getDate(selectedDates1[1]),
+        requestStart: getDate(selectedDates3[0]),
+        requestEnd: getDate(selectedDates3[1]),
         requestType: "퇴직 신청"
       }));
     };
+  
+
+    //삭제 버튼
+    // const handleDelete = async (request) => {
+    //   // 요청을 삭제하는 API를 호출합니다.
+    //   // API 호출에 실패하면 에러 메시지를 표시하고 함수를 종료합니다.
+    //   try {
+    //     await callDeleteRequestAPI(request);
+    //   } catch (error) {
+    //     alert('삭제 실패: ' + error.message);
+    //     return;
+    //   }
+    
+    //   // 상태를 업데이트해서 요청 목록을 다시 렌더링합니다.
+    //   setAllRequest(allRequest.filter(r => r !== request));
+    // };
+    
+  
+
+    // //퇴직
+    // const handleWorkOutRequest = () => {
+    //   const today = new Date();  // 오늘 날짜를 가져옵니다. 시간은 무시하기 위해 시, 분, 초, 밀리초를 0으로 설정합니다.
+    //   today.setHours(0, 0, 0, 0);
+    
+    
+    //   if (selectedDates1[0] < today || selectedDates1[1] < today) {  // 선택한 날짜가 오늘 이후인지 확인
+    //     alert('퇴직 신청 시작일과 종료일은 오늘 날짜 이후여야 합니다.'<br>
+    //     '아닐 시에 결재관리자가 알아서 회수하겠습니다. ');
+    //     return;
+    //   }
+    
+    //   console.log(textareaValue);
+      
+    //   dispatch(callInsertRequestAPI({
+    //     requestReason: textareaValue,
+    //     requestStart: getDate(selectedDates1[0]),
+    //     requestEnd: getDate(selectedDates1[1]),
+    //     requestType: "퇴직 신청"
+    //   }));
+    // };
     
   
   
@@ -314,7 +341,7 @@ console.log('state:',state);
         ref={calendarRef2}
         plugins={[dayGridPlugin, interactionPlugin]}
         selectable={false}
-        height="500px"
+        height="100%"
         initialView="dayGridMonth"
       /></div>
 
@@ -325,15 +352,16 @@ console.log('state:',state);
 
           <div class="content">
           <form>
-            <div class="title"><b>퇴직 신청</b> </div>
-            <div class="modi0" onClick={handleWorkOutRequest}>
-                    신청하기
-                </div>
+          <div class="title"><b>퇴직 신청</b></div>
+<div class="modi0" onClick={handleWorkOutRequest}>
+  신청하기
+</div>
+
               
         <label htmlFor="name" style={{ marginLeft: "40px",padding: "10px", fontSize: "20px" }}>신청인 이름: <b>{membersData ? membersData.memberName : ''}</b> </label><br/><br/>
     
 
-        <label htmlFor="reason" style={{ marginLeft: "50px", fontSize: "20px" }}>신청사유:</label><br/><br/>
+        <label htmlFor="reason" style={{ marginLeft: "50px", fontSize: "20px" }}>신청사유: 퇴직 신청 선택 날짜는 해당 날짜를 두번 똑같이 눌러주세요</label><br/><br/>
 
         <textarea id="reason1" name="reason" rows="32" cols="85" onChange={(e) => setTextareaValue(e.target.value)} required style={{ backgroundColor: "lightgray", border: "none",marginLeft: "40px" }}></textarea>
 
@@ -362,51 +390,54 @@ initialView="dayGridMonth"
 </div>
           </div>
         </div>
-<div>
-        {isModalOpen && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <div className="modal-content">
-              <h2>
-              '<b>{membersData ? membersData.memberName : ''}</b>'
-님의 신청 서류 신청 내역 📂
-           </h2>
-              <table>
+        <div>
+  {isModalOpen && (
+    <div className="modal-overlay">
+      <div className="modal">
+        <div className="modal-content">
+          <h2>
+            '<b>{membersData ? membersData.memberName : ''}</b>'
+            님의 신청 서류 신청 내역 📂
+          </h2>
+          <div className="modal-scrollable-content">
               {getAllRequest && getAllRequest.map((request, index) => (
-  <div key={index}>
-        <tr>
-          <th>Request Code</th>
-          <td>{request.requestCode}</td>
-        </tr>
-        <tr>
-          <th>Request Reason</th>
-          <td>{request.requestReason}</td>
-        </tr>
-        <tr>
-          <th>Request Type</th>
-          <td>{request.requsetType}</td>
-        </tr>
-        <tr>
-          <th>Request Start</th>
-          <td>{request.requestStart}</td>
-        </tr>
-        <tr>
-          <th>Request End</th>
-          <td>{request.requestEnd}</td>
-        </tr>
-        {/* Add more fields as needed */}
-    <br />
-  </div>
-))}
-
-
-</table>
-              <button onClick={closeModal}>신청 내역 닫기</button>
-            </div>
+                <div className="request" key={index}>
+                   <button >삭제</button>
+                  <tr>
+                  <th>결재 서류 번호</th>
+                  <td>{request.approvals.map((approval, index) => <p key={index}>{approval.appStatus}</p>)}</td>
+                </tr>
+                  <tr>
+                    <th>결재 내용</th>
+                    <td>{request.requestReason}</td>
+                  </tr>
+                  <tr>
+                    <th>결제 타입</th>
+                    <td>{request.requsetType}</td>
+                  </tr>
+                  <tr>
+                    <th>시작일</th>
+                    <td>{request.requestStart}</td>
+                  </tr>
+                  <tr>
+                    <th>종료일</th>
+                    <td>{request.requestEnd},</td>
+                  </tr>
+                  
+                  {/* Add more fields as needed */}
+                  <br />
+                </div>
+                
+              ))}
+              
           </div>
+          <button className="docuBtn" onClick={closeModal}>신청 내역 닫기</button>
         </div>
-      )}
+      </div>
+    </div>
+  )}
 </div>
+
       </body>
     </div>
 );

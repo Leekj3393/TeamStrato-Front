@@ -226,8 +226,8 @@ export const callMyPageAllRequestAPI = () => {
 
 
 
-export const callInsertRequestAPI = ({id = 0,requestReason, requestStart, requestEnd, requestType}) => {
-  const requestURL = `${PRE_URL}/request/insert/${id}`;
+export const callInsertRequestAPI = ({requestReason, requestStart, requestEnd, requestType}) => {
+  const requestURL = `${PRE_URL}/request/insert`;
   const selectedDates1 = new Date().toISOString();
 
   return async (dispatch, getState) => {
@@ -238,6 +238,7 @@ export const callInsertRequestAPI = ({id = 0,requestReason, requestStart, reques
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
         },
         body: JSON.stringify({ 
           requestReason,
@@ -269,7 +270,7 @@ export const callInsertRequestAPI = ({id = 0,requestReason, requestStart, reques
 
 //출근한 정보 얻어오기
 export const callWorkInfoAPI = () => {
-  const requestURL = `${PRE_URL}/workInfo`;
+  const requestURL = `${PRE_URL}/workToday`;
 
   return async (dispatch, getState) => {
     try {

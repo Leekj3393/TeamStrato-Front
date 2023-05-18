@@ -147,7 +147,7 @@ function Main() {
         {/* 나머지 코드 */}
       </div>
       <div className="todo1" style={{ flex: 1 }}>
-        <div className="todoText1">할 일</div>
+        <div className="todoText1">🗓 할 일</div>
         <div className="todoText0">3</div>
         <div className="todoNumber1">뉴뉴뉴</div>
       </div>

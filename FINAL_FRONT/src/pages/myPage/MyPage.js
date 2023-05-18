@@ -114,22 +114,71 @@ console.log("Months:", months);
 
 
   const handleWorknClick = () => {
-    dispatch(callGoToWorkAPI())
+    // 출근하기 API 호출
+    dispatch(callGoToWorkAPI());
+
+    // 출근 날짜 선택 확인
+    if (workInfo && workInfo[0] && workInfo[0].startTime) {
+      alert('이미 출근하셨습니다!');
+      return;
+    }
+
+    alert('출근이 완료되었습니다!');
+
+        // 2초 후에 페이지 자동 새로고침
+        setTimeout(() => {
+          window.location.reload();
+        }, 20);
   }
   
 
   const handleEndOnClick = () => {
-    dispatch(callEndWorkAPI())
+    if (workInfo && workInfo[0] && workInfo[0].endTime) {
+      alert('이미 퇴근하셨습니다!');
+      return;
+    }
+  
+    alert('퇴근이 완료되었습니다 ᕕ༼✿•̀︿•́༽ᕗ!');
+    dispatch(callEndWorkAPI());
+  
+    // 2초 후에 페이지 자동 새로고침
+    setTimeout(() => {
+      window.location.reload();
+    }, 20);
   }
+  
+  
 
   const handleOutOnClick = () => {
-    dispatch(callOutWorkAPI())
-  }
+    if (workInfo && workInfo[0] && workInfo[0].endTime) {
+      // 이미 퇴근한 경우 외출 불가능
+      alert('퇴근한 상태에서는 외출할 수 없습니다!');
+      return;
+    }
+    alert('외출이 완료되었습니다!');
+    dispatch(callOutWorkAPI());
 
+        // 2초 후에 페이지 자동 새로고침
+        setTimeout(() => {
+          window.location.reload();
+        }, 20);
+  }
+  
   const handleReturnOnClick = () => {
-    dispatch(callReturnWorkAPI())
-  }
+    if (!workInfo || workInfo.length === 0 || !workInfo[0].startTime || workInfo[0].endTime) {
+      // 출근하지 않았거나 퇴근한 경우 복귀 불가능
+      alert('출근 또는 외출한 상태에서만 복귀할 수 있습니다!');
+      return;
+    }
+    alert('외출이 완료되었습니다!');
+    dispatch(callReturnWorkAPI());
 
+        // 2초 후에 페이지 자동 새로고침
+        setTimeout(() => {
+          window.location.reload();
+        }, 20);
+  }
+  
     return (
         <div className={MyPageCSS}>
             <div className="employeetitle">
