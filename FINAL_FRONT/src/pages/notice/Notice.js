@@ -35,12 +35,8 @@ function Notice() {
 
     return(
         <div className={NoticeCSS}>
+            <div className={NoticeCSS.square}></div>                  {/* 본문 하얀 네모 */}
             <div className={NoticeCSS.content}>
-                <div className={NoticeCSS.noticeTitle}>
-                    공지사항!
-                </div>
-                <div className={NoticeCSS.square}></div>                  {/* 본문 하얀 네모 */}
-                <div className={NoticeCSS.contentDiv}>
                     <div className={NoticeCSS.noticeSearch}>  
                         <select>                                        {/* 검색 조건 */}
                             <option>제목</option>
@@ -75,7 +71,6 @@ function Notice() {
                         </tbody>
                     </table>
                 </div>
-            </div>
             <div>
                 { pageInfo && <PagingBar pageInfo={ pageInfo } setCurrentPage={ setCurrentPage } /> }
             </div>

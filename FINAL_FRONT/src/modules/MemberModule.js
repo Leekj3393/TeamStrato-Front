@@ -15,7 +15,7 @@ const PUT_MEBMERROLE = 'member/PUT_MEMBERROLE';
 const PUT_MEMBERREQUEST = 'member/PUT_MEMBERREQUEST'
 
 export const { member : {getMember , getMembers, postLogin, resetMember, postMember, postMembers, 
-    putMembers, putMemberrole, putMemberrequest,
+ putMemberrole, putMemberrequest,
 }} = createActions({
     [GET_MEMBERS] : res => res.data,
     [GET_MEMBER] : res => res.data,
