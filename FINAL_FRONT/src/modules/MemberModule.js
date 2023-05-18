@@ -11,11 +11,11 @@ const GET_MEMBERSNAME = 'member/GET_MEMBERSNAME';
 const POST_MEMBER = 'member/POST_MEMBER';
 const POST_MEMBERS = 'member/POST_MEMBERS';
 const PUT_MEMBERS = 'member/PUT_MEMBERS';
-const GET_JOBDEPTS = 'member/GET_JOBDEPTS';
-
+const PUT_MEBMERROLE = 'member/PUT_MEMBERROLE';
+const PUT_MEMBERREQUEST = 'member/PUT_MEMBERREQUEST'
 
 export const { member : {getMember , getMembers, postLogin, resetMember, postMember, postMembers, 
-    getJobdepts, putMembers
+ putMemberrole, putMemberrequest,
 }} = createActions({
     [GET_MEMBERS] : res => res.data,
     [GET_MEMBER] : res => res.data,
@@ -25,8 +25,9 @@ export const { member : {getMember , getMembers, postLogin, resetMember, postMem
     [GET_MEMBERSNAME] : res => res.data,
     [POST_MEMBER] : res => res.data,
     [POST_MEMBERS] : res => res,
-    [GET_JOBDEPTS] : res => res.data,
     [PUT_MEMBERS] : res => res,
+    [PUT_MEBMERROLE] : res => res,
+    [PUT_MEMBERREQUEST] : res => res,
 });
 
 const memberReducer = handleActions(
@@ -39,8 +40,9 @@ const memberReducer = handleActions(
         [GET_MEMBERSNAME] : (state, {payload}) => payload,
         [POST_MEMBER] : (state, {payload}) => ({ member : payload }),
         [POST_MEMBERS] : (state, { payload }) => ({ regist : payload }),
-        [GET_JOBDEPTS] : (state, {payload}) => ({ jobDept : payload}),
         [PUT_MEMBERS] : (state, {payload}) => ({ modify : payload}),
+        [PUT_MEBMERROLE] : (state, {payload}) => ({roleModify : payload}),
+        [PUT_MEMBERREQUEST] : (state, {payload}) => ({ Mbrequest : payload}),
     }
     , initialState);
 

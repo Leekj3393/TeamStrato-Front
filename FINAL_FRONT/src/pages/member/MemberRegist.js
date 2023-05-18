@@ -2,13 +2,14 @@ import MemberRegisCSS from './MemberRegist.css';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { callMemberRegistAPI, calldeptListAPI, calljobDeptListAPI, calljobListAPI } from '../../apis/MemberAPICalls';
+import { callMemberRegistAPI, calljobDeptListAPI, calljobListAPI } from '../../apis/MemberAPICalls';
 
 function MemberReigst () {
 
     const navigate = useNavigate();
     const ImageInput = useRef();
-    const { regist, jobDept } = useSelector(state => state.memberReducer);
+    const { regist } = useSelector(state => state.memberReducer);
+    const { jobDept } = useSelector(state => state.memberRoleReducer);
     const dispatch = useDispatch();
     const [image, setImage] = useState(null);
     const [imageUrl, setImageUrl] = useState('');

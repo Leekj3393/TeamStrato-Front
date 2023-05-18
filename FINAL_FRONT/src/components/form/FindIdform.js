@@ -15,6 +15,7 @@ function FindIdForm() {
         memberName: '',
         memberId: ''
     });
+    console.log("form : ",form);
 
     const onChangeHandler = (e) => {
         setForm({

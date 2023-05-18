@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LoginFormCss from "./Loginform.css";
-import { callGetMemberAPI } from "../../apis/LoginAPICalls";
 import { useNavigate, useParams } from "react-router-dom";
 import { callMailAPI } from "../../apis/MailAPICalls";
 
@@ -9,7 +8,6 @@ function FindPwdForm() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { member } = useSelector(state => state.memberReducer);
 
     const onClickFindPwdHandler = () => {
         dispatch(callMailAPI(form));
@@ -17,8 +15,10 @@ function FindPwdForm() {
 
     // 폼 데이터를 한 번에 변경 및 state 저장
     const[form, setForm] = useState({
-        code: ''
+        memberId: '',
+        residentNo: ''
     });
+
 
     const onChangeHandler = (e) => {
         setForm({
@@ -27,9 +27,13 @@ function FindPwdForm() {
         });
     }
 
-    /* 로그인 버튼 클릭 이벤트 */
+    /* 버튼 클릭 이벤트 */
+    const onClickSendPwdHandler = () => {
+        dispatch(callMailAPI(form));
+    }
+
     const onClickHandler = () => {
-        dispatch(callGetMemberAPI(form));
+        navigate('/update');
     }
 
     const onClickGoBackHandler = () => {
@@ -57,27 +61,18 @@ function FindPwdForm() {
             /><br></br>
             <br></br>
             <button className="findIdFormBtn"
+                onClick={ onClickSendPwdHandler } 
+            >
+                임시 비밀번호 발송
+            </button>
+            
+            <button className="findIdFormBtn"
                 onClick={ onClickHandler } 
             >
-                인증번호 발송
+                비밀번호 변경하기
             </button>
+            
 
-            <input
-                type="text"
-                name="mailconfirm"
-                className="mailconfirm"
-                placeholder="인증 번호를 입력하세요"
-                autoComplete='off'
-                onChange={ onChangeHandler }
-            />
-
-            <div>인증 성공 시 비밀번호 변경 페이지로 이동합니다.</div>
-
-            <button className="findPwdBtn"
-                onClick={ onClickFindPwdHandler } 
-            >
-                인증
-            </button>
             <button className="goBackBtn"
                 onClick={ onClickGoBackHandler } 
             >

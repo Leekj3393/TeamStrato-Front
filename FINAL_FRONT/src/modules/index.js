@@ -6,6 +6,8 @@ import equipmentReducer from "./EquipmentModule";
 import approvalReducer from "./ApprovalModule";
 import memberFileReducer from "./MemberFileModule";
 import applineReducer from "./ApplineModule";
+import memberRoleReducer from "./MemberRoleModule";
+
 
 const rootReducer = combineReducers({
     memberReducer,
@@ -15,6 +17,8 @@ const rootReducer = combineReducers({
     approvalReducer,
     memberFileReducer,
     applineReducer,
+    memberRoleReducer,
+
 });
 
 export default rootReducer;
