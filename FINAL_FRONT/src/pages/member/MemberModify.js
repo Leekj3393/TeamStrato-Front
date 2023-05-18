@@ -46,8 +46,8 @@ function MemberModify () {
     useEffect(
         () => {
             if(modify?.status === 200) {
-                alert('상품 수정이 완료 되었습니다.');
-                navigate('/product-management', { replace : true });
+                alert('직원 정보 수정이 완료 되었습니다.');
+                navigate('/', { replace : true });
             }
         },
         [modify]
@@ -75,6 +75,7 @@ function MemberModify () {
         
         /* 서버로 전달할 FormData 형태의 객체 설정 */
         const formData = new FormData();
+        formData.append("memberCode", form.memberCode);
         formData.append("memberName", form.memberName);
         formData.append("residentNo", form.residentNo);
         formData.append("gender", form.gender);
@@ -207,7 +208,7 @@ function MemberModify () {
                     </table>
                 </div>
                 <div className="memberRgBt">
-                    <button className="memberRgBt1" onClick={onClickMemberUpdateHandler}>등록</button>
+                    <button className="memberRgBt1" onClick={onClickMemberUpdateHandler}>수정</button>
                     <button className="memberRgBt2" onClick={ () => navigate(-1)}>취소</button>
                 </div>
             </div>
