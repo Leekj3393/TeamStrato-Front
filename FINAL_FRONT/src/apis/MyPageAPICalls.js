@@ -199,13 +199,14 @@ export const updateMemberAPI = ({ id = 0, phone }) => {
 };
 
 
-//리퀘스트 전체조회
+// 리퀘스트 전체 조회
+// 리퀘스트 전체 조회
 export const callMyPageAllRequestAPI = () => {
-  const reqeustURL = `${PRE_URL}/request`;
+  const requestURL = `${PRE_URL}/request`;
 
   return async (dispatch, getState) => {
 
-    const response = await fetch(reqeustURL,{
+    const response = await fetch(requestURL, {
       method : 'GET',
       headers : {
         "Content-Type" : "application/json",
@@ -214,12 +215,14 @@ export const callMyPageAllRequestAPI = () => {
     });
 
     const result = await response.json();
+    console.log(result);  // result 값을 확인합니다.
 
     if (response.status === 200) {
-      dispatch({ type: 'MyPage/GET_ALL_REQUEST', payload: { getAllRequest: result.data } });
+      dispatch({ type: 'MyPage/GET_ALL_REQUEST', payload: { getAllRequest: result } });
     }
   };
 };
+
 
 
 

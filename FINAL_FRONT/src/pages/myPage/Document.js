@@ -22,9 +22,9 @@ console.log('state:',state);
     const [isModalOpen, setIsModalOpen] = useState(false);
   
     const membersData = useSelector(state => state.myPageReducer.membersData);
-    const getAllRequest  = useSelector(state => state.myPageReducer.membersData);
+    const getAllRequest  = useSelector(state => state.myPageReducer.getAllRequest);
     console.log("membersData",membersData); //여기로 조회해오게
-    console.log("getAllRequest",getAllRequest); //여기로 조회해오게
+    console.log("getAllRequest:",getAllRequest); //여기로 조회해오게
   
     useEffect(() => {
       dispatch(callWorkInfoAPI());
@@ -43,7 +43,7 @@ console.log('state:',state);
     
   
     const requestSearch = () => {
-      dispatch(callDocuMember());
+      dispatch(callMyPageAllRequestAPI());
     };
   
     //두개를 한번에 호출하기
@@ -247,12 +247,12 @@ console.log('state:',state);
 
           <div class="content">
             <form>
-            <div class="title">휴가 신청</div>
+            <div class="title"><b>휴가 신청</b></div>
             <div class="modi0" onClick={handleRequestVacation}>
                     신청하기
                 </div>
               
-        <label htmlFor="name" style={{ marginLeft: "40px",padding: "10px", fontSize: "20px" }}>신청인 이름: 김상엽 </label><br/><br/>
+        <label htmlFor="name" style={{ marginLeft: "40px",padding: "10px", fontSize: "20px" }}>신청인 이름:  <b>{membersData ? membersData.memberName : ''} </b> </label><br/><br/>
     
 
         <label htmlFor="reason" style={{ marginLeft: "50px", fontSize: "20px" }}>신청사유:</label><br/><br/>
@@ -286,12 +286,12 @@ console.log('state:',state);
 
           <div class="content">
           <form>
-            <div class="title">휴직 신청</div>
+            <div class="title"><b>휴직 신청</b></div>
             <div class="modi0" onClick={handleRequestLeave}>
                     신청하기
                 </div>
               
-        <label htmlFor="name" style={{ marginLeft: "40px",padding: "10px", fontSize: "20px" }}>신청인 이름: 김상엽 </label><br/><br/>
+        <label htmlFor="name" style={{ marginLeft: "40px",padding: "10px", fontSize: "20px" }}>신청인 이름: <b>{membersData ? membersData.memberName : ''} </b></label><br/><br/>
         <label htmlFor="reason" style={{ marginLeft: "50px", fontSize: "20px" }}>신청사유:</label><br/><br/>
         <textarea id="reason1" name="reason" rows="32" cols="85" onChange={(e) => setTextareaValue(e.target.value)} required style={{ backgroundColor: "lightgray", border: "none",marginLeft: "40px" }}></textarea>
 
@@ -325,12 +325,12 @@ console.log('state:',state);
 
           <div class="content">
           <form>
-            <div class="title">퇴직 신청</div>
+            <div class="title"><b>퇴직 신청</b> </div>
             <div class="modi0" onClick={handleWorkOutRequest}>
                     신청하기
                 </div>
               
-        <label htmlFor="name" style={{ marginLeft: "40px",padding: "10px", fontSize: "20px" }}>신청인 이름: 김상엽 </label><br/><br/>
+        <label htmlFor="name" style={{ marginLeft: "40px",padding: "10px", fontSize: "20px" }}>신청인 이름: <b>{membersData ? membersData.memberName : ''}</b> </label><br/><br/>
     
 
         <label htmlFor="reason" style={{ marginLeft: "50px", fontSize: "20px" }}>신청사유:</label><br/><br/>
@@ -368,37 +368,36 @@ initialView="dayGridMonth"
           <div className="modal">
             <div className="modal-content">
               <h2>
-              '{membersData ? membersData.memberName : ''}'
-님의 신청 서류 📂
+              '<b>{membersData ? membersData.memberName : ''}</b>'
+님의 신청 서류 신청 내역 📂
            </h2>
               <table>
-              <p>Member ID: {getAllRequest.memberId}</p>
-    <p>Member Name: {getAllRequest.memberName}</p>
-
-    <div>
-    {getAllRequest ? (
-      getAllRequest.map((request, index) => (
-        <div key={index}>
-          <p>Request Reason: {request.requestReason}</p>
-          <p>Request Type: {request.requsetType}</p>
-          {/* 여기에 더 많은 속성을 추가할 수 있습니다 */}
-        </div>
-      ))
-    ) : (
-      <p>Loading...</p>
-    )}
+              {getAllRequest && getAllRequest.map((request, index) => (
+  <div key={index}>
+        <tr>
+          <th>Request Code</th>
+          <td>{request.requestCode}</td>
+        </tr>
+        <tr>
+          <th>Request Reason</th>
+          <td>{request.requestReason}</td>
+        </tr>
+        <tr>
+          <th>Request Type</th>
+          <td>{request.requsetType}</td>
+        </tr>
+        <tr>
+          <th>Request Start</th>
+          <td>{request.requestStart}</td>
+        </tr>
+        <tr>
+          <th>Request End</th>
+          <td>{request.requestEnd}</td>
+        </tr>
+        {/* Add more fields as needed */}
+    <br />
   </div>
-              {/* {memberRequest && memberRequest.map(reqest => 
-  <tr key={request.requestCode}>
-    <td>{request.approvals && request.approvals[0] && request.approvals[0].member ? request.approvals[0].member.memberName : '직원 정보를 가져오는 중입니다.'}</td>
-    <td>{request.requsetType}</td>
-    <td>{request.requestStart}</td>
-    <td>{request.requestEnd}</td>
-  </tr>
-)} */}
-
-
-
+))}
 
 
 </table>
