@@ -13,7 +13,7 @@ export const { equipment : { getEquipments , getEquipment } } = createActions({
 
 const equipmentReducer = handleActions({
     [GET_EQUIPMENTS] : (state,{ payload }) => payload,
-    [GET_EQUIPMENT] : (state , { payload }) => payload
+    [GET_EQUIPMENT] : (state , { payload }) => ({detail : payload})
 },initialState);
 
 export default equipmentReducer;
