@@ -5,7 +5,7 @@ import styles from './NoticeNavbar.css';
 function NoticeNavbar() {
   const navigate = useNavigate();
 
-  const [activeMenu, setActiveMenu] = useState("");
+  const [activeMenu, setActiveMenu] = useState("notice");
   const [selectedMenu, setSelectedMenu] = useState('notice', 'part', 'status');
   const imgPath = 'image/manager-page-btn.png'
   const [turnBtn, SetTurnBtn] = useState(imgPath);

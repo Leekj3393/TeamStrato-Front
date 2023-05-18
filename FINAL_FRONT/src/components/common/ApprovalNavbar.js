@@ -3,8 +3,8 @@ import { useState } from "react";
 import styles from './ApprovalNavbar.css';
 
 function ApprovalNavbar() {
-  const [activeMenu, setActiveMenu] = useState("");
-  const [selectedMenu, setSelectedMenu] = useState('regist, wait, inProgress, accessed, returned');
+  const [activeMenu, setActiveMenu] = useState("approval");
+  const [selectedMenu, setSelectedMenu] = useState('approval', 'regist', 'wait', 'inProgress', 'accessed', 'returned');
   const handleClick = (menuName) => {
     setActiveMenu(menuName);
   };

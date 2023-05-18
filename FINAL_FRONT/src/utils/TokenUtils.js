@@ -19,3 +19,8 @@ export function getMemberId() {
     const token = decodeJwt();
     return (token && token.sub);
 }
+
+export function getDepartmentId() {
+    const token = decodeJwt();
+    return (token && token.sub);
+}

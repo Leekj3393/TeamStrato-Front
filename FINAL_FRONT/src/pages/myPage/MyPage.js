@@ -1,6 +1,6 @@
 import MyPageCSS from '../../components/main/MyPage.css';
 import React, { useState, useEffect } from 'react';
-import { callMyPageAPI, callGoToWorkAPI, callEndWorkAPI, callOutWorkAPI, callReturnWorkAPI, callMyPageMemberAPI, updateMemberAPI } from '../../apis/MyPageAPICalls';
+import { callMyPageAPI, callGoToWorkAPI, callEndWorkAPI, callOutWorkAPI, callReturnWorkAPI, callMyPageMemberAPI, updateMemberAPI, callWorkInfoAPI } from '../../apis/MyPageAPICalls';
 import { useDispatch, useSelector } from 'react-redux';
 import { parseISO, differenceInMonths } from 'date-fns';
 
@@ -17,8 +17,20 @@ const getDate = (date) => {
 function MyPage() {
   const dispatch = useDispatch();
   const membersData = useSelector(state => state.myPageReducer.membersData);
+  const workInfo = useSelector(state => state.myPageReducer.workInfo);
   const [editMode, setEditMode] = useState(false);
   const [phone, setPhone] = useState(membersData ? membersData.phone : '');
+
+  console.log("membersData",membersData); //여기로 조회해오게
+  console.log("workInfo",workInfo);
+
+  useEffect(() => {
+    dispatch(callMyPageAPI());
+    dispatch(callMyPageMemberAPI());
+    dispatch(callWorkInfoAPI());
+  }, []);
+
+
 
   const handlePhoneClick = () => {
     setEditMode(true);
@@ -45,30 +57,40 @@ function MyPage() {
   const {totalMemberCount, time, endTime,outTime,returnTime} = useSelector(state => state.myPageReducer);
   const [activeModal, setActiveModal] = useState(null);
 
-  console.log("membersData",membersData); //여기로 조회해오게
 
-  useEffect(() => {
-    dispatch(callMyPageAPI());
-    dispatch(callMyPageMemberAPI({ id: 1 }));
-  }, []);
   
 
-  const date = new Date(time)
-  const goToWorkDate = getDate(date)
-  const goToWorkTime = `${date.getHours()}:${date.getMinutes()}`
+  const date = workInfo && workInfo[0] && workInfo[0].startTime ? new Date(workInfo[0].startTime) : null;
+  const goToWorkDate = date ? getDate(date) : '';
+  const goToWorkTime = date ? `${date.getHours()}:${date.getMinutes()}` : '';
 
-  const endDate = new Date(endTime)
-  const endWorkDate = getDate(endDate)
-  const endWorkTime = `${endDate.getHours()}:${endDate.getMinutes()}`
+  const endDate = workInfo && workInfo[0] && workInfo[0].endTime ? new Date(workInfo[0].endTime) : null;
+  const endWorkDate = endDate ? getDate(endDate) : '';
+  const endWorkTime = endDate ? `${endDate.getHours()}:${endDate.getMinutes()}` : '';
+  
+  
+  const returnDate = workInfo && workInfo[0] && workInfo[0].returnTime ? new Date(workInfo[0].returnTime) : null;
+  const returnWorkDate = returnDate ? getDate(returnDate) : '';
+  const returnWorkTime = returnDate ? `${returnDate.getHours()}:${returnDate.getMinutes()}` : '';
+  
+  
+  const outDate = workInfo && workInfo[0] && workInfo[0].outTime ? new Date(workInfo[0].outTime) : null;
+  const outWorkDate = outDate ? getDate(outDate) : '';
+  const outWorkTime = outDate ? `${outDate.getHours()}:${outDate.getMinutes()}` : '';
+  
+  
+  // const endDate = new Date(endTime)
+  // const endWorkDate = getDate(endDate)
+  // const endWorkTime = `${endDate.getHours()}:${endDate.getMinutes()}`
 
-  const outDate = new Date(outTime)
-  const outWorkDate = getDate(outDate)
-  const outWorkTime = `${outDate.getHours()}:${outDate.getMinutes()}`
+  // const outDate = new Date(outTime)
+  // const outWorkDate = getDate(outDate)
+  // const outWorkTime = `${outDate.getHours()}:${outDate.getMinutes()}`
 
-  const returnDate = new Date(returnTime)
-  const returnWorkDate = getDate(returnDate)
-  const returnWorkTime = `${returnDate.getHours()}:${returnDate.getMinutes()}`
-
+  // const returnDate = new Date(returnTime)
+  // const returnWorkDate = getDate(returnDate)
+  // const returnWorkTime = `${returnDate.getHours()}:${returnDate.getMinutes()}`
+  
   //근속 시간 계산
   const hireDate = membersData ? parseISO(membersData.memberHireDate) : null;
   const currentDate = new Date();
@@ -90,20 +112,22 @@ console.log("Months:", months);
     setActiveModal(null);
   };
 
+
   const handleWorknClick = () => {
-    dispatch(callGoToWorkAPI({id: 3}))
+    dispatch(callGoToWorkAPI())
   }
+  
 
   const handleEndOnClick = () => {
-    dispatch(callEndWorkAPI({id: 3}))
+    dispatch(callEndWorkAPI())
   }
 
   const handleOutOnClick = () => {
-    dispatch(callOutWorkAPI({id: 3}))
+    dispatch(callOutWorkAPI())
   }
 
   const handleReturnOnClick = () => {
-    dispatch(callReturnWorkAPI({id: 3}))
+    dispatch(callReturnWorkAPI())
   }
 
     return (
@@ -126,9 +150,8 @@ console.log("Months:", months);
                 </div>
                 <img className="workImg" src="image/image 416.png"/>
                 <div class="workNemo">
-                   <div class="workNemoTitle1">{goToWorkDate}</div> 
-                   <div class="workNemoTitle2">{goToWorkTime}</div> 
-                    
+                <div class="workNemoTitle1">{goToWorkDate}</div> 
+                <div class="workNemoTitle2">{goToWorkTime}</div>
                 </div>
             </div>
 
@@ -138,8 +161,8 @@ console.log("Months:", months);
                 </div>
                 <img className="getoffworkImg" src="image/image 418.png"/>
                 <div class="getoffworkNemo">
-                <div class="workNemoTitle1">{endWorkDate}</div> 
-                   <div class="workNemoTitle2">{endWorkTime}</div> 
+                <div class="workNemoTitle1">{endWorkDate  || '' }</div> 
+                   <div class="workNemoTitle2">{endWorkTime || '' }</div> 
                     
                 </div>
             </div>
@@ -154,10 +177,10 @@ console.log("Months:", months);
                 </div>
                 <img className="goingImg" src="image/image 419.png"/>
                 <div class="goingNemo">
-                   <div class="returnTitle1">{outWorkDate}</div> 
-                   <div class="returnTitle2">{outWorkTime}<br/><br/><br/> ~</div> 
-                <div class="outTitle1">{returnWorkDate}</div> 
-                   <div class="outTitle2">{returnWorkTime}</div> 
+                   <div class="returnTitle1">{outWorkDate || ''  }</div> 
+                   <div class="returnTitle2">{outWorkTime || ''  }<br/><br/><br/> ~</div> 
+                <div class="outTitle1">{returnWorkDate || ''  }</div> 
+                   <div class="outTitle2">{returnWorkTime || '' }</div> 
                     
                 </div>
             </div>
@@ -176,7 +199,7 @@ console.log("Months:", months);
 
 <table>
   <tr>
-    <th>이름</th>
+    <th>이름 </th>
     <td> {membersData ? membersData.memberName : '직원 정보를 가져오는 중입니다.'}</td>
     <th>성별</th>
     <td>{membersData ? (membersData.gender === 'M' ? '남자' : '여자') : '직원 정보를 가져오는 중입니다.'}</td>
@@ -218,7 +241,9 @@ console.log("Months:", months);
   <tr>
     <th>근속 기간</th>
     <td>
-  {membersData ? `${years}년 ${months}개월` : '직원 정보를 가져오는 중입니다.'}
+    {(workInfo && workInfo.length > 0) ? workInfo[0].status : '사유를 가져오는중입니다.'}
+
+
 </td>
   </tr>
 </table>
@@ -235,7 +260,7 @@ console.log("Months:", months);
             <div className="modal-content">
               <button className="modal-close" onClick={closeModal}>&times;</button>
               <h2>기본 정보 수정하기</h2>
-              <h5>수정이 안되는 정보는 인사관리자를 통해서 수정 가능합니다.</h5>
+              <h5>수정 할 정보를 클릭하세요. 수정이 안되는 정보는 인사관리자를 통해서 수정 가능합니다.</h5>
                              
                 <div class="table2">
 
@@ -255,12 +280,12 @@ console.log("Months:", months);
                 <tr>
                 <th>휴대폰 번호</th>
                 {editMode ? (
-  <td>
-    <input type="text" value={phone} onChange={handlePhoneChange} />
-  </td>
-) : (
-  <td onClick={handlePhoneClick}>{membersData ? membersData.phone : '직원 정보를 가져오는 중입니다.'}</td>
-)}
+                      <td>
+                        <input type="text" value={phone} onChange={handlePhoneChange} />
+                      </td>
+                    ) : (
+                      <td onClick={handlePhoneClick}>{membersData ? membersData.phone : '직원 정보를 가져오는 중입니다.'}</td>
+                    )}
 
 
                     <th>부서</th>

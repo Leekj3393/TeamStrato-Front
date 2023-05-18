@@ -2,14 +2,8 @@
 @font-face {
   font-family: 'SUITE-Regular';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
 }
 
-/* 폰트 적용할 요소에 속성 적용 */
-.my-element {
-  font-family: 'SUITE-Regular';
-}
 
 .todo1{
     background:#ffff;
@@ -20,7 +14,7 @@
     width: 400px;
     left: 300px;
     border-radius: 10px;
-
+    font-family: 'SUITE-Regular';
 }
 
 .todoText1{
@@ -63,7 +57,7 @@
 }
 
 .partBoard{
-  background:#6C77A5;
+  background:#394884;
   position: absolute;
   top: 65px;
   width: 460px;
@@ -596,8 +590,9 @@ color: #3E6039;
     top: 100px;
     width: 423px;
     height: 74px;
-    
+    font-size: 18px;
     background: rgba(186, 183, 183, 0.2);
+
     border-radius: 20px;
 
   }
@@ -608,7 +603,7 @@ color: #3E6039;
     top:190px;
     width: 423px;
     height: 74px;
-    
+    font-size: 18px;
     background: rgba(186, 183, 183, 0.2);
     border-radius: 20px;
 
@@ -620,7 +615,7 @@ color: #3E6039;
     top:278px;
     width: 423px;
     height: 74px;
-    
+    font-size: 18px;
     background: rgba(186, 183, 183, 0.2);
     border-radius: 20px;
 
@@ -1012,5 +1007,53 @@ opacity: 0.3;
   }
 }
 
+
+
+
+
+.notic2 {
+  top: -10px;
+  right: 10px;
+  position: relative;
+}
+
+.notic2 li {
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 0.5s ease forwards;
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-20px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  75% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animated-news {
+  margin-top: -80px;
+  margin-left: -30px;
+  animation: bounce 2s infinite;
+}
 
 

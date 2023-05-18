@@ -3,11 +3,12 @@ import { useState } from "react";
 import styles from './Navbar2.css';
 
 function Navbar2() {
-  const [activeMenu, setActiveMenu] = useState("");
+  const [activeMenu, setActiveMenu] = useState("myPage"); // Set initial value to "myPage"
   const [selectedMenu, setSelectedMenu] = useState('myPage,myToDoList');
   const handleClick = (menuName) => {
     setActiveMenu(menuName);
   };
+
   
   return (
     <div className={styles.Navbar2}>

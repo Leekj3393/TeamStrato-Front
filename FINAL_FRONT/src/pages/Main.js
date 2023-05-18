@@ -3,6 +3,8 @@ import axios from 'axios';
 import MainCSS from "../components/main/Main.css";
 import {  callGoToWorkAPI, callEndWorkAPI, callOutWorkAPI, callReturnWorkAPI } from '../apis/MyPageAPICalls';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
+import { callNoticeListAPI, callNoticeSearchListAPI } from '../apis/NoticeAPICalls';
 
 
 const getDate = (date) => {
@@ -14,6 +16,37 @@ const getDate = (date) => {
 }
 
 function Main() {
+  //
+
+  
+
+  //
+
+  const {data} = useSelector(state => state.noticeReducer);
+  const notices = useSelector(state => state.noticeReducer);
+  const noticeList = notices.data;
+  const pageInfo = notices.pageInfo;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  /* 검색어 요청시 사용할 값 */
+  const [searchParams] = useSearchParams();
+  const search = searchParams.get('value');
+
+
+  useEffect(
+      () => {
+          if(search) {
+              /* 검색어에 해당하는 게시글에 대한 요청 */
+              dispatch(callNoticeSearchListAPI({ search, currentPage }));
+          } else {
+              /* 모든 게시들에 대한 요청 */
+              dispatch(callNoticeListAPI
+                ({ currentPage }));
+          }
+          
+      },
+      [currentPage, search]
+  );
 
   const dispatch = useDispatch();
 
@@ -137,15 +170,25 @@ function Main() {
         <div className="noticNemo"></div>
         <div className="boardMinibar1">
           <div className="notic1">
-            <div className="circle9"></div>
-            <div className="notic2">오늘의 부서 회의가 있습니다.</div>
+
+          
+          <div className="notic2">
+  {data && data.map((notice) => (  
+    <tr key={notice.noticeCode}>
+      <th><li>{notice.noticeTitle}</li></th>
+      <div className={`circle${notice.noticeCode}`}></div>
+      <th>new!</th>
+    </tr>
+  ))}
+</div>
+
+
+                                
           </div>
         </div>
       </div>
       <div className="boardMinibar2">
-        <div className="circle10"></div>
-        <div className="notic3">
-        {loading ? (
+        <div className="circle10">        {loading ? (
           <div>뉴스를 불러오는 중입니다...</div>
         ) : newsData.length > 0 ? (
           <ul>
@@ -153,11 +196,11 @@ function Main() {
           </ul>
         ) : (
           <div>뉴스를 불러올 수 없습니다.</div>
-        )}
+        )}</div>
+        <div className="notic3">
+
         </div>
-        <div className="circle11"></div>
-        <div className="notic4">
-        {loading ? (
+        <div className="circle11">        {loading ? (
           <div>뉴스를 불러오는 중입니다...</div>
         ) : newsData.length > 0 ? (
           <ul>
@@ -165,13 +208,13 @@ function Main() {
           </ul>
         ) : (
           <div>뉴스를 불러올 수 없습니다.</div>
-        )}
+        )}</div>
+        <div className="notic4">
+
 
         </div>
 
-        <div className="circle12"></div>
-        <div className="notic5">
-        {loading ? (
+        <div className="circle12">        {loading ? (
           <div>뉴스를 불러오는 중입니다...</div>
         ) : newsData.length > 0 ? (
           <ul>
@@ -179,12 +222,14 @@ function Main() {
           </ul>
         ) : (
           <div>뉴스를 불러올 수 없습니다.</div>
-        )}
+        )}</div>
+        <div className="notic5">
+
 
         </div>
         <img className="BoradImg" src="image/image 434.png" alt="Board Image" />
       </div>
-      <div className="partBoard" style={{ flex: 1 }}>Strato News</div>
+      <div className="partBoard" style={{ flex: 1 }}>Strato News<div class="animated-news">💡</div></div>
       <div className="att">
         <div className="attNemo1">
           <div className="dd" onClick={handleWorknClick}>출근하기</div>

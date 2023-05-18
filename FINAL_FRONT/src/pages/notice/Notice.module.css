@@ -9,28 +9,40 @@ th{
 }
 
 .content{
-  position: absolute;
-  top: 160px;
-  left: 290px;
-  width: 1350px;
-  height: 207px;
   font-family: 'SUITE-Regular';
+  position: absolute;
+  top: 180px;
+  left: 290px; /* Changed 'right' to 'left' */
+  height: 670px;
+  width: 1200px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  /* text-align: center; */
 }
 
 .square {
-  position: sticky;
+  position: absolute;
+  top: 180px;
+  left: 290px;
   background-color: white;
   border-radius: 10px;
-  height: 700px;
-  width: 1400px;
+  height: 670px;
+  width: 1200px;
   padding-top: 20px;
   padding-bottom: 20px;
 }
 
 
 .contentDiv{
-  position: relative;
-  top: -600px;
+  font-family: 'SUITE-Regular';
+  position: absolute;
+  top: 180px;
+  left: 290px; /* Changed 'right' to 'left' */
+  height: 670px;
+  width: 1200px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  /* text-align: center; */
 }
 
 .noticeTitle{
