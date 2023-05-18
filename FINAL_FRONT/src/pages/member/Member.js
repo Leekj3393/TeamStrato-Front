@@ -12,23 +12,62 @@ function Member() {
     const navigate = useNavigate();
     const { data, pageInfo } = useSelector((state) => state.memberReducer);
     const [currentPage, setCurrentPage] = useState(1);
-    
-    const hireDate = data && data.member ? data.member.memberHireDate.split("T")[0] : null;
+    const [membersData, setMembersData] = useState([]);
+    // const [ hireDate, setHireDate ] = useState();
 
+    
+    // useEffect(
+        //     () => {
+            //         { data && setHireDate(data.member.memberHireDate)};
+            //     },
+            //     [data]
+            // );
+            
+    const hireDate = data && data.member ? data.member.memberHireDate.split("T")[0] : null;
+    
     useEffect(() => {
-            dispatch(callMemberListAPI({currentPage}));        
+        if (data) {
+          const updatedData = data.map((member) => {
+            const workDays = getWorkDays(member.startDate, member.endDate);
+            const employmentPeriod = getEmploymentPeriod(member.startDate, member.endDate);
+            return {
+              ...member,
+              workDays,
+              employmentPeriod,
+            };
+          });
+          setMembersData(updatedData); 
+        }
+      }, [data]);
+            
+    useEffect(() => {
+        dispatch(callMemberListAPI({currentPage}));        
     }, [currentPage]);
 
+    const getWorkDays = (startDate, endDate) => {
+        
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        const workDays = Math.round((end - start) / (1000 * 60 * 60 * 24)) + 1; // Adding 1 to include both start and end dates
+        return workDays;
+      };
+
+    const getEmploymentPeriod = (startDate, endDate) => {
+       
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        const employmentPeriod = Math.round((end - start) / (1000 * 60 * 60 * 24)); // Excluding the end date
+        return employmentPeriod;
+      };
+            
     const onClickMemberHandler = (memberCode) => {
         navigate(`/member/${memberCode}`);
-    }
+    };
 
     const onClickMemberRegistHandler = (e) => {
         navigate(`/member/regist`);
-    }
+    };
 
-
-    
 
 
     return (
@@ -83,8 +122,8 @@ function Member() {
                             <td>{member.memberStatus}</td>
                             <td>{member.memberCode}</td>
                             <td>{member.memberHireDate.split("T")[0]}</td>
-                            <td></td>
-                            <td></td>
+                            <td>{member.employmentPeriod}</td>
+                            <td>{member.workDays}</td>
                             <td>{member.department.deptName}</td>
                             <td>{member.job.jobName}</td>
                             <td>{member.memberId}</td>
