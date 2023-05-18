@@ -28,27 +28,15 @@
   padding-bottom: 20px;
 }
 
-
-.contentDiv{
-  font-family: 'SUITE-Regular';
-  position: absolute;
-  top: 180px;
-  left: 290px; /* Changed 'right' to 'left' */
-  height: 670px;
-  width: 1200px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  /* text-align: center; */
-}
-
 .noticeTitle{
   font-size: large;
   margin-top: 0%;
 }
 
 .noticeSearch {
-  margin-left: 970px;
-  /* padding-top: 120px; */
+  position: absolute;
+  top: 70px;
+  left: 850px;
 }
 
 .noticeSearch select {
@@ -73,23 +61,23 @@
 }
 
 .tableInfo{
-  margin-top: 0px;
-  margin-left: 150px;
-  /* padding-top: 10px; */
-
-
+  position: absolute;
+  top: 130px;
+  left: 70px;
 }
 
 .noticeMainTable,
 .noticePartTable
 {
+  position: absolute;
+  top: 150px;
+  left: 50px;
   border-style: solid none solid none;
   border-width: thick;
   border-radius: 0%;
   /* top: 100px; */
   max-height: 10px;
   width:  1100px;
-  margin-left: 150px;
 }
 
 .noticeMainTable th,
