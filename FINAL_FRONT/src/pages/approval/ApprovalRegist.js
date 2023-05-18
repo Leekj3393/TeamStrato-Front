@@ -73,24 +73,24 @@ function ApprovalRegist() {
                 <div className={ApprovalCSS.appFormDiv}>
                     <table>
                         <tr>
-                            <th>기안자</th>
+                            <th colSpan={1}>기안자</th>
                             <td>기안자이름{member.memberName}</td>
-                            <th>부서</th>
+                            <th colSpan={1}>부서</th>
                             <td>부서명{/* {member.department.deptName} */}</td>
                         </tr>
                         <tr>
-                            <th>구분</th>
+                            <th colSpan={1}>구분</th>
                             <td>기안문</td>
-                            <th>등록일</th>
+                            <th colSpan={1}>등록일</th>
                             <td>2023-05-18</td>
                         </tr>
                         <tr>
                             <th colSpan={1}>제목</th>
-                            <td colSpan={2}><input className='app-title' type='text' value=''></input></td>
+                            <td colSpan={3}><input className='app-title' type='text' value=''></input></td>
                         </tr>
                         <tr>
                             <th colSpan={1} rowSpan={3}>내용</th>
-                            <td colSpan={2} rowSpan={3}><input className='app-content' type='text' value=''></input></td>
+                            <td colSpan={3} rowSpan={3}><input className='app-content' type='text' value=''></input></td>
                         </tr>
                     </table>
                 </div>
