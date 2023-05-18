@@ -91,6 +91,7 @@ function App() {
             <Route index element={<Member/>}/>
             <Route path="/member/:memberCode" element={<MemberDetail/>}/>
             <Route path="/member/regist" element={<MemberReigst/>}/>
+            <Route path="/member/modify/:memberCode" element={<MemberModify/>}/>
           </Route>
           <Route path="/calendar" element={<Calendar/>}/>
         </Route>
