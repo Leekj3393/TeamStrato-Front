@@ -1099,3 +1099,37 @@ opacity: 0.3;
           background-color: #fff;
           transition: all 0.3s ease-out;
       }
+
+      @keyframes snowfall {
+        0% {
+          transform: translateY(-100%);
+        }
+        100% {
+          transform: translateY(100vh);
+        }
+      }
+      
+      .snowflake {
+        position: absolute;
+        top: -10px;
+        width: 15px;
+        height: 15px;
+        background-color: #fff;
+        border-radius: 50%;
+        animation: snowfall linear infinite;
+      }
+      
+      .snowflake {
+        /* ... */
+        animation: snowfall linear infinite;
+      }
+      
+      @keyframes snowfall {
+        0% {
+          transform: translateY(-100%);
+        }
+        100% {
+          transform: translateY(100vh);
+        }
+      }
+            
