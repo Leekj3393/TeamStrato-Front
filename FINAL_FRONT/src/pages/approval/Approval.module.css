@@ -114,6 +114,19 @@
   left: 30px
 }
 
+.appFormDiv table {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 1100px;
+  height: 500px;
+}
+
+.appFormDiv table input{
+  position: relative;
+  width: 800px;
+  height: 100px;
+}
 
 
 

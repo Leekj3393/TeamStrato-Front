@@ -10,7 +10,7 @@ function ApprovalNavbar() {
   };
   
   return (
-    <div className={styles.Navbar2}>
+    <div className={styles.NavbarApp}>
       <div className="title1">
         <div className="title2">
           <b>전자결재</b>

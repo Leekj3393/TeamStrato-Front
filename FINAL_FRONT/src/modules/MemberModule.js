@@ -15,7 +15,7 @@ const GET_JOBDEPTS = 'member/GET_JOBDEPTS';
 
 
 export const { member : {getMember , getMembers, postLogin, resetMember, postMember, postMembers, 
-    getJobdepts, putMembers,
+    getJobdepts, putMembers
 }} = createActions({
     [GET_MEMBERS] : res => res.data,
     [GET_MEMBER] : res => res.data,

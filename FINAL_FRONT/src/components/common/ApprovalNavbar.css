@@ -7,7 +7,7 @@
 }
 
 /* 폰트 적용할 요소에 속성 적용 */
-.my-element {
+div, h1, h2, h3, h4, h5, h6, th {
   font-family: 'SUITE-Regular';
 }
 
