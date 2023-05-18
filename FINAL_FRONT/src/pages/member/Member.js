@@ -13,8 +13,12 @@ function Member() {
     const { data, pageInfo } = useSelector((state) => state.memberReducer);
     const [currentPage, setCurrentPage] = useState(1);
     
-    
-    
+    const hireDate = data && data.member ? data.member.memberHireDate.split("T")[0] : null;
+
+    useEffect(() => {
+            dispatch(callMemberListAPI({currentPage}));        
+    }, [currentPage]);
+
     const onClickMemberHandler = (memberCode) => {
         navigate(`/member/${memberCode}`);
     }
@@ -23,12 +27,6 @@ function Member() {
         navigate(`/member/regist`);
     }
 
-    console.log("data", data);
-    console.log("pageInfo", pageInfo);
-
-    useEffect(() => {
-            dispatch(callMemberListAPI({currentPage}));        
-    }, [currentPage]);
 
     
 
@@ -85,8 +83,8 @@ function Member() {
                             <td>{member.memberStatus}</td>
                             <td>{member.memberCode}</td>
                             <td>{member.memberHireDate.split("T")[0]}</td>
-                            <td>근속기간</td>
-                            <td>근무일수</td>
+                            <td></td>
+                            <td></td>
                             <td>{member.department.deptName}</td>
                             <td>{member.job.jobName}</td>
                             <td>{member.memberId}</td>

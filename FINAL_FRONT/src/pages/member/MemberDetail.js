@@ -1,9 +1,11 @@
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import MemberDetailCSS from './MemberDetail.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { callMemberDetailAPI } from '../../apis/MemberAPICalls';
 import { callMemberImageAPI } from '../../apis/MemberFileAPICalls';
+import MemberRole from './MemberRole';
+import MemberRequest from './MemberRequest';
 
 
 function MemberDetail () {
@@ -15,6 +17,8 @@ function MemberDetail () {
     const params = useParams();
     const memberCode = params.memberCode;
     const serverUrl = "http://localhost:8001/images/member/"
+    const [RolemodalOpen, setRoleModalOpen] = useState(false);
+    const [reqeustModalOpen, setRequestModalOpen] = useState(false);
 
     console.log("member", memberDt);
     console.log("memberImg", memberImg);
@@ -29,7 +33,15 @@ function MemberDetail () {
 
     const onClickMemberModify = () => {
         navigate(`/member/modify/${memberCode}`);
-    }
+    };
+
+    const onClickOpenRoleModal = () => {
+        setRoleModalOpen(true);
+    };
+
+    const onClickOpenRequestModal = () => {
+        setRequestModalOpen(true);
+    };
 
     return (
         <>  
@@ -45,8 +57,10 @@ function MemberDetail () {
                 <span className='memberDtName'>
                     { memberDt && memberDt.memberName }
                 </span>
-                <button className='memberDtBt1'>권한</button>
-                <button className='memberDtBt2'>인사이동</button>
+                <button className='memberDtBt1' onClick={onClickOpenRoleModal}>권한</button>
+                {RolemodalOpen && <MemberRole memberCode={memberCode} setRoleModalOpen={setRoleModalOpen}/>}
+                <button className='memberDtBt2' onClick={onClickOpenRequestModal}>인사이동</button>
+                {reqeustModalOpen && <MemberRequest memberCode={memberCode} setRequestModalOpen={setRequestModalOpen}/>}
                 <button className='memberDtBt3' onClick={onClickMemberModify}>수정하기</button>
             </div>
             <div className='memberDtDpt'>

@@ -1,5 +1,6 @@
 import { getMemberImage } from "../modules/MemberFileModule";
-import { getJobdepts,getMember,getMembers, getMembersId, getMembersName, postMembers } from "../modules/MemberModule";
+import { getMember,getMembers, getMembersId, getMembersName, postMembers, putMemberRole, putMemberrequest, putMemberrole, putMembers } from "../modules/MemberModule";
+import { getJobdepts } from "../modules/MemberRoleModule";
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
@@ -68,7 +69,7 @@ export const callMemberUpdateAPI = (formData) => {
 
         if(result.status === 200) {
             console.log('[MemberAPICalls] : callMemberUpdateAPI result : ', result);
-            dispatch(postMembers(result));
+            dispatch(putMembers(result));
         }
     }
 }
@@ -88,6 +89,42 @@ export const calljobDeptListAPI = () => {
             dispatch(getJobdepts(result));
         }
 
+    }
+}
+
+export const callMemberRoleUpdateAPI = (formData) => {
+
+    const requestURL = `${PRE_URL}/updaterole`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL, {
+            method : 'PUT',
+            body : formData
+        }).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log('[MemberAPICalls] : callMemberUpdateAPI result : ', result);
+            dispatch(putMemberrole(result));
+        }
+    }
+}
+
+export const callMemberRequestUpdateAPI = (formData) => {
+
+    const requestURL = `${PRE_URL}/updateRequest`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL, {
+            method : 'PUT',
+            body : formData
+        }).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log('[MemberAPICalls] : callMemberRequestUpdateAPI result : ', result);
+            dispatch(putMemberrequest(result));
+        }
     }
 }
 
