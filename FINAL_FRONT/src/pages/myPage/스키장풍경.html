@@ -1,66 +1,13 @@
 <!DOCTYPE html>
 <html>
-    <script>
-        const mapContainer = document.getElementById('map-container');
-        const infoPopup = document.getElementById('info-popup');
-        const circles = Array.from(document.getElementsByClassName('circle'));
-
-        function showInfoPopup(text, x, y) {
-            infoPopup.innerText = text;
-            infoPopup.style.display = 'block';
-            infoPopup.style.left = `${x}px`;
-            infoPopup.style.top = `${y}px`;
-        }
-
-        function hideInfoPopup() {
-            infoPopup.style.display = 'none';
-        }
-
-        circles.forEach(circle => {
-            circle.addEventListener('mouseenter', function(event) {
-                const text = this.getAttribute('data-text');
-                const mouseX = event.clientX;
-                const mouseY = event.clientY;
-                const popupWidth = parseFloat(getComputedStyle(infoPopup).width);
-                const popupHeight = parseFloat(getComputedStyle(infoPopup).height);
-                const popupX = mouseX - popupWidth / 2;
-                const popupY = mouseY - popupHeight - 10;
-
-                showInfoPopup(text, popupX, popupY);
-            });
-
-            circle.addEventListener('mouseleave', function() {
-                hideInfoPopup();
-            });
-        });
-
-        mapContainer.addEventListener('mousemove', function(event) {
-            const mouseX = event.clientX;
-            const mouseY = event.clientY;
-
-            const isHovered = circles.some(circle => {
-                const circleX = parseFloat(circle.style.left);
-                const circleY = parseFloat(circle.style.top);
-                const circleRadius = parseFloat(circle.style.width) / 2;
-
-                const distanceX = Math.abs(mouseX - circleX - circleRadius);
-                const distanceY = Math.abs(mouseY - circleY - circleRadius);
-
-                return distanceX <= circleRadius && distanceY <= circleRadius;
-            });
-
-            if (!isHovered) {
-                hideInfoPopup();
-            }
-        });
-
-        mapContainer.addEventListener('mouseout', function() {
-            hideInfoPopup();
-        });
-    </script>
 <head>
     <title>Interactive Map</title>
     <style>
+        #map-image {
+    width: 500px; /* 원하는 가로 크기 */
+    height: auto; /* 높이는 자동으로 비율에 맞춤 */
+}
+
         body {
             background-color: #fff;
             text-align: center;
@@ -71,50 +18,58 @@
             display: inline-block;
         }
 
-        #map-image {
-            width: 800px; /* 이미지의 가로 크기에 맞게 조정 */
-        }
-
         .circle {
             position: absolute;
             border-radius: 50%;
             width: 30px;
             height: 30px;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: #fff;
-            font-size: 12px;
+            background-color: #ffffff;
             text-align: center;
-            line-height: 30px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
 
         .circle:hover {
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: #888;
         }
 
         #info-popup {
             position: absolute;
-            top: 0;
-            left: 0;
             display: none;
             width: 200px;
-            background-color: #fff;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            background-color: #fff;
+            transition: all 0.3s ease-out;
         }
     </style>
 </head>
 <body>
     <div id="map-container">
-        <img id="map-image" src="/FINAL_FRONT/public/image/스키장풍경.png" alt="Map">
-        <div class="circle" style="left: 50px; top: 100px;" data-text="식당">⚫</div>
-        <div class="circle" style="left: 300px; top: 150px;" data-text="스키장">⚫</div>
-        <div class="circle" style="left: 200px; top: 250px;" data-text="눈사람">⚫</div>
-        <div class="circle" style="left: 400px; top: 300px;" data-text="눈썰매">⚫</div>
-        <div class="circle" style="left: 600px; top: 200px;" data-text="산악자전거">⚫</div>
+        <img id="map-image" src="/FINAL_FRONT/public/image/스키장.png" alt="Map">
+        <div class="circle" style="left: 50px; top: 100px;" onmouseover="showInfoPopup(this, '식당')" onmouseout="hideInfoPopup()">⚪</div>
+        <div class="circle" style="left: 300px; top: 150px;" onmouseover="showInfoPopup(this, '스키장')" onmouseout="hideInfoPopup()">⚪</div>
+        <div class="circle" style="left: 200px; top: 250px;" onmouseover="showInfoPopup(this, '눈사람')" onmouseout="hideInfoPopup()">⚪</div>
+        <div class="circle" style="left: 400px; top: 300px;" onmouseover="showInfoPopup(this, '눈썰매')" onmouseout="hideInfoPopup()">⚪</div>
+        <div class="circle" style="left: 600px; top: 200px;" onmouseover="showInfoPopup(this, '산악자전거')" onmouseout="hideInfoPopup()">⚪</div>
+
         <div id="info-popup"></div>
     </div>
+    <script>
+        const infoPopup = document.getElementById('info-popup');
+
+        function showInfoPopup(element, text) {
+            const rect = element.getBoundingClientRect();
+            infoPopup.style.left = `${rect.left}px`;
+            infoPopup.style.top = `${rect.bottom + window.scrollY + 10}px`;
+            infoPopup.innerText = text;
+            infoPopup.style.display = 'block';
+        }
+
+        function hideInfoPopup() {
+            infoPopup.style.display = 'none';
+        }
+    </script>
 </body>
 </html>

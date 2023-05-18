@@ -554,9 +554,9 @@ color: #3E6039;
 .news{
     background:#ffff;
     position: absolute;
-    top: 730px;
+    top: 530px;
     width: 910px;
-    height: 215px;
+    height: 415px;
     left: 300px;
     border-radius: 10px;
 
@@ -1057,3 +1057,45 @@ opacity: 0.3;
 }
 
 
+
+
+
+
+#map-image {
+  width: 905px; /* 원하는 가로 크기 */
+  margin-top: 25px;
+  height: auto; /* 높이는 자동으로 비율에 맞춤 */
+  border-radius: 10px;
+}
+
+      #map-container {
+          position: relative;
+          display: inline-block;
+      }
+
+      .circle {
+          position: absolute;
+          border-radius: 50%;
+          
+          width: 30px;
+          height: 30px;
+          background-color: #ffffff;
+          text-align: center;
+          cursor: pointer;
+          transition: background-color 0.3s;
+      }
+
+      .circle:hover {
+          background-color: #888;
+      }
+
+      #info-popup {
+          position: absolute;
+          display: none;
+          width: 190px;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          background-color: #fff;
+          transition: all 0.3s ease-out;
+      }

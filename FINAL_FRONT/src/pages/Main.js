@@ -140,6 +140,26 @@ function Main() {
     );
   };
 
+
+
+  const [infoPopupStyle, setInfoPopupStyle] = useState({ display: 'none' });
+  const [infoPopupText, setInfoPopupText] = useState('');
+  
+  function showInfoPopup(event, text) {
+    const rect = event.target.getBoundingClientRect();
+    const newStyle = {
+      left: `${rect.left}px`,
+      top: `${rect.bottom + window.scrollY + 10}px`,
+      display: 'block'
+    };
+    setInfoPopupStyle(newStyle);
+    setInfoPopupText(text);
+  }
+
+  function hideInfoPopup() {
+    setInfoPopupStyle({ display: 'none' });
+  }
+
   return (
     <div className={MainCSS}>
       <div style={{ display: "flex" }}>
@@ -227,52 +247,7 @@ function Main() {
 
 
         </div>
-        <img className="BoradImg" src="image/image 434.png" alt="Board Image" />
-      </div>
-      <div className="partBoard" style={{ flex: 1 }}>Strato News<div class="animated-news">💡</div></div>
-      <div className="att">
-        <div className="attNemo1">
-          <div className="dd" onClick={handleWorknClick}>출근하기</div>
-          <img className="imgAtt" src="image/att1.png" alt="Attendance Image" />
         </div>
-        <div className="attSubNemo1">
-        {goToWorkDate} {goToWorkTime}
-                    
-                </div>
-                
-
-
-                <div class="attNemo2">
-                <div class="dd" onClick={handleEndOnClick}>
-                    퇴근하기</div>
-                    <img className="imgAtt" src="image/att2.png"/>   
-                </div>
-                <div class="attSubNemo2">
-                {endWorkDate} {endWorkTime}
-                    <div class="clock"></div>
-                </div>
-
-                <div class="attNemo3">
-                <div class="dd" onClick={handleOutOnClick}>
-                    외출하기</div>
-                    <img className="imgAtt" src="image/att3.png"/>   
-                </div>
-                <div class="attSubNemo3">
-                {outWorkDate} {outWorkTime}
-                    <div class="clock">{outWorkTime}</div>
-                </div>
-
-                <div class="attNemo4">
-                <div class="dd" onClick={handleReturnOnClick}>
-                    복귀하기</div>
-                    <img className="imgAtt" src="image/att4.png"/>   
-                </div>
-                <div class="attSubNemo4">
-                {returnWorkDate} {returnWorkTime}
-                    <div class="clock"></div>
-                </div>
-                </div>
-                
 
                 
 
@@ -285,19 +260,53 @@ function Main() {
 
 
       <div className="news">
-        <div className="cross-container">
-          <div className="cross-line"></div>
-          <div className="cross-garo"></div>
-        </div>
-        <div className="tj1">결재문서</div>
-        <div className="tjNumber1">1</div>
-        <div className="tj2">장비수리</div>
-        <div className="tjNumber2">0</div>
-        <div className="tj3">기안서</div>
-        <div className="tjNumber3">0</div>
-        <div className="tj4">장비구매</div>
-        <div className="tjNumber4">1</div>
-        <img className="grahp" src="image/image 433.png" alt="Graph" />
+      <div id="map-container">
+      <img id="map-image" src="image/스키장.png" alt="Map"/>
+      <div
+        className="circle"
+        style={{ left: '50px', top: '100px' }}
+        onMouseOver={(e) => showInfoPopup(e, '식당')}
+        onMouseOut={hideInfoPopup}
+      >
+        ⚪
+      </div>
+      <div
+        className="circle"
+        style={{ left: '300px', top: '150px' }}
+        onMouseOver={(e) => showInfoPopup(e, '스키장')}
+        onMouseOut={hideInfoPopup}
+      >
+        ⚪
+      </div>
+      <div
+        className="circle"
+        style={{ left: '200px', top: '250px' }}
+        onMouseOver={(e) => showInfoPopup(e, '눈사람')}
+        onMouseOut={hideInfoPopup}
+      >
+        ⚪
+      </div>
+      <div
+        className="circle"
+        style={{ left: '400px', top: '300px' }}
+        onMouseOver={(e) => showInfoPopup(e, '눈썰매')}
+        onMouseOut={hideInfoPopup}
+      >
+        ⚪
+      </div>
+      <div
+        className="circle"
+        style={{ left: '600px', top: '200px' }}
+        onMouseOver={(e) => showInfoPopup(e, '산악자전거')}
+        onMouseOut={hideInfoPopup}
+      >
+        ⚪
+      </div>
+
+      <div id="info-popup" style={infoPopupStyle}>
+        {infoPopupText}
+      </div>
+    </div>
       </div>
     </div>
     );
