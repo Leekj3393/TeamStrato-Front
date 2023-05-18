@@ -1,23 +1,23 @@
-// import { createActions, handleActions } from "redux-actions";
+import { createActions, handleActions } from "redux-actions";
 
-// /* 초기값 */
-// const initialState = {};
+/* 초기값 */
+const initialState = {};
 
-// /* 액션 */
-// // const POST_MAIL = "mail/POST_MAIL";
+/* 액션 */
+const POST_MAIL = "mail/POST_MAIL";
 
-// // export const {
-// //   postMail : { postMail },
-// // } = createActions({
-// //   [POST_MAIL]: res => res,
-// // });
+export const {
+  mail : { postMail },
+} = createActions({
+  [POST_MAIL]: res => res,
+});
 
-// /* 리듀서 */
-// const purchaseReducer = handleActions(
-//   {
-//     [POST_MAIL]: (state, { payload }) => payload
-//   },
-//   initialState
-// );
+/* 리듀서 */
+const mailReducer = handleActions(
+  {
+    [POST_MAIL]: (state, { payload }) => payload
+  },
+  initialState
+);
 
-// export default purchaseReducer;
+export default mailReducer;
