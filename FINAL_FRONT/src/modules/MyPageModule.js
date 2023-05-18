@@ -22,6 +22,7 @@ const PUT_MODIFY_MYMEMBER =  'MyPage/PUT_MODIFY_MYMEMBER';
 
 //docu
 const GET_DOCU_REQUEST_MEMBER ='request/GET_DOCU_REQUEST_MEMBER';
+const GET_ALL_REQUEST = 'MyPage/GET_ALL_REQUEST';
 
 const POST_GO_TO_WORK = 'MyPage/POST_GO_TO_WORK';
 const POST_END_WORK = 'MyPage/END_WORK';
@@ -35,6 +36,11 @@ const POST_INSERT_REQUEST = 'MyPage/INSERT_REQUEST';
 
 // Action creators
 export const data = createActions({
+
+  [GET_ALL_REQUEST]: (getAllRequest) => {
+    console.log(getAllRequest)
+    return ({ getAllRequest })
+  }, 
 
     [GET_DOCU_REQUEST_MEMBER]: (memberRequest) => {
     console.log(memberRequest)
@@ -89,6 +95,15 @@ export const data = createActions({
 // Reducer
 const myPageReducer = handleActions(
   {
+
+    [GET_ALL_REQUEST]: (state, { payload: { getAllRequest } }) => {
+      console.log('모듈 getAllRequest:', getAllRequest);
+      return {
+        ...state,
+        getAllRequest,
+      };
+    },
+
     [GET_MEMBERS_ALL]: (state, {payload: {totalMemberCount}}) => {
       return ({
       ...state,

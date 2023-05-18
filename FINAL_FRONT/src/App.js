@@ -4,6 +4,7 @@ import Main from "./pages/Main";
 import MyPage from "./pages/myPage/MyPage";
 import SubLayout from "./layouts/SubLayout";
 import Document from "./pages/myPage/Document";
+import PartNotice from "./pages/myPage/PartNotice";
 import NoticeSubLayout from "./layouts/NoticeSubLayout";
 import Notice from "./pages/notice/Notice";
 import NoticePart from "./pages/notice/NoticePart";
@@ -54,6 +55,7 @@ function App() {
           <Route path="/myPage" element={<SubLayout />}>
             <Route index element={<MyPage />} />
             <Route path="/myPage/Document" element={<Document />} />
+            <Route path="/myPage/PartNotice" element={<PartNotice />} />
           </Route>
           <Route path="/notice" element={<NoticeSubLayout />}>
             <Route index element={<Notice />} />
@@ -89,7 +91,6 @@ function App() {
             <Route index element={<Member/>}/>
             <Route path="/member/:memberCode" element={<MemberDetail/>}/>
             <Route path="/member/regist" element={<MemberReigst/>}/>
-            <Route path="/member/modify/:memberCode" element={<MemberModify/>}/>
           </Route>
           <Route path="/calendar" element={<Calendar/>}/>
         </Route>

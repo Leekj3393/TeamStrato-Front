@@ -199,13 +199,14 @@ export const updateMemberAPI = ({ id = 0, phone }) => {
 };
 
 
-//리퀘스트 전체조회
+// 리퀘스트 전체 조회
+// 리퀘스트 전체 조회
 export const callMyPageAllRequestAPI = () => {
-  const reqeustURL = `${PRE_URL}/request`;
+  const requestURL = `${PRE_URL}/request`;
 
   return async (dispatch, getState) => {
 
-    const response = await fetch(reqeustURL,{
+    const response = await fetch(requestURL, {
       method : 'GET',
       headers : {
         "Content-Type" : "application/json",
@@ -214,17 +215,19 @@ export const callMyPageAllRequestAPI = () => {
     });
 
     const result = await response.json();
+    console.log(result);  // result 값을 확인합니다.
 
     if (response.status === 200) {
-      dispatch({ type: 'MyPage/GET_ALL_REQUEST', payload: { getAllRequest: result.data } });
+      dispatch({ type: 'MyPage/GET_ALL_REQUEST', payload: { getAllRequest: result } });
     }
   };
 };
 
 
 
-export const callInsertRequestAPI = ({id = 0,requestReason, requestStart, requestEnd, requestType}) => {
-  const requestURL = `${PRE_URL}/request/insert/${id}`;
+
+export const callInsertRequestAPI = ({requestReason, requestStart, requestEnd, requestType}) => {
+  const requestURL = `${PRE_URL}/request/insert`;
   const selectedDates1 = new Date().toISOString();
 
   return async (dispatch, getState) => {
@@ -235,6 +238,7 @@ export const callInsertRequestAPI = ({id = 0,requestReason, requestStart, reques
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
         },
         body: JSON.stringify({ 
           requestReason,
@@ -266,7 +270,7 @@ export const callInsertRequestAPI = ({id = 0,requestReason, requestStart, reques
 
 //출근한 정보 얻어오기
 export const callWorkInfoAPI = () => {
-  const requestURL = `${PRE_URL}/workInfo`;
+  const requestURL = `${PRE_URL}/workToday`;
 
   return async (dispatch, getState) => {
     try {

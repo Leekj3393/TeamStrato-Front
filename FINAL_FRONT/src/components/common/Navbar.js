@@ -56,7 +56,7 @@ function Navbar() {
           <div className="home nav"><img className="menuIcon navImg" src="/image/Board.png"></img>공지사항</div>
         </NavLink>
         <NavLink to="/member" activeClassName="active">
-          <div className="home nav"><img className="menuIcon navImg" src="image/Member.png"></img>직원</div>
+          <div className="home nav"><img className="menuIcon navImg" src="/image/Member.png"></img>직원</div>
         </NavLink>
         <NavLink to="/equipment" activeClassName="active">
           <div className="manager nav"><img className="menuIcon navImg" src="/image/Management.png"></img>장비 & 리프트 관리</div>

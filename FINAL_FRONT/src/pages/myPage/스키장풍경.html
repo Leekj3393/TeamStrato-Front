@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interactive Map</title>
+    <style>
+        #map-image {
+    width: 500px; /* 원하는 가로 크기 */
+    height: auto; /* 높이는 자동으로 비율에 맞춤 */
+}
+
+        body {
+            background-color: #fff;
+            text-align: center;
+        }
+
+        #map-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            background-color: #ffffff;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .circle:hover {
+            background-color: #888;
+        }
+
+        #info-popup {
+            position: absolute;
+            display: none;
+            width: 200px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            transition: all 0.3s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div id="map-container">
+        <img id="map-image" src="/FINAL_FRONT/public/image/스키장.png" alt="Map">
+        <div class="circle" style="left: 50px; top: 100px;" onmouseover="showInfoPopup(this, '식당')" onmouseout="hideInfoPopup()">⚪</div>
+        <div class="circle" style="left: 300px; top: 150px;" onmouseover="showInfoPopup(this, '스키장')" onmouseout="hideInfoPopup()">⚪</div>
+        <div class="circle" style="left: 200px; top: 250px;" onmouseover="showInfoPopup(this, '눈사람')" onmouseout="hideInfoPopup()">⚪</div>
+        <div class="circle" style="left: 400px; top: 300px;" onmouseover="showInfoPopup(this, '눈썰매')" onmouseout="hideInfoPopup()">⚪</div>
+        <div class="circle" style="left: 600px; top: 200px;" onmouseover="showInfoPopup(this, '산악자전거')" onmouseout="hideInfoPopup()">⚪</div>
+
+        <div id="info-popup"></div>
+    </div>
+    <script>
+        const infoPopup = document.getElementById('info-popup');
+
+        function showInfoPopup(element, text) {
+            const rect = element.getBoundingClientRect();
+            infoPopup.style.left = `${rect.left}px`;
+            infoPopup.style.top = `${rect.bottom + window.scrollY + 10}px`;
+            infoPopup.innerText = text;
+            infoPopup.style.display = 'block';
+        }
+
+        function hideInfoPopup() {
+            infoPopup.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
