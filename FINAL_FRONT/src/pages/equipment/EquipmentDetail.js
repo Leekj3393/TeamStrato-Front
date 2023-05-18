@@ -1,50 +1,61 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { callEquipmentDetailAPI } from "../../apis/EquipmentAPICalls";
 import EquipmentDetailItem from "./EquipmentDetailItem";
 import EquipmentDetailCSS from "./EquipmentDetailCSS.css";
-import { da } from "date-fns/locale";
+import PagingBar from "../../components/common/PagingBar";
 
 
 function EquipmentDetail()
 {
     const params = useParams();
-    const categoryCode = params.categoryCode;
+    const navigate = useNavigate();
+    const [equ , setEqu] = useState();
+    const [pageInfo,setPageInfo] = useState({});
+    const [currentPage , setCurrentPage] = useState(1);
     const dispatch = useDispatch();
     const data = useSelector((state) => state.equipmentReducer);
-    const [equ , setEqu] = useState();
+    const categoryCode = params.categoryCode;
     const equipment = data.detail;
-    const pagingInfo = data.detail;
+
+    console.log('data :' , data)
+    console.log("equipment",equipment)
 
     useEffect(
         () =>
         {
-            dispatch(callEquipmentDetailAPI({categoryCode}));
+            dispatch(callEquipmentDetailAPI({categoryCode , currentPage}));
         },
-        []
+        [currentPage]
     );
 
     useEffect(
         () =>
         {
             { equipment && setEqu(equipment.data[0]); }
+            { equipment && setPageInfo(equipment.pageInfo)}
         },
         [data]
     );
     
+    const onClickRegist = () =>
+    {
+        navigate('/equipment/regist');
+    }
     
     const onClickEquipmentHandler = (equ) =>{
         setEqu(equ);
     }
 
-    console.log('data', data);
-    console.log('equ', equipment);
-
     return(
         <div>
             <div className="equipmentInfo">
                 { equ && <EquipmentDetailItem key={equ.equipmentCode} equ={equ}/>}
+            </div>
+            <div className="buttonInfo">
+                <button className="regist" onClick={ onClickRegist }>장비 추가</button>
+                <button className="modify">장비 수정</button>
             </div>
             <div className="equipmentList">
                 <table>
@@ -71,6 +82,9 @@ function EquipmentDetail()
                         )) }
                     </tbody>
                 </table>
+                <div className="pagebar">
+                    { equipment && <PagingBar pageInfo={pageInfo} setCurrentPage={setCurrentPage}/> }
+                </div>
             </div>
         </div>
     );

@@ -37,6 +37,7 @@ import FindId from "./pages/login/FindId";
 import EquipmentDetail from "./pages/equipment/EquipmentDetail";
 import FindPwd from "./pages/login/FindPwd";
 import MemberModify from "./pages/member/MemberModify";
+import EquipmentRegist from "./pages/equipment/EquipmentRegist";
 
 function App() {
   return (
@@ -82,6 +83,7 @@ function App() {
           <Route path="/equipment" element={<EquipmentSubLayout/>}>
             <Route index element={<Equipment/>} />
             <Route path="detail/:categoryCode" element={<EquipmentDetail/>} />
+            <Route path="regist" element={<EquipmentRegist/>} />
           </Route>
           <Route path="/member" element={<MemberSubLayout/>}>
             <Route index element={<Member/>}/>

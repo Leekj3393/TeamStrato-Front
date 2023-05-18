@@ -1,8 +1,36 @@
 
 .equipmentList{
-    position: absolute;
-    top : 550px;
+    position: relative;
+    bottom: 650px;
     left : 265px;
     width: 1450px;
     height: 400px;
+}
+
+.pagebar
+{
+    position: relative;
+    bottom: 750px; 
+    right: 350px;
+}
+
+.buttonInfo
+{
+    position: relative;
+    bottom: 660px;
+    left: 1450px;
+}
+
+.buttonInfo button
+{
+    margin-right: 30px;
+    background-color: rgba(120, 190, 255, 0.5);
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+}
+
+@media(max-width : 1300px)
+{
+
 }

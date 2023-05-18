@@ -58,7 +58,7 @@ function Equipment()
                         ))}
                     </tbody>
                 </table>
-                <div>
+                <div className="pageBar">
                 { pageInfo && <PagingBar pageInfo={pageInfo} setCurrentPage={setCurrentPage}/>}
                 </div>
             </div>
