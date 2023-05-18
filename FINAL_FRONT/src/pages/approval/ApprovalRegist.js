@@ -85,12 +85,12 @@ function ApprovalRegist() {
                             <td>2023-05-18</td>
                         </tr>
                         <tr>
-                            <th>제목</th>
-                            <td><input className='app-title' type='text' value=''></input></td>
+                            <th colSpan={1}>제목</th>
+                            <td colSpan={2}><input className='app-title' type='text' value=''></input></td>
                         </tr>
                         <tr>
-                            <th>내용</th>
-                            <td><input className='app-content' type='text' value=''></input></td>
+                            <th colSpan={1} rowSpan={3}>내용</th>
+                            <td colSpan={2} rowSpan={3}><input className='app-content' type='text' value=''></input></td>
                         </tr>
                     </table>
                 </div>
