@@ -141,3 +141,7 @@ z-index: 10000; /* 모달의 쌓임 순서를 높은 값으로 설정 */
 
 
 /* 나머지 스타일 규칙 */
+.center-table {
+  margin: 0 auto;
+  text-align: center;
+}

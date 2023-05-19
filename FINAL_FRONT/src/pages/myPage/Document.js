@@ -391,22 +391,24 @@ initialView="dayGridMonth"
           </div>
         </div>
         <div>
-  {isModalOpen && (
-    <div className="modal-overlay">
-      <div className="modal">
-        <div className="modal-content">
-          <h2>
-            '<b>{membersData ? membersData.memberName : ''}</b>'
-            님의 신청 서류 신청 내역 📂
-          </h2>
-          <div className="modal-scrollable-content">
-              {getAllRequest && getAllRequest.map((request, index) => (
+        {isModalOpen && (
+  <div className="modal-overlay">
+    <div className="modal">
+      <div className="modal-content">
+        <h2>
+          '<b>{membersData ? membersData.memberName : ''}</b>'
+          님의 신청 서류 신청 내역 📂
+        </h2>
+        <div className="modal-scrollable-content">
+          <table className="center-table">
+            {getAllRequest &&
+              getAllRequest.map((request, index) => (
                 <div className="request" key={index}>
-                   <button >삭제</button>
+                  <button>삭제</button>
                   <tr>
-                  <th>결재 서류 번호</th>
-                  <td>{request.approvals.map((approval, index) => <p key={index}>{approval.appStatus}</p>)}</td>
-                </tr>
+                    <th>결재 서류 번호</th>
+                    <td>{request.approvals.map((approval, index) => <p key={index}>{approval.appStatus}</p>)}</td>
+                  </tr>
                   <tr>
                     <th>결재 내용</th>
                     <td>{request.requestReason}</td>
@@ -423,19 +425,18 @@ initialView="dayGridMonth"
                     <th>종료일</th>
                     <td>{request.requestEnd},</td>
                   </tr>
-                  
                   {/* Add more fields as needed */}
                   <br />
                 </div>
-                
               ))}
-              
-          </div>
-          <button className="docuBtn" onClick={closeModal}>신청 내역 닫기</button>
+          </table>
         </div>
+        <button className="docuBtn" onClick={closeModal}>신청 내역 닫기</button>
       </div>
     </div>
-  )}
+  </div>
+)}
+
 </div>
 
       </body>

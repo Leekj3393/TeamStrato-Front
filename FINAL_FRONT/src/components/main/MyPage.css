@@ -572,17 +572,21 @@ th1 {
       display: flex;
       justify-content: center;
       align-items: center;
+      z-index: 10000; /* 모달의 쌓임 순서를 높은 값으로 설정 */
     }
     
-    .modal-content1 {
+    .modal-content {
       background-color: #fff;
       padding: 20px;
       border-radius: 5px;
-      width: 500px; /* 모달의 최대 너비를 600px로 지정 */
-      height: 500px;
+      width: 800px; /* 모달의 최대 너비를 900px로 지정 */
+      height: auto;
+      max-height: 80vh;
+      overflow-y: auto;
       text-align: center;
       position: relative;
     }
+    
     
     
     .modal-close {
@@ -593,5 +597,15 @@ th1 {
       border: none;
       background-color: transparent;
       cursor: pointer;
+    }
+
+    .modal-scrollable-content {
+      max-height: 700px; /* 원하는 최대 높이로 설정 */
+      overflow-y: auto; /* 세로 스크롤을 표시하고 필요한 경우에만 스크롤 표시 */
+    }
+    
+    .wide-textbox {
+      width: 100%; /* 부모 셀의 100% 넓이를 가지도록 설정 */
+      height: 100px;
     }
     
