@@ -1,9 +1,10 @@
 import MemberCSS from './Member.css';
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from 'react';
-import { callMemberListAPI } from '../../apis/MemberAPICalls';
-import PagingBar from '../../components/common/PagingBar';
-import { useNavigate } from 'react-router-dom';
+import { callMemberCodesListAPI, callMemberDeptListAPI, callMemberJobListAPI, callMemberListAPI, callMemberNamesListAPI } from '../../apis/MemberAPICalls';
+import MemberPagingBar from '../../components/common/MemberPagingBar';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import MemberSearch from './MemberSearch';
 
 
 function Member() {
@@ -12,63 +13,84 @@ function Member() {
     const navigate = useNavigate();
     const { data, pageInfo } = useSelector((state) => state.memberReducer);
     const [currentPage, setCurrentPage] = useState(1);
-    const [membersData, setMembersData] = useState([]);
-    // const [ hireDate, setHireDate ] = useState();
+    const [lengthOfService, setLengthOfService] = useState([]);
+    const [workingDays, setWorkingDays] = useState([]);
+    /* select option 선택 */
+    const [ filter, setFilter ] = useState('memberName');
 
-    
-    // useEffect(
-        //     () => {
-            //         { data && setHireDate(data.member.memberHireDate)};
-            //     },
-            //     [data]
-            // );
-            
-    const hireDate = data && data.member ? data.member.memberHireDate.split("T")[0] : null;
-    
+     /* 검색어 요청시 사용할 값 */
+     const [searchParams] = useSearchParams();
+     const search = searchParams.get('value');
+
+    /* 검색 기능 구현 */
     useEffect(() => {
-        if (data) {
-          const updatedData = data.map((member) => {
-            const workDays = getWorkDays(member.startDate, member.endDate);
-            const employmentPeriod = getEmploymentPeriod(member.startDate, member.endDate);
-            return {
-              ...member,
-              workDays,
-              employmentPeriod,
-            };
+        if(filter === "memberName") {  
+            dispatch(callMemberNamesListAPI({search, currentPage}));
+        } else if(filter === "memberCode") {
+            dispatch(callMemberCodesListAPI({search, currentPage}));
+        } else if(filter === "deptName") {
+            dispatch(callMemberDeptListAPI({search, currentPage}));
+        } else if(filter === "jobName") {
+            dispatch(callMemberJobListAPI({search, currentPage}));
+        } else {
+            dispatch(callMemberListAPI({currentPage}));
+        }
+    },
+    [currentPage, search, filter]
+    );
+
+    /* 근무일수, 근속기간 구현 코드 */
+    useEffect(() => {
+        if (data) { 
+          const hireDates = data.map(member => member.memberHireDate);
+            
+          const currentDate = new Date();
+          const los = hireDates.map(date => {
+            const employmentPeriod = getEmploymentPeriod(date, currentDate);
+            return Math.floor(employmentPeriod / 365); // Calculate length of service in years
           });
-          setMembersData(updatedData); 
+          setLengthOfService(los);
+          
+          const wd = hireDates.map(date => {
+            const workDays = getWorkDays(date, currentDate);
+            return workDays;
+          });
+          setWorkingDays(wd);
         }
       }, [data]);
-            
+    
+    /* 전체 직원 조회 */
     useEffect(() => {
         dispatch(callMemberListAPI({currentPage}));        
     }, [currentPage]);
 
+    /* 근무일수 */
     const getWorkDays = (startDate, endDate) => {
         
         const start = new Date(startDate);
         const end = new Date(endDate);
-        const workDays = Math.round((end - start) / (1000 * 60 * 60 * 24)) + 1; // Adding 1 to include both start and end dates
+        const workDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1; //시작일, 종료일 포함 계산
         return workDays;
       };
 
+    /* 근속기간 */
     const getEmploymentPeriod = (startDate, endDate) => {
        
         const start = new Date(startDate);
         const end = new Date(endDate);
-        const employmentPeriod = Math.round((end - start) / (1000 * 60 * 60 * 24)); // Excluding the end date
+        const employmentPeriod = Math.round((end - start) / (1000 * 60 * 60 * 24)); 
         return employmentPeriod;
       };
-            
+    
+    /* 직원 상세조회 핸들러 */
     const onClickMemberHandler = (memberCode) => {
         navigate(`/member/${memberCode}`);
     };
 
+    /* 직원 등록 핸들러 */
     const onClickMemberRegistHandler = (e) => {
         navigate(`/member/regist`);
     };
-
-
 
     return (
         <>
@@ -76,15 +98,16 @@ function Member() {
                 직원목록
             </div>
             <div className="mbSearch">
-                <select>
-                    <option value="none">선택</option>
-                    <option value="memberId">아이디</option>
+                <select onChange={(e) => setFilter(e.target.value)}>
+                    <option value="none">전체</option>
                     <option value="memberName">이름</option>
+                    <option value="memberCode">사번</option>
+                    <option value="deptName">부서</option>
+                    <option value="jobName">직급</option>
                 </select>
             </div>
-            <div className="mbSearchBar">
-                <input type="text" 
-                />
+            <div>
+                <MemberSearch filter={filter}/>
             </div>
             <div className="mbInsert">
                 <button onClick={onClickMemberRegistHandler}>직원 등록</button>
@@ -114,7 +137,7 @@ function Member() {
                     </tr>
                 </thead>
                 <tbody>
-                    {data && data.map((member) => (
+                    {data && data.map((member, index) => (
                         <tr key={member.memberCode}
                             onClick ={ () => onClickMemberHandler(member.memberCode)}
                         >
@@ -122,12 +145,12 @@ function Member() {
                             <td>{member.memberStatus}</td>
                             <td>{member.memberCode}</td>
                             <td>{member.memberHireDate.split("T")[0]}</td>
-                            <td>{member.employmentPeriod}</td>
-                            <td>{member.workDays}</td>
+                            <td>{lengthOfService[index] + "년"}</td>
+                            <td>{workingDays[index] + "일"}</td>
                             <td>{member.department.deptName}</td>
                             <td>{member.job.jobName}</td>
                             <td>{member.memberId}</td>
-                            <td>{member.gender}</td>
+                            <td>{member.gender === 'M' ? '남자' : '여자'}</td>
                             <td>{member.phone}</td>
                         </tr>
                     ))}
@@ -136,7 +159,7 @@ function Member() {
             </div>
             <div>
             {pageInfo && (
-                <PagingBar pageInfo={pageInfo} setCurrentPage={setCurrentPage}/>
+                <MemberPagingBar pageInfo={pageInfo} setCurrentPage={setCurrentPage}/>
             )}
             </div>
             </>
