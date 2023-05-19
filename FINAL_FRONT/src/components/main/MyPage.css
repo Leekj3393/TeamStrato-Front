@@ -604,7 +604,7 @@ th1 {
       overflow-y: auto; /* 세로 스크롤을 표시하고 필요한 경우에만 스크롤 표시 */
     }
     
-    .wide-textbox {
+    .wide-textbox { 
       width: 100%; /* 부모 셀의 100% 넓이를 가지도록 설정 */
       height: 100px;
     }
