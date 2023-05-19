@@ -120,15 +120,21 @@
   left: 10px;
   width: 1100px;
   height: 500px;
+  word-wrap: unset;
 }
 
 .appFormDiv table input{
   position: relative;
-  width: 800px;
-  height: 100px;
+  width: 1000px;
+  height: 30px;
 }
 
-
+.appFormDiv table textarea {
+  position: relative;
+  width: 1000px;
+  height: 300px;
+  resize: none;
+}
 
 
 /* 결재선 등록--------------------------------------------------------------------------------------- */
