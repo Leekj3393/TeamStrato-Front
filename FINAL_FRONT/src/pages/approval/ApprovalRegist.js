@@ -37,11 +37,23 @@ function ApprovalRegist() {
     };
     const onClickRegistHandler = () => {
         if(
-            !form.appTitle || !form.appContent || !form.appType
+            !form.appTitle || !form.appContent || !form.appType || !form.appStatus
         ) {
-            alert("양식을 모두 입력해주세요.");
-            return;
+            if(!form.appTitle) {
+                alert("제목을 작성해주세요.");
+                return;
+            } else if(!form.appContent) {
+                alert("제목을 작성해주세요.");
+                return;
+            } else if(!form.appType) {
+                alert("기안구분이 누락되었습니다.");
+                return;
+            } else {
+                alert("기안상태가 누락되었습니다.");
+                return;
+            }
         }
+         dispatch(callApprovalRegistAPI(form));
     };
     const onClickResetHandler = () => {};
 
@@ -56,31 +68,34 @@ function ApprovalRegist() {
                     <table>
                         <tbody>
                             <tr>
-                                <th colSpan={1}>기안자</th>
+                                <th>기안자</th>
                                 <td name='memberCode' onChange={onChangeHandler}>{appMember && appMember.memberName}</td>
-                                <th colSpan={1}>부서</th>
+                                <th>부서</th>
                                 <td name='deptCode'>{appMember && appMember.department.deptName}</td>
                             </tr>
                             <tr>
-                                <th colSpan={1}>구분</th>
-                                <td name='appType' onChange={onChangeHandler}>기안문</td>
-                                <th colSpan={1}>등록일</th>
+                                <th>구분</th>
+                                <td><label><input id='radioInput' type="radio" onChange={ onChangeHandler } name="appType" value={form.appType==='기안문'}  checked/> 기안문</label></td>
+                                <th>등록일</th>
                                 <td className='today'>'2023-05-18'</td>
                             </tr>
                             <tr>
-                                <th colSpan={1}>제목</th>
-                                <td colSpan={5}>
+                                <th>제목</th>
+                                <td>
                                     <input
+                                        id='textInput'
                                         name='appTitle'
                                         type='text'
                                         placeholder='기안문의 제목을 입력해주세요.'
                                         onChange={onChangeHandler}
                                     />
                                 </td>
+                                <th>기안상태</th>
+                                <td><label><input id='radioInput' type="radio" onChange={ onChangeHandler } name="appStatus" value={form.appStatus==='대기'} checked/>대기</label></td>
                             </tr>
                             <tr>
-                                <th colSpan={1} rowSpan={3}>내용</th>
-                                <td colSpan={3} rowSpan={3}>
+                                <th>내용</th>
+                                <td colSpan={3}>
                                     <textarea
                                         placeholder='기안문의 내용을 입력해주세요.'
                                         name='appContent'

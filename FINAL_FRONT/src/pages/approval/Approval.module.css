@@ -123,9 +123,9 @@
   word-wrap: unset;
 }
 
-.appFormDiv table input{
+.appFormDiv table #textInput{
   position: relative;
-  width: 1000px;
+  width: 100px !important;
   height: 30px;
 }
 
