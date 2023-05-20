@@ -264,7 +264,7 @@ function Main() {
           <div>뉴스를 불러오는 중입니다...</div>
         ) : newsData.length > 0 ? (
           <ul>
-            <li>{newsData[0].title}</li>
+              <li>{newsData[0].title.substring(0, 30) + (newsData[0].title.length > 30 ? '...' : '')}</li>
           </ul>
         ) : (
           <div>뉴스를 불러올 수 없습니다.</div>
@@ -276,7 +276,7 @@ function Main() {
           <div>뉴스를 불러오는 중입니다...</div>
         ) : newsData.length > 0 ? (
           <ul>
-            <li>{newsData[1].title}</li>
+             <li>{newsData[1].title.substring(0, 30) + (newsData[0].title.length > 30 ? '...' : '')}</li>
           </ul>
         ) : (
           <div>뉴스를 불러올 수 없습니다.</div>
@@ -290,7 +290,7 @@ function Main() {
           <div>뉴스를 불러오는 중입니다...</div>
         ) : newsData.length > 0 ? (
           <ul>
-            <li>{newsData[2].title}</li>
+             <li>{newsData[4].title.substring(0, 30) + (newsData[0].title.length > 30 ? '...' : '')}</li>
           </ul>
         ) : (
           <div>뉴스를 불러올 수 없습니다.</div>
