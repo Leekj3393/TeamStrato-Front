@@ -554,9 +554,9 @@ color: #3E6039;
 .news{
     background:#ffff;
     position: absolute;
-    top: 530px;
+    top: 540px;
     width: 910px;
-    height: 415px;
+    height: 335px;
     left: 300px;
     border-radius: 10px;
 
@@ -1059,77 +1059,81 @@ opacity: 0.3;
 
 
 
-
+#snow-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 100;
+}
 
 #map-image {
-  width: 905px; /* 원하는 가로 크기 */
-  margin-top: 25px;
-  height: auto; /* 높이는 자동으로 비율에 맞춤 */
+
+  width: 910px;
+  height: 360px;
   border-radius: 10px;
 }
 
-      #map-container {
-          position: relative;
-          display: inline-block;
-      }
 
-      .circle {
-          position: absolute;
-          border-radius: 50%;
-          
-          width: 30px;
-          height: 30px;
-          background-color: #ffffff;
-          text-align: center;
-          cursor: pointer;
-          transition: background-color 0.3s;
-      }
 
-      .circle:hover {
-          background-color: #888;
-      }
+#map-container {
+  position: relative;
+  display: inline-block;
+}
 
-      #info-popup {
-          position: absolute;
-          display: none;
-          width: 190px;
-          padding: 10px;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-          background-color: #fff;
-          transition: all 0.3s ease-out;
-      }
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  
+  width: 30px;
+  height: 30px;
+  background-color: #ffffff;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 
-      @keyframes snowfall {
-        0% {
-          transform: translateY(-100%);
-        }
-        100% {
-          transform: translateY(100vh);
-        }
-      }
-      
-      .snowflake {
-        position: absolute;
-        top: -10px;
-        width: 15px;
-        height: 15px;
-        background-color: #fff;
-        border-radius: 50%;
-        animation: snowfall linear infinite;
-      }
-      
-      .snowflake {
-        /* ... */
-        animation: snowfall linear infinite;
-      }
-      
-      @keyframes snowfall {
-        0% {
-          transform: translateY(-100%);
-        }
-        100% {
-          transform: translateY(100vh);
-        }
-      }
-            
+.circle:hover {
+  background-color: #888;
+}
+
+.info-container {
+  position: relative;
+}
+
+.info-container .circle {
+  margin-right: 5px;
+}
+
+.info-popup {
+  position: absolute;
+  display: none;
+  width: 200px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  transition: all 0.3s ease-out;
+  left: 40px;
+  top: -40px;
+}
+
+.circle:hover .info-popup {
+  display: block;
+}
+
+
+.mapText{
+  background: #C2DABE;
+  border-radius: 10px;
+  text-align: center;
+  width: 205px;
+  height: 41px;
+  font-family: 'Inria Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 41px;
+  color: #3E6039;
+
+}
