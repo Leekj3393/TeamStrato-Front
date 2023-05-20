@@ -89,6 +89,10 @@ function App() {
           </Route>
           <Route path="/member" element={<MemberSubLayout/>}>
             <Route index element={<Member/>}/>
+            <Route path="/member/names/:memberName" element={<Member/>}/>
+            <Route path="/member/codes/:memberCode" element={<Member/>}/>
+            <Route path="/member/department/:deptName" element={<Member/>}/>
+            <Route path="/member/job/:jobName" element={<Member/>}/> 
             <Route path="/member/:memberCode" element={<MemberDetail/>}/>
             <Route path="/member/regist" element={<MemberReigst/>}/>
             <Route path="/member/modify/:memberCode" element={<MemberModify/>}/>
