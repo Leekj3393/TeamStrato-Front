@@ -1,0 +1,118 @@
+/* CSS 파일에 @font-face 코드 삽입 */
+@font-face {
+  font-family: 'SUITE-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+}
+
+.content{
+  font-family: 'SUITE-Regular';
+  position: absolute;
+  top: 180px;
+  left: 290px; /* Changed 'right' to 'left' */
+  height: 670px;
+  width: 1200px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  /* text-align: center; */
+}
+
+.square {
+  position: absolute;
+  top: 180px;
+  left: 290px;
+  background-color: white;
+  border-radius: 10px;
+  height: 670px;
+  width: 1200px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.noticeTitle{
+  font-size: large;
+  margin-top: 0%;
+}
+
+.noticeSearch {
+  position: absolute;
+  top: 70px;
+  left: 850px;
+}
+
+.noticeSearch select {
+  height: 25px;
+  width: 100px;
+  text-align: center;
+  border-radius: 5px;
+  border-width: 2px;
+}
+
+.noticeSearch select option {
+  border-radius: 1000px;
+  text-align: center;
+  width: 100px;
+}
+
+.noticeSearch input {
+  margin-left: 5px;
+  border-radius: 5px;
+  height: 20px;
+  
+}
+
+.tableInfo{
+  position: absolute;
+  top: 130px;
+  left: 70px;
+}
+
+.noticeMainTable,
+.noticePartTable
+{
+  position: absolute;
+  top: 150px;
+  left: 50px;
+  border-style: solid none solid none;
+  border-width: thick;
+  border-radius: 0%;
+  /* top: 100px; */
+  max-height: 10px;
+  width:  1100px;
+}
+
+.noticeMainTable th,
+.noticePartTable th {
+  text-align: center;
+  border-style: none none solid none;
+  border-width: 1px;
+  background: transparent;
+}
+
+.partSelect {
+  position: relative;
+  top: -1600px;
+  left: 280px;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  flex-wrap: wrap;
+  min-width: 800px;
+  list-style:none;
+  padding-top: 30px;    
+}
+
+.partSelect li {
+    min-width: 100px;
+    height: auto;
+    text-align: center;
+}
+
+
+
+.noticeDiv{
+  display: flex;
+  flex-wrap: wrap;
+  width: 850px;
+  height: 100%;
+  margin: 10px auto;
+}
