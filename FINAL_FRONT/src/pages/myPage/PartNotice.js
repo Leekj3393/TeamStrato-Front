@@ -1,5 +1,8 @@
 import { useState } from "react";
 import PartBoardCSS from "../../components/main/PartBoardCSS.css"
+import { useNavigate } from 'react-router-dom';
+
+
 function NoticePart() {
 
 
@@ -40,6 +43,14 @@ function NoticePart() {
           setCurrentPage(page);
         };
 
+        //
+
+        const navigate = useNavigate();
+
+        const handlePostClick = (postId) => {
+          navigate(`/posts/${postId}`);
+        };
+
         return (
             <div className={PartBoardCSS}>
               <div className="partNemo">
@@ -55,6 +66,7 @@ function NoticePart() {
                     style={{ width: '250px' ,height:'25px' }}
                   />
                   <div className="searchPart" onClick={handleSearch}>검색</div>
+                  <div className="searchPartGul" onClick={handleSearch}>글쓰기</div>
                 </div>
 
 
@@ -80,17 +92,15 @@ function NoticePart() {
                   <tr>
                     <th>번호</th>
                     <th>제목</th>
-                    <th>작성글</th>
                     <th>조회수</th>
                     <th>등록 날짜</th>
                   </tr>
                 </thead>
                 <tbody>
                   {boardData.map((item) => (
-                    <tr key={item.id}>
+                    <tr key={item.id} onClick={() => handlePostClick(item.id)}>
                       <td>{item.id}</td>
                       <td>{item.title}</td>
-                      <td>{item.content}</td>
                       <td>{item.views}</td>
                       <td>{item.date}</td>
                     </tr>
