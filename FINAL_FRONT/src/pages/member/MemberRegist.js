@@ -113,6 +113,9 @@ function MemberReigst () {
             <div class="memberRgTitle">
                 직원 등록
             </div>
+            <div class="memberRgHr">
+                <hr/>
+            </div>
             <div class="MemberBackground">
                 <div className='MemberRgImg'>
                     {imageUrl &&

@@ -48,6 +48,9 @@ function MemberDetail () {
             <div className="memberDtTitle">
                 직원 상세조회
             </div>
+            <div className='memberHr'>
+                <hr/>
+            </div>
             <div className='memberDiv'>
             <div className="memberDtBack">
             <div className="memberImageDiv">
@@ -75,19 +78,8 @@ function MemberDetail () {
                     { memberDt && memberDt.job?.jobName }
                 </span>
             </div>
-            <div>
-                <div className='memberDtPhone'>
-                    <img src="/image/memberPhone.png"></img>
-                    <span>
-                        { memberDt && memberDt.phone }
-                    </span>
-                </div>
-                <div className="memberDtEmail">
-                <img src="/image/memberId.png"></img>
-                <span>
-                    { memberDt && memberDt.memberId }
-                </span>
-                </div>
+            <div className="memberDtHr1">
+                <hr/>
             </div>
             <div className="memberDtEmp">
                 <div className='memberEmpTitle'>인사정보</div>
@@ -104,8 +96,23 @@ function MemberDetail () {
                     </span>
                 </div>
             </div>
+            <div className="memberDtHr2">
+                <hr/>
+            </div>
             <div className="memberDtPer">
                 <div className='memberEmpTitle'>개인정보</div>
+                <div className='memberDtPhone'>
+                    <span >전화번호</span>
+                    <span className='memberEmpDiv2'>
+                        { memberDt && memberDt.phone }
+                    </span>
+                </div>
+                <div className="memberDtEmail">
+                <span>이메일</span>
+                <span className='memberEmpDiv2'>
+                    { memberDt && memberDt.memberId }
+                </span>
+                </div>
                 <div className="memberEmpDiv">
                     <span>성별</span>
                     <span className='memberEmpDiv2'>
