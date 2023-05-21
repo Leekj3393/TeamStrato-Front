@@ -30,7 +30,7 @@ function Approval() {
                         <thead>
                             <tr className={ApprovalCSS.title}>
                                 <th>문서번호</th>
-                                <th>기안타입</th>
+                                <th>기안구분</th>
                                 <th>등록일</th>
                                 <th>기안서 제목</th>
                                 <th>상태</th>
