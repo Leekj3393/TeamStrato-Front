@@ -9,10 +9,17 @@ function ApprovalDetail () {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { data } = useSelector(state => state.approvalReducer);
+    const { appDetail } = useSelector(state => state.approvalReducer);
     const params = useParams();
     const appCode = params.appCode;
 
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}년 ${month}월 ${day}일`;
+    }
 
     useEffect(
         () => {
@@ -31,24 +38,31 @@ function ApprovalDetail () {
                 </div>
                 <div className={ApprovalCSS.applineInfoBoxDiv}>
                     <table>
-                            <thead>기안자</thead>
-                            <tbody>{/* {data && data.member.memberName} */}</tbody>
-                    </table>
-                    <table>
-                            <thead>기안자</thead>
-                            <tbody>{/* {data && data.member.memberName} */}</tbody>
-                    </table>
-                    <table>
-                            <thead>제1 결재선</thead>
-                            <tbody>{/* {data && data.member.memberName} */}</tbody>
-                    </table>
-                    <table>
-                            <thead>제2 결재선</thead>
-                            <tbody>{/* {data && data.member.memberName} */}</tbody>
-                    </table>
-                    <table>
-                            <thead>최종 결재선</thead>
-                            <tbody>{/* {data && data.member.memberName} */}</tbody>
+                            <thead>
+                                <tr>
+                                    <th>기안자</th>
+                                    <th>제1 결재선</th>
+                                    <th>제2 결재선</th>
+                                    <th>최종 결재선</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>김길동{/* {appDetail && appDetail.member.memberName} */}</td>
+                                    <td>홍길동{/* {appLine && appLine.member.memberName} */}</td>
+                                    <td>홍길동{/* {appLine && appLine.member.memberName} */}</td>
+                                    <td>홍길동{/* {appLine && appLine.member.memberName} */}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>요청{/* {appDetail && appDetail.member.memberName}*/}</td>
+                                    <td>승인{/* {appLine && appLine.appStatus} */}</td>
+                                    <td>승인{/* {appLine && appLine.appStatus} */}</td>
+                                    <td>반려{/* {appLine && appLine.appStatus} */}</td>
+                                </tr>
+
+                            </tfoot>
                     </table>
                 </div>
                 <div className={ApprovalCSS.appDetailDiv}>
@@ -56,28 +70,28 @@ function ApprovalDetail () {
                         <tbody>
                             <tr>
                                 <th>문서번호</th>
-                                <td>{data && data.appCode}</td>
-                                <th>등록일</th>
-                                <td>{data && data.appRegistDate}</td>
+                                <td>{appDetail  && appDetail.appCode}</td>
+                                <th>부서</th>
+                                <td>부서명{/* {appDetail && appDetail.member.department.deptName} */}</td>
                             </tr>
                             <tr>
-                                <th>부서</th>
-                                <td>{/* {data && data.member.department.deptName} */}</td>
                                 <th>구분</th>
-                                <td>{data && data.appType}</td>
+                                <td>{appDetail && appDetail.appType}</td>
+                                <th>상태</th>
+                                <td>{appDetail && appDetail.appStatus}</td>
+                                <th>등록일</th>
+                                <td>{formatDate(appDetail && appDetail.appRegistDate)}</td>
+                            </tr>
+                            <tr>
                             </tr>
                             <tr>
                                 <th>제목</th>
-                                <td>{data && data.appTitle}</td>
-                            </tr>
-                            <tr>
-                                <th>상태</th>
-                                <td>{data && data.appTitle}</td>
+                                <td>{appDetail && appDetail.appTitle}</td>
                             </tr>
                             <tr>
                                 <th>내용</th>
-                                <td colSpan={3}>
-                                    {data && data.appContent}
+                                <td colSpan={3} rowSpan={3}>
+                                    {appDetail && appDetail.appContent}
                                 </td>
                             </tr>
                         </tbody>

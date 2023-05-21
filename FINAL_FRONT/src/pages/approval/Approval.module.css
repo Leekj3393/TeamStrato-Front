@@ -193,23 +193,42 @@
   position: absolute;
   top: 20px;
   left: 350px;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
 }
 
 .applineInfoBoxDiv {
   position: absolute;
-  top: 10px;
-  left: 500px;
-  max-width: 50px;
-
+  top: -90px;
+  left: 850px;
+  width:600px;
+  height: 200px;
+  /* flex-wrap: wrap; */
+  text-align: center;
+  
 }
 
 .applineInfoBoxDiv table {
   position: absolute;
-  margin-right: 1px;
+  /* margin-right: 1px; */
+  /* flex-wrap: wrap; */
+  height: 150px;
+}
+
+.applineInfoBoxDiv table th {
+  text-align: center;
+  font-size: small;
+  height: 5px;
+}
+
+.applineInfoBoxDiv table td {
+  text-align: center;
+  font-size: medium;
+  height: 10px;
 }
 
 .approvalDetailTable {
   position: absolute;
-  top: 200px;
+  top: 350px;
+  height: 450px;
+  width: 1100px;
 }
