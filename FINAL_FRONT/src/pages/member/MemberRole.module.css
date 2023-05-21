@@ -42,6 +42,10 @@
     border-radius: 25px;    
 }
 
+.roleModalDiv label {
+    margin-right: 10px;
+}
+
 .roleModalDiv input {
     margin-top: 15px;
     margin-bottom: 20px;
@@ -49,6 +53,7 @@
     width: 70%;
     border-radius: 25px;
     text-indent: 1.2em;
+    background-color: #D4EDFF;
 }
 
 .roleModalDiv select {
