@@ -1,13 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { callEquipmentCategory } from "../../apis/EquipmentAPICalls";
+import { callEquipmentCategory, callEquipmentRegist } from "../../apis/EquipmentAPICalls";
 import { useNavigate } from "react-router-dom";
 import EquipmentRegsitCSS from "./EquipmentRegistCSS.css";
 
 function EquipmentRegist()
 {
     const dispatch = useDispatch();
-    const form = new FormData();
     const navigate = useNavigate();
     const imageInput = useRef();
     const [imgUrl , setImageUrl] = useState();
@@ -49,6 +48,12 @@ function EquipmentRegist()
         [image]
     );
     
+    const onClickImageUpload = () =>
+    {
+        imageInput.current.click();
+    }
+
+
     const onChangeImageUpload = (e) =>
     {
         console.log("이미지 : ", e.target.files);
@@ -62,6 +67,25 @@ function EquipmentRegist()
             ...equipment,
             [e.target.name ] : [e.target.value]
         });
+        console.log("equipment : " , equipment);
+    }
+
+    const onClickEquipmentRegistHandler = () =>
+    {
+
+        if(!equipment.equipmentName || !equipment.equCategory.categoryCode || !equipment.appTitle || !equipment.appContent || !image)
+        {
+            alert('정보 전부 입력해주세요');
+            return;
+        }
+        const formData = new FormData();
+        formData.append("equipmentName",equipment.equipmentName);
+        formData.append("equCategory.categoryCode",equipment.equCategory.categoryCode );
+        formData.append("appTitle",equipment.appTitle);
+        formData.append("appContent",equipment.appContent);
+        formData.append("image",image);
+
+        dispatch(callEquipmentRegist(formData));
     }
 
     console.log("category :", category);
@@ -73,12 +97,19 @@ function EquipmentRegist()
                         { imgUrl && <img alt="미리보기입니당" src={ imgUrl } className="image"/>}
                     </div>
                     <input 
+                        className="inputImg"
                         type="file" 
                         name="equipmentImage" 
                         accept='image/jpg,image/png,image/jpeg,image/gif'
                         ref={ imageInput }
                         onChange={ onChangeImageUpload }
                     />
+                    <button
+                        className="filebtn"
+                        onClick={onClickImageUpload}
+                        >
+                            이미지 업로드
+                        </button>
                  </div>
             <div className="inputText">
                 <table>
@@ -122,21 +153,20 @@ function EquipmentRegist()
                         </tr>
                         <tr className="appContent">
                             <td><label>결제 내용</label></td>
-                            <input
-                                type="text"
-                                className="appContent-text"
+                            <textarea 
                                 name="appContent"
+                                className="appContent-text"
                                 onChange={ onChangeHandler }
                             />
                         </tr>
                     </tbody>
                 </table>
                 <div className="buttons">
+                <button className="form" onClick={ onClickEquipmentRegistHandler }>
+                    저장하기
+                </button>
                 <button className="back" onClick={ () => navigate(-1)}>
                     돌아가기
-                </button>
-                <button className="form">
-                    저장하기
                 </button>
                 </div>                           
             </div>
