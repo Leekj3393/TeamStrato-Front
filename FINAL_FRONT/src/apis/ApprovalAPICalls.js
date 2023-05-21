@@ -1,4 +1,4 @@
-import { getAppMemberInfo, postApproval } from "../modules/ApprovalModule";
+import { getAppMemberInfo, postApproval, getApprovals, getApproval, putApproval, } from "../modules/ApprovalModule";
 
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
@@ -46,5 +46,21 @@ export const callApprovalRegistAPI = (form) => {
         }
     }
 }
+
+/* 결재 대기문서 목록 조회 */
+export const callApprovalWListAPI = ({ currentPage = 1 }) => {
+    const requestURL = `${PRE_URL}/list/대기?page=${currentPage}`;
+    
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log('[ApprovalAPICalls] : callApprovalListAPI result : ', result);
+            dispatch(getApprovals(result));
+        }
+    }    
+}
+
 
 
