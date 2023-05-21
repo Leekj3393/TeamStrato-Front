@@ -201,32 +201,7 @@ function Document() {
     //   setAllRequest(allRequest.filter(r => r !== request));
     // };
     
-  
 
-    // //퇴직
-    // const handleWorkOutRequest = () => {
-    //   const today = new Date();  // 오늘 날짜를 가져옵니다. 시간은 무시하기 위해 시, 분, 초, 밀리초를 0으로 설정합니다.
-    //   today.setHours(0, 0, 0, 0);
-    
-    
-    //   if (selectedDates1[0] < today || selectedDates1[1] < today) {  // 선택한 날짜가 오늘 이후인지 확인
-    //     alert('퇴직 신청 시작일과 종료일은 오늘 날짜 이후여야 합니다.'<br>
-    //     '아닐 시에 결재관리자가 알아서 회수하겠습니다. ');
-    //     return;
-    //   }
-    
-    //   console.log(textareaValue);
-      
-    //   dispatch(callInsertRequestAPI({
-    //     requestReason: textareaValue,
-    //     requestStart: getDate(selectedDates1[0]),
-    //     requestEnd: getDate(selectedDates1[1]),
-    //     requestType: "퇴직 신청"
-    //   }));
-    // };
-    
-  
-  
 
   const handleDateClick1 = (info) => {
     handleDateClick(info, setSelectedDates1);
@@ -391,22 +366,24 @@ initialView="dayGridMonth"
           </div>
         </div>
         <div>
-  {isModalOpen && (
-    <div className="modal-overlay">
-      <div className="modal">
-        <div className="modal-content">
-          <h2>
-            '<b>{membersData ? membersData.memberName : ''}</b>'
-            님의 신청 서류 신청 내역 📂
-          </h2>
-          <div className="modal-scrollable-content">
-              {getAllRequest && getAllRequest.map((request, index) => (
+        {isModalOpen && (
+  <div className="modal-overlay">
+    <div className="modal">
+      <div className="modal-content">
+        <h2>
+          '<b>{membersData ? membersData.memberName : ''}</b>'
+          님의 신청 서류 신청 내역 📂
+        </h2>
+        <div className="modal-scrollable-content">
+          <table className="center-table">
+            {getAllRequest &&
+              getAllRequest.map((request, index) => (
                 <div className="request" key={index}>
-                   <button >삭제</button>
+                  <button>삭제</button>
                   <tr>
-                  <th>결재 서류 번호</th>
-                  <td>{request.approvals.map((approval, index) => <p key={index}>{approval.appStatus}</p>)}</td>
-                </tr>
+                    <th>결재 서류 번호</th>
+                    <td>{request.approvals.map((approval, index) => <p key={index}>{approval.appStatus}</p>)}</td>
+                  </tr>
                   <tr>
                     <th>결재 내용</th>
                     <td>{request.requestReason}</td>
@@ -423,19 +400,18 @@ initialView="dayGridMonth"
                     <th>종료일</th>
                     <td>{request.requestEnd},</td>
                   </tr>
-                  
                   {/* Add more fields as needed */}
                   <br />
                 </div>
-                
               ))}
-              
-          </div>
-          <button className="docuBtn" onClick={closeModal}>신청 내역 닫기</button>
+          </table>
         </div>
+        <button className="docuBtn" onClick={closeModal}>신청 내역 닫기</button>
       </div>
     </div>
-  )}
+  </div>
+)}
+
 </div>
 
       </body>

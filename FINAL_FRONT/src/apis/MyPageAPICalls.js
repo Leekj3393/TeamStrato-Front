@@ -169,8 +169,8 @@ export const callReturnWorkAPI = () => {
 };
 
 //정보수정
-export const updateMemberAPI = ({ id = 0, phone }) => {
-  const modifyURL = `${PRE_URL}/members/modify/${id}`;
+export const updateMemberAPI = (updatedData) => {
+  const modifyURL = `${PRE_URL}/members/modify`;
 
   return async (dispatch, getState) => {
     try {
@@ -183,13 +183,18 @@ export const updateMemberAPI = ({ id = 0, phone }) => {
           "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
         },
         body: JSON.stringify({
-          phone,
-        }),
+          phone: updatedData.phone,
+          address: updatedData.address,
+          bankName: updatedData.bankName,
+          bankNo: updatedData.bankNo,
+        }),        
       });
 
       if (response.status === 200) {
         console.log('response', response);
-        dispatch({ type: 'MyPage/PUT_MODIFY_MYMEMBER', payload: { phone } }); // 리듀서에 수정된 휴대폰 번호 전달
+        dispatch({ type: 'MyPage/PUT_MODIFY_MYMEMBER', payload: { 
+          phone: updatedData.phone, address: updatedData.address,
+          bankName: updatedData.bankName,bankNo: updatedData.bankNo } }); // 리듀서에 수정된 휴대폰 번호 전달
       }
     } catch (error) {
       console.log(error);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import MainCSS from "../components/main/Main.css";
 import {  callGoToWorkAPI, callEndWorkAPI, callOutWorkAPI, callReturnWorkAPI } from '../apis/MyPageAPICalls';
@@ -18,7 +18,6 @@ const getDate = (date) => {
 function Main() {
   //
 
-  
 
   //
 
@@ -140,25 +139,78 @@ function Main() {
     );
   };
 
+  const canvasRef = useRef(null);
+  const imageRef = useRef(null);
+  const snowflakes = useRef([]);
 
+  const createSnowflake = () => {
+    const x = Math.random() * canvasRef.current.width;
+    const y = 0;
+    const speed = Math.random() * 3 + 2; // Adjust speed here
+    const radius = Math.random() * 4 + 1; // Adjust size here
 
-  const [infoPopupStyle, setInfoPopupStyle] = useState({ display: 'none' });
-  const [infoPopupText, setInfoPopupText] = useState('');
-  
-  function showInfoPopup(event, text) {
-    const rect = event.target.getBoundingClientRect();
-    const newStyle = {
-      left: `${rect.left}px`,
-      top: `${rect.bottom + window.scrollY + 10}px`,
-      display: 'block'
-    };
-    setInfoPopupStyle(newStyle);
-    setInfoPopupText(text);
+    snowflakes.current.push({ x, y, speed, radius });
   }
 
-  function hideInfoPopup() {
-    setInfoPopupStyle({ display: 'none' });
+  // ... previous code ...
+
+  const imageOnLoad = () => {
+    resize();
+
+    // Initialize snowflakes after image has been loaded
+    for (let i = 0; i < 100; i++) {
+      createSnowflake();
+    }
+
+    animate();
   }
+
+  const drawSnowflake = (snowflake) => {
+    const ctx = canvasRef.current.getContext('2d');
+    ctx.beginPath();
+    ctx.arc(snowflake.x, snowflake.y, snowflake.radius, 0, Math.PI * 2);
+    ctx.fillStyle = 'white';
+    ctx.fill();
+  }
+
+  const updateSnowflake = (snowflake) => {
+    snowflake.y += snowflake.speed;
+
+    if (snowflake.y > canvasRef.current.height) {
+        snowflake.y = 0;
+    }
+  }
+
+  const animate = () => {
+    if (!canvasRef.current) return;
+
+    const ctx = canvasRef.current.getContext('2d');
+    ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+
+    snowflakes.current.forEach((snowflake) => {
+        drawSnowflake(snowflake);
+        updateSnowflake(snowflake);
+    });
+
+    requestAnimationFrame(animate);
+}
+
+
+  const resize = () => {
+    canvasRef.current.width = imageRef.current.width;
+    canvasRef.current.height = imageRef.current.height;
+  }
+
+  useEffect(() => {
+    for (let i = 0; i < 100; i++) {
+        createSnowflake();
+    }
+    animate();
+    window.addEventListener('resize', resize);
+    return () => {
+        window.removeEventListener('resize', resize);
+    }
+}, []); // 의존성 배열을 빈 배열로 설정
 
   return (
     <div className={MainCSS}>
@@ -212,7 +264,7 @@ function Main() {
           <div>뉴스를 불러오는 중입니다...</div>
         ) : newsData.length > 0 ? (
           <ul>
-            <li>{newsData[0].title}</li>
+              <li>{newsData[0].title.substring(0, 30) + (newsData[0].title.length > 30 ? '...' : '')}</li>
           </ul>
         ) : (
           <div>뉴스를 불러올 수 없습니다.</div>
@@ -224,7 +276,7 @@ function Main() {
           <div>뉴스를 불러오는 중입니다...</div>
         ) : newsData.length > 0 ? (
           <ul>
-            <li>{newsData[1].title}</li>
+             <li>{newsData[1].title.substring(0, 30) + (newsData[0].title.length > 30 ? '...' : '')}</li>
           </ul>
         ) : (
           <div>뉴스를 불러올 수 없습니다.</div>
@@ -238,7 +290,7 @@ function Main() {
           <div>뉴스를 불러오는 중입니다...</div>
         ) : newsData.length > 0 ? (
           <ul>
-            <li>{newsData[2].title}</li>
+             <li>{newsData[4].title.substring(0, 30) + (newsData[0].title.length > 30 ? '...' : '')}</li>
           </ul>
         ) : (
           <div>뉴스를 불러올 수 없습니다.</div>
@@ -247,7 +299,14 @@ function Main() {
 
 
         </div>
-        </div>
+        <img className="BoradImg" src="image/image 434.png" alt="Board Image" />
+      </div>
+      <div className="partBoard" style={{ flex: 1 }}>Strato News<div class="animated-news">💡</div></div>
+      <div className="att">
+
+
+
+            </div>
 
                 
 
@@ -260,54 +319,45 @@ function Main() {
 
 
       <div className="news">
+        <div className="mapText">
+           우리 스키장 한 눈에 보기
+        </div>
+       
       <div id="map-container">
-      <img id="map-image" src="image/스키장.png" alt="Map"/>
-      <div
-        className="circle"
-        style={{ left: '50px', top: '100px' }}
-        onMouseOver={(e) => showInfoPopup(e, '식당')}
-        onMouseOut={hideInfoPopup}
-      >
-        ⚪
-      </div>
-      <div
-        className="circle"
-        style={{ left: '300px', top: '150px' }}
-        onMouseOver={(e) => showInfoPopup(e, '스키장')}
-        onMouseOut={hideInfoPopup}
-      >
-        ⚪
-      </div>
-      <div
-        className="circle"
-        style={{ left: '200px', top: '250px' }}
-        onMouseOver={(e) => showInfoPopup(e, '눈사람')}
-        onMouseOut={hideInfoPopup}
-      >
-        ⚪
-      </div>
-      <div
-        className="circle"
-        style={{ left: '400px', top: '300px' }}
-        onMouseOver={(e) => showInfoPopup(e, '눈썰매')}
-        onMouseOut={hideInfoPopup}
-      >
-        ⚪
-      </div>
-      <div
-        className="circle"
-        style={{ left: '600px', top: '200px' }}
-        onMouseOver={(e) => showInfoPopup(e, '산악자전거')}
-        onMouseOut={hideInfoPopup}
-      >
-        ⚪
-      </div>
+            <canvas id="snow-canvas" ref={canvasRef}></canvas>
+            <img id="map-image" ref={imageRef} src="image/스키장.png" alt="Map" onLoad={resize} />
+            <div className="info-container" style={{ position: 'absolute', top: '100px', left: '20px' }}>
+                <div className="circle" style={{paddingTop: "5px", boxSizing: "border-box"}}>
+                 
+                ⚪
+                    <div className="info-popup">안전교육장</div>
+                </div>
+            </div>
+            <div className="info-container" style={{ position: 'absolute', top: '250px', left: '150px' }}>
+                <div className="circle" style={{paddingTop: "5px", boxSizing: "border-box"}}>
+                ⚪
+                    <div className="info-popup">스케이트장</div>
+                </div>
+            </div>
+            <div className="info-container" style={{ position: 'absolute', top: '130px', left: '200px' }}>
+                <div className="circle" style={{paddingTop: "5px", boxSizing: "border-box"}}>
+                ⚪
+                    <div className="info-popup">식당</div>
+                </div>
+            </div>
+            <div className="info-container" style={{ position: 'absolute', top: '150px', left: '350px' }}>
+                <div className="circle" style={{paddingTop: "5px", boxSizing: "border-box"}}>
+                    ⚪                <div className="info-popup">장비대여관</div>
+                </div>
+            </div>
+            <div className="info-container" style={{ position: 'absolute', top: '120px', left: '450px' }}>
+                <div className="circle" style={{paddingTop: "5px", boxSizing: "border-box"}}>
+                    ⚪                <div className="info-popup">휴게실</div>
+                </div>
+            </div>
+        </div>
 
-      <div id="info-popup" style={infoPopupStyle}>
-        {infoPopupText}
-      </div>
-    </div>
-      </div>
+        </div>
     </div>
     );
 
