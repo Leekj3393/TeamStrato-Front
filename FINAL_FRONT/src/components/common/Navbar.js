@@ -64,7 +64,7 @@ function Navbar() {
         <NavLink to="/approval" activeClassName="active">
           <div className="home nav" ><img className="menuIcon navImg" src="/image/Auto.png"></img>전자 결재</div>
         </NavLink>
-        <NavLink to="/"  activeClassName="active" >
+        <NavLink to="/education"  activeClassName="active" >
           <div className="home nav"><img className="menuIcon navImg" src="/image/Edu.png"></img>직원 교육</div>
         </NavLink>
       </div>

@@ -37,6 +37,7 @@ import MemberModify from "./pages/member/MemberModify";
 import EquipmentRegist from "./pages/equipment/EquipmentRegist";
 import UpdatePwd from "./pages/login/UpdatePwd";
 import ApprovalDetail from "./pages/approval/ApprovalDetail";
+import EducationSubLayout from "./layouts/EducationSubLayout";
 
 function App() {
   return (
@@ -94,6 +95,7 @@ function App() {
             <Route path="/member/modify/:memberCode" element={<MemberModify/>}/>
           </Route>
           <Route path="/calendar" element={<Calendar/>}/>
+          <Route path="/education" element={<EducationSubLayout/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

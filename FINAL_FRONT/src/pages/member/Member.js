@@ -95,7 +95,10 @@ function Member() {
     return (
         <>
             <div className="memberListTitle">
-                직원목록
+                직원 목록
+            </div>
+            <div className='memberHr'>
+                <hr/>
             </div>
             <div className="mbSearch">
                 <select onChange={(e) => setFilter(e.target.value)}>
@@ -119,11 +122,11 @@ function Member() {
                 <thead>
                     <tr>
                         <th rowSpan="2">이름</th>
-                        <th colSpan="5">기본정보</th>
-                        <th colSpan="2">인사정보</th>
-                        <th colSpan="3">개인정보</th>
+                        <th colSpan="5">기본 정보</th>
+                        <th colSpan="2">인사 정보</th>
+                        <th colSpan="3">개인 정보</th>
                     </tr>
-                    <tr>
+                    <tr className='mbTableFont'>
                         <th>상태</th>
                         <th>사번</th>
                         <th>입사일</th>
@@ -136,7 +139,7 @@ function Member() {
                         <th>전화번호</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="memberTr">
                     {data && data.map((member, index) => (
                         <tr key={member.memberCode}
                             onClick ={ () => onClickMemberHandler(member.memberCode)}

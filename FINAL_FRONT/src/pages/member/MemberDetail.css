@@ -1,21 +1,22 @@
 .memberDtTitle {
     position:absolute;
-    top: 100px;
-    left: 1000px; 
-    font-family: 'Inria Sans';
+    top: 40px;
+    left: 260px;
+    padding: 1.5% 3%; 
+    font-family: 'SUITE-Regular';
     font-style: normal;
-    font-weight: 400;
-    font-size: 35px;
+    font-weight: 500;
+    font-size: 20px;
     line-height: 54px;
-
-    color: #4A4848;
+     
+    color: #5b5b5b;
 }
 
 .memberDtBack {
       
       background-color: #ffffff;
       border-radius: 15px;
-      width: 1500px;
+      width: 1150px;
       height: 780px;
       left: 300px;
       top : 170px;
@@ -28,14 +29,14 @@
     display: flex;
     flex-direction: column;
     /* align-items: center; */
-    top: 120px;
-    left: 150px; 
+    top: 50px;
+    left: 100px; 
     padding: auto;
 }
 
 .memberImagePreview {
-    height: 200px;
-    width: 200px;
+    height: 180px;
+    width: 180px;
     border : 1px solid;
     margin-bottom: 30px;
     padding: 3px;
@@ -43,41 +44,56 @@
 
 .memberDtTop {
     position:absolute;
-    top: 120px;
-    left: 380px; 
+    top: 50px;
+    left: 320px; 
 }
 
 .memberDtName {
     font-family: 'Inria Sans';
     font-style: normal;
-    font-weight: 400;
-    font-size: 30px;
+    font-weight: 500;
+    font-size: 35px;
+
 }
 
 .memberDtBt1 {
-    margin-left: 50px;
+    margin-left: 45px;
     background-color: white;
+    font-family: 'SUITE-Regular';
     border: 1px solid;
+    font-weight: bold;
     border-radius: 5px;
+    background-color: rgba(140, 206, 253, 0.5);
+}
+
+.memberDtTop button:hover {
+    background-color: #0093FB;
 }
 
 .memberDtBt2 {
     margin-left: 20px;
     background-color: white;
+    font-family: 'SUITE-Regular';
     border: 1px solid;
+    font-weight: bold;
     border-radius: 5px;
+    background-color: rgba(140, 206, 253, 0.5);
 }
 
 .memberDtBt3 {
-    margin-left: 700px;
-    border : none;
+    margin-left: 20px;
     background-color: white;
+    font-family: 'SUITE-Regular';
+    border: 1px solid;
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: rgba(140, 206, 253, 0.5);
 }
 
 .memberDtDpt {
     position:absolute;
-    top: 180px;
-    left: 380px;
+    top: 130px;
+    left: 325px;
 }
 
 .memberDptName {
@@ -93,8 +109,8 @@
 
 .memberDtJob {
     position:absolute;
-    top: 230px;
-    left: 380px;
+    top: 190px;
+    left: 325px;
 }
 
 .memberJobName {
@@ -109,60 +125,96 @@
 }
 
 .memberDtPhone {
-    position:absolute;
-    top: 260px;
-    left: 380px;
-    display: flex;
+    margin-top: 20px;
 }
 
 .memberDtPhone span {
-    margin-left: 40px;
-    margin-top: 35px;
+    font-family: 'Inria Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
 }
 
 .memberDtEmail {
-    position:absolute;
-    top: 290px;
-    left: 800px;
-    display: flex;
+    margin-top: 20px;
 }
 
 .memberDtEmail span {
-    margin-left: 30px;
-    margin-top: 5px;
+    font-family: 'Inria Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    margin-right: 15px;
 }
 
 .memberDtEmp {
     position:absolute;
-    top: 380px;
-    left: 150px;
+    top: 280px;
+    left: 110px;
 }
 
 .memberDtPer {
     position:absolute;
-    top: 380px;
-    left: 800px;
+    top: 515px;
+    left: 110px;
 }
 
 .memberEmpTitle {
     font-family: 'Inria Sans';
     font-style: normal;
     font-weight: 400;
-    font-size: 30px;
+    font-size: 25px;
 }
 
 .memberEmpDiv {
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 .memberEmpDiv span {
     font-family: 'Inria Sans';
     font-style: normal;
     font-weight: 400;
-    font-size: 22px;
+    font-size: 17px;
 }
 
 .memberEmpDiv2 {
-    margin-left: 50px;
+    margin-left: 70px;
 }
 
+.memberEmpDiv3 {
+    margin-left: 55px;
+}
+
+.memberEmpDiv4 {
+    margin-left: 40px;
+}
+
+.memberEmpDiv5 {
+    margin-left: 40px;
+}
+
+.memberEmpDiv6 {
+    margin-left: 70px;
+}
+
+.memberEmpDiv7 {
+    margin-left: 70px;
+}
+
+.memberDtHr1 hr{
+    position:absolute;
+    top: 260px;
+    left: 90px;
+    width: 70%;
+    border-width: 2px;
+    border-color : black;
+}
+
+.memberDtHr2 hr{
+    position:absolute;
+    top: 490px;
+    left: 90px;
+    width: 70%;
+    border-width: 2px;
+    border-color : black;
+}
