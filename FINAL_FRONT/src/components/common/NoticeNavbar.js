@@ -50,12 +50,6 @@ function NoticeNavbar() {
           <NavLink to="/notice">
             <div className={`navbar2 ${activeMenu === "notice" ? "active" : ""}`} onClick={() => handleClick("notice")}>전체</div>
           </NavLink>
-          <NavLink to="/notice/part">
-            <div className={`navbar2 ${activeMenu === "part" ? "active" : ""}`} onClick={() => handleClick("part")}>부서별</div>
-          </NavLink>
-          <NavLink to="/notice/status">
-            <div className={`navbar2 ${activeMenu === "status" ? "active" : ""}`} onClick={() => handleClick("status")}>상태별</div>
-          </NavLink>
         </div>
         <hr />
       </div>
