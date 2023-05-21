@@ -3,8 +3,8 @@ import { useState } from "react";
 import styles from './ApprovalNavbar.css';
 
 function ApprovalNavbar() {
-  const [activeMenu, setActiveMenu] = useState("approval");
-  const [selectedMenu, setSelectedMenu] = useState('approval', 'regist', 'wait', 'inProgress', 'accessed', 'returned');
+  const [activeMenu, setActiveMenu] = useState("main");
+  const [selectedMenu, setSelectedMenu] = useState('main', 'regist', 'wait', 'inProgress', 'accessed', 'returned');
   const handleClick = (menuName) => {
     setActiveMenu(menuName);
   };
@@ -16,6 +16,9 @@ function ApprovalNavbar() {
           <b>전자결재</b>
         </div>
         <div className="navbar2-wrapper">
+          <NavLink to="/approval">
+            <div className={`navbar2 ${activeMenu === "main" ? "active" : ""}`} onClick={() => handleClick("main")}>메인</div>
+          </NavLink>
           <NavLink to="/approval/regist">
             <div className={`navbar2 ${activeMenu === "regist" ? "active" : ""}`} onClick={() => handleClick("regist")}>기안문 작성</div>
           </NavLink>

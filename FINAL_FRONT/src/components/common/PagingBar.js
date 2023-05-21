@@ -40,14 +40,14 @@ function PagingBar({ pageInfo, setCurrentPage }) {
                 <button 
                     className={ PagingBarCSS.pagingBtn }
                     onClick={ () => setCurrentPage(pageInfo.currentPage + 1) }
-                    disabled={ pageInfo.currentPage <= pageInfo.maxPage }
+                    disabled={ pageInfo.currentPage >= pageInfo.maxPage }
                 >
                     &gt;
                 </button>
                 <button 
                     className={PagingBarCSS.pagingBtn}
                     onClick={() => setCurrentPage(pageInfo.maxPage)}
-                    disabled={pageInfo.currentPage <= pageInfo.maxPage}
+                    disabled={pageInfo.currentPage >= pageInfo.maxPage}
                 >
                     &gt;&gt;
                 </button>
