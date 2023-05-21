@@ -127,3 +127,67 @@ export const callMemberRequestUpdateAPI = (formData) => {
         }
     }
 }
+
+export const callMemberNamesListAPI = ({ search , currentPage = 1}) => {
+
+    const reqeustURL = `${PRE_URL}/names/search?search=${search}&page=${currentPage}`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(reqeustURL).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log('result', result);
+            dispatch(getMembers(result));
+        }
+
+    }
+}
+
+export const callMemberCodesListAPI = ({ search , currentPage = 1}) => {
+
+    const reqeustURL = `${PRE_URL}/codes/search?search=${search}&page=${currentPage}`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(reqeustURL).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log('result', result);
+            dispatch(getMembers(result));
+        }
+
+    }
+}
+
+export const callMemberDeptListAPI = ({ search , currentPage = 1}) => {
+
+    const reqeustURL = `${PRE_URL}/department/search?search=${search}&page=${currentPage}`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(reqeustURL).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log('result', result);
+            dispatch(getMembers(result));
+        }
+
+    }
+}
+
+export const callMemberJobListAPI = ({ search , currentPage = 1}) => {
+
+    const reqeustURL = `${PRE_URL}/job/search?search=${search}&page=${currentPage}`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(reqeustURL).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log('result', result);
+            dispatch(getMembers(result));
+        }
+
+    }
+}

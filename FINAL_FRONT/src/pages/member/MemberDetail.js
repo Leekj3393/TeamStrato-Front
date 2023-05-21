@@ -100,7 +100,7 @@ function MemberDetail () {
                 <div className="memberEmpDiv">
                     <span>입사일</span>
                     <span className='memberEmpDiv2'>
-                        { memberDt && memberDt.memberHireDate }
+                        { memberDt && new Date(memberDt.memberHireDate).toLocaleDateString().slice(0, -1)}
                     </span>
                 </div>
             </div>
@@ -109,7 +109,7 @@ function MemberDetail () {
                 <div className="memberEmpDiv">
                     <span>성별</span>
                     <span className='memberEmpDiv2'>
-                        { memberDt && memberDt.gender }
+                        { memberDt && memberDt.gender === 'M' ? '남자' : '여자' }
                     </span>
                 </div>
                 <div className="memberEmpDiv">
