@@ -48,6 +48,71 @@
     top: 120px;
     left: 150px; 
     padding: auto;
+    
+}
+
+.MemberRgImg button:hover {
+    background-color: #0093FB;
+}
+
+.memberRgInput {
+    background-color: white;
+    border : 1px solid #000;
+    padding: 7px 7px;
+    width: 60%;
+    border-radius: 10px;
+    text-indent: 1.1em;
+  }
+  
+.memberRgRadio {
+    padding: 15px 10px;
+  }
+  
+.memberRgRadio input[type="radio"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #000;
+    border-radius: 3px;
+    margin-right: 15px;
+    cursor: pointer;
+  }
+  
+.memberRgRadio input[type="radio"]:checked {
+    background-color: #8CCEFD;
+    border-color: #8CCEFD;
+  }
+
+.memberRgRadio label {
+    margin-right: 50px; /* 원하는 간격 크기로 조정 */
+    font-size: 17px;
+    font-family: 'SUITE-Regular';
+}
+
+.memberRgSelect1 {  
+    height: 30px;
+    width: 65%;
+    border-radius: 10px;
+    text-indent: 1.1em;
+    background-color: white;
+    border : 1px solid #000;
+    font-family: 'SUITE-Regular';
+    font-weight: bold;
+}
+
+.memberRgSelect2 {  
+    height: 30px;
+    width: 65%;
+    border-radius: 10px;
+    text-indent: 1.1em;
+    background-color: white;
+    font-family: 'SUITE-Regular';
+    font-weight: bold;
+    margin-bottom: 20px;
+    border : 1px solid #000;
 }
 
 .MemberRgPreview {
@@ -58,15 +123,20 @@
     padding: 3px;
 }
 
-.memberRgTable label {
-    font-family: 'Inria Sans';
+.memberRgLabel {
+    font-family: 'SUITE-Regular';
     font-style: normal;
     font-weight: 400;
-    font-size: 25px;
+    font-size: 22px;
+    font-weight: 600;
 }
 
 .memberRgTd {
     /* padding-top: 20px; */
+}
+
+.memberRgBt {
+    margin-top: -30px;
 }
 
 .memberRgBt button {
@@ -74,8 +144,14 @@
     border : none;
     padding : 10px 30px;
     text-align: center;
-    border-radius: 20px;
+    border-radius: 15px;
     font-size: 20px;
+    font-weight: bold;
+    font-family: 'SUITE-Regular';
+}
+
+.memberRgBt button:hover {
+    background-color: #0093FB;
 }
 
 .memberRgBt1 {
@@ -93,6 +169,10 @@
     padding : 10px;
     margin-top: 10px;
     text-align: center;
-    border-radius: 20px;
+    border-radius: 15px;
     font-size: 15px;
+    font-weight: bold;
+    font-family: 'SUITE-Regular';
 }
+
+

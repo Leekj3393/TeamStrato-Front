@@ -91,7 +91,7 @@ function MemberDetail () {
                 </div>
                 <div className="memberEmpDiv">
                     <span>입사일</span>
-                    <span className='memberEmpDiv2'>
+                    <span className='memberEmpDiv3'>
                         { memberDt && new Date(memberDt.memberHireDate).toLocaleDateString().slice(0, -1)}
                     </span>
                 </div>
@@ -103,25 +103,25 @@ function MemberDetail () {
                 <div className='memberEmpTitle'>개인정보</div>
                 <div className='memberDtPhone'>
                     <span >전화번호</span>
-                    <span className='memberEmpDiv2'>
+                    <span className='memberEmpDiv4'>
                         { memberDt && memberDt.phone }
                     </span>
                 </div>
                 <div className="memberDtEmail">
                 <span>이메일</span>
-                <span className='memberEmpDiv2'>
+                <span className='memberEmpDiv5'>
                     { memberDt && memberDt.memberId }
                 </span>
                 </div>
                 <div className="memberEmpDiv">
                     <span>성별</span>
-                    <span className='memberEmpDiv2'>
+                    <span className='memberEmpDiv6'>
                         { memberDt && memberDt.gender === 'M' ? '남자' : '여자' }
                     </span>
                 </div>
                 <div className="memberEmpDiv">
                     <span>주소</span>
-                    <span className='memberEmpDiv2'>
+                    <span className='memberEmpDiv7'>
                         { memberDt && memberDt.address }
                     </span>
                 </div>

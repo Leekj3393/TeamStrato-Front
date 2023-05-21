@@ -66,6 +66,10 @@
     background-color: rgba(140, 206, 253, 0.5);
 }
 
+.memberDtTop button:hover {
+    background-color: #0093FB;
+}
+
 .memberDtBt2 {
     margin-left: 20px;
     background-color: white;
@@ -89,7 +93,7 @@
 .memberDtDpt {
     position:absolute;
     top: 130px;
-    left: 360px;
+    left: 325px;
 }
 
 .memberDptName {
@@ -106,7 +110,7 @@
 .memberDtJob {
     position:absolute;
     top: 190px;
-    left: 360px;
+    left: 325px;
 }
 
 .memberJobName {
@@ -145,7 +149,7 @@
 
 .memberDtEmp {
     position:absolute;
-    top: 305px;
+    top: 280px;
     left: 110px;
 }
 
@@ -174,12 +178,32 @@
 }
 
 .memberEmpDiv2 {
-    margin-left: 50px;
+    margin-left: 70px;
+}
+
+.memberEmpDiv3 {
+    margin-left: 55px;
+}
+
+.memberEmpDiv4 {
+    margin-left: 40px;
+}
+
+.memberEmpDiv5 {
+    margin-left: 40px;
+}
+
+.memberEmpDiv6 {
+    margin-left: 70px;
+}
+
+.memberEmpDiv7 {
+    margin-left: 70px;
 }
 
 .memberDtHr1 hr{
     position:absolute;
-    top: 280px;
+    top: 260px;
     left: 90px;
     width: 70%;
     border-width: 2px;

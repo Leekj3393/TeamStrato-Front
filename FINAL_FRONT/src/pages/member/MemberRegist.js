@@ -144,43 +144,50 @@ function MemberReigst () {
                     <table>
                         <tbody>
                             <tr>
-                                <td><label>아이디(이메일)</label></td>
+                                <td><label class="memberRgLabel">아이디(이메일)</label></td>
                                 <td>
                                 <input 
                                     name="memberId"
                                     onChange={onChangeHandler}
                                     placeholder='이메일을 입력해주세요'
+                                    class="memberRgInput"
                                 />
                                 </td>
                             </tr>
                             <tr>
-                                <td><label>비밀번호</label></td>
+                                <td><label class="memberRgLabel">비밀번호</label></td>
                                 <td>
                                 <input
                                     name="memberPwd"
                                     onChange={onChangeHandler}
+                                    class="memberRgInput"
                                 />
                                 </td>
                             </tr>
                             <tr>
-                                <td className="memberRgTd"><label>이름</label></td>
-                                <td>
-                                    <input name="memberName" onChange={onChangeHandler}/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="memberRgTd"><label>주민번호</label></td>
+                                <td className="memberRgTd"><label class="memberRgLabel">이름</label></td>
                                 <td>
                                     <input 
-                                    name="residentNo"
-                                    onChange={onChangeHandler} 
+                                        name="memberName" 
+                                        class="memberRgInput" 
+                                        onChange={onChangeHandler}
                                     />
                                 </td>
                             </tr>
                             <tr>
-                                <td><label>부서</label></td>
+                                <td className="memberRgTd"><label class="memberRgLabel">주민번호</label></td>
                                 <td>
-                                    <select name="deptCode" onChange={onChangeDeptHandler}>
+                                    <input 
+                                    name="residentNo"
+                                    onChange={onChangeHandler} 
+                                    class="memberRgInput"
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label class="memberRgLabel">부서</label></td>
+                                <td >
+                                    <select  class="memberMdSelect1" name="deptCode" onChange={onChangeDeptHandler}>
                                         <option value="selection">선택</option>
                                         {jobDept?.dept &&
                                             jobDept.dept.map((dept) => (
@@ -196,9 +203,9 @@ function MemberReigst () {
                                 </td>
                             </tr>
                             <tr>
-                                <td><label>직급</label></td>
+                                <td><label class="memberRgLabel">직급</label></td>
                                 <td>
-                                <select name="jobCode" onChange={onChangeJobHandler}>
+                                <select class="memberRgSelect1" name="jobCode" onChange={onChangeJobHandler}>
                                     <option value="selection">선택</option>
                                     {jobDept?.job &&
                                         jobDept.job.map((job) => (
@@ -214,28 +221,37 @@ function MemberReigst () {
                                 </td>
                             </tr>
                             <tr>
-                                <td className="memberRgTd"><label>성별</label></td>
-                                <td>
-                                    <label><input type="radio" name="gender" value="M" onChange={onChangeHandler} />남자</label>
-                                    <label><input type="radio" name="gender" value="W" onChange={onChangeHandler}/>여자</label>
+                                <td className="memberRgTd"><label class="memberRgLabel">성별</label></td>
+                                <td class="memberRgRadio">
+                                    <label><input type="radio" name="gender" value="M"  onChange={onChangeHandler} />남자</label>
+                                    <label><input type="radio" class="Rgradio2" name="gender" value="W"  onChange={onChangeHandler}/>여자</label>
                                 </td>
                             </tr>
                             <tr>
-                                <td className="memberRgTd"><label>전화번호</label></td>
+                                <td className="memberRgTd"><label class="memberRgLabel">전화번호</label></td>
                                 <td>
-                                <input name="phone" onChange={onChangeHandler} />
+                                <input 
+                                    name="phone" 
+                                    onChange={onChangeHandler} 
+                                    class="memberRgInput"
+                                />
                                 </td>
                             </tr>
                             <tr>
-                                <td className="memberRgTd"><label>주소</label></td>
+                                <td className="memberRgTd"><label class="memberRgLabel">주소</label></td>
                                 <td>
-                                <input name="address" onChange={onChangeHandler}/>
+                                <input 
+                                    name="address" 
+                                    onChange={onChangeHandler}
+                                    class="memberRgInput"        
+                                />
                                 </td>
                             </tr>
                             <tr>
-                                <td className="memberRgTd"><label>급여계좌</label></td>
+                                <td className="memberRgTd"><label class="memberRgLabel">급여계좌</label></td>
                                 <td>
-                                <select name="bankName" onChange={onChangeHandler}>
+                                <div>
+                                <select class="memberRgSelect2" name="bankName" onChange={onChangeHandler}>
                                     <option>선택</option>
                                     <option>농협</option>
                                     <option>국민</option>
@@ -243,19 +259,35 @@ function MemberReigst () {
                                     <option>기업</option>
                                     <option>카카오</option>
                                 </select>
-                                <input name="bankNo" onChange={onChangeHandler}/>
+                                </div>
+                                <div>
+                                <input 
+                                    name="bankNo" 
+                                    onChange={onChangeHandler}
+                                    class="memberRgInput"
+                                />
+                                </div>
                                 </td>                           
                             </tr>
                             <tr>
-                                <td className="memberRgTd"><label>급여</label></td>
+                                <td className="memberRgTd"><label class="memberRgLabel">급여</label></td>
                                 <td>
-                                    <input name="memberSalary" onChange={onChangeHandler} />
+                                    <input 
+                                        name="memberSalary" 
+                                        onChange={onChangeHandler} 
+                                        class="memberRgInput"
+                                    />
                                 </td>
                             </tr>
                             <tr>
-                                <td className="memberRgTd" ><label>잔여연차</label></td>
+                                <td className="memberRgTd" ><label class="memberRgLabel">잔여연차</label></td>
                                 <td>
-                                    <input name="memberAnnual" type="number" onChange={onChangeHandler}/>
+                                    <input 
+                                        name="memberAnnual" 
+                                        type="number" 
+                                        onChange={onChangeHandler}
+                                        class="memberRgInput"
+                                    />
                                 </td>
                             </tr>
                         </tbody>
