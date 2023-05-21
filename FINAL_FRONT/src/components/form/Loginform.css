@@ -28,6 +28,14 @@
     margin-left: 25%;
 }
 
+.updatePwd {
+    border-radius: 5px;
+    width: 50%;
+    height: 30px;
+    margin-top: 5%;
+    margin-left: 25%;
+}
+
 .loginFormBtn {
     background-color: #2A4091;;
     border-radius: 20px;

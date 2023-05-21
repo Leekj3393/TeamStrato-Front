@@ -1,0 +1,109 @@
+.partNemo{
+    background: #f9f9f9;
+    top: 150px;
+    left: 300px;
+    width: 1230px;
+    height: 700px;
+    position: absolute;
+    border-radius: 10px;
+}
+
+.partName{
+    color: #181e6c;
+padding: 10px;
+text-align: left;
+position: absolute;
+left: 50px;
+top: 15px;
+
+font-weight: 1000;
+font-size: 28px;
+}
+
+.circlePart{
+    position: absolute;
+    background: #dfe2fe;
+    left: 50px;
+    top: 15px;
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+}
+
+.boardTable{
+    position: absolute;
+    left: 350px;
+    top: 255px;
+    width: 1130px;
+}
+
+.PartInput{
+    position: absolute;
+    left: 750px;
+    top: 60px;
+
+}
+
+.searchPart{
+    position: absolute;
+    background: #dfe2fe;
+    left: 50px;
+    top: 15px;
+    width: 50px;
+    height: 30px;
+    border-radius: 10px;
+    line-height: 30px;
+    color: #313131;
+    text-align: center;
+font-weight: 100;
+font-size: 20px;
+left: 1020px;
+top: 60px;
+
+}
+
+
+.searchPartGul{
+    position: absolute;
+    background: #8c8c8c;
+    left: 260px;
+    top: 15px;
+    width: 70px;
+    height: 30px;
+    border-radius: 10px;
+    line-height: 30px;
+    color: #ffffff;
+    text-align: center;
+font-weight: 100;
+font-size: 20px;
+left: 1080px;
+top: 60px;
+}
+
+
+
+
+
+
+/* BoardCSS.js */
+
+  
+  .pagination {
+    position: absolute;
+    margin-top: 20px;
+    left: 600px;
+    top: 600px;
+  }
+  
+  .pagination button {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    margin-right: 4px;
+    cursor: pointer;
+  }
+  
+  .pagination button.active {
+    background-color: #ebebeb;
+  }
+  

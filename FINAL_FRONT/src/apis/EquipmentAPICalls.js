@@ -1,4 +1,4 @@
-import { getEquipment, getEquipments , getCategory} from "../modules/EquipmentModule";
+import { getEquipment, getEquipments , getCategory , postEquipment} from "../modules/EquipmentModule";
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
@@ -48,5 +48,23 @@ export const callEquipmentCategory = () =>
             console.log("[callEquipmentCategory] result : " , result);
             dispatch(getCategory(result));
         }
+    }
+}
+
+export const callEquipmentRegist = (formData) =>
+{
+    const requestURL = `${PRE_URL}/regist`;
+
+    return async (dispatch , getState) => {
+        const result = await fetch(requestURL,
+            {
+                method : 'POST',
+                body : formData
+            }).then(resp => resp.json());
+
+            if(result.status === 200)
+            {
+                dispatch(postEquipment(result));
+            }
     }
 }

@@ -7,11 +7,7 @@ import Document from "./pages/myPage/Document";
 import PartNotice from "./pages/myPage/PartNotice";
 import NoticeSubLayout from "./layouts/NoticeSubLayout";
 import Notice from "./pages/notice/Notice";
-import NoticePart from "./pages/notice/NoticePart";
-import NoticeStatus from "./pages/notice/NoticeStatus";
 import NoticeManage from "./pages/notice/manage/NoticeManage";
-import NoticePartManage from "./pages/notice/manage/NoticePartManage";
-import NoticeStatusManage from "./pages/notice/manage/NoticeStatusManage";
 import ApprovalSubLayout from "./layouts/ApprovalSubLayout";
 import Approval from "./pages/approval/Approval";
 import ApprovalRegist from "./pages/approval/ApprovalRegist";
@@ -39,6 +35,7 @@ import EquipmentDetail from "./pages/equipment/EquipmentDetail";
 import FindPwd from "./pages/login/FindPwd";
 import MemberModify from "./pages/member/MemberModify";
 import EquipmentRegist from "./pages/equipment/EquipmentRegist";
+import UpdatePwd from "./pages/login/UpdatePwd";
 
 function App() {
   return (
@@ -48,6 +45,7 @@ function App() {
           <Route index element={<Login/>}/>
           <Route path="/login/findid" element={<FindId/>}/>
           <Route path="/login/findPwd" element={<FindPwd/>}/>
+          <Route path="/login/updatePwd" element={<UpdatePwd/>}/>
           
         </Route>
         <Route path="/" element={<Layout />}>
@@ -59,13 +57,9 @@ function App() {
           </Route>
           <Route path="/notice" element={<NoticeSubLayout />}>
             <Route index element={<Notice />} />
-            <Route path="/notice/part" element={<NoticePart />} />
-            <Route path="/notice/status" element={<NoticeStatus />} />
           </Route>
           <Route path="/notice-manage" element={<NoticeSubLayout />}>
             <Route index element={<NoticeManage />} />
-            <Route path="/notice-manage/part" element={<NoticePartManage />} />
-            <Route path="/notice-manage/status" element={<NoticeStatusManage />} />
           </Route>
           <Route path="/approval" element={<ApprovalSubLayout />}>
             <Route index element={<Approval />} />
