@@ -22,7 +22,7 @@ const approvalReducer = handleActions (
         [GET_APP_MEMBER_INFO] : (state, {payload}) => ({appMember: payload}),
         [POST_APPROVAL] : (state, {payload}) => ({regist: payload}),
         [GET_APPROVALS] : (state, {payload}) => payload,
-        [GET_APPROVAL] : (state, {payload}) => payload,
+        [GET_APPROVAL] : (state, {payload}) => ({appDetail: payload}),
     }
 , initialState);
 

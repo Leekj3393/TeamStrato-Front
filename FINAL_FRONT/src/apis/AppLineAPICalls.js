@@ -1,4 +1,4 @@
-import {getApplineMembers, postAppLine} from "../modules/ApplineModule";
+import {getApplineMembers, postAppLine, putAppline} from "../modules/ApplineModule";
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
@@ -43,3 +43,7 @@ export const callAppLineInsertAPI = (form2) => {
     }
 }
 
+// 결재 승인
+export const callAccessPutAPI = (formForAccessor) => {
+    return null;
+}

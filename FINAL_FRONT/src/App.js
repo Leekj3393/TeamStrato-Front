@@ -37,6 +37,8 @@ import MemberModify from "./pages/member/MemberModify";
 import EquipmentRegist from "./pages/equipment/EquipmentRegist";
 import UpdatePwd from "./pages/login/UpdatePwd";
 import ApprovalDetail from "./pages/approval/ApprovalDetail";
+import ApprovalAccessorPage from "./pages/approval/ApprovalAccessorPage";
+import ProtectedRoute from "./components/router/ProtectedRoute";
 import EducationSubLayout from "./layouts/EducationSubLayout";
 
 function App() {
@@ -72,6 +74,14 @@ function App() {
             <Route path="/approval/accessed" element={<ApprovalAccessed />} />
             <Route path="/approval/returned" element={<ApprovalReturned />} />
             <Route path="/approval/:appCode" element={<ApprovalDetail />} />
+            <Route 
+              path="/approval-accessor/:appCode" 
+              element={
+                <ProtectedRoute loginCheck={true}>
+                  <ApprovalAccessorPage />
+                </ProtectedRoute>
+              } 
+            />
           </Route>
           <Route path="/calendar" element={<SchSubLayout/>}>
             <Route index element={<Calendar/>}/>

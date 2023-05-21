@@ -123,9 +123,9 @@ export const callApprovalListAPIForAccessor = ({ currentPage = 1 }) => {
 }
 
 /* 결재 문서 상세 조회 */
-export const callApprovalDetailAPI = ({approvalCode}) => {
+export const callApprovalDetailAPI = ({appCode}) => {
 
-    const reqeustURL = `${PRE_URL}/${approvalCode}`;
+    const reqeustURL = `${PRE_URL}/${appCode}`;
 
     return async (dispatch, getState) => {
 

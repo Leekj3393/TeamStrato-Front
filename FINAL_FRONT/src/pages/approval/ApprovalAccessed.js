@@ -3,17 +3,18 @@ import PagingBar from '../../components/common/PagingBar';
 import ApprovalCSS from './Approval.module.css';
 import { useEffect, useState } from 'react';
 import { callApprovalAccessedListAPI } from '../../apis/ApprovalAPICalls';
+import { useNavigate } from 'react-router-dom';
 
 
 function ApprovalAccessed() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const {data} = useSelector(state => state.approvalReducer);
     const approvals = useSelector(state => state.approvalReducer);
     const pageInfo = approvals.pageInfo;
     const [currentPage, setCurrentPage] = useState(1);
     // const totalCount = approvals.data.length; // 총 문서 개수 (수정해야함!!)
     
-
     function formatDate(dateString) {
         const date = new Date(dateString);
         const year = date.getFullYear();
@@ -26,6 +27,12 @@ function ApprovalAccessed() {
         dispatch(callApprovalAccessedListAPI({currentPage}));
     }, 
     [currentPage])
+
+    /* 상세페이지로 이동 */
+    const onClickDetailHandler = (appCode) => {
+        navigate(`../${appCode}`);
+    };
+
 
     return(
         <div className={ApprovalCSS}>
@@ -48,7 +55,11 @@ function ApprovalAccessed() {
                         </thead>
                         <tbody>
                             {data && data.map((approval) => (
-                                <tr className={ApprovalCSS.lists} key={approval.appCode}>
+                                <tr 
+                                    className={ApprovalCSS.lists} 
+                                    key={approval.appCode}
+                                    onClick={() => onClickDetailHandler(approval.appCode)}
+                                >
                                     <th>{approval.appCode}</th>
                                     <th>{approval.appType}</th>
                                     <th>{formatDate(approval.appRegistDate)}</th>

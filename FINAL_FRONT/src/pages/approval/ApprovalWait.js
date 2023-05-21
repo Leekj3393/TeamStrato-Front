@@ -3,10 +3,12 @@ import PagingBar from '../../components/common/PagingBar';
 import ApprovalCSS from './Approval.module.css';
 import { useEffect, useState } from 'react';
 import { callApprovalWListAPI } from '../../apis/ApprovalAPICalls';
+import { useNavigate } from 'react-router-dom';
 
 
 function ApprovalWait() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const {data} = useSelector(state => state.approvalReducer);
     const approvals = useSelector(state => state.approvalReducer);
     const pageInfo = approvals.pageInfo;
@@ -27,6 +29,11 @@ function ApprovalWait() {
     }, 
     [currentPage])
 
+    /* 상세페이지로 이동 */
+    const onClickDetailHandler = (appCode) => {
+        navigate(`../${appCode}`);
+    };
+    
     return(
         <div className={ApprovalCSS}>
             <div className={ApprovalCSS.square}></div>
@@ -49,7 +56,11 @@ function ApprovalWait() {
                         </thead>
                         <tbody>
                             {data && data.map((approval) => (
-                                <tr className={ApprovalCSS.lists} key={approval.appCode}>
+                                <tr 
+                                    className={ApprovalCSS.lists} 
+                                    key={approval.appCode}
+                                    onClick={() => onClickDetailHandler(approval.appCode)}
+                                >
                                     <th>{approval.appCode}</th>
                                     <th>{approval.appType}</th>
                                     <th>{formatDate(approval.appRegistDate)}</th>
