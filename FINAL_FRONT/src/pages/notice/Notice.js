@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useSearchParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import NoticeCSS from './Notice.module.css';
 import { callNoticeListAPI, callNoticeSearchListAPI } from "../../apis/NoticeAPICalls";
 import PagingBar from "../../components/common/PagingBar";
 
 function Notice() {
 
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const {data} = useSelector(state => state.noticeReducer);
     const notices = useSelector(state => state.noticeReducer);
@@ -18,6 +19,17 @@ function Notice() {
     const [searchParams] = useSearchParams();
     const search = searchParams.get('value');
 
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}년 ${month}월 ${day}일`;
+    }
+
+    const onClickNoticeHandler = () => {
+        // navigate({});
+    }
 
     useEffect(
         () => {
@@ -61,11 +73,11 @@ function Notice() {
                         <tbody>
                             {data && data.map((notice) => (
                                 <tr className={NoticeCSS.lists} key={notice.noticeCode}>
-                                    <th>{notice.noticeCode}</th>
-                                    <th>{notice.department.deptName}</th>
-                                    <th>{notice.noticeTitle}</th>
-                                    <th>{notice.noticeRegistDate}</th>
-                                    <th>1000</th>
+                                    <th >{notice.noticeCode}</th>
+                                    <th >{notice.department.deptName}</th>
+                                    <th >{notice.noticeTitle}</th>
+                                    <th >{formatDate(notice.noticeRegistDate)}</th>
+                                    <th >{notice.viewCount}</th>
                                 </tr>
                                 ))}
                         </tbody>

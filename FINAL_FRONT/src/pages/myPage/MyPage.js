@@ -406,7 +406,7 @@ console.log("Months:", months);
             </div>
             {editMode.phone || editMode.address || editMode.bank ? (
   <div class="modiFianl" onClick={handleUpdateClick}>
-    수정완료
+    수정완료!
   </div>
 ) : null}
 
