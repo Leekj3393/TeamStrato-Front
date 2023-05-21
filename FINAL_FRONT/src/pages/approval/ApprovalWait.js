@@ -5,13 +5,13 @@ import { useEffect, useState } from 'react';
 import { callApprovalWListAPI } from '../../apis/ApprovalAPICalls';
 
 
-function Approval() {
+function ApprovalWait() {
     const dispatch = useDispatch();
     const {data} = useSelector(state => state.approvalReducer);
     const approvals = useSelector(state => state.approvalReducer);
     const pageInfo = approvals.pageInfo;
     const [currentPage, setCurrentPage] = useState(1);
-    // const totalCount = approvals.data.length; // 총 문서 개수
+    // const totalCount = approvals.data.length; // 총 문서 개수 (수정해야함!!)
     
 
     function formatDate(dateString) {
@@ -33,7 +33,7 @@ function Approval() {
             <div className={ApprovalCSS.appContentDiv}>
                 전자결재 결재 대기함!
                 <div className={ApprovalCSS.appListTableInfo}>
-                    <h3>페이지 {pageInfo.currentPage} / {pageInfo.maxPage} || 총 문서수 500 개 </h3> {/* 수정하기 count */}
+                    {/* <h3>페이지 {pageInfo.currentPage} / {pageInfo.maxPage} || 총 문서수 {totalCount} 개 </h3> 수정하기 count */}
                 </div>
                 <div className={ApprovalCSS.appListTatbleDiv}>
                     <table className={ApprovalCSS.appListTable}>   {/* 게시판 시작 */}
@@ -55,7 +55,7 @@ function Approval() {
                                     <th>{formatDate(approval.appRegistDate)}</th>
                                     <th>{approval.appTitle}</th>
                                     <th>{approval.appStatus}</th>
-                                    <th>{/* {approval.member.department.deptName}-{approval.member.memberName} */}</th>
+                                    <th>{/* {approval.member.department.deptName}-{approval.member.memberName} */}</th>     {/* 기안한 사람 조회가 안됨...ㅠㅠㅠㅠ헝 짜증나....ㅠㅠㅠ */}
                                 </tr>
                             ))}
                         </tbody>
@@ -69,4 +69,4 @@ function Approval() {
     );
 }
 
-export default Approval;
+export default ApprovalWait;

@@ -38,7 +38,7 @@
 /* main ------------------------------------------------------------------------------------------------------------------ */
 .appMainTatbleDiv {
   position: absolute;
-  top: 330px;
+  top: 270px;
   left: 50px;
   border-style: solid none solid none;
   border-width: thick;
@@ -55,9 +55,9 @@
 
 .appMainTableInfo {
   position: absolute;
-  top: 280px;
+  top: 230px;
   left: 60px;
-  font-size: medium;
+  font-size: small;
 }
 
 .appInfoBoxDiv{
@@ -65,7 +65,7 @@
   position: absolute;
   top: 30px;
   width: 1100px;
-  height: 215px;
+  height: 150px;
   left: 50px;
   border-radius: 10px;
 
@@ -188,3 +188,28 @@
 
 
 
+/* 결재문서 상세 조회--------------------------------------------------------------------------------------- */
+.appDetailDiv{
+  position: absolute;
+  top: 20px;
+  left: 350px;
+  flex-wrap: wrap;
+}
+
+.applineInfoBoxDiv {
+  position: absolute;
+  top: 10px;
+  left: 500px;
+  max-width: 50px;
+
+}
+
+.applineInfoBoxDiv table {
+  position: absolute;
+  margin-right: 1px;
+}
+
+.approvalDetailTable {
+  position: absolute;
+  top: 200px;
+}
