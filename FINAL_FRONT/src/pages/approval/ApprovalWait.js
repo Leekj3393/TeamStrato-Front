@@ -11,6 +11,8 @@ function Approval() {
     const approvals = useSelector(state => state.approvalReducer);
     const pageInfo = approvals.pageInfo;
     const [currentPage, setCurrentPage] = useState(1);
+    // const totalCount = approvals.data.length; // 총 문서 개수
+    
 
     function formatDate(dateString) {
         const date = new Date(dateString);
@@ -31,7 +33,7 @@ function Approval() {
             <div className={ApprovalCSS.appContentDiv}>
                 전자결재 결재 대기함!
                 <div className={ApprovalCSS.appListTableInfo}>
-                    <h3>페이지 1 / 100 || 총 문서수 500 개 </h3> {/* 수정하기 count */}
+                    <h3>페이지 {pageInfo.currentPage} / {pageInfo.maxPage} || 총 문서수 500 개 </h3> {/* 수정하기 count */}
                 </div>
                 <div className={ApprovalCSS.appListTatbleDiv}>
                     <table className={ApprovalCSS.appListTable}>   {/* 게시판 시작 */}
