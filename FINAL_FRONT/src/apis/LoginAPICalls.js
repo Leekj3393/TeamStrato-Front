@@ -1,4 +1,4 @@
-import { postMember, postLogin } from "../modules/MemberModule";
+import { postMember, postLogin, postUpdatepwd } from "../modules/MemberModule";
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
@@ -52,5 +52,31 @@ export const callGetMemberAPI = (form) => {
         if(result.status === 200){
             dispatch(postMember(result));
         }
+    }
+}
+
+
+export const callUpdatePwdAPI = (form) => {
+    console.log('callUpdatePwdAPI form : ', form);
+
+    const requestURL = `${PRE_URL}/auth/updatePwd`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL, {
+            method : 'POST',
+            headers : {
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify(form)
+        })
+        .then(response => response.json());
+
+        console.log('[MemberAPICalls] callupdatePwdAPI result : ', result);
+
+        if(result.status === 200){
+            dispatch(postUpdatepwd(result));
+        } 
+    
     }
 }
