@@ -35,6 +35,7 @@ import EquipmentDetail from "./pages/equipment/EquipmentDetail";
 import FindPwd from "./pages/login/FindPwd";
 import MemberModify from "./pages/member/MemberModify";
 import EquipmentRegist from "./pages/equipment/EquipmentRegist";
+import UpdatePwd from "./pages/login/UpdatePwd";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
           <Route index element={<Login/>}/>
           <Route path="/login/findid" element={<FindId/>}/>
           <Route path="/login/findPwd" element={<FindPwd/>}/>
+          <Route path="/login/updatePwd" element={<UpdatePwd/>}/>
           
         </Route>
         <Route path="/" element={<Layout />}>
