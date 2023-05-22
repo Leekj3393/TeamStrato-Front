@@ -3,6 +3,7 @@ import ApprovalCSS from './Approval.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { callApprovalRegistAPI, callApprovalMemberInfoAPI } from '../../apis/ApprovalAPICalls';
+import { toDate } from 'date-fns';
 // import approvalReducer from '../../modules/ApprovalModule';
 
 function ApprovalRegist() {
@@ -12,6 +13,15 @@ function ApprovalRegist() {
     const {memberCode} = useParams();
     const [form, setForm] = useState({member: memberCode});
     const {regist, appMember} = useSelector(state => state.approvalReducer);
+
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}년 ${month}월 ${day}일`;
+    }
+
 
     useEffect(
         () => {
@@ -30,11 +40,19 @@ function ApprovalRegist() {
     );
 
     const onChangeHandler = (e) => {
-        setForm({
+        if(e.target.name === 'appStatus' || e.target.name === 'appType' && e.target.checked) {
+            setForm({
+                ...form,
+                appStatus: '대기',
+                appType: '기안문'
+            });
+        } else {setForm({
             ...form,
             [e.target.name]: e.target.value,
           });
+        }
     };
+
     const onClickRegistHandler = () => {
         if(
             !form.appTitle || !form.appContent || !form.appType || !form.appStatus
@@ -45,7 +63,7 @@ function ApprovalRegist() {
             } else if(!form.appContent) {
                 alert("제목을 작성해주세요.");
                 return;
-            } else if(!form.appType) {
+            }  else if(!form.appType) {
                 alert("기안구분이 누락되었습니다.");
                 return;
             } else {
@@ -75,9 +93,18 @@ function ApprovalRegist() {
                             </tr>
                             <tr>
                                 <th>구분</th>
-                                <td><label><input id='radioInput' type="radio" onChange={ onChangeHandler } name="appType" value={form.appType==='기안문'}  checked/> 기안문</label></td>
+                                <td><label htmlFor='appType'>
+                                        <input 
+                                            id='appType' 
+                                            name='appType' 
+                                            type="radio" 
+                                            onChange={onChangeHandler}
+                                            checked={form.appType === '기안문'}
+                                        /> 기안문
+                                    </label>
+                                </td>
                                 <th>등록일</th>
-                                <td className='today'>'2023-05-18'</td>
+                                <td>{formatDate(Date())}</td>
                             </tr>
                             <tr>
                                 <th>제목</th>
@@ -91,7 +118,18 @@ function ApprovalRegist() {
                                     />
                                 </td>
                                 <th>기안상태</th>
-                                <td><label><input id='radioInput' type="radio" onChange={ onChangeHandler } name="appStatus" value={form.appStatus==='대기'} checked/>대기</label></td>
+                                <td>
+                                    <label htmlFor='appStatus'>
+                                        <input 
+                                            id='appStatus' 
+                                            type="radio" 
+                                            name='appStatus'  
+                                            onChange={onChangeHandler}
+                                            checked={form.appStatus === '대기'}
+                                        />
+                                    대기
+                                    </label>
+                                </td>
                             </tr>
                             <tr>
                                 <th>내용</th>

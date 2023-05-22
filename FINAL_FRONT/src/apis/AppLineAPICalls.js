@@ -43,7 +43,3 @@ export const callAppLineInsertAPI = (form2) => {
     }
 }
 
-// 결재 승인
-export const callAccessPutAPI = (formForAccessor) => {
-    return null;
-}
