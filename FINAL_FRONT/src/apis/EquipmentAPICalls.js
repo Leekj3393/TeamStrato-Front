@@ -53,6 +53,7 @@ export const callEquipmentCategory = () =>
 
 export const callEquipmentRegist = (formData) =>
 {
+    console.log("forData : " , formData);
     const requestURL = `${PRE_URL}/regist`;
 
     console.log(requestURL);

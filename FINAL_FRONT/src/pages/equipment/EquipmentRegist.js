@@ -13,14 +13,8 @@ function EquipmentRegist()
     const [image , setImage] = useState();
     const data = useSelector(state => state.equipmentReducer);
     const category = data.category;
-    const [equipment , setEquipment] = useState({
-        equipmentName : '',
-        equCategory : {
-            categoryCode : 4
-        },
-        appTitle : '',
-        appContent : '',
-    });
+
+    const [equipment , setEquipment] = useState({});
 
     useEffect(
         () =>
@@ -65,7 +59,7 @@ function EquipmentRegist()
         console.log(`${e.target.name} : `, e.target.value );
         setEquipment({
             ...equipment,
-            [e.target.name ] : [e.target.value]
+            [e.target.name] : [e.target.value]
         });
         console.log("equipment : " , equipment);
     }
@@ -73,17 +67,18 @@ function EquipmentRegist()
     const onClickEquipmentRegistHandler = () =>
     {
 
-        if(!equipment.equipmentName || !equipment.equCategory.categoryCode || !equipment.appTitle || !equipment.appContent )
+        if(!equipment.equipmentName || !equipment.categoryCode || !equipment.appTitle || !equipment.appContent || !image )
         {
             alert('정보 전부 입력해주세요');
             return;
         }
         const formData = new FormData();
         formData.append("equipmentName",equipment.equipmentName);
-        formData.append("equCategory.categoryCode",equipment.equCategory.categoryCode );
+        formData.append("equCategory.categoryCode",equipment.categoryCode);
         formData.append("appTitle",equipment.appTitle);
         formData.append("appContent",equipment.appContent);
-        //formData.append("image",image);
+        formData.append("appType",equipment.appType);
+        formData.append("image",image);
 
         dispatch(callEquipmentRegist(formData));
     }
@@ -134,11 +129,11 @@ function EquipmentRegist()
                             <td><label>장비 분류</label></td>
                             <select
                                 className="select-box"
-                                name="equCategory.categoryCode"
+                                name="categoryCode"
                                 onChange={ onChangeHandler}
                                 >
                                     {category && category.map((c) =>( 
-                                        <option value={ c.categoryCode}>{c.equCategory.categoryName} - {c.categoryName}</option>)
+                                        <option value={ c.categoryCode }>{c.equCategory.categoryName} - {c.categoryName}</option>)
                                     )}
                                 </select>
                         </tr>
