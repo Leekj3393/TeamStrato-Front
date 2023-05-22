@@ -7,6 +7,7 @@ import approvalReducer from "./ApprovalModule";
 import memberFileReducer from "./MemberFileModule";
 import applineReducer from "./ApplineModule";
 import memberRoleReducer from "./MemberRoleModule";
+import myPageNoticeReducer from "./MyPageNoticeModule";
 
 
 const rootReducer = combineReducers({
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     memberFileReducer,
     applineReducer,
     memberRoleReducer,
+    myPageNoticeReducer
 
 });
 

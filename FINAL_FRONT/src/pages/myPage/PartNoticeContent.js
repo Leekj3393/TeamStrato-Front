@@ -1,57 +1,40 @@
-import React, { useState } from 'react';
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Route, Routes, useNavigate, useParams } from "react-router-dom";
+import { callMyPageNoticeDetailAPI } from '../../apis/MyPageAPICalls';
 import PartBoardCSS from "../../components/main/PartBoardCSS.css"
 
-const boardData = [
-  { id: 1, title: '게시물 1', content: '첫 번째 게시물입니다.', views: 10, date: '2023-05-19' },
-  { id: 2, title: '게시물 2', content: '두 번째 게시물입니다.', views: 20, date: '2023-05-18' },
-  { id: 3, title: '게시물 3', content: '세 번째 게시물입니다.', views: 15, date: '2023-05-17' },
-  // 가상의 게시판 데이터
-];
+function PartNoticeContent() {
+  const MyNoticeDetail = useSelector(state => state.myPageNoticeReducer.MyNoticeDetail);
+  const { noticeCode } = useParams();
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    console.log('MyNoticeDetail:',MyNoticeDetail);
+    dispatch(callMyPageNoticeDetailAPI(noticeCode)); // Redux-Thunk 미들웨어를 사용하여 디스패치
+  }, [dispatch, noticeCode]);
 
-const Board = () => {
-  const [expandedPosts, setExpandedPosts] = useState([]); // 게시물의 확장 상태를 저장하는 상태
-
-  // 게시물 확장 토글 함수
-  const togglePostExpansion = (postId) => {
-    if (expandedPosts.includes(postId)) {
-      setExpandedPosts(expandedPosts.filter((id) => id !== postId));
-    } else {
-      setExpandedPosts([...expandedPosts, postId]);
-    }
-  };
-
+  useEffect(() => {
+    console.log('찍어봐요 공지사항 숲 MyNoticeDetail:', MyNoticeDetail);
+  }, [MyNoticeDetail]);
+  
   return (
     <div className={PartBoardCSS}>
-      {/* ... */}
+      <div className="PartContent">
+        {MyNoticeDetail && MyNoticeDetail.data && (
+          <div>
+            <h1>{MyNoticeDetail.data.noticeTitle}</h1>
+            <p>{MyNoticeDetail.data.noticeContent}</p>
+            <p>{MyNoticeDetail.data.noticeType}</p>
 
-      <table className="boardTable">
-        <thead>
-          {/* ... */}
-        </thead>
-        <tbody>
-          {boardData.map((item) => (
-            <React.Fragment key={item.id}>
-              <tr onClick={() => togglePostExpansion(item.id)}>
-                <td>{item.id}</td>
-                <td>{item.title}</td>
-                <td>{item.content}</td>
-                <td>{item.views}</td>
-                <td>{item.date}</td>
-              </tr>
-              {expandedPosts.includes(item.id) && (
-                <tr>
-                  <td colSpan="5">{item.content}</td>
-                </tr>
-              )}
-            </React.Fragment>
-          ))}
-        </tbody>
-      </table>
-
-      {/* ... */}
+          </div>
+        )}
+      </div>
     </div>
   );
+  
+  
 };
 
-export default Board;
+export default PartNoticeContent;

@@ -91,8 +91,8 @@ top: 60px;
   .pagination {
     position: absolute;
     margin-top: 20px;
-    left: 600px;
-    top: 600px;
+    left: 900px;
+    top: 750px;
   }
   
   .pagination button {
@@ -107,3 +107,21 @@ top: 60px;
     background-color: #ebebeb;
   }
   
+
+
+  
+
+
+
+
+
+
+.PartContent{
+  background: #f9f9f9;
+  top: 150px;
+  left: 300px;
+  width: 1230px;
+  height: 700px;
+  position: absolute;
+  border-radius: 10px;
+}

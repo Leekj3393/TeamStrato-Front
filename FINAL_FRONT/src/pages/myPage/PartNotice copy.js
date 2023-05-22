@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import PartBoardCSS from "../../components/main/PartBoardCSS.css"
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { callMyPageMemberAPI, callMyPageNoticeAPI } from "../../apis/MyPageAPICalls";
+import { callMyPageNoticeAPI } from "../../apis/MyPageAPICalls";
 
 function NoticePart() {
   const dispatch = useDispatch();
@@ -38,33 +38,11 @@ function NoticePart() {
 
   const navigate = useNavigate();
 
-
-  //
-  const membersData = useSelector(state => state.myPageReducer.membersData);
-
-  console.log("membersData", membersData);
-
-  useEffect(() => {
-    dispatch(callMyPageMemberAPI());
-  }, []);
-
-
-
-
-  //
- const { noticeCode } = useParams();
-  const onClickParNoticeCode = (noticeCode) => {
-    navigate(`/myPage/PartNoticeContent/${noticeCode}`);
-  }
-
   return (
     <div className={PartBoardCSS}>
       <div className="partNemo">
         <div className="circlePart"></div>
-        <div className="partName">
-          
-        {membersData.department.deptName }
-          부서 공지사항</div>
+        <div className="partName">'안전관리'부서 공지사항</div>
         <div className="partInput">
           <input
             className="PartInput"
@@ -85,22 +63,21 @@ function NoticePart() {
       <table className="boardTable">
         <thead>
           <tr>
-            <th>등록 번호</th>
+            <th>번호</th>
             <th>제목</th>
-            <th>부서명</th>
+            <th>내용</th>
             <th>등록 날짜</th>
           </tr>
         </thead>
         <tbody>
         {noticeList && noticeList.map((item) => (
-  <tr key={item.noticeCode} onClick={() => onClickParNoticeCode(item.noticeCode)}>
+  <tr key={item.noticeCode}>
     <td>{item.noticeCode}</td>
     <td>{item.noticeTitle}</td>
-    <td>{item.noticeType}</td>
+    <td>{item.noticeContent}</td>
     <td>{item.noticeRegistDate}</td>
   </tr>
 ))}
-
 
 
         </tbody>

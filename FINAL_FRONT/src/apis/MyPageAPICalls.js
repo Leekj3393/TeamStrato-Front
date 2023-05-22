@@ -1,4 +1,5 @@
-import {getMyNotice} from "../modules/MyPageModule";
+import { getMyNotice } from "../modules/MyPageNoticeModule";
+
 // MyPageAPICalls.js
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
@@ -320,10 +321,31 @@ export const callMyPageNoticeAPI = ({ currentPage = 1}) => {
         }
       }).then(response => response.json());
 
-      console.log('[NoticeAPICalls] : callNoticeListAPI result : ', result);
       if(result.status === 200) {
-          console.log('[NoticeAPICalls] : callNoticeListAPI result : ', result);
+          console.log('[MyPageNoticeAPICalls] : callNoticeListAPI result : ', result);
           dispatch(getMyNotice(result));
       }
   }
+}
+
+
+export const callMyPageNoticeDetailAPI = (noticeCode) => {
+  const requestURL = `${PRE_URL}/notice/part/${noticeCode}`;
+
+  return async (dispatch, getState) => {
+    const response = await fetch(requestURL, {
+      method : 'GET',
+      headers : {
+        "Content-Type" : "application/json",
+      }
+    });
+
+    const result = await response.json();
+    console.log('[코드로 받아오는 공지사항 코드] : callMyPageNoticeDetailAPI result : ',result);
+
+    if (response.status === 200) {
+      dispatch({ type: 'MyPage/GET_MY_NOTICE_CODE', payload: { MyNoticeDetail: result } });
+      return result;
+    }
+  };
 }
