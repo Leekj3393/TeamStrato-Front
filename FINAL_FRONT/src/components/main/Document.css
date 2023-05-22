@@ -27,7 +27,7 @@
   background-color: #f9f9f9;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   margin-left: 300px;
-  height: 720px;
+  height:720px;
   width: 1200px; /* 컨텐츠의 넓이를 500px로 설정 */
 }
 
@@ -141,3 +141,7 @@ z-index: 10000; /* 모달의 쌓임 순서를 높은 값으로 설정 */
 
 
 /* 나머지 스타일 규칙 */
+.center-table {
+  margin: 0 auto;
+  text-align: center;
+}

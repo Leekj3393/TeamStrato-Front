@@ -13,9 +13,10 @@ const POST_MEMBERS = 'member/POST_MEMBERS';
 const PUT_MEMBERS = 'member/PUT_MEMBERS';
 const PUT_MEBMERROLE = 'member/PUT_MEMBERROLE';
 const PUT_MEMBERREQUEST = 'member/PUT_MEMBERREQUEST'
+const POST_UPDATEPWD = 'member/POST_UPDATEPWD';
 
 export const { member : {getMember , getMembers, postLogin, resetMember, postMember, postMembers, 
- putMemberrole, putMemberrequest, putMembers
+ putMemberrole, putMemberrequest, putMembers, postUpdatepwd
 }} = createActions({
     [GET_MEMBERS] : res => res.data,
     [GET_MEMBER] : res => res.data,
@@ -28,6 +29,7 @@ export const { member : {getMember , getMembers, postLogin, resetMember, postMem
     [PUT_MEMBERS] : res => res,
     [PUT_MEBMERROLE] : res => res,
     [PUT_MEMBERREQUEST] : res => res,
+    [POST_UPDATEPWD] : res => res,
 });
 
 const memberReducer = handleActions(
@@ -43,6 +45,7 @@ const memberReducer = handleActions(
         [PUT_MEMBERS] : (state, {payload}) => ({ modify : payload}),
         [PUT_MEBMERROLE] : (state, {payload}) => ({roleModify : payload}),
         [PUT_MEMBERREQUEST] : (state, {payload}) => ({ Mbrequest : payload}),
+        [POST_UPDATEPWD] : (state, {payload}) => ({ updateOk : payload }),
     }
     , initialState);
 

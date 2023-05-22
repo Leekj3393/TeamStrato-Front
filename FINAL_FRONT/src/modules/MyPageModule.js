@@ -57,10 +57,17 @@ export const data = createActions({
     return ({membersData})
   },
 
-  [PUT_MODIFY_MYMEMBER]: (phone) => {
-    console.log(phone);
-    return { phone };
+  [PUT_MODIFY_MYMEMBER]: (state, { payload: { phone, address,bankNo,bankName } }) => {
+    console.log(phone, address);
+    return {
+      ...state,
+      phone: phone,
+      address: address,
+      bankNo: bankNo,
+      bankName : bankName
+    };
   },
+  
 
   [GET_INFO_WORK] : (workInfo) => {
     return {workInfo};
@@ -127,16 +134,21 @@ const myPageReducer = handleActions(
       })
     },
 
-    [PUT_MODIFY_MYMEMBER]: (state, { payload: { phone } }) => {
-      console.log('GET_MY_MEMBERS', phone)
+    [PUT_MODIFY_MYMEMBER]: (state, { payload: { phone, address,bankName,bankNo } }) => {
+      console.log('PUT_MODIFY_MYMEMBER', phone, address);
       return {
         ...state,
         membersData: {
           ...state.membersData,
           phone: phone,
+          address: address, // address 추가\
+          bankName : bankName,
+          bankNo :bankNo
         },
       };
     },
+    
+    
 
     [GET_INFO_WORK] :(state, {payload : { workInfo}}) =>{
       return{

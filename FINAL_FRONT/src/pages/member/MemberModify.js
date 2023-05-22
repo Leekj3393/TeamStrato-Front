@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { callMemberDetailAPI, callMemberUpdateAPI } from "../../apis/MemberAPICalls";
 import { callMemberImageAPI } from "../../apis/MemberFileAPICalls";
+import MemberModifyCSS from './MemberModify.css';
 
 function MemberModify () {
 
@@ -98,7 +99,10 @@ function MemberModify () {
             <div class="memberRgTitle">
                 직원 수정
             </div>
-            <div class="MemberBackground">
+            <div class="memberMdHr">
+                <hr/>
+            </div>
+            <div class="MemberBackground2">
                 <div className='MemberRgImg'>
                     
                     <img 
@@ -122,13 +126,18 @@ function MemberModify () {
                         이미지 업로드
                     </button>
                 </div>
-                <div className="memberRgTable">
+                <div className="memberMdTable">
                     <table>
                         <tbody>
                             <tr>
-                                <td className="memberRgTd"><label>이름</label></td>
+                                <td className="memberMdTd"><label>이름</label></td>
                                 <td>
-                                    <input name="memberName" placeholder={ memberDt && memberDt.memberName } onChange={onChangeHandler}/>
+                                    <input 
+                                        name="memberName" 
+                                        placeholder={ memberDt && memberDt.memberName } 
+                                        onChange={onChangeHandler}
+                                        class="memberRgInput"    
+                                    />
                                 </td>
                             </tr>
                             <tr>
@@ -138,12 +147,13 @@ function MemberModify () {
                                     name="residentNo"
                                     onChange={onChangeHandler}
                                     placeholder={ memberDt && memberDt.residentNo } 
+                                    class="memberMdInput"
                                     />
                                 </td>
                             </tr>
                             <tr>
                                 <td className="memberRgTd"><label>성별</label></td>
-                                <td>
+                                <td class="memberMdRadio">
                                     <label>
                                         <input 
                                             type="radio" 
@@ -169,19 +179,29 @@ function MemberModify () {
                             <tr>
                                 <td className="memberRgTd"><label>전화번호</label></td>
                                 <td>
-                                <input name="phone" placeholder={ memberDt && memberDt.phone } onChange={onChangeHandler} />
+                                <input 
+                                    name="phone" 
+                                    placeholder={ memberDt && memberDt.phone } 
+                                    onChange={onChangeHandler} 
+                                    class="memberMdInput"
+                                />
                                 </td>
                             </tr>
                             <tr>
                                 <td className="memberRgTd"><label>주소</label></td>
                                 <td>
-                                <input name="address" placeholder={ memberDt && memberDt.address } onChange={onChangeHandler}/>
+                                <input 
+                                    name="address" 
+                                    placeholder={ memberDt && memberDt.address } 
+                                    onChange={onChangeHandler}
+                                    class="memberMdInput"
+                                />
                                 </td>
                             </tr>
                             <tr>
                                 <td className="memberRgTd"><label>급여계좌</label></td>
                                 <td>
-                                <select name="bankName" defaultValue={ memberDt && memberDt.bankName } onChange={onChangeHandler}>
+                                <select class="memberMdSelect" name="bankName" defaultValue={ memberDt && memberDt.bankName } onChange={onChangeHandler}>
                                     <option value="">선택</option>
                                     <option value="농협">농협</option>
                                     <option value="국민">국민</option>
@@ -189,25 +209,40 @@ function MemberModify () {
                                     <option value="기업">기업</option>
                                     <option value="카카오">카카오</option>
                                 </select>
-                                <input name="bankNo" placeholder={ memberDt && memberDt.bankNo } onChange={onChangeHandler}/>
+                                <input 
+                                    name="bankNo" 
+                                    placeholder={ memberDt && memberDt.bankNo } 
+                                    onChange={onChangeHandler}
+                                    class="memberMdInput"
+                                />
                                 </td>                           
                             </tr>
                             <tr>
                                 <td className="memberRgTd"><label>급여</label></td>
                                 <td>
-                                    <input name="memberSalary" placeholder={ memberDt && memberDt.memberSalary} onChange={onChangeHandler} />
+                                    <input 
+                                        name="memberSalary" 
+                                        placeholder={ memberDt && memberDt.memberSalary} 
+                                        onChange={onChangeHandler} 
+                                        class="memberMdInput"
+                                    />
                                 </td>
                             </tr>
                             <tr>
                                 <td className="memberRgTd" ><label>잔여연차</label></td>
                                 <td>
-                                    <input name="memberAnnual" placeholder={ memberDt && memberDt.memberAnnual } type="number" onChange={onChangeHandler}/>
+                                    <input 
+                                        name="memberAnnual" 
+                                        placeholder={ memberDt && memberDt.memberAnnual } 
+                                        type="number" onChange={onChangeHandler}
+                                        class="memberMdInput"
+                                    />
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <div className="memberRgBt">
+                <div className="memberMdBt">
                     <button className="memberRgBt1" onClick={onClickMemberUpdateHandler}>수정</button>
                     <button className="memberRgBt2" onClick={ () => navigate(-1)}>취소</button>
                 </div>

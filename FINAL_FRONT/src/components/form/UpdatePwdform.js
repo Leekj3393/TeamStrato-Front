@@ -2,19 +2,30 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LoginFormCss from "./Loginform.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { callMailAPI } from "../../apis/MailAPICalls";
+import { callUpdatePwdAPI } from "../../apis/LoginAPICalls"; 
 
-function FindPwdForm() {
+function UpdatePwdForm() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    const { updateOk } = useSelector(state => state.memberReducer);
 
     // 폼 데이터를 한 번에 변경 및 state 저장
     const[form, setForm] = useState({
         memberId: '',
-        residentNo: ''
+        memberPwd: '',
+        updatePwd: ''
     });
+
+    useEffect(
+        () => {
+            if(updateOk?.status === 200) {
+                alert('비밀번호 수정이 완료 되었습니다.');
+                navigate('/login', { replace : true });
+            }
+        },
+        [updateOk]
+    )
 
 
     const onChangeHandler = (e) => {
@@ -25,12 +36,8 @@ function FindPwdForm() {
     }
 
     /* 버튼 클릭 이벤트 */
-    const onClickSendPwdHandler = () => {
-        dispatch(callMailAPI(form));
-    }
-
-    const onClickHandler = () => {
-        navigate('/login/updatePwd');
+    const onClickChangePwdHandler = () => {
+        dispatch(callUpdatePwdAPI(form));
     }
 
     const onClickGoBackHandler = () => {
@@ -50,34 +57,36 @@ function FindPwdForm() {
             /><br></br>
             <input
                 type="text"
-                name="residentNo"
-                className="residentNo"
-                placeholder="주민번호(-포함하여 입력)"
+                name="memberPwd"
+                className="memberPwd"
+                placeholder="비밀번호"
+                autoComplete='off'
+                onChange={ onChangeHandler }
+            /><br></br>
+            <input
+                type="text"
+                name="updatePwd"
+                className="updatePwd"
+                placeholder="변경할 비밀번호"
                 autoComplete='off'
                 onChange={ onChangeHandler }
             /><br></br>
             <br></br>
-            <button className="findIdFormBtn"
-                onClick={ onClickSendPwdHandler } 
-            >
-                임시 비밀번호 발송
-            </button>
             
             <button className="findIdFormBtn"
-                onClick={ onClickHandler } 
+                onClick={ onClickChangePwdHandler } 
             >
-                비밀번호 변경하기
+                비밀번호 변경
             </button>
             
 
             <button className="goBackBtn"
                 onClick={ onClickGoBackHandler } 
             >
-                뒤로가기
+                로그인 창으로
             </button>
         </>
 
             );
 }
-
-export default FindPwdForm;
+export default UpdatePwdForm;

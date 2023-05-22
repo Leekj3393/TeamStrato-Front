@@ -2,10 +2,10 @@ import LoginCss from "../../components/login/Login.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { resetMember } from "../../modules/MemberModule";
-import FindPwdForm from "../../components/form/FindPwdform";
+import UpdatePwdForm from "../../components/form/UpdatePwdform";
 
-function FindPwd(){
+
+function UpdatePwd(){
 
     return(
         <div className="whiteBox">
@@ -15,10 +15,10 @@ function FindPwd(){
             <img className="GroupwareImg" src="/image/GroupwareImg.png"></img>
             </div>
             <div className="loginForm">
-                <FindPwdForm/><br></br>
+                <UpdatePwdForm/><br></br>
             </div>
         </div>
     );
 };
 
-export default FindPwd;
+export default UpdatePwd;

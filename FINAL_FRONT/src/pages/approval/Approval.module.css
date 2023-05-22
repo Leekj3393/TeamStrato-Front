@@ -38,7 +38,7 @@
 /* main ------------------------------------------------------------------------------------------------------------------ */
 .appMainTatbleDiv {
   position: absolute;
-  top: 330px;
+  top: 270px;
   left: 50px;
   border-style: solid none solid none;
   border-width: thick;
@@ -55,9 +55,9 @@
 
 .appMainTableInfo {
   position: absolute;
-  top: 280px;
-  left: 50px;
-  font-size: medium;
+  top: 230px;
+  left: 60px;
+  font-size: small;
 }
 
 .appInfoBoxDiv{
@@ -65,11 +65,37 @@
   position: absolute;
   top: 30px;
   width: 1100px;
-  height: 215px;
+  height: 150px;
   left: 50px;
   border-radius: 10px;
 
 }
+
+/* 결재문서 목록--------------------------------------------------------------------------------------- */
+.appListTatbleDiv {
+  position: absolute;
+  top: 200px;
+  left: 50px;
+  border-style: solid none solid none;
+  border-width: thick;
+  border-radius: 0%;
+  width: 1100px;
+}
+
+.appListTatbleDiv th {
+  background-color: transparent;
+  text-align: center;
+  border-style: none none solid none;
+  border-width: 1px;
+}
+
+.appListTableInfo {
+  position: absolute;
+  top: 150px;
+  left: 60px;
+  font-size: medium;
+}
+
 
 
 /* 결재문서 등록--------------------------------------------------------------------------------------- */
@@ -120,15 +146,21 @@
   left: 10px;
   width: 1100px;
   height: 500px;
+  word-wrap: unset;
 }
 
-.appFormDiv table input{
+.appFormDiv table #textInput{
   position: relative;
-  width: 800px;
-  height: 100px;
+  width: 100px !important;
+  height: 30px;
 }
 
-
+.appFormDiv table textarea {
+  position: relative;
+  width: 1000px;
+  height: 300px;
+  resize: none;
+}
 
 
 /* 결재선 등록--------------------------------------------------------------------------------------- */
@@ -156,3 +188,47 @@
 
 
 
+/* 결재문서 상세 조회--------------------------------------------------------------------------------------- */
+.appDetailDiv{
+  position: absolute;
+  top: 20px;
+  left: 350px;
+  /* flex-wrap: wrap; */
+}
+
+.applineInfoBoxDiv {
+  position: absolute;
+  top: -90px;
+  left: 850px;
+  width:600px;
+  height: 200px;
+  /* flex-wrap: wrap; */
+  text-align: center;
+  
+}
+
+.applineInfoBoxDiv table {
+  position: absolute;
+  /* margin-right: 1px; */
+  /* flex-wrap: wrap; */
+  height: 150px;
+}
+
+.applineInfoBoxDiv table th {
+  text-align: center;
+  font-size: small;
+  height: 5px;
+}
+
+.applineInfoBoxDiv table td {
+  text-align: center;
+  font-size: medium;
+  height: 10px;
+}
+
+.approvalDetailTable {
+  position: absolute;
+  top: 350px;
+  height: 450px;
+  width: 1100px;
+}
