@@ -46,7 +46,7 @@
     margin-right: 10px;
 }
 
-.roleModalDiv input {
+.modalEduTitle input {
     margin-top: 15px;
     margin-bottom: 20px;
     height: 30px;
@@ -76,4 +76,27 @@
     margin-left: 10px;
     margin-right: 10px;
 }
+
+.modalEduVideo input {
+    display : none;
+}
+
+.modalEduVideo {
+    width: 150px;
+  height: 30px;
+  background: #fff;
+  border: 1px solid rgb(77,77,77);
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    background: rgb(190,223,247);
+    color: #fff;
+  }
+}
+
+
 

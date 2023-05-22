@@ -12,7 +12,7 @@ function EducationRegist({setEduModalOpen}) {
             <div className={edCSS.roleModalContainer}>
                 <div className={edCSS.roleModalDiv}>
                     <span>교육 등록</span>
-                    <div>
+                    <div className={edCSS.modalEduTitle}>
                         <label>교육 제목</label>
                         <input type="text"/>
                     </div>
@@ -31,7 +31,7 @@ function EducationRegist({setEduModalOpen}) {
                             <optiono>기타</optiono>
                         </select>
                     </div>
-                    <div>
+                    <div className={edCSS.modalEduVideo}>
                         <label>영상첨부</label>
                         <input type="file" accept="video/mp4, video/mkv, video/x-m4v, video/*"/>
                     </div>
