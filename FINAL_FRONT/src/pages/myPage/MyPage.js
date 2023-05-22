@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { callMyPageAPI, callGoToWorkAPI, callEndWorkAPI, callOutWorkAPI, callReturnWorkAPI, callMyPageMemberAPI, updateMemberAPI, callWorkInfoAPI } from '../../apis/MyPageAPICalls';
 import { useDispatch, useSelector } from 'react-redux';
 import { parseISO, differenceInMonths } from 'date-fns';
+import Swal from 'sweetalert2';
+
 
 
 const getDate = (date) => {
@@ -131,32 +133,62 @@ console.log("Months:", months);
     setActiveModal(null);
   };
 
-
+  const handleOutOnClick = () => {
+    if (workInfo && workInfo[0] && workInfo[0].endTime) {
+      // 이미 퇴근한 경우 외출 불가능
+      Toast.fire({
+        icon: 'error',
+        title: '퇴근한 상태에서는 외출할 수 없습니다!'
+      });
+      return;
+    }
+    Toast.fire({
+      icon: 'success',
+      title: '외출이 완료되었습니다!'
+    });
+    dispatch(callOutWorkAPI());
+  
+    // 2초 후에 페이지 자동 새로고침
+    setTimeout(() => {
+      window.location.reload();
+    }, 20);
+  }
+  
   const handleWorknClick = () => {
     // 출근하기 API 호출
     dispatch(callGoToWorkAPI());
-
+  
     // 출근 날짜 선택 확인
     if (workInfo && workInfo[0] && workInfo[0].startTime) {
-      alert('이미 출근하셨습니다!');
+      Toast.fire({
+        icon: 'error',
+        title: '이미 출근하셨습니다!'
+      });
       return;
     }
-    alert('출근이 완료되었습니다!');
-
-        // 2초 후에 페이지 자동 새로고침
-        setTimeout(() => {
-          window.location.reload();
-        }, 20);
+    Toast.fire({
+      icon: 'success',
+      title: '출근이 완료되었습니다!'
+    });
+  
+    // 2초 후에 페이지 자동 새로고침
+    setTimeout(() => {
+      window.location.reload();
+    }, 20);
   }
   
-
   const handleEndOnClick = () => {
     if (workInfo && workInfo[0] && workInfo[0].endTime) {
-      alert('이미 퇴근하셨습니다!');
+      Toast.fire({
+        icon: 'error',
+        title: '이미 퇴근하셨습니다!'
+      });
       return;
     }
-  
-    alert('퇴근이 완료되었습니다 ᕕ༼✿•̀︿•́༽ᕗ!');
+    Toast.fire({
+      icon: 'success',
+      title: '퇴근이 완료되었습니다 ᕕ༼✿•̀︿•́༽ᕗ!'
+    });
     dispatch(callEndWorkAPI());
   
     // 2초 후에 페이지 자동 새로고침
@@ -166,36 +198,43 @@ console.log("Months:", months);
   }
   
   
-
-  const handleOutOnClick = () => {
-    if (workInfo && workInfo[0] && workInfo[0].endTime) {
-      // 이미 퇴근한 경우 외출 불가능
-      alert('퇴근한 상태에서는 외출할 수 없습니다!');
-      return;
-    }
-    alert('외출이 완료되었습니다!');
-    dispatch(callOutWorkAPI());
-
-        // 2초 후에 페이지 자동 새로고침
-        setTimeout(() => {
-          window.location.reload();
-        }, 20);
-  }
   
-  const handleReturnOnClick = () => {
-    if (!workInfo || workInfo.length === 0 || !workInfo[0].startTime || workInfo[0].endTime) {
-      // 출근하지 않았거나 퇴근한 경우 복귀 불가능
-      alert('출근 또는 외출한 상태에서만 복귀할 수 있습니다!');
-      return;
-    }
-    alert('복귀가 완료되었습니다!');
-    dispatch(callReturnWorkAPI());
 
-        // 2초 후에 페이지 자동 새로고침
-        setTimeout(() => {
-          window.location.reload();
-        }, 20);
+  
+ //알러트창
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'center',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+      toast.addEventListener('mouseenter', () => Swal.stopTimer())
+      toast.addEventListener('mouseleave', () => Swal.resumeTimer())
   }
+})
+
+const handleReturnOnClick = () => {
+  if (!workInfo || workInfo.length === 0 || !workInfo[0].startTime || workInfo[0].endTime) {
+    // 출근하지 않았거나 퇴근한 경우 복귀 불가능
+    Toast.fire({
+      icon: 'error',
+      title: '출근 또는 외출한 상태에서만 복귀할 수 있습니다!'
+    })
+    return;
+  }
+  Toast.fire({
+    icon: 'success',
+    title: '복귀가 완료되었습니다!'
+  })
+  dispatch(callReturnWorkAPI());
+
+  // 2초 후에 페이지 자동 새로고침
+  setTimeout(() => {
+    window.location.reload();
+  }, 20);
+}
+
   return (
     <div className={MyPageCSS}>
         <div className="employeetitle">
