@@ -40,6 +40,8 @@ import ApprovalDetail from "./pages/approval/ApprovalDetail";
 import ApprovalAccessorPage from "./pages/approval/ApprovalAccessorPage";
 import ProtectedRoute from "./components/router/ProtectedRoute";
 import EducationSubLayout from "./layouts/EducationSubLayout";
+import Education from "./pages/education/Education";
+import PartNoticeContent from "./pages/myPage/PartNoticeContent";
 import NoticeRegist from "./pages/notice/NoticeRegist";
 
 function App() {
@@ -55,11 +57,17 @@ function App() {
         </Route>
         <Route path="/" element={<Layout />}>
           <Route index element={<Main />} />
+          
           <Route path="/myPage" element={<SubLayout />}>
+
+
             <Route index element={<MyPage />} />
             <Route path="/myPage/Document" element={<Document />} />
             <Route path="/myPage/PartNotice" element={<PartNotice />} />
+            <Route path="/myPage/PartNoticeContent/:noticeCode" element={<PartNoticeContent />} />
+
           </Route>
+
           <Route path="/notice" element={<NoticeSubLayout />}>
             <Route index element={<Notice />} />
             <Route 
@@ -114,7 +122,9 @@ function App() {
             <Route path="/member/modify/:memberCode" element={<MemberModify/>}/>
           </Route>
           <Route path="/calendar" element={<Calendar/>}/>
-          <Route path="/education" element={<EducationSubLayout/>}/>
+          <Route path="/education" element={<EducationSubLayout/>}>
+            <Route index element={<Education/>}/>
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

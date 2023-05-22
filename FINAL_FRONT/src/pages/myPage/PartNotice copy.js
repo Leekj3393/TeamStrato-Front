@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import PartBoardCSS from "../../components/main/PartBoardCSS.css"
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { callMyPageMemberAPI, callMyPageNoticeAPI } from "../../apis/MyPageAPICalls";
+import { callMyPageNoticeAPI } from "../../apis/MyPageAPICalls";
 
 function NoticePart() {
   const dispatch = useDispatch();
@@ -38,33 +38,11 @@ function NoticePart() {
 
   const navigate = useNavigate();
 
-
-  //
-  const membersData = useSelector(state => state.myPageReducer.membersData);
-
-  console.log("membersData", membersData);
-
-  useEffect(() => {
-    dispatch(callMyPageMemberAPI());
-  }, []);
-
-
-
-
-  //
- const { noticeCode } = useParams();
-  const onClickParNoticeCode = (noticeCode) => {
-    navigate(`/myPage/PartNoticeContent/${noticeCode}`);
-  }
-
   return (
     <div className={PartBoardCSS}>
       <div className="partNemo">
         <div className="circlePart"></div>
-        <div className="partName">
-          
-        {membersData.department.deptName }
-          부서 공지사항</div>
+        <div className="partName">'안전관리'부서 공지사항</div>
         <div className="partInput">
           <input
             className="PartInput"
@@ -76,30 +54,34 @@ function NoticePart() {
           <div className="searchPart" onClick={handleSearch}>
             검색
           </div>
+          <div className="searchPartGul" onClick={handleSearch}>
+            글쓰기
+          </div>
         </div>
       </div>
 
       <table className="boardTable">
-    <thead>
-        <tr>
-            <th className="column1">등록 번호</th>
-            <th className="column5">제목</th>
-            <th className="column3">부서명</th>
-            <th className="column4">등록 날짜</th>
-        </tr>
-    </thead>
-    <tbody>
-    {noticeList && noticeList.map((item) => (
-        <tr key={item.noticeCode} onClick={() => onClickParNoticeCode(item.noticeCode)}>
-            <td className="column1">{item.noticeCode}</td>
-            <td className="column2">{item.noticeTitle}</td>
-            <td className="column3">{item.noticeType}</td>
-            <td className="column4">{new Date(item.noticeRegistDate).toISOString().split('T')[0]}</td>
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>내용</th>
+            <th>등록 날짜</th>
+          </tr>
+        </thead>
+        <tbody>
+        {noticeList && noticeList.map((item) => (
+  <tr key={item.noticeCode}>
+    <td>{item.noticeCode}</td>
+    <td>{item.noticeTitle}</td>
+    <td>{item.noticeContent}</td>
+    <td>{item.noticeRegistDate}</td>
+  </tr>
+))}
 
-        </tr>
-    ))}
-    </tbody>
-</table>
+
+        </tbody>
+      </table>
 
             {/* 페이징 바 */}
             <div className="pagination">

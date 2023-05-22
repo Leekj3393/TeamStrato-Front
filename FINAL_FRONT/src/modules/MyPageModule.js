@@ -7,11 +7,12 @@ import { createActions, handleActions } from 'redux-actions';
 const initialState = {
   totalMemberCount: 0,
   time: '',
-  endTime:'',
-  membersData:'',
-  workInfo:'',
-  memberRequest:'',
-  getAllRequest:''
+  endTime: '',
+  membersData: '',
+  workInfo: '',
+  memberRequest: '',
+  getAllRequest: '',
+  getMyNotice: '', // 이 부분에 주의하여 일치시켜주세요
 };
 
 // Action types
@@ -31,11 +32,15 @@ const POST_RETURN_WORK = 'MyPage/RETURN_WORK';
 const GET_INFO_WORK ='MyPage/GET_INFO_WORK';
 
 
-
 const POST_INSERT_REQUEST = 'MyPage/INSERT_REQUEST';
+
+
 
 // Action creators
 export const data = createActions({
+  //공지
+
+
 
   [GET_ALL_REQUEST]: (getAllRequest) => {
     console.log(getAllRequest)
@@ -99,9 +104,12 @@ export const data = createActions({
   }
 });
 
+
+
 // Reducer
 const myPageReducer = handleActions(
   {
+
 
     [GET_ALL_REQUEST]: (state, { payload: { getAllRequest } }) => {
       console.log('모듈 getAllRequest:', getAllRequest);
