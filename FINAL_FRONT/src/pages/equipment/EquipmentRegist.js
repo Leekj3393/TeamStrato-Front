@@ -73,7 +73,7 @@ function EquipmentRegist()
     const onClickEquipmentRegistHandler = () =>
     {
 
-        if(!equipment.equipmentName || !equipment.equCategory.categoryCode || !equipment.appTitle || !equipment.appContent || !image)
+        if(!equipment.equipmentName || !equipment.equCategory.categoryCode || !equipment.appTitle || !equipment.appContent )
         {
             alert('정보 전부 입력해주세요');
             return;
@@ -83,7 +83,7 @@ function EquipmentRegist()
         formData.append("equCategory.categoryCode",equipment.equCategory.categoryCode );
         formData.append("appTitle",equipment.appTitle);
         formData.append("appContent",equipment.appContent);
-        formData.append("image",image);
+        //formData.append("image",image);
 
         dispatch(callEquipmentRegist(formData));
     }

@@ -55,6 +55,7 @@ export const callEquipmentRegist = (formData) =>
 {
     const requestURL = `${PRE_URL}/regist`;
 
+    console.log(requestURL);
     return async (dispatch , getState) => {
         const result = await fetch(requestURL,
             {
