@@ -2,14 +2,14 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import ApprovalCSS from './Approval.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { callAccessPutAPI } from '../../apis/AppLineAPICalls';
+import { callAccessPutAPI } from '../../apis/ApprovalAPICalls';
 
 
 function ApprovalAccessorPage () {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { access } = useSelector(state => state.applineReducer);
+    const { access } = useSelector(state => state.approvalReducer);
     const params = useParams();
     const appCode = params.appCode;
 
@@ -23,7 +23,7 @@ function ApprovalAccessorPage () {
 
     useEffect(
         () => {
-            dispatch(callAccessPutAPI({}));
+            dispatch(callAccessPutAPI({appCode}));
         },
         []
     );

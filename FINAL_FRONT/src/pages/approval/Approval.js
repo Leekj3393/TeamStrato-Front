@@ -39,10 +39,25 @@ function Approval() {
             <div className={ApprovalCSS.square}></div>
             <div className={ApprovalCSS.appContentDiv}>
                 <div className={ApprovalCSS.appInfoBoxDiv}>
-                    
+                    <div className={ApprovalCSS.WTBox}>
+                        결재 대기 문서 개수
+                        <div className={ApprovalCSS.ea}><b>1{}</b> 개</div>
+                    </div>
+                    <div className={ApprovalCSS.IPBox}>
+                        결재 진행중 문서 개수
+                        <div className={ApprovalCSS.ea}><b>1{}</b> 개</div>
+                    </div>
+                    <div className={ApprovalCSS.ACBox}>
+                        결재 승인 문서 개수
+                        <div className={ApprovalCSS.ea}><b>1{}</b> 개</div>
+                    </div>
+                    <div className={ApprovalCSS.RTBox}>
+                        결재 반려 문서 개수
+                        <div className={ApprovalCSS.ea}><b>1{}</b> 개</div>
+                    </div>
                 </div>
                 <div className={ApprovalCSS.appMainTableInfo}>
-                    <h3><b>결재 대기문서가 {} 개 있습니다.</b></h3> {/* 수정하기 count */}
+                    <h3><b>결재 요청 문서가 {} 개 있습니다.</b></h3> {/* 수정하기 count */}
                 </div>
                 <div className={ApprovalCSS.appMainTatbleDiv}>
                     <table className={ApprovalCSS.appMainTable}>   {/* 게시판 시작 */}
