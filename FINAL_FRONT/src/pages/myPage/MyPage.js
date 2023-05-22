@@ -53,7 +53,10 @@ function MyPage() {
     };
   
     dispatch(updateMemberAPI(updatedData));
-    alert("수정되었습니다!");  // 메시지 출력
+    Toast.fire({
+      icon: 'success',
+      title: '수정완료!'
+    })
     setActiveModal(0);  // 모달 창 닫기
   };
   
