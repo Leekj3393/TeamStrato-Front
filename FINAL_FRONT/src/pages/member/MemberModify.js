@@ -86,7 +86,7 @@ function MemberModify () {
         formData.append("bankNo", form.bankNo);
         formData.append("memberSalary", form.memberSalary);
         formData.append("memberAnnual", form.memberAnnual);
-
+        
         if(image) {
             formData.append("memberImage", image);
         }
