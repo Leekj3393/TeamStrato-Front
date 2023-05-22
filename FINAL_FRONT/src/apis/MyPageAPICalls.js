@@ -1,3 +1,4 @@
+import {getMyNotice} from "../modules/MyPageModule";
 // MyPageAPICalls.js
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
@@ -302,3 +303,27 @@ export const callWorkInfoAPI = () => {
     }
   };
 };
+
+
+//게시판
+
+export const callMyPageNoticeAPI = ({ currentPage = 1}) => {
+
+  const requestURL = `${PRE_URL}/notice/part?page=${currentPage}`;
+
+  return async (dispatch, getState) => {
+      const result = await fetch(requestURL, {
+        method: 'GET',
+        headers: {
+          "Content-Type" : "application/json",
+          "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+        }
+      }).then(response => response.json());
+
+      console.log('[NoticeAPICalls] : callNoticeListAPI result : ', result);
+      if(result.status === 200) {
+          console.log('[NoticeAPICalls] : callNoticeListAPI result : ', result);
+          dispatch(getMyNotice(result));
+      }
+  }
+}

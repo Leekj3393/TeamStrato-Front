@@ -1,9 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PartBoardCSS from "../../components/main/PartBoardCSS.css"
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { callMyPageNoticeAPI } from "../../apis/MyPageAPICalls";
 
 
 function NoticePart() {
+  const dispatch = useDispatch();
+
+  const myNotice = useSelector(state => state.myPageReducer.getMyNotice);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(
+    () => {
+            dispatch(callMyPageNoticeAPI({currentPage}));
+    },
+    [currentPage, dispatch]
+  );
+
+  // myNotice 값이 변경될 때마다 콘솔에 출력
+  useEffect(
+    () => {
+      console.log('myNotice:',myNotice);
+    },
+    [myNotice]  // myNotice가 변할 때마다 로그 출력
+  );
+
+//
 
 
     const boardData = [
@@ -26,8 +49,6 @@ function NoticePart() {
           // 예: setFilteredData(filteredData);
         };
 
-
-        const [currentPage, setCurrentPage] = useState(1); // 현재 페이지를 상태로 관리
         const postsPerPage = 5; // 페이지당 게시물 수
       
         // 현재 페이지에 해당하는 게시물 목록 계산
