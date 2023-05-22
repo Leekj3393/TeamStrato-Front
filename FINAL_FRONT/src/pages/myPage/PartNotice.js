@@ -76,35 +76,30 @@ function NoticePart() {
           <div className="searchPart" onClick={handleSearch}>
             검색
           </div>
-          <div className="searchPartGul" onClick={handleSearch}>
-            글쓰기
-          </div>
         </div>
       </div>
 
       <table className="boardTable">
-        <thead>
-          <tr>
-            <th>등록 번호</th>
-            <th>제목</th>
-            <th>부서명</th>
-            <th>등록 날짜</th>
-          </tr>
-        </thead>
-        <tbody>
-        {noticeList && noticeList.map((item) => (
-  <tr key={item.noticeCode} onClick={() => onClickParNoticeCode(item.noticeCode)}>
-    <td>{item.noticeCode}</td>
-    <td>{item.noticeTitle}</td>
-    <td>{item.noticeType}</td>
-    <td>{item.noticeRegistDate}</td>
-  </tr>
-))}
+    <thead>
+        <tr>
+            <th className="column1">등록 번호</th>
+            <th className="column5">제목</th>
+            <th className="column3">부서명</th>
+            <th className="column4">등록 날짜</th>
+        </tr>
+    </thead>
+    <tbody>
+    {noticeList && noticeList.map((item) => (
+        <tr key={item.noticeCode} onClick={() => onClickParNoticeCode(item.noticeCode)}>
+            <td className="column1">{item.noticeCode}</td>
+            <td className="column2">{item.noticeTitle}</td>
+            <td className="column3">{item.noticeType}</td>
+            <td className="column4">{new Date(item.noticeRegistDate).toISOString().split('T')[0]}</td>
 
-
-
-        </tbody>
-      </table>
+        </tr>
+    ))}
+    </tbody>
+</table>
 
             {/* 페이징 바 */}
             <div className="pagination">
