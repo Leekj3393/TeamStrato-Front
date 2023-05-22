@@ -20,7 +20,7 @@ const rootReducer = combineReducers({
     memberFileReducer,
     applineReducer,
     memberRoleReducer,
-    myPageNoticeReducer
+    myPageNoticeReducer,
     noticeFileReducer,
 
 });
