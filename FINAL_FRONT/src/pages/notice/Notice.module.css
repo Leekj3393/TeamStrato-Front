@@ -3,7 +3,7 @@
   font-family: 'SUITE-Regular';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
 }
-
+/* 공통---------------------------------------------------------------------------------------------------------------- */
 .content{
   font-family: 'SUITE-Regular';
   position: absolute;
@@ -28,6 +28,7 @@
   padding-bottom: 20px;
 }
 
+/* 메인------------------------------------------------------------------------------------------------------------ */
 .noticeTitle{
   font-size: large;
   margin-top: 0%;
@@ -105,14 +106,47 @@
     min-width: 100px;
     height: auto;
     text-align: center;
+  }
+  
+  
+  
+  .noticeDiv{
+    display: flex;
+    flex-wrap: wrap;
+    width: 850px;
+    height: 100%;
+    margin: 10px auto;
+  }
+
+/* 작성페이지------------------------------------------------------------------------------------------------------------ */
+.noticeFormDiv {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  width: 1000px;
+  /* height: 800px; */
 }
 
+.noticeFormDiv table {
+  position: absolute;
+  top: -70px;
+  height: 500px;
+}
 
+.noticeFormDiv table #textInput {
+  width: 900px;
+}
 
-.noticeDiv{
-  display: flex;
-  flex-wrap: wrap;
-  width: 850px;
-  height: 100%;
-  margin: 10px auto;
+.noticeFormDiv table textarea {
+  width: 900px;
+  height: 300px;
+  resize: none;
+}
+
+.registBtnDiv {
+  position: absolute;
+  top: 800px;
+  left: 800px;
+  background-color: transparent;
+  border-color: transparent;
 }
