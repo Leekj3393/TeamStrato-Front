@@ -2,16 +2,24 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import ApprovalCSS from './Approval.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { callAccessPutAPI } from '../../apis/ApprovalAPICalls';
+import { callApprovalDetailAPI, callAccessPutAPI } from '../../apis/ApprovalAPICalls';
 
 
 function ApprovalAccessorPage () {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { access } = useSelector(state => state.approvalReducer);
+    const { access, appDetail } = useSelector(state => state.approvalReducer);
+    const [formForAccessor, setFormAccessor] = useState();
+
     const params = useParams();
     const appCode = params.appCode;
+
+    const onClickIdenticationHandler = (e) => {}
+    const onClickApprovalAccessHandler = () => {}
+    const onClickApprovalReturnHandler = () => {}
+
+    // const onClickBack = () => {}
 
     function formatDate(dateString) {
         const date = new Date(dateString);
@@ -23,9 +31,10 @@ function ApprovalAccessorPage () {
 
     useEffect(
         () => {
-            dispatch(callAccessPutAPI({appCode}));
+            dispatch(callApprovalDetailAPI({appCode}));
+            dispatch(callAccessPutAPI(formForAccessor));
         },
-        []
+        [formForAccessor]
     );
 
 
@@ -36,7 +45,7 @@ function ApprovalAccessorPage () {
                 <div className={ApprovalCSS.appContentDiv}>
                     전자결재 문서 승인/반려 페이지
                 </div>
-                <div className={ApprovalCSS.applineInfoBoxDiv}>
+                <div className={ApprovalCSS.applineInfoBoxDiv2}>
                     <table>
                             <thead>
                                 <tr>
@@ -70,33 +79,48 @@ function ApprovalAccessorPage () {
                         <tbody>
                             <tr>
                                 <th>문서번호</th>
-                                <td>{access  && access.appCode}</td>
+                                <td>{appDetail  && appDetail.appCode}</td>
                                 <th>부서</th>
                                 <td>부서명{/* {appDetail && appDetail.member.department.deptName} */}</td>
                             </tr>
                             <tr>
                                 <th>구분</th>
-                                <td>{access && access.appCode}</td>
+                                <td>{appDetail && appDetail.appType}</td>
                                 <th>상태</th>
-                                <td>{access && access.appStatus}</td>
+                                <td>{appDetail && appDetail.appStatus}</td>
                                 <th>등록일</th>
-                                <td>{formatDate(access && access.appTime)}</td>
+                                <td>{formatDate(appDetail && appDetail.appRegistDate)}</td>
                             </tr>
                             <tr>
                             </tr>
                             <tr>
                                 <th>제목</th>
-                                <td>{access && access.appOrder}</td>
+                                <td>{appDetail && appDetail.appTitle}</td>
                             </tr>
                             <tr>
                                 <th>내용</th>
                                 <td colSpan={3} rowSpan={3}>
-                                    {access && access.appOrder}
+                                    {appDetail && appDetail.appContent}
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+                    <table className={ApprovalCSS.appAccessTable}>
+                        <tr>
+                            <th>
+                                본인인증
+                            </th>
+                            <td>
+                                <input name="memberPassword" type="password"/><button onClick={onClickIdenticationHandler}><img src='../image/identify-btn.png' alt='identicationBtn'/></button>
+                            </td>
+                        </tr>
+                    </table>
+                    <div className={ApprovalCSS.registAppLineDiv}>
+                        <button className={ApprovalCSS.accessBtn} onClick={onClickApprovalAccessHandler}><img src='../image/access-btn.png' alt='accessBtn'/></button>
+                        <button className={ApprovalCSS.returnBtn} onClick={onClickApprovalReturnHandler}><img src='../image/deny-btn.png' alt='returnBtn'/></button>
+                    </div>
                 </div>
+
             </div>
     );
             
