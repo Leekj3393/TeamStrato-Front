@@ -5,6 +5,8 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import DocumentCSS from '../../components/main/Document.css';
 import { callDocuMember, callInsertRequestAPI, callMyPageAllRequestAPI, callWorkInfoAPI } from "../../apis/MyPageAPICalls";
+import Swal from 'sweetalert2';
+
 
 const getDate = (date) => {
   const newDate = new Date(date);
@@ -113,18 +115,39 @@ function Document() {
     };
   }, []);
 
+   //알러트창
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'center',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+      toast.addEventListener('mouseenter', () => Swal.stopTimer())
+      toast.addEventListener('mouseleave', () => Swal.resumeTimer())
+  }
+})
+
   //여기 한개
   const handleRequestVacation = () => {
     const today = new Date();  // 오늘 날짜를 가져옵니다. 시간은 무시하기 위해 시, 분, 초, 밀리초를 0으로 설정합니다.
     today.setHours(0, 0, 0, 0);
   
     if (!selectedDates1[0] || !selectedDates1[1]) {  // 날짜 선택 확인
-      alert('휴가 신청을 위해 시작일과 종료일을 선택해주세요.');
+      Toast.fire({
+        icon: 'error',
+        title: '휴가 신청을 위해 시작일과 종료일을 선택해주세요.'
+      })
+      
       return;
     }
   
     if (selectedDates1[0] < today || selectedDates1[1] < today) {  // 선택한 날짜가 오늘 이후인지 확인
-      alert('휴가 신청 시작일과 종료일은 오늘 날짜 이후여야 합니다.');
+      Toast.fire({
+        icon: 'error',
+        title: '휴가 신청 시작일과 종료일은 오늘 날짜 이후여야 합니다.'
+      })
+      
       return;
     }
   

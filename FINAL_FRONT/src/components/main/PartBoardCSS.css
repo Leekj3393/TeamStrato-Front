@@ -39,7 +39,7 @@ font-size: 28px;
 
 .PartInput{
     position: absolute;
-    left: 750px;
+    left: 840px;
     top: 60px;
 
 }
@@ -47,8 +47,6 @@ font-size: 28px;
 .searchPart{
     position: absolute;
     background: #dfe2fe;
-    left: 50px;
-    top: 15px;
     width: 50px;
     height: 30px;
     border-radius: 10px;
@@ -57,7 +55,7 @@ font-size: 28px;
     text-align: center;
 font-weight: 100;
 font-size: 20px;
-left: 1020px;
+left: 1110px;
 top: 60px;
 
 }
@@ -91,8 +89,8 @@ top: 60px;
   .pagination {
     position: absolute;
     margin-top: 20px;
-    left: 600px;
-    top: 600px;
+    left: 900px;
+    top: 750px;
   }
   
   .pagination button {
@@ -107,3 +105,155 @@ top: 60px;
     background-color: #ebebeb;
   }
   
+
+
+  
+
+
+
+
+
+.PartContent{
+
+  top: 150px;
+  left: 300px;
+  width: 1230px;
+  height: 700px;
+  position: absolute;
+  border-radius: 10px;
+}
+
+
+
+.noticeTable {
+  padding-top: 100pxs;
+  width: 90%;
+  border-radius: 10px;
+  margin: 0 auto;
+}
+
+.noticeTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.noticeTable td.titleCell {
+  background-color: #4c61af;
+  color: white;
+}
+
+
+
+
+.contentCell {
+  vertical-align: top;
+}
+
+.noticeTable .itemLabel {
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+}
+
+
+.noticeTable .itemContent {
+  display: flex;
+  justify-content: center;
+  font-size: 18px; /* 원하는 글꼴 크기로 변경해주세요 */
+}
+
+.noticeTable .itemContent.noticeTitle {
+  font-size: 25px; /* 원하는 글꼴 크기로 변경해주세요 */
+}
+
+
+
+
+/*스크롤*/  
+.noticeTable .contentCell {
+  height: 500px; /* 내용 부분의 고정 높이 설정 */
+  justify-content: center;
+  overflow-y: auto; /* 내용이 넘칠 경우 스크롤바 추가 */
+}
+
+.noticeTable .itemLabelOut {
+  width: 30%; /* 내보내기 레이블의 너비 설정 */
+}
+
+.noticeTable .itemContentOut {
+  width: 70%; /* 내보내기 내용의 너비 설정 */
+}
+
+/*스크롤*/  
+
+
+.backPartNotice{
+  position: absolute;
+  background: #ffffff;
+  left: 1050px;
+  top: 20px;
+  width: 60px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  color: #313131;
+  border-radius: 10px;
+  
+}
+
+.kakaoIcon {
+  margin-left: 1050px;
+  width: 25px; /* 이미지의 너비를 조정 */
+  height: auto; /* 이미지의 높이를 자동으로 조정하여 가로세로 비율 유지 */
+  margin-right: 5px; /* 이미지와 버튼 사이의 간격 조정 */
+}
+
+.customButton {
+  left: 1050px;
+  font-size: 18px; /* 버튼의 글꼴 크기 조정 */
+  background-color: #8888cd; /* 버튼의 배경 색상 변경 */
+  color: #ffffff; /* 버튼의 텍스트 색상 변경 */
+  padding: 3px 5px; /* 버튼의 여백 조정 */
+    /* 외곽선 제거 */
+    outline: none;
+    border: none;
+    border-radius: 10px;
+
+}
+
+.customButton:hover {
+  background-color: #000000; /* 버튼에 호버 상태일 때 배경 색상 변경 */
+}
+
+
+
+
+
+
+
+
+.column2 {
+  width: 250px; /* 원하는 넓이로 설정 */
+}
+
+.column5 {
+  width: 250px; /* 원하는 넓이로 설정 */
+  text-align: center; /* 텍스트를 가운데 정렬 */
+}
+
+.column3 {
+  width: 40px; /* 원하는 넓이로 설정 */
+  text-align: center; /* 텍스트를 가운데 정렬 */
+}
+
+.column4 {
+  width: 50px; /* 원하는 넓이로 설정 */
+  text-align: center; /* 텍스트를 가운데 정렬 */
+}
+
+.column1 {
+  width: 100px; /* 원하는 넓이로 설정 */
+  text-align: center; /* 텍스트를 가운데 정렬 */
+}
+
