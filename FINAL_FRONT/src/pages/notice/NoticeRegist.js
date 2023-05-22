@@ -52,38 +52,32 @@ function NoticeRegist() {
     );
 
     const onChangeHandler = (e) => {
-        if(e.target.name === 'appStatus' || e.target.name === 'appType' && e.target.checked) {
-            setForm({
-                ...form,
-                appStatus: '대기',
-                appType: '기안문'
-            });
-        } else {setForm({
+        setForm({
             ...form,
             [e.target.name]: e.target.value,
-          });
-        }
+        });
+        
     };
 
     const onClickRegistHandler = () => {
         if(
-            !form.noticeTitle || !form.noticeContent || !form.department.deptCode || !form.appStatus
+            !form.noticeTitle || !form.noticeContent /* || !form.department.deptCode || !form.appStatus */
         ) {
             if(!form.appTitle) {
                 alert("제목을 작성해주세요.");
                 return;
             } else if(!form.appContent) {
-                alert("제목을 작성해주세요.");
+                alert("내용을 작성해주세요.");
                 return;
-            }  else if(!form.appType) {
+            }  /* else if(!form.appType) {
                 alert("기안구분이 누락되었습니다.");
                 return;
             } else {
                 alert("기안상태가 누락되었습니다.");
                 return;
-            }
+            } */
         } else if(image) {
-
+            form.append("noticeImage", image);
         }
          dispatch(callNoticeRegistAPI(form));
     };
@@ -126,6 +120,7 @@ function NoticeRegist() {
                                 <th>부서</th>
                                 <td name='deptCode'>
                                 <select  className={NoticeCSS.deptSelect} name="deptCode" onChange={onChangeDeptHandler}>
+                                        <option value="selection">선택</option>
                                         <option value="selection">선택</option>
                                         {jobDept?.dept &&
                                             jobDept.dept.map((dept) => (
