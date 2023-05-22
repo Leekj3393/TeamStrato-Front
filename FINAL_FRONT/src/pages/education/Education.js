@@ -47,7 +47,7 @@ function Education () {
                 <button>기 타</button>
             </div>
             <div className="eduListRg">
-                <button onClick={onClickEduRegistHandler}>교육 등록</button>
+                <button onClick={onClickOpenEduModal}>교육 등록</button>
                 {EdumodalOpen && <EducationRegist setEduModalOpen={setEduModalOpen}/>}
             </div>
         </div>
