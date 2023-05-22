@@ -65,10 +65,54 @@
   position: absolute;
   top: 30px;
   width: 1100px;
-  height: 150px;
+  height: 200px;
   left: 50px;
   border-radius: 10px;
+  text-align: center;
+}
 
+.WTBox, 
+.IPBox,
+.ACBox,
+.RTBox  {
+  position: absolute;
+  top: 10px;
+  padding-top: 15px;
+  background: hsla(216, 89%, 71%, 0.842);
+  border-radius: 10px;
+  width: 200px;
+  height: 160px;
+}
+
+.WTBox{
+  position: absolute;
+  left: 60px;
+}
+
+.IPBox{
+  position: absolute;
+  left: 320px;
+}
+
+.ACBox{
+  position: absolute;
+  left: 570px;
+}
+
+.RTBox{
+  position: absolute;
+  left: 830px;
+}
+
+.ea{
+  position: absolute;
+  top: 50px;
+  width: 200px;
+  height: 90px;
+  padding-top: 35px;
+  background: white;
+  color: midnightblue;
+  font-size: 50px;
 }
 
 /* 결재문서 목록--------------------------------------------------------------------------------------- */
@@ -231,4 +275,109 @@
   top: 350px;
   height: 450px;
   width: 1100px;
+}
+
+/* 결재 승인/반려페이지--------------------------------------------------------------------------------------- */
+.appAccessorDiv{
+  position: absolute;
+  top: 20px;
+  left: 350px;
+  /* flex-wrap: wrap; */
+}
+
+.applineInfoBoxDiv2 {
+  position: absolute;
+  top: -110px;
+  left: 840px;
+  width:600px;
+  height: 150px;
+  /* flex-wrap: wrap; */
+  
+}
+
+.applineInfoBoxDiv2 table {
+  position: absolute;
+  /* margin-right: 1px; */
+  /* flex-wrap: wrap; */
+  text-align: center;
+  height: 100px;
+}
+
+.applineInfoBoxDiv2 table th {
+  text-align: center;
+  font-size: small;
+  height: 5px;
+}
+
+.applineInfoBoxDiv2 table td {
+  text-align: center;
+  font-size: medium;
+  height: 10px;
+}
+
+.approvalAccessorTable {
+  position: absolute;
+  top: 300px;
+  left: -10px;
+  height: 300px;
+  width: 1100px;
+}
+
+/* .approvalAccessorTable th {
+  padding-right: -100px;
+}
+
+.approvalAccessorTable td {
+  padding-left: 100px;
+} */
+
+.appAccessTable {
+  position: absolute;
+  top: 610px;
+  left: -10px;
+  width: 1100px;
+  height: 150px;
+}
+
+.appAccessTable tr td input {
+ width: 100px;
+ height: 30px;
+ width: 300px;
+ margin-right: 20px;
+}
+
+.appAccessTable tr td button {
+  top: 10p;
+  width: 100px;
+  /* height: 50px; */
+}
+
+.registAppLineDiv {
+  position: absolute;
+  top: 800px;
+  height: 150px;
+  width: 1200px;
+}
+
+.registAppLineDiv button {
+  width: 100px;
+  height: 40px;
+}
+
+.registAppLineDiv button img {
+  width: 100px;
+  height: 40px;
+}
+
+.accessBtn {
+  position: absolute;
+  left: 800px;
+
+}
+
+.returnBtn {
+  position: absolute;
+  left: 950px;
+  /* flex-wrap: nowrap; */
+
 }

@@ -7,6 +7,7 @@ const GET_APP_MEMBER_INFO = 'approval/GET_APP_MEMBER_INFO';
 const POST_APPROVAL = 'approval/POST_APPROVAL';
 const GET_APPROVALS = 'approval/GET_APPROVALS';
 const GET_APPROVAL = 'approval/GET_APPROVAL';
+const PUT_APPROVAL = 'approval/PUT_APPROVAL';
 
 
 export const { approval : { getAppMemberInfo, postApproval, getApprovals, getApproval, putApproval, }} = createActions({
@@ -14,6 +15,7 @@ export const { approval : { getAppMemberInfo, postApproval, getApprovals, getApp
     [POST_APPROVAL] : res => res,
     [GET_APPROVALS] : res => res.data,
     [GET_APPROVAL] : res => res.data,
+    [PUT_APPROVAL] : res => res,
 });
 
 
@@ -23,6 +25,7 @@ const approvalReducer = handleActions (
         [POST_APPROVAL] : (state, {payload}) => ({regist: payload}),
         [GET_APPROVALS] : (state, {payload}) => payload,
         [GET_APPROVAL] : (state, {payload}) => ({appDetail: payload}),
+        [PUT_APPROVAL] : (state, {payload}) => ({access: payload}),
     }
 , initialState);
 

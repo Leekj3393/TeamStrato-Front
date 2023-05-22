@@ -40,6 +40,7 @@ import ApprovalDetail from "./pages/approval/ApprovalDetail";
 import ApprovalAccessorPage from "./pages/approval/ApprovalAccessorPage";
 import ProtectedRoute from "./components/router/ProtectedRoute";
 import EducationSubLayout from "./layouts/EducationSubLayout";
+import NoticeRegist from "./pages/notice/NoticeRegist";
 
 function App() {
   return (
@@ -61,6 +62,14 @@ function App() {
           </Route>
           <Route path="/notice" element={<NoticeSubLayout />}>
             <Route index element={<Notice />} />
+            <Route 
+              path="/notice/regist" 
+              element={
+                // <ProtectedRoute authCheck={true}>
+                  <NoticeRegist />
+                // </ProtectedRoute>
+              } 
+            />
           </Route>
           <Route path="/notice-manage" element={<NoticeSubLayout />}>
             <Route index element={<NoticeManage />} />
@@ -75,7 +84,7 @@ function App() {
             <Route path="/approval/returned" element={<ApprovalReturned />} />
             <Route path="/approval/:appCode" element={<ApprovalDetail />} />
             <Route 
-              path="/approval-accessor/:appCode" 
+              path="/approval/accessor/:appCode" 
               element={
                 <ProtectedRoute loginCheck={true}>
                   <ApprovalAccessorPage />

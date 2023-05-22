@@ -67,7 +67,7 @@ function Notice() {
                             <th>부서</th>
                             <th>제목</th>
                             <th>등록일</th>
-                            <th>조회수</th>
+                            {/* <th>조회수</th> */}
                         </tr>                               {/* 게시글은 한 페이지 당 5개씩!!! */}
                         </thead>
                         <tbody>
@@ -77,7 +77,7 @@ function Notice() {
                                     <th >{notice.department.deptName}</th>
                                     <th >{notice.noticeTitle}</th>
                                     <th >{formatDate(notice.noticeRegistDate)}</th>
-                                    <th >{notice.viewCount}</th>
+                                    {/* <th >{notice.viewCount}</th> */}
                                 </tr>
                                 ))}
                         </tbody>

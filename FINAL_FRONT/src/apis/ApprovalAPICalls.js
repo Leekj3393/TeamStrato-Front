@@ -139,3 +139,21 @@ export const callApprovalDetailAPI = ({appCode}) => {
 
 }
 
+// 결재 승인/반려
+export const callAccessPutAPI = (formForAccessor) => {
+    const requestURL = `${PRE_URL}/approval-accessor`;
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL, {
+            method: 'PUT',
+            headers: {
+                "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+            },
+            body: formForAccessor
+        }).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log('[ApprovalAPICalls] :  callAccessPutAPI result : ', result);
+            dispatch(putApproval(result));
+        }
+    }
+}
