@@ -16,7 +16,7 @@ function MemberReigst () {
     const [form, setForm] = useState({});
     
     console.log("form", form);
-    
+
     useEffect (
         () => {
             dispatch(calljobDeptListAPI());

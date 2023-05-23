@@ -14,13 +14,15 @@ function EducationRegist({setEduModalOpen}) {
     const [form, setForm] = useState({});
     const { eduAdd } = useSelector(state => state.educationReducer);
 
+    console.log("eduAdd", eduAdd);
+
     /* 교육 등록  */
     useEffect(
         () => {
             if(eduAdd?.status === 200) {
                 alert('교육 등록이 완료됐습니다');
                 navigate('/', {replace : true});
-            }
+            } 
         },
         [eduAdd]
     )
@@ -92,17 +94,19 @@ function EducationRegist({setEduModalOpen}) {
                     </div>
                     <div>
                         <label>필수 여부</label>
-                        <select value="Y" name="edStatus" onChange={onChangeHandler}>
+                        <select value="" name="edStatus" onChange={onChangeHandler}>
+                            <option vlaue="">선택해주세요</option>
                             <option value="Y">필수</option>
                             <option value="N">선택</option>
                         </select>
                     </div>
                     <div>
                         <label>교육 카테고리</label>
-                        <select value="1" name="edType" onChange={onChangeHandler}>
-                            <option value="1">안전</option>
-                            <option value="2">직무</option>
-                            <option value="3">기타</option>
+                        <select value="" name="edType" onChange={onChangeHandler}>
+                            <option vlaue="">선택해주세요</option>
+                            <option value="안전">안전</option>
+                            <option value="직무">직무</option>
+                            <option value="기타">기타</option>
                         </select>
                     </div>
                     <div className={edCSS.modalEduVideo}>

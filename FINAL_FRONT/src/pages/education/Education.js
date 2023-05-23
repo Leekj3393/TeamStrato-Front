@@ -19,6 +19,11 @@ function Education () {
         setEduModalOpen(true);
     };
 
+    /* 안전 교육 리스트 이동 핸들러 */
+    const onClickEduListSafeHandler = (e) => {
+        navigate('/education/safety');
+    };
+
     return (
         <div className='eduBack'>
             <div className='eduList'>
@@ -38,7 +43,7 @@ function Education () {
                 </div>
             </div>
             <div className='edListBt1'>
-                <button>안 전</button>
+                <button onClick={onClickEduListSafeHandler}>안 전</button>
             </div>
             <div className='edListBt2'>
                 <button>직 무</button>
