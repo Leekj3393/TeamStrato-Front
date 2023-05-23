@@ -19,7 +19,7 @@ export const { education : {getEducation, getSafety, getDuty, getEdOther, postEd
 const educationReducer = handleActions(
     {   
         [GET_EDUCATION] : (state, {payload}) => ({edu : payload}),
-        [GET_SAFETY] : (state, {payload}) => payload,
+        [GET_SAFETY] : (state, {payload}) => ({safe : payload}),
         [GET_DUTY] : (state, {payload}) => payload,
         [GET_EDOTHER] : (state, {payload}) => payload, 
         [POST_EDUCATION] : (state, {payload}) => ({eduAdd : payload}),

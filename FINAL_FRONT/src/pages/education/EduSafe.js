@@ -11,8 +11,10 @@ function EduSafe() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { data, pageInfo } = useSelector((state) => state.educationReducer);
+    const { safe, pageInfo } = useSelector((state) => state.educationReducer);
     const [currentPage, setCurrentPage] = useState(1);
+
+    console.log(safe);
 
     useEffect(
         () => {
@@ -39,7 +41,7 @@ function EduSafe() {
         
         <div className={EduSafeCSS.eduListBack}>
             <div className={EduSafeCSS.haeder}>{<EducationSubNavbar/>}</div>
-            {data && data.map(education => (
+            {safe && safe?.map(education => (
             <div 
                 key={education.edCode}
                 className={EduSafeCSS.eduListDiv}
