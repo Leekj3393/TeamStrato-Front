@@ -43,6 +43,7 @@ import EducationSubLayout from "./layouts/EducationSubLayout";
 import Education from "./pages/education/Education";
 import PartNoticeContent from "./pages/myPage/PartNoticeContent";
 import NoticeRegist from "./pages/notice/NoticeRegist";
+import EquipmentModify from "./pages/equipment/EquipmentModify";
 import NestedList from "./pages/approval/NestedList";
 import CompanyCal from "./pages/calendar/CompanyCal";
 
@@ -113,6 +114,7 @@ function App() {
             <Route index element={<Equipment/>} />
             <Route path="detail/:categoryCode" element={<EquipmentDetail/>} />
             <Route path="regist" element={<EquipmentRegist/>} />
+            <Route path="modify" element={<EquipmentModify/>} />
           </Route>
           <Route path="/member" element={<MemberSubLayout/>}>
             <Route index element={<Member/>}/>

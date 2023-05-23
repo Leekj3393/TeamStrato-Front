@@ -40,8 +40,8 @@ function Equipment()
                         <th> 장비 분류 </th>
                         <th> 장비 명 </th>
                         <th> 장비 수 </th>
-                        <th> 장비 상태 수정 일 </th>
                         <th> 장비 등록 일 </th>
+                        <th> 장비 상태 수정 일 </th>
                     </thead>
                     <tbody>
                         {equimentList && equimentList.map((equ) => (
