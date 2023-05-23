@@ -17,8 +17,8 @@ function EducationNavbar() {
                     <b>교육</b>
                 </div>
                 <div className="eduNavbar-wrapper">
-                    <NavLink>
-                    <div className={`eduNavbar ${activeMenu === "educaionList" ? "active" : ""}`} onClick={() => handleClick("educaionList")}>교육</div>
+                    <NavLink to="/education">
+                    <div className={`eduNavbar ${activeMenu === "educaionList" ? "active" : ""}`} onClick={() => handleClick("educaion")}>교육</div>
                     </NavLink>
                     <NavLink>
                     <div className={`eduNavbar ${activeMenu === "educaionPhoto" ? "active" : ""}`} onClick={() => handleClick("educaionPhoto")}>교육 사진</div>

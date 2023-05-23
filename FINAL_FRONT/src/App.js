@@ -43,6 +43,10 @@ import EducationSubLayout from "./layouts/EducationSubLayout";
 import Education from "./pages/education/Education";
 import PartNoticeContent from "./pages/myPage/PartNoticeContent";
 import NoticeRegist from "./pages/notice/NoticeRegist";
+import EducationListSubLayout from "./layouts/EducationListSubLayout";
+import EduSafe from "./pages/education/EduSafe";
+import EducationDt from "./pages/education/EducationDt";
+
 
 function App() {
   return (
@@ -124,6 +128,8 @@ function App() {
           <Route path="/calendar" element={<Calendar/>}/>
           <Route path="/education" element={<EducationSubLayout/>}>
             <Route index element={<Education/>}/>
+            <Route path="/education/:edCode" element={<EducationDt/>}/>
+            <Route path="/education/safety" element={<EduSafe/>}/>
           </Route>
         </Route>
       </Routes>
