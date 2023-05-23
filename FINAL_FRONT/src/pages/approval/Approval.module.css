@@ -230,7 +230,17 @@
   width: 200px;
 }
 
+.membersChartTable{
+  position: absolute;
+  left: 350px;
+  width: 1000px;
+}
 
+.memberChartUl{
+  position: absolute;
+  left: 350px;
+  top: 300px;
+}
 
 /* 결재문서 상세 조회--------------------------------------------------------------------------------------- */
 .appDetailDiv{

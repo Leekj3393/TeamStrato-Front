@@ -43,6 +43,7 @@ import EducationSubLayout from "./layouts/EducationSubLayout";
 import Education from "./pages/education/Education";
 import PartNoticeContent from "./pages/myPage/PartNoticeContent";
 import NoticeRegist from "./pages/notice/NoticeRegist";
+import NestedList from "./pages/approval/NestedList";
 
 function App() {
   return (
@@ -85,6 +86,7 @@ function App() {
           <Route path="/approval" element={<ApprovalSubLayout />}>
             <Route index element={<Approval />} />
             <Route path="/approval/regist" element={<ApprovalRegist />} />
+            <Route path="/approval/toggletestpage" element={<NestedList />} />  {/* 테스트 용!! */}
             <Route path="/approval/appline" element={<ApprovalLineRegist />} />
             <Route path="/approval/wait" element={<ApprovalWait />} />
             <Route path="/approval/inProgress" element={<ApprovalInProgress />} />            
