@@ -7,7 +7,9 @@ import approvalReducer from "./ApprovalModule";
 import memberFileReducer from "./MemberFileModule";
 import applineReducer from "./ApplineModule";
 import memberRoleReducer from "./MemberRoleModule";
-
+import myPageNoticeReducer from "./MyPageNoticeModule";
+import noticeFileReducer from "./NoticeFileModule";
+import educationReducer from "./EducationModule";
 
 const rootReducer = combineReducers({
     memberReducer,
@@ -18,7 +20,9 @@ const rootReducer = combineReducers({
     memberFileReducer,
     applineReducer,
     memberRoleReducer,
-
+    myPageNoticeReducer,
+    noticeFileReducer,
+    educationReducer
 });
 
 export default rootReducer;
