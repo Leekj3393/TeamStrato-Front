@@ -7,15 +7,15 @@ const POST_APPLINE = 'appline/POST_APPLINE';
 
 
 
-export const { appline : {getApplineMembers, postAppLine, putAppline}} = createActions({
+export const { appline : {getApplineMembers, postAppline}} = createActions({
     [GET_APPLINE_MEMBERS] : res => res.data,
     [POST_APPLINE] : res => res,
     
-});
+}); 
 
 const applineReducer = handleActions(
     {
-        [GET_APPLINE_MEMBERS] : (state, {payload}) => ({applines: payload}),
+        [GET_APPLINE_MEMBERS] : (state, {payload}) => ({accessors: payload}),
         [POST_APPLINE] : (state, {payload}) => ({regist2: payload}),
         
     }

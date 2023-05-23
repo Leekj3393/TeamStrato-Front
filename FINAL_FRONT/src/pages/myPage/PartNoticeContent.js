@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
-import { callMyPageNoticeDetailAPI } from '../../apis/MyPageAPICalls';
+import { callMyPageNoticeDetailAPI, callMyPageNoticeFileAPI } from '../../apis/MyPageAPICalls';
 import PartBoardCSS from "../../components/main/PartBoardCSS.css"
 
 function PartNoticeContent() {
@@ -19,6 +19,18 @@ function PartNoticeContent() {
   useEffect(() => {
     console.log('찍어봐요 공지사항 숲 MyNoticeDetail:', MyNoticeDetail);
   }, [MyNoticeDetail]);
+
+
+//파일 조회하기
+const MyNoticeFile = useSelector(state => state.myPageNoticeReducer.getMyNoticeFile);
+
+useEffect(() => {
+  dispatch(callMyPageNoticeFileAPI(noticeCode)); // 첨부된 파일 정보 불러오기
+}, [dispatch, noticeCode]);
+
+useEffect(() => {
+  console.log('찍어봐요 파일 숲 MyNoticeFile:', MyNoticeFile);
+}, [MyNoticeFile]);  // MyNoticeFile을 종속성 배열에 추가
 
 
 
@@ -66,7 +78,7 @@ function PartNoticeContent() {
             <tbody>
               <tr>
                 <td colSpan="2" className="titleCell">
-                  <span className="itemLabel">알립니다!</span>
+                  <span className="itemLabel">{MyNoticeDetail.data.noticeType}부서 직원들께 알립니다!</span>
   <img src="/image/kakao내보내기.png" alt="카카오톡 이미지" className="kakaoIcon" onClick={sendKakaoLink}/>
                   <div className="backPartNotice" onClick={() => navigate(-1)}>뒤로가기 <img src="/image/kakao내보내기.png" alt="카카오톡 이미지" className="kakaoIcon" onClick={sendKakaoLink}/></div>
                   <span className="itemContent noticeTitle">📢 {MyNoticeDetail.data.noticeTitle}</span>
@@ -74,13 +86,18 @@ function PartNoticeContent() {
                 </td>
               </tr>
               <tr>
-                <td>
-                <span className="itemLabel"><b>해당하는 부서</b></span>
-                </td>
-                <td>
-                  <span className="itemContent">{MyNoticeDetail.data.noticeType}</span>
-                </td>
-              </tr>
+  <td className="columnPartContent">
+    <div className="columnPartContent">파일 다운받기</div>
+  </td>
+  <td>
+    {MyNoticeFile && MyNoticeFile.getMyNoticeFile.map((file, index) => (
+      <div key={index}>
+        <a href={`${file.filePath}${file.fileName}`}>{file.fileName}</a>
+      </div>
+    ))}
+  </td>
+</tr>
+
               <tr>
                 <td colSpan="8" className="contentCell">
                   <span className="itemLabel">내용<br></br></span>

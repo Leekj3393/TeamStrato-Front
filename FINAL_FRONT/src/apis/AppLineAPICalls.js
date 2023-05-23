@@ -1,4 +1,4 @@
-import {getApplineMembers, postAppLine, putAppline} from "../modules/ApplineModule";
+import {getApplineMembers, postAppline} from "../modules/ApplineModule";
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
@@ -38,7 +38,7 @@ export const callAppLineInsertAPI = (form2) => {
 
         if(result.status === 200) {
             console.log('[ApprovalAPICalls] :  callAppLineInsertAPI result : ', result);
-            dispatch(postAppLine(result));
+            dispatch(postAppline(result));
         }
     }
 }
