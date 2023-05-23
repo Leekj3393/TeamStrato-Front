@@ -12,7 +12,9 @@ const initialState = {
   workInfo: '',
   memberRequest: '',
   getAllRequest: '',
-  getMyNotice: '', // 이 부분에 주의하여 일치시켜주세요
+  getMyNotice: '',
+  deletRequestCode:'' ,
+  
 };
 
 // Action types
@@ -24,6 +26,7 @@ const PUT_MODIFY_MYMEMBER =  'MyPage/PUT_MODIFY_MYMEMBER';
 //docu
 const GET_DOCU_REQUEST_MEMBER ='request/GET_DOCU_REQUEST_MEMBER';
 const GET_ALL_REQUEST = 'MyPage/GET_ALL_REQUEST';
+const DELETE_REQUEST_CODE = 'MyPage/DELETE_REQUEST_CODE';
 
 const POST_GO_TO_WORK = 'MyPage/POST_GO_TO_WORK';
 const POST_END_WORK = 'MyPage/END_WORK';
@@ -104,11 +107,28 @@ export const data = createActions({
   }
 });
 
+//도큐 삭제
 
+export const getMyNotice = (deletRequestCode) => {
+  console.log('deletRequestCode:', deletRequestCode);
+  return {
+    type: DELETE_REQUEST_CODE,
+    payload: deletRequestCode,
+  };
+};
 
 // Reducer
 const myPageReducer = handleActions(
   {
+    //도큐 삭제
+    [DELETE_REQUEST_CODE]: (state, { payload }) => {
+      console.log('Reducer deletRequestCode:', payload);
+      return {
+        ...state,
+        deletRequestCode: payload,
+      };
+    },
+    //
 
 
     [GET_ALL_REQUEST]: (state, { payload: { getAllRequest } }) => {

@@ -4,7 +4,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import DocumentCSS from '../../components/main/Document.css';
-import { callDocuMember, callInsertRequestAPI, callMyPageAllRequestAPI, callWorkInfoAPI } from "../../apis/MyPageAPICalls";
+import { callDocuMember, callInsertRequestAPI, callMyPageAllRequestAPI, callMyPageRequestDeleteAPI, callWorkInfoAPI } from "../../apis/MyPageAPICalls";
 import Swal from 'sweetalert2';
 
 
@@ -24,6 +24,8 @@ function Document() {
   
     const membersData = useSelector(state => state.myPageReducer.membersData);
     const getAllRequest  = useSelector(state => state.myPageReducer.getAllRequest);
+
+    const deletRequestCode = useSelector(state => state.myPageReducer.deletRequestCode);
     console.log("membersData",membersData); //여기로 조회해오게
     console.log("getAllRequest:",getAllRequest); //여기로 조회해오게
   
@@ -224,7 +226,11 @@ const Toast = Swal.mixin({
     //   setAllRequest(allRequest.filter(r => r !== request));
     // };
     
-
+    const handleDelete = async (requestCode) => {
+      await dispatch(callMyPageRequestDeleteAPI(requestCode));
+      dispatch(callMyPageAllRequestAPI());
+    };
+    
 
   const handleDateClick1 = (info) => {
     handleDateClick(info, setSelectedDates1);
@@ -402,10 +408,17 @@ initialView="dayGridMonth"
             {getAllRequest &&
               getAllRequest.map((request, index) => (
                 <div className="request" key={index}>
-                  <button>삭제</button>
+                <button id="deleteRequestB" onClick={() => handleDelete(request.requestCode)}>삭제</button>
+
+                  
                   <tr>
-                    <th>결재 서류 번호</th>
+                    <th>결재 서류 상태<br/>
+                    (대기 상태만 삭제 가능)</th>
                     <td>{request.approvals.map((approval, index) => <p key={index}>{approval.appStatus}</p>)}</td>
+                  </tr>
+                  <tr>
+                    <th>결재 번호</th>
+                    <td>{request.requestCode}</td>
                   </tr>
                   <tr>
                     <th>결재 내용</th>
@@ -417,11 +430,12 @@ initialView="dayGridMonth"
                   </tr>
                   <tr>
                     <th>시작일</th>
-                    <td>{request.requestStart}</td>
+                   
+                    <td> {new Date(request.requestStart).toISOString().split('T')[0]}</td>
                   </tr>
                   <tr>
                     <th>종료일</th>
-                    <td>{request.requestEnd},</td>
+                    <td> {new Date(request.requestEnd).toISOString().split('T')[0]}</td>
                   </tr>
                   {/* Add more fields as needed */}
                   <br />
