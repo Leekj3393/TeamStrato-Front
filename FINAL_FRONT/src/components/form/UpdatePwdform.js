@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LoginFormCss from "./Loginform.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { callUpdatePwdAPI } from "../../apis/LoginAPICalls"; 
+import { callUpdatePwdAPI } from "../../apis/LoginAPICalls";
+import Swal from 'sweetalert2'; 
 
 function UpdatePwdForm() {
 
@@ -19,8 +20,24 @@ function UpdatePwdForm() {
 
     useEffect(
         () => {
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'center',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', () => Swal.stopTimer())
+                    toast.addEventListener('mouseleave', () => Swal.resumeTimer())
+                }
+              })
+
             if(updateOk?.status === 200) {
-                alert('비밀번호 수정이 완료 되었습니다.');
+                            Toast.fire({
+                icon: 'success',
+                title: '비밀번호 수정이 완료되었습니다.'
+              })
                 navigate('/login', { replace : true });
             }
         },
