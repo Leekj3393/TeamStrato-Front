@@ -15,7 +15,7 @@ export const {
 /* 리듀서 */
 const mailReducer = handleActions(
   {
-    [POST_MAIL]: (state, { payload }) => payload
+    [POST_MAIL]: (state, { payload }) => ({ mailOk : payload }),
   },
   initialState
 );
