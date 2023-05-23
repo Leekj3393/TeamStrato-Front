@@ -108,7 +108,6 @@ function App() {
             <Route path="/calendar/allSch" element={<AllSch/>}/>
             <Route path="/calendar/workCheck" element={<WorkCheck/>}/>
             <Route path="/calendar/holidayCheck" element={<HolidayCheck/>}/>
-            <Route path="/calendar/companyCal" element={<CompanyCal/>}/>
           </Route>
           <Route path="/equipment" element={<EquipmentSubLayout/>}>
             <Route index element={<Equipment/>} />
@@ -125,6 +124,7 @@ function App() {
             <Route path="/member/regist" element={<MemberReigst/>}/>
             <Route path="/member/modify/:memberCode" element={<MemberModify/>}/>
           </Route>
+          <Route path="/calendar" element={<Calendar/>}/>
           <Route path="/education" element={<EducationSubLayout/>}>
             <Route index element={<Education/>}/>
           </Route>
