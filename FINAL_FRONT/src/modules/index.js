@@ -11,6 +11,7 @@ import myPageNoticeReducer from "./MyPageNoticeModule";
 import noticeFileReducer from "./NoticeFileModule";
 import calendarReducer from "./CalendarModule";
 import mailReducer from "./MailModule";
+import educationReducer from "./EducationModule";
 
 
 
@@ -27,7 +28,7 @@ const rootReducer = combineReducers({
     noticeFileReducer,
     calendarReducer,
     mailReducer,
-
+    educationReducer
 
 });
 
