@@ -12,8 +12,9 @@ function ApprovalLineRegist() {
     const {regist2} = useSelector(state => state.approvalReducer);
     const [expandedItems, setExpandedItems] = useState([]);
     const { accessors } = useSelector(state => state.applineReducer);
-    const [form, setForm] = useState({
-    });
+    const [form, setForm] = useState({});
+    const [select, setSelect] = useState({});
+    const [selected, setSelected] = useState({});
 
     // 부서에 해당하는 동일 직급 직원 조회
   const renderMembers = (dept, jobName) => {
@@ -30,7 +31,7 @@ function ApprovalLineRegist() {
     return (
       <ul>
         {members.map(member => (
-          <li key={member.memberCode}>
+          <li key={member.memberCode} onClick={onClickApplineSelectHandler} name='memberCode'>
             {member.memberName}
           </li>
         ))}
@@ -81,7 +82,19 @@ function ApprovalLineRegist() {
         dispatch(callAppLineInsertAPI(form));
     }
 
-    const onClickApplineSelectHandler = () => {}
+    const onClickApplineSelectHandler = (e) => {
+        setSelect({
+            ...select,
+            [e.target.name] : e.target.value
+        });
+    }
+    const onChangeApplineSelectHandler = (e) => {
+        setSelected({
+            ...selected,
+            [e.target.name] : e.target.value
+        });
+    }
+
     const onClickDeptSelectHandler = () => {}
 
     const onClickApplineResetHandler = () => {}
@@ -166,7 +179,25 @@ function ApprovalLineRegist() {
                     </div>
                 </div>
                 <div className={ApprovalCSS.selectedMemberDiv}>
-                    선택된 결재선
+                    <div className={ApprovalCSS.selectedMemberContent}>
+                        <h4>결재선</h4>
+                        <ul>
+                           기안자
+                           <li><h3>기안자 이름{}</h3></li> 
+                        </ul>
+                        <ul>
+                           제1 결재선
+                           <li name="memberName" onChange={onChangeApplineSelectHandler}><h3>선택된 제1 결재자 이름{}</h3></li> 
+                        </ul>
+                        <ul>
+                           제2 결재선
+                           <li><h3>선택된 제2 결재자 이름{}</h3></li> 
+                        </ul>
+                        <ul>
+                           최종 결재선
+                           <li><h3>선택된 최종 결재자 이름{}</h3></li> 
+                        </ul>
+                    </div>
                 </div>
                 <div className={ApprovalCSS.registFormDiv2}>
 
