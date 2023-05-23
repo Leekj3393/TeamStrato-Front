@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import NoticeCSS from './Notice.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { callNoticeRegistAPI } from '../../apis/NoticeAPICalls';
 import { calljobDeptListAPI } from '../../apis/MemberAPICalls';
 
@@ -16,6 +16,7 @@ function NoticeRegist() {
     const [image, setImage] = useState(null);
     const [imageUrl, setImageUrl] = useState('');
     const ImageInput = useRef();
+
 
     function formatDate(dateString) {
         const date = new Date(dateString);
@@ -195,5 +196,4 @@ function NoticeRegist() {
         </div>
     );
 }
-
 export default NoticeRegist;
