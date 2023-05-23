@@ -1,11 +1,25 @@
 import { useNavigate } from "react-router-dom";
 import { postMail } from "../modules/MailModule";
+import Swal from 'sweetalert2';
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
 const PRE_URL = `http://${SERVER_IP}:${SERVER_PORT}`;
 
+
 export const callMailAPI = (form) => {
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', () => Swal.stopTimer())
+            toast.addEventListener('mouseleave', () => Swal.resumeTimer())
+        }
+      })
 
     console.log('callMailAPI form', form);
 
@@ -26,8 +40,11 @@ export const callMailAPI = (form) => {
 
         if(result.status === 200){
             dispatch(postMail(result));
-            alert("메일 발송 성공, 비밀번호 변경 페이지로 이동해주세요.");
+            
         } else {
-        alert("입력하신 정보의 아이디가 없습니다.."); }
+            Toast.fire({
+                icon: 'error',
+                title: '입력하신 정보가 잘못되었습니다.'
+              }) }
     }
 }
