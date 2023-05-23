@@ -9,6 +9,9 @@ import applineReducer from "./ApplineModule";
 import memberRoleReducer from "./MemberRoleModule";
 import myPageNoticeReducer from "./MyPageNoticeModule";
 import noticeFileReducer from "./NoticeFileModule";
+import calendarReducer from "./CalendarModule";
+import mailReducer from "./MailModule";
+
 
 
 const rootReducer = combineReducers({
@@ -22,6 +25,9 @@ const rootReducer = combineReducers({
     memberRoleReducer,
     myPageNoticeReducer,
     noticeFileReducer,
+    calendarReducer,
+    mailReducer,
+
 
 });
 
