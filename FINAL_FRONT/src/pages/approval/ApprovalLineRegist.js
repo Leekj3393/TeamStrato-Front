@@ -1,13 +1,13 @@
 import { NavLink, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import ApprovalCSS from './Approval.module.css';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { callAppLineInsertAPI, callMemberListForAppAPI } from '../../apis/AppLineAPICalls';
 // import { calljobDeptListAPI } from '../../apis/MemberAPICalls';
 
 
 function ApprovalLineRegist() {
-    
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {regist2, applines} = useSelector(state => state.approvalReducer);

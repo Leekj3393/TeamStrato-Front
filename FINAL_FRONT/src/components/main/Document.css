@@ -145,3 +145,12 @@ z-index: 10000; /* 모달의 쌓임 순서를 높은 값으로 설정 */
   margin: 0 auto;
   text-align: center;
 }
+
+
+#deleteRequestBtn {
+  margin-top: 10px;
+  margin-left: 720px;
+  background-color: black;
+  color: white;
+  border: none;
+}

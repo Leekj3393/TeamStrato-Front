@@ -13,6 +13,7 @@ function EquipmentRegist()
     const [image , setImage] = useState();
     const data = useSelector(state => state.equipmentReducer);
     const category = data.category;
+    const { regist } = useSelector(state => state.equipmentReducer);
 
     const [equipment , setEquipment] = useState({});
 
@@ -41,6 +42,20 @@ function EquipmentRegist()
         },
         [image]
     );
+
+    useEffect(
+        () =>
+        {
+            if(regist?.status === 200)
+            {
+                alert('장비 추가 결제 등록 완료');
+                navigate('/equipment' , {replace : true});
+            }
+        },
+        [regist]
+    );
+
+    console.log("regist " , regist);
     
     const onClickImageUpload = () =>
     {

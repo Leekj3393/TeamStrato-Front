@@ -46,7 +46,9 @@ import NoticeRegist from "./pages/notice/NoticeRegist";
 import EducationListSubLayout from "./layouts/EducationListSubLayout";
 import EduSafe from "./pages/education/EduSafe";
 import EducationDt from "./pages/education/EducationDt";
-
+import EquipmentModify from "./pages/equipment/EquipmentModify";
+import NestedList from "./pages/approval/NestedList";
+import CompanyCal from "./pages/calendar/CompanyCal";
 
 function App() {
   return (
@@ -89,6 +91,7 @@ function App() {
           <Route path="/approval" element={<ApprovalSubLayout />}>
             <Route index element={<Approval />} />
             <Route path="/approval/regist" element={<ApprovalRegist />} />
+            <Route path="/approval/toggletestpage" element={<NestedList />} />  {/* 테스트 용!! */}
             <Route path="/approval/appline" element={<ApprovalLineRegist />} />
             <Route path="/approval/wait" element={<ApprovalWait />} />
             <Route path="/approval/inProgress" element={<ApprovalInProgress />} />            
@@ -114,6 +117,7 @@ function App() {
             <Route index element={<Equipment/>} />
             <Route path="detail/:categoryCode" element={<EquipmentDetail/>} />
             <Route path="regist" element={<EquipmentRegist/>} />
+            <Route path="modify" element={<EquipmentModify/>} />
           </Route>
           <Route path="/member" element={<MemberSubLayout/>}>
             <Route index element={<Member/>}/>

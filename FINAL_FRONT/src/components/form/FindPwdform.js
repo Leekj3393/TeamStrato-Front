@@ -3,11 +3,25 @@ import { useDispatch, useSelector } from "react-redux";
 import LoginFormCss from "./Loginform.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { callMailAPI } from "../../apis/MailAPICalls";
+import Swal from 'sweetalert2';
 
 function FindPwdForm() {
 
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', () => Swal.stopTimer())
+            toast.addEventListener('mouseleave', () => Swal.resumeTimer())
+        }
+      })
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { mailOk } = useSelector(state => state.mailReducer);
 
 
     // 폼 데이터를 한 번에 변경 및 state 저장
@@ -28,6 +42,20 @@ function FindPwdForm() {
     const onClickSendPwdHandler = () => {
         dispatch(callMailAPI(form));
     }
+
+    useEffect(
+        () => {
+
+            if(mailOk?.status === 200) {
+                            Toast.fire({
+                icon: 'success',
+                title: '임시 비밀번호가 발송되었습니다.\n 비밀번호 변경 페이지로 이동합니다.'
+              })
+                navigate('/login/updatePwd', { replace : true });
+            }
+        },
+        [mailOk]
+    )
 
     const onClickHandler = () => {
         navigate('/login/updatePwd');

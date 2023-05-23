@@ -328,6 +328,29 @@ export const callMyPageNoticeAPI = ({ currentPage = 1}) => {
   }
 }
 
+//리퀘스트 삭제하기
+export const callMyPageRequestDeleteAPI = (requestCode) => {
+  const requestURL = `${PRE_URL}/request/delete/${requestCode}`;
+
+  return async (dispatch, getState) => {
+    const response = await fetch(requestURL, {
+      method : 'DELETE',
+      headers : {
+        "Content-Type" : "application/json",
+      }
+    });
+
+    const result = await response.json();
+    console.log('[리퀘스트코드로 삭제] : callMyPageRequestDeleteAPI result : ',result);
+
+    if (response.status === 200) {
+      dispatch({ type: 'MyPage/DELETE_REQUEST_CODE', payload: { deletRequestCode: result } });
+      return result;
+    }
+  };
+}
+
+
 
 export const callMyPageNoticeDetailAPI = (noticeCode) => {
   const requestURL = `${PRE_URL}/notice/part/${noticeCode}`;
@@ -345,6 +368,29 @@ export const callMyPageNoticeDetailAPI = (noticeCode) => {
 
     if (response.status === 200) {
       dispatch({ type: 'MyPage/GET_MY_NOTICE_CODE', payload: { MyNoticeDetail: result } });
+      return result;
+    }
+  };
+}
+
+
+//공지사항 첨부파일
+export const callMyPageNoticeFileAPI = (noticeCode) => {
+  const requestURL = `${PRE_URL}/notice/files/${noticeCode}`;
+
+  return async (dispatch, getState) => {
+    const response = await fetch(requestURL, {
+      method : 'GET',
+      headers : {
+        "Content-Type" : "application/json",
+      }
+    });
+
+    const result = await response.json();
+    console.log('[첨부파일 확인] : callMyPageNoticeFileAPI result : ',result);
+
+    if (response.status === 200) {
+      dispatch({ type: 'MyPage/GET_MY_FILE', payload: { getMyNoticeFile: result } });
       return result;
     }
   };
