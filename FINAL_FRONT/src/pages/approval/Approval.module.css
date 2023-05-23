@@ -211,35 +211,42 @@
 .selectApplineDiv {
   position:absolute;
   left: 150px;
-  top: 60px;
+  top: 65px;
 }
 
-.selectApplineDiv fieldset {
-  height: 500px;
-  width: 200px;
+.memberChartBox {
+  height: 600px;
+  width: 350px;
+  overflow: scroll;
+  background: hwb(220 78% 21% / 0.192);
 }
 
-.selectPeruserDiv {
+.memberChartContent{
   position: absolute;
-  top: 60px;
-  left: 500px;
+  left: 30px;
 }
 
-.selectPeruserDiv fieldset {
-  height: 500px;
-  width: 200px;
-}
-
-.membersChartTable{
+.selectedMemberDiv {
   position: absolute;
-  left: 350px;
-  width: 1000px;
+  top: 65px;
+  left: 700px;
+  background: hwb(220 78% 21% / 0.192);
+  height: 600px;
+  width: 350px;
 }
 
-.memberChartUl{
+.registFormDiv2 {
   position: absolute;
-  left: 350px;
-  top: 300px;
+  left: 830px;
+}
+
+.registFormDiv2 button {
+  border-color: transparent;
+  background-color: transparent;
+}
+
+.registFormDiv2 img {
+  width: 100px;
 }
 
 /* 결재문서 상세 조회--------------------------------------------------------------------------------------- */
