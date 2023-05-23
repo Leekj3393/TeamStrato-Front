@@ -43,6 +43,11 @@ function EquipmentDetail()
     {
         navigate('/equipment/regist');
     }
+
+    const onClickModify = () =>
+    {
+        navigate('/equipment/modify');
+    }
     
     const onClickEquipmentHandler = (equ) =>{
         setEqu(equ);
@@ -55,7 +60,7 @@ function EquipmentDetail()
             </div>
             <div className="buttonInfo">
                 <button className="regist" onClick={ onClickRegist }>장비 추가</button>
-                <button className="modify">장비 수정</button>
+                <button className="modify" onClick={ onClickModify }>장비 수정</button>
             </div>
             <div className="equipmentList">
                 <table>
@@ -64,8 +69,8 @@ function EquipmentDetail()
                         <th> 장비 분류 </th>
                         <th> 장비 명 </th>
                         <th> 장비 상태 </th>
-                        <th> 장비 상태 수정 일 </th>
                         <th> 장비 등록 일 </th>
+                        <th> 장비 상태 수정 일 </th>
                     </thead>
                     <tbody>
                         {  equipment?.data.map((equ) => (
