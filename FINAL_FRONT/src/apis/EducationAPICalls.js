@@ -1,3 +1,4 @@
+import { getClassView, postClass, putClass } from "../modules/ClassModule";
 import { getDuty, getEdOther, getEducation, getSafety, postEducation } from "../modules/EducationModule";
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
@@ -85,6 +86,71 @@ export const callEducationDetailAPI = ({edCode}) => {
         if(result.status === 200) {
             console.log('result', result);
             dispatch(getEducation(result));
+        }
+
+    }
+
+}
+
+export const callClassRegistAPI = ({edCode}) => {
+
+    const requestURL = `${PRE_URL}/classRegist?edCode=${edCode}`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL, {
+            method : 'POST',
+            headers : {
+            "Content-Type" : "application/json",
+            "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+            }
+        }).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log("callClassRegistAPI : {}", result);
+            dispatch(postClass(result));
+        }
+    }
+}
+
+export const callEducationUpdateAPI = ({edCode, classTime}) => {
+
+    const requestURL = `${PRE_URL}/classUpdate?edCode=${edCode}&playTime=${classTime}`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL, {
+            method : 'PUT',
+            headers : {
+            "Content-Type" : "application/json",
+            "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+            }
+        }).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log('[MemberAPICalls] : callMemberUpdateAPI result : ', result);
+            dispatch(putClass(result));
+        }
+    }
+}
+
+export const callClassViewAPI = () => {
+
+    const requestURL = `${PRE_URL}/classView`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL, {
+            method : 'GET',
+            headers : {
+            "Content-Type" : "application/json",
+            "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+            }
+        }).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log('result', result);
+            dispatch(getClassView(result));
         }
 
     }
