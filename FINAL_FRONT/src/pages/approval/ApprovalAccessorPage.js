@@ -111,13 +111,13 @@ function ApprovalAccessorPage () {
                                 본인인증
                             </th>
                             <td>
-                                <input name="memberPassword" type="password"/><button onClick={onClickIdenticationHandler}><img src='../image/identify-btn.png' alt='identicationBtn'/></button>
+                                <input name="memberPassword" type="password"/><button onClick={onClickIdenticationHandler}><img src='../image/identify-btn.png'/></button>
                             </td>
                         </tr>
                     </table>
                     <div className={ApprovalCSS.registAppLineDiv}>
-                        <button className={ApprovalCSS.accessBtn} onClick={onClickApprovalAccessHandler}><img src='../image/access-btn.png' alt='accessBtn'/></button>
-                        <button className={ApprovalCSS.returnBtn} onClick={onClickApprovalReturnHandler}><img src='../image/deny-btn.png' alt='returnBtn'/></button>
+                        <button className={ApprovalCSS.accessBtn} onClick={onClickApprovalAccessHandler}><img src='../image/access-btn.png'/></button>
+                        <button className={ApprovalCSS.returnBtn} onClick={onClickApprovalReturnHandler}><img src='../image/deny-btn.png'/></button>
                     </div>
                 </div>
 

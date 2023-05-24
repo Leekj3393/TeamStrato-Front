@@ -211,35 +211,78 @@
 .selectApplineDiv {
   position:absolute;
   left: 150px;
-  top: 60px;
+  top: 170px;
 }
 
-.selectApplineDiv fieldset {
-  height: 500px;
-  width: 200px;
-}
-
-.selectPeruserDiv {
+.memberChartBox {
   position: absolute;
-  top: 60px;
-  left: 500px;
+  height: 400px;
+  width: 350px;
+  background: hwb(220 78% 21% / 0.192);
+  overflow: scroll; /* 스크롤바 생성을 위한 속성 추가 */
 }
 
-.selectPeruserDiv fieldset {
-  height: 500px;
-  width: 200px;
-}
 
-.membersChartTable{
+.memberChartContent,
+.selectedMemberContent {
   position: absolute;
-  left: 350px;
-  width: 1000px;
+  top: 10px;
+  left: 30px;
 }
 
-.memberChartUl{
+.contentInfoDiv {
+  background-color: hsla(229, 100%, 89%, 0.548);
+  width: 70px;
+  height: 25px;
+  text-align: center;
+  font-size: medium;
+  padding-top: 5px;
+}
+
+.contentInfoDiv2 {
+  background-color: hwb(0 100% 0%);
+  box-shadow: 1px 1px 1px hsla(229, 100%, 89%, 0.548);
+  border-radius: 5px;
+  width: fit-content;
+  text-align: center;
+  height: 23px;
+  font-size: medium;
+  padding-top: 2px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 2px;
+  margin-left: -1px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.contentInfoDiv3,
+.contentInfoDiv4 {
+  margin-left: 20px;
+  font-size: x-large;
+}
+
+.selectedMemberDiv {
   position: absolute;
-  left: 350px;
-  top: 300px;
+  top: 170px;
+  left: 700px;
+  background: hwb(220 78% 21% / 0.192);
+  height: 400px;
+  width: 350px;
+}
+
+.registFormDiv2 {
+  position: absolute;
+  left: 830px;
+}
+
+.registFormDiv2 button {
+  border-color: transparent;
+  background-color: transparent;
+}
+
+.registFormDiv2 img {
+  width: 100px;
 }
 
 /* 결재문서 상세 조회--------------------------------------------------------------------------------------- */

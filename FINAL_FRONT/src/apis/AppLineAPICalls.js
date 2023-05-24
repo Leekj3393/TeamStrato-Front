@@ -1,4 +1,4 @@
-import {getApplineMembers, postAppline} from "../modules/ApplineModule";
+import {getApplineMembers, getApplineMember, postAppline} from "../modules/ApplineModule";
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
@@ -17,6 +17,23 @@ export const callMemberListForAppAPI = () => {
         if(result.status === 200) {
             console.log('callMemberListForAppAPI result : ', result);
             dispatch(getApplineMembers(result));
+        }
+
+    }
+}
+
+// 결재선 선택을 위한 직원목록 조회
+export const callMemberForAppAPI = ({memberCode}) => {
+
+    const reqeustURL = `${PRE_URL}/selectedMember/${memberCode}`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(reqeustURL).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log('callMemberListForAppAPI result : ', result);
+            dispatch(getApplineMember(result));
         }
 
     }
