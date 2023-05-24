@@ -257,7 +257,10 @@
 }
 
 .contentInfoDiv3,
-.contentInfoDiv4 {
+.contentInfoDiv4,
+.firstAccessor,
+.secondAccessor,
+.finalAccessor {
   margin-left: 20px;
   font-size: x-large;
 }
