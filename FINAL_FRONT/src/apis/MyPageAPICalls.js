@@ -1,5 +1,7 @@
 import { getMyNotice } from "../modules/MyPageNoticeModule";
 import axios from 'axios';
+import { useState } from 'react';
+
 
 // MyPageAPICalls.js
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
@@ -407,6 +409,7 @@ export const callMyPageNoticeFileAPI = (noticeCode) => {
 
 // 공지사항 첨부파일
 export const callMyPageNoticeFileDownAPI = (fileName) => {
+  
   const requestURL = `${PRE_URL}/download/${fileName}`;
 
   return async (dispatch, getState) => {
@@ -434,3 +437,5 @@ export const callMyPageNoticeFileDownAPI = (fileName) => {
     }
   };
 }
+
+
