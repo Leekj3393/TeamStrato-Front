@@ -20,7 +20,6 @@
     position: absolute;
     border-radius: 100px;
     width: 50px;
-    
     margin-left: 155px;
 }
 
@@ -35,4 +34,26 @@
     position: absolute;
     margin-left: 215px;
     color: rgb(125, 125, 125);
+}
+
+.heartCard{
+    position: absolute;
+    width: 30px;
+
+    top:10px;
+   left: 270px;
+    color: rgb(125, 125, 125);
+}
+
+.logSub{
+        position: absolute;
+        border-radius: 10px;
+        width: 70px;
+        height: 30px;
+        text-align: center;
+        line-height: 25px;
+        color: rgb(125, 125, 125);
+        background-color: rgb(242, 245, 255);
+        top: 8px;
+        left: 295px;
 }

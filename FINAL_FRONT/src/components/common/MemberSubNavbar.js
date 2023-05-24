@@ -11,6 +11,10 @@ function MemberSubNavbar() {
              <div className='cardMember'>
                 My<br/>Card
              </div>
+             <div className='logSub'>
+                Logout
+             </div>
+             <img className="heartCard" src="/image/heart.png" alt="로고" />
         </div>
     );
 }
