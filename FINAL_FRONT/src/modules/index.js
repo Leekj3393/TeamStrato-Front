@@ -12,7 +12,7 @@ import noticeFileReducer from "./NoticeFileModule";
 import calendarReducer from "./CalendarModule";
 import mailReducer from "./MailModule";
 import educationReducer from "./EducationModule";
-
+import classReducer from "./ClassModule";
 
 
 const rootReducer = combineReducers({
@@ -28,7 +28,8 @@ const rootReducer = combineReducers({
     noticeFileReducer,
     calendarReducer,
     mailReducer,
-    educationReducer
+    educationReducer,
+    classReducer
 
 });
 

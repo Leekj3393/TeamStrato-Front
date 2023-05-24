@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
-import { callEducationDetailAPI } from "../../apis/EducationAPICalls";
+import { callClassViewAPI, callEducationDetailAPI, callEducationUpdateAPI } from "../../apis/EducationAPICalls";
 import EduDtCSS from "./EducationDt.module.css";
 import ReactPlayer from "react-player";
 
@@ -13,20 +13,30 @@ function EducationDt () {
     const params = useParams();
     const edCode = params.edCode;
     const serverUrl = "http://localhost:8001/videos/"
+    const { classView } = useSelector((state) => state.classReducer);
+
 
     const [playTime, setPlayTime] = useState(0);
     const [isPlaying, setIsPlaying] = useState(true);
     const [isMuted, setIsMuted] = useState(false);
     const [duration, setDuration] = useState(0);
-
     const videoRef = useRef(null);
+
+    const classTime = Math.floor( playTime * 1000 );
 
     useEffect(
         () => {
             dispatch(callEducationDetailAPI({edCode}));
+            dispatch(callClassViewAPI());
         },
         []
     )
+    
+    /* 수강 업데이트 핸들러 */
+    const onClickEducationUpdateHandler = (edCode, classTime) => {
+        dispatch(callEducationUpdateAPI({edCode, classTime}));   
+        navigate(`/education`, {replace : true});
+    };
 
     const handleProgress = (progress) => {
         setPlayTime(progress.playedSeconds);
@@ -53,9 +63,6 @@ function EducationDt () {
         return number.toString().padStart(2, '0');
       };
 
-    // console.log("playTime", playTime);
-      console.log("formatTime")
-
     return (
         <div className={EduDtCSS.eduDtBack}>
             <div className={EduDtCSS.eduDtTitle}>
@@ -74,14 +81,21 @@ function EducationDt () {
                 onDuration={(duration) => {
                     setDuration(duration);
                 }}
+                progressInterval={1000}
+                onStart={() => {
+                    if(classView && classView.classTime) {
+                        videoRef.current.seekTo(classView.classTime / 1000);
+                    }
+                }}
             />
             </div>
             <div className={EduDtCSS.eduControls}>
                 <div className={EduDtCSS.eduPlayTime}>
                 <button
                     onClick={handlePlayPause}
+                    type="button"
                 >
-                    {!isPlaying ? '재생' : '멈춤'}
+                    <img src={!isPlaying ? '/image/재생버튼2.png' : '/image/멈춤버튼2.png'}/>  
                 </button>
                 <span>{formatTime(playTime)}</span>
                 <input
@@ -94,8 +108,9 @@ function EducationDt () {
                 <span>{formatTime(duration)}</span>
                 <button
                     onClick={handleMuteUnMute}
+                    type="button"
                 >
-                    { isMuted ? '음소거' : '해제'}
+                    <img src={isMuted ? '/image/음소거버튼2.png' : '/image/소리버튼2.png'}/>
                 </button>
                 </div>
             </div>
@@ -104,8 +119,7 @@ function EducationDt () {
             도중에 시청을 끝내실시 처음부터 다시 재강의 하여야 하니 주의 바랍니다. </p>
             </div>
             <div className={EduDtCSS.eduDtBt}>
-                <button>수강 완료</button>
-                <button>뒤로 가기</button>
+                <button onClick={ () => onClickEducationUpdateHandler(edCode, classTime)}>수강 완료</button>
             </div>
         </div>
     );

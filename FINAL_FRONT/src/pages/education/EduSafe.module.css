@@ -42,8 +42,21 @@
     margin-top: 30px;
 }
 
-.eduListBt button {
+.eduListBtContinue button {
     background-color: #8CCEFD;
+    border : none;
+    padding : 5px 15px;
+    text-align: center;
+    border-radius: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'SUITE-Regular';
+    margin-left: 75px;
+    margin-top: 30px;
+}
+
+.eduListBtWatch button {
+    background-color: #FF5252;
     border : none;
     padding : 5px 15px;
     text-align: center;
