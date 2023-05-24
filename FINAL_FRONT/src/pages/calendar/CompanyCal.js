@@ -5,12 +5,25 @@ import CalendarCss from '../../components/calendar/Calendar.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { callCalendarAPI, callCompanyCalAPI } from '../../apis/CalendarAPICalls';
+import DeptInsertModal from "./DeptInsertModal";
+import CalendarUpdateModal from './UpdateModal';
+import interactionPlugin from '@fullcalendar/interaction';
+import CalendarDeptUpdateModal from './DeptUpdateModal';
 
 function CompanyCal() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loggedInMember = useSelector(state => state.myPageReducer.membersData.department.deptCode);
   const {companycal} = useSelector((state) => state.calendarReducer);
+  const [ calUpdateModalOpen, setUpdateCalendarModalOpen ] = useState(false);
+  const [ calModalOpen, setCalendarModalOpen ] = useState(false);
+  const [ calendarCode, setCalendarCode ] = useState(null);
+  const isAdmin = true; /* 권한 추가시 const [isAdmin, setIsAdmin] = useState(false); 로 수정하고,
+                          useEffect(() => {
+  // 로그인 정보에서 isAdmin 값을 확인하고 업데이트
+  const isAdminUser = // 로그인 정보에서 isAdmin 값 확인하는 로직
+  setIsAdmin(isAdminUser); 추가
+}, []); */
 
   const [state, setState] = useState({
     deptCode: loggedInMember, // 현재 로그인된 객체의 memberCode로 설정
@@ -43,27 +56,58 @@ function CompanyCal() {
     dispatch(callCompanyCalAPI(state));
   };
   console.log("캘린더 정보 calendarReducer : ", companycal);
+
+  const InsertCalClick = () => {
+    setCalendarModalOpen(true);
+  };
+
+  const eventClickHandler = (e) => {
+    const calendarCode = e.event.id;
+    console.log("event = ", e.event);
+    console.log("calendarCode = ", calendarCode);
+    setCalendarCode(calendarCode); // calendarCode 상태 업데이트
+    setUpdateCalendarModalOpen(true); // 모달창 열기
+  };
+  
+
     return(
+      <>
+      <div>
+        {calModalOpen && 
+        <div><DeptInsertModal
+                  memberCode={loggedInMember}
+                  setCalendarModalOpen={setCalendarModalOpen}/></div>}
+      </div>      
+      <div>
+        {calUpdateModalOpen && 
+        <div><CalendarDeptUpdateModal
+                  memberCode={loggedInMember}
+                  setUpdateCalendarModalOpen={setUpdateCalendarModalOpen}
+                  calendarCode={calendarCode}/></div>}
+      </div>
 
     <div className={CalendarCss} >
         <div className='personalCal' onClick={ personalCalClick }>개인</div>
-        <div className='companyCal' onClick={ companyCalClick } style={ {backgroundColor: 'skyblue'} }>부서</div>
-        <div className='insertSch'>일정등록</div>
+        <div className='companyCal' onClick={ companyCalClick } style={ {backgroundColor: '#2A4090', color: 'white'} }>부서</div>
+        <div className='insertSch' onClick={ InsertCalClick }>일정등록</div>
         <div id='Calendar'>
       <FullCalendar
         defaultView="dayGridMonth"
-        plugins={[dayGridPlugin]}
+        plugins={[dayGridPlugin,interactionPlugin]}
         height={770}
         events={companycal && companycal.map((deptCode) => ({
+          id: deptCode.calendarCode,
           title: deptCode.title,
           start: deptCode.start,
           end: deptCode.end,
           color: deptCode.color
        }))}
+        eventClick={isAdmin? (e) =>  eventClickHandler(e) : null }
         
       />
       </div>
     </div>
+    </>
   );
 }
 
