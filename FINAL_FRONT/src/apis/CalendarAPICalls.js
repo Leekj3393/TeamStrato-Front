@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { postCalendar, postCompanycal } from "../modules/CalendarModule";
+import { postCalendar, postCompanycal, postInsertcal, postUpdatecal } from "../modules/CalendarModule";
 import Swal from 'sweetalert2';
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
@@ -12,7 +12,7 @@ export const callCalendarAPI = (state) => {
         toast: true,
         position: 'center',
         showConfirmButton: false,
-        timer: 3000,
+        timer: 1000,
         timerProgressBar: true,
         didOpen: (toast) => {
             toast.addEventListener('mouseenter', () => Swal.stopTimer())
@@ -56,7 +56,7 @@ export const callCompanyCalAPI = (state) => {
         toast: true,
         position: 'center',
         showConfirmButton: false,
-        timer: 3000,
+        timer: 1000,
         timerProgressBar: true,
         didOpen: (toast) => {
             toast.addEventListener('mouseenter', () => Swal.stopTimer())
@@ -91,3 +91,43 @@ export const callCompanyCalAPI = (state) => {
         alert("조회에 실패했습니다."); }
     }
 }
+
+export const callCalendarInsertAPI = (form) => {
+    const requestURL = `${PRE_URL}/calendar/insert`;
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+            },
+            body : JSON.stringify(form)
+        }).then((response) => response.json());
+        
+        if(result.status === 200){
+            console.log("[CalendarAPICalls] callCalendarInsertAPI result : ", result);
+            dispatch(postInsertcal(result));
+        }
+    };
+};
+
+export const callCalendarUpdateAPI = (form) => {
+    const requestURL = `${PRE_URL}/calendar/update`;
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+            },
+            body : JSON.stringify(form)
+        }).then((response) => response.json());
+        
+        if(result.status === 200){
+            console.log("[CalendarAPICalls] callCalendarUpdateAPI result : ", result);
+            dispatch(postUpdatecal(result));
+        }
+    };
+};
