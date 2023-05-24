@@ -1,0 +1,59 @@
+.memberSubBar {
+    position: absolute;
+    left: 1250px;
+    top: 7px;
+    background-color: rgb(255, 255, 255);
+    width: 380px;
+    height: 50px;
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgb(212, 212, 212);
+}
+
+.message{
+    position: absolute;
+    border-radius: 100px;
+    width: 50px;
+    margin-left: 20px;
+}
+
+.mycard{
+    position: absolute;
+    border-radius: 100px;
+    width: 50px;
+    margin-left: 155px;
+}
+
+.memberEmail{
+    position: absolute;
+    top: 5px;
+   left: 80px;
+    color: rgb(125, 125, 125);
+}
+.cardMember{
+    top: 5px;
+    position: absolute;
+    margin-left: 215px;
+    color: rgb(125, 125, 125);
+}
+
+.heartCard{
+    position: absolute;
+    width: 30px;
+
+    top:10px;
+   left: 270px;
+    color: rgb(125, 125, 125);
+}
+
+.logSub{
+        position: absolute;
+        border-radius: 10px;
+        width: 70px;
+        height: 30px;
+        text-align: center;
+        line-height: 25px;
+        color: rgb(125, 125, 125);
+        background-color: rgb(242, 245, 255);
+        top: 8px;
+        left: 295px;
+}

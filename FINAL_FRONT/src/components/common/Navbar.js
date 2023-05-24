@@ -27,7 +27,7 @@ function Navbar() {
       <div className={NavbarCSS}>
         <div className="mainProfil">
           <img className="logo1" src="/image/profileLogo.png" alt="로고" />
-          <div className="loginLogo">로그아웃</div>
+          {/* <div className="loginLogo">로그아웃</div> */}
           <div className="circle1"></div>
           <div className="circle2"></div>
           <div className="circle3"></div>
@@ -76,6 +76,7 @@ function Navbar() {
         <img className="circle4" src="/image/circle.png"></img>
       </NavLink>
     </div>
+
     </body>
   );
 }

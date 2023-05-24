@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
-import { callMyPageNoticeDetailAPI, callMyPageNoticeFileAPI } from '../../apis/MyPageAPICalls';
+import { callMyPageNoticeDetailAPI, callMyPageNoticeFileAPI, PRE_URL } from '../../apis/MyPageAPICalls';
 import PartBoardCSS from "../../components/main/PartBoardCSS.css"
 
 function PartNoticeContent() {
@@ -90,13 +90,15 @@ useEffect(() => {
     <div className="columnPartContent">파일 다운받기</div>
   </td>
   <td>
-    {MyNoticeFile && MyNoticeFile.getMyNoticeFile.map((file, index) => (
-      <div key={index}>
-        <a href={`${file.filePath}${file.fileName}`}>{file.fileName}</a>
-      </div>
-    ))}
-  </td>
+  {MyNoticeFile && MyNoticeFile.getMyNoticeFile.map((file, index) => (
+    <div key={index}>
+      <a href={`${PRE_URL}/download/${file.fileName}`} download>{file.fileName}</a>
+    </div>
+  ))}
+</td>
+
 </tr>
+
 
               <tr>
                 <td colSpan="8" className="contentCell">

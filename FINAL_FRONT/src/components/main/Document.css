@@ -147,9 +147,7 @@ z-index: 10000; /* 모달의 쌓임 순서를 높은 값으로 설정 */
 }
 
 
-#deleteRequestBtn {
-  margin-top: 10px;
-  margin-left: 720px;
+.deleteRequestBtn {
   background-color: black;
   color: white;
   border: none;

@@ -49,6 +49,7 @@ import EducationDt from "./pages/education/EducationDt";
 import EquipmentModify from "./pages/equipment/EquipmentModify";
 import NestedList from "./pages/approval/NestedList";
 import CompanyCal from "./pages/calendar/CompanyCal";
+import MemberMessage from "./pages/myPage/MemberMessage";
 
 function App() {
   return (
@@ -71,6 +72,7 @@ function App() {
             <Route path="/myPage/Document" element={<Document />} />
             <Route path="/myPage/PartNotice" element={<PartNotice />} />
             <Route path="/myPage/PartNoticeContent/:noticeCode" element={<PartNoticeContent />} />
+            <Route path="/myPage/MemberMessage" element={<MemberMessage />} />
 
           </Route>
 
