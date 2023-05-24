@@ -40,6 +40,9 @@ function EquipmentModify()
                 { equ && <EquipmentModifyDetail key={equ.equipmentCode} equ={equ} category={categorys}/> }
             </div>
             <div className="div-talbe">
+                <div className="btn">
+                    <button>삭제하기</button>
+                </div>
                 <table>
                     <thead>
                         <th><input type="checkbox" className="all-selct"></input></th>
@@ -55,7 +58,9 @@ function EquipmentModify()
                             data.map((equipment) =>
                                 <tr key={equipment.equipmentCode}
                                     onClick={ () => onClickEquipmentHandler(equipment) }>
-                                    <td><input type="checkBox" className="equipment-selectBox"/></td>
+                                    <td><input type="checkBox"
+                                                className="equipment-selectBox"
+                                                name={equipment.equipmentCode}/></td>
                                     <td>{equipment.equipmentCode}</td>
                                     <td>{equipment.equCategory.equCategory.categoryName} <br/> { equipment.equCategory.categoryName }</td>
                                     <td>{equipment.equipmentName}</td>

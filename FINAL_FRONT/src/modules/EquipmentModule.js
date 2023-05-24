@@ -8,15 +8,19 @@ const GET_EQUIPMENT = 'equipment/GET_EQUIPMENT';
 const GET_CATEGORY = 'equipment/GET_CATEGORY';
 const GET_MODIFY = 'equipment/GET_MODIFY';
 const GET_CATEGORYS = 'equipment/GET_CATEGORYS';
+const PUT_MODIFY = 'equipment/PUT_MODIFY';
 const POST_EQUIPMENT = 'equipment/POST_EQUIPMENT';
+const POST_APPROVAL = 'equipment/POST_APPROVAL'
 
-export const { equipment : { getEquipments , getEquipment , getCategory , postEquipment , getModify , getCategorys} } = createActions({
+export const { equipment : { getEquipments , getEquipment , getCategory , postEquipment , getModify , getCategorys , putModify , postApproval} } = createActions({
     [GET_EQUIPMENTS] : res => res.data,
     [GET_EQUIPMENT] : res => res.data,
     [GET_CATEGORY] : res => res.data,
     [GET_MODIFY] : res => res.data,
     [GET_CATEGORYS] : res => res.data,
+    [PUT_MODIFY] : res => res,
     [POST_EQUIPMENT] : res => res,
+    [POST_APPROVAL] : res => res,
 });
 
 const equipmentReducer = handleActions({
@@ -25,7 +29,9 @@ const equipmentReducer = handleActions({
     [GET_CATEGORY] : (state, { payload }) => ({category : payload }),
     [GET_MODIFY] : (state , { payload }) => ({equipments : payload}),
     [GET_CATEGORYS] : (state , { payload }) => ({...state , categorys : payload}),
+    [PUT_MODIFY] : (state , { payload }) => ({...state ,approval : payload}),
     [POST_EQUIPMENT] : (state, { payload }) => ({ regist : payload }),
+    [POST_APPROVAL] : (state , { payload }) => ({ registApproval : payload }),
 },initialState);
 
 export default equipmentReducer;
