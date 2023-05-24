@@ -2,8 +2,9 @@ import { NavLink, useNavigate, useParams, useSearchParams } from 'react-router-d
 import ApprovalCSS from './Approval.module.css';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { callAppLineInsertAPI, callMemberListForAppAPI } from '../../apis/AppLineAPICalls';
-
+import { callAppLineInsertAPI, callMemberListForAppAPI, callMemberForAppAPI } from '../../apis/AppLineAPICalls';
+import { callApprovalMemberInfoAPI } from '../../apis/ApprovalAPICalls';
+/* todolist 참고해서 만들어보기 */
 
 function ApprovalLineRegist() {
 
@@ -11,53 +12,78 @@ function ApprovalLineRegist() {
     const navigate = useNavigate();
     const {regist2} = useSelector(state => state.approvalReducer);
     const [expandedItems, setExpandedItems] = useState([]);
-    const { accessors } = useSelector(state => state.applineReducer);
+    const { accessors, selectedMem } = useSelector(state => state.applineReducer);
     const [form, setForm] = useState({});
     const [select, setSelect] = useState({});
     const [selected, setSelected] = useState({});
+    const [selected2, setSelected2] = useState({});
+    const [selected3, setSelected3] = useState({});
+    const {appMember} = useSelector(state => state.approvalReducer);
+    // const {memberCode} = useParams();
+    const [selectedMember, setSelectedMember] = useState(null); // 선택된 직원의 정보를 저장할 상태 변수
+    const [selectedMember2, setSelectedMember2] = useState(null); // 선택된 직원의 정보를 저장할 상태 변수
+    const [selectedMember3, setSelectedMember3] = useState(null); // 선택된 직원의 정보를 저장할 상태 변수
 
     // 부서에 해당하는 동일 직급 직원 조회
-  const renderMembers = (dept, jobName) => {
-    if (!accessors) return null; // accessors가 undefined인 경우 처리
+    const renderMembers = (dept, jobName) => {
+        if (!accessors) return null; // accessors가 undefined인 경우 처리
 
-    const members = accessors.accessor.filter(
-      accessor =>
-        accessor.department.deptCode === dept.deptCode &&
-        accessor.job.jobName === jobName
-    );
+        const members = accessors.accessor.filter(
+        accessor =>
+            accessor.department.deptCode === dept.deptCode &&
+            accessor.job.jobName === jobName &&
+            accessor.memberCode !== appMember?.memberCode &&
+            accessor.memberCode !== selectedMember?.memberCode &&
+            accessor.memberCode !== selectedMember2?.memberCode &&
+            accessor.memberCode !== selectedMember3?.memberCode 
+        );
 
-    if (members.length === 0) return null;
+        if (members.length === 0) return null;
 
-    return (
-      <ul>
-        {members.map(member => (
-          <li key={member.memberCode} onClick={onClickApplineSelectHandler} name='memberCode'>
-            {member.memberName}
-          </li>
-        ))}
-      </ul>
-    );
-  };
+        return (
+        <ul>
+            {members.map(member => (
+            <li key={member.memberCode} onClick={e => onClickApplineSelectHandler(e, member)} name='memberCode'>
+                <div className={ApprovalCSS.contentInfoDiv4}>
+                    {member.memberName}
+                </div>
+            </li>
+            ))}
+        </ul>
+        );
+    };
 
-  const handleItemClick = (dept, jobName) => {
-    const item = { dept, jobName };
-    const isExpanded = expandedItems.some(
-      expandedItem =>
-        expandedItem.dept.deptCode === dept.deptCode && expandedItem.jobName === jobName
-    );
 
-    if (isExpanded) {
-      setExpandedItems(expandedItems.filter(
-        expandedItem => !(expandedItem.dept.deptCode === dept.deptCode && expandedItem.jobName === jobName)
-      ));
-    } else {
-      setExpandedItems([...expandedItems, item]);
+    const onClickRemoveSelectedMember = (id) =>  {
+        const removedList = selected.filter(slt => slt.memberCode !== id);
+        alert('선택된 결재자를 삭제합니다.');
+        setSelected(removedList);
     }
-  };
 
-  useEffect(() => {
-    dispatch(callMemberListForAppAPI());
-  }, []);
+    const handleItemClick = (dept, jobName) => {
+        const item = { dept, jobName };
+        const isExpanded = expandedItems.some(
+        expandedItem =>
+            expandedItem.dept.deptCode === dept.deptCode && expandedItem.jobName === jobName
+        );
+
+        if (isExpanded) {
+        setExpandedItems(expandedItems.filter(
+            expandedItem => !(expandedItem.dept.deptCode === dept.deptCode && expandedItem.jobName === jobName)
+        ));
+        } else {
+        setExpandedItems([...expandedItems, item]);
+        }
+    };
+
+    useEffect(() => {
+        dispatch(callMemberListForAppAPI());
+        dispatch(callApprovalMemberInfoAPI());
+    }, []);
+
+    // useEffect(() => {
+    //     dispatch(callMemberForAppAPI(memberCode));
+    //   }, [dispatch, memberCode]);
 
     useEffect(
         () => {
@@ -82,54 +108,69 @@ function ApprovalLineRegist() {
         dispatch(callAppLineInsertAPI(form));
     }
 
-    const onClickApplineSelectHandler = (e) => {
+    /* 조직도에서 이름을 클릭하면 결재선으로 선택되는 클릭 이벤트 */
+    const onClickApplineSelectHandler = (e, member) => {
+        // 이전의 클릭 이벤트 중지하기!!
+        e.stopPropagation();
+
+        // 선택된 직원의 정보를 상태 변수에 저장하기!!
+        setSelectedMember(member);
+        setSelectedMember2(member);
+        setSelectedMember3(member);
+
         setSelect({
             ...select,
             [e.target.name] : e.target.value
         });
     }
+    const onClickApplineSelectHandler2 = (e, member) => {
+        // 선택된 직원의 정보를 상태 변수에 저장하기!!
+        setSelectedMember2(member);
+
+        setSelect({
+            ...select,
+            [e.target.name] : e.target.value
+        });
+    }
+    const onClickApplineSelectHandler3 = (e, member, member2, member3) => {
+        // 이전의 클릭 이벤트 중지하기!!
+        e.stopPropagation();
+
+        // 선택된 직원의 정보를 상태 변수에 저장하기!!
+        setSelectedMember(member);
+        setSelectedMember2(member2);
+        setSelectedMember3(member3);
+
+        setSelect({
+            ...select,
+            [e.target.name] : e.target.value
+        });
+    }
+    
     const onChangeApplineSelectHandler = (e) => {
         setSelected({
             ...selected,
             [e.target.name] : e.target.value
         });
     }
-
-    const onClickDeptSelectHandler = () => {}
+    
+    const onChangeApplineSelectHandler2 = (e) => {
+        setSelected2({
+            ...selected2,
+            [e.target.name] : e.target.value
+        });
+    }
+    
+    const onChangeApplineSelectHandler3 = (e) => {
+        setSelected3({
+            ...selected3,
+            [e.target.name] : e.target.value
+        });
+    }
 
     const onClickApplineResetHandler = () => {}
-
-    const onClickPeruserSelectHandler = () => {}
-
-    const onClickPeruserResetHandler = () => {}
-
     const onClickResetHandler = () => {}
 
-
-    
-    /* 부서 값 변경 이벤트 */
-    const onChangeDeptHandler = (e) => {
-        setForm({
-            ...form,
-            department : { deptCode : e.target.value}
-        })     
-    }
-    
-    /* 직급 값 변경 이벤트 */
-    const onChangeJobHandler = (e) => {
-        setForm({
-            ...form,
-            job : { jobCode : e.target.value}
-        })     
-    };
-    
-    /* 멤버 변경 이벤트 */
-    const onChangeMemberSelectHandler = (e) => {
-        setForm({
-            ...form,
-            member : { memberCode : e.target.value}
-        })     
-    }
 
     return(
         <div className={ApprovalCSS}>
@@ -141,7 +182,7 @@ function ApprovalLineRegist() {
                 <div className={ApprovalCSS.selectApplineDiv}>
                     <div className={ApprovalCSS.memberChartBox}>
                         <div className={ApprovalCSS.memberChartContent}>
-                        <h4>조직도</h4>
+                        <div className={ApprovalCSS.contentInfoDiv}>조직도</div>
                         <ul className={ApprovalCSS.memberChartUl}>
                             {accessors?.dept && accessors.dept.map(dept => {
                                 const uniqueJobNames = new Set();
@@ -154,7 +195,9 @@ function ApprovalLineRegist() {
 
                                 return (
                                 <li key={dept.deptCode}>
-                                    {dept.deptName}
+                                    <div className={ApprovalCSS.contentInfoDiv2}>
+                                        {dept.deptName}
+                                    </div>
                                     <ul>
                                     {jobNames.map(jobName => {
                                         const isExpanded = expandedItems.some(
@@ -165,7 +208,7 @@ function ApprovalLineRegist() {
 
                                         return (
                                         <li key={`${dept.deptCode}-${jobName}`} onClick={() => handleItemClick(dept, jobName)}>
-                                            {jobName}
+                                            {jobName} &gt;
                                             {isExpanded && renderMembers(dept, jobName)}
                                         </li>
                                         );
@@ -180,22 +223,63 @@ function ApprovalLineRegist() {
                 </div>
                 <div className={ApprovalCSS.selectedMemberDiv}>
                     <div className={ApprovalCSS.selectedMemberContent}>
-                        <h4>결재선</h4>
+                        <div className={ApprovalCSS.contentInfoDiv}>결재선</div>
                         <ul>
-                           기안자
-                           <li><h3>기안자 이름{}</h3></li> 
+                            <div className={ApprovalCSS.contentInfoDiv2}>
+                                기안자
+                            </div>
+                           <li><div className={ApprovalCSS.contentInfoDiv4}>{appMember && appMember.job.jobName} - {appMember && appMember.memberName}</div></li> 
                         </ul>
                         <ul>
-                           제1 결재선
-                           <li name="memberName" onChange={onChangeApplineSelectHandler}><h3>선택된 제1 결재자 이름{}</h3></li> 
+                            <div className={ApprovalCSS.contentInfoDiv2}>
+                                제1 결재선
+                            </div>
+                            {selectedMember && (
+                             <li>
+                                <div 
+                                    className={ApprovalCSS.contentInfoDiv3}
+                                    onChange={onChangeApplineSelectHandler}
+                                    onClick={onClickRemoveSelectedMember}
+                                    name="memberCode"
+                                >
+                                    {selectedMember.job.jobName} - {selectedMember.memberName}
+                                </div>
+                             </li>
+                             )}
                         </ul>
                         <ul>
-                           제2 결재선
-                           <li><h3>선택된 제2 결재자 이름{}</h3></li> 
+                            <div className={ApprovalCSS.contentInfoDiv2}>
+                                제2 결재선
+                            </div>
+                            {selectedMember2 && (
+                             <li>
+                                <div 
+                                    className={ApprovalCSS.contentInfoDiv3}
+                                    onChange={onChangeApplineSelectHandler2}
+                                    onClick={onClickRemoveSelectedMember}
+                                    name="memberCode"
+                                >
+                                    {selectedMember2.job.jobName} - {selectedMember2.memberName}
+                                </div>
+                             </li>
+                             )}
                         </ul>
                         <ul>
-                           최종 결재선
-                           <li><h3>선택된 최종 결재자 이름{}</h3></li> 
+                            <div className={ApprovalCSS.contentInfoDiv2}>
+                                최종 결재선
+                            </div>
+                            {selectedMember3 && (
+                             <li>
+                                <div 
+                                    className={ApprovalCSS.contentInfoDiv3}
+                                    onChange={onChangeApplineSelectHandler3}
+                                    onClick={onClickRemoveSelectedMember}
+                                    name="memberCode"
+                                >
+                                    {selectedMember3.job.jobName} - {selectedMember3.memberName}
+                                </div>
+                             </li>
+                             )} 
                         </ul>
                     </div>
                 </div>
@@ -212,19 +296,3 @@ function ApprovalLineRegist() {
 }
 
 export default ApprovalLineRegist;
-
-
-
-
-{/* <select name='memberCode' onChange={onChangeMemberSelectHandler}>
-                                <option value="selection" disabled>선택</option>    
-                                {applines?.job && 
-                                    applines.job.map((job) => (
-                                        <option
-                                            key={job.memberCode}
-                                            value={job.memberCode}
-                                        >
-                                            {job.department.deptName}-{job.memberName}
-                                        </option>
-                                    ))}
-                            </select> */}

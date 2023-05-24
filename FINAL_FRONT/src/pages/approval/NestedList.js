@@ -67,7 +67,9 @@ function NestedList() {
 
             return (
               <li key={dept.deptCode}>
-                {dept.deptName}
+                <div className={ApprovalCSS.clickDeptDiv}>
+                </div>
+                  {dept.deptName}
                 <ul>
                   {jobNames.map(jobName => {
                     const isExpanded = expandedItems.some(

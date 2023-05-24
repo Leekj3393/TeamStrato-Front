@@ -211,27 +211,63 @@
 .selectApplineDiv {
   position:absolute;
   left: 150px;
-  top: 65px;
+  top: 170px;
 }
 
 .memberChartBox {
-  height: 600px;
+  position: absolute;
+  height: 400px;
   width: 350px;
-  overflow: scroll;
   background: hwb(220 78% 21% / 0.192);
+  overflow: scroll; /* 스크롤바 생성을 위한 속성 추가 */
 }
 
-.memberChartContent{
+
+.memberChartContent,
+.selectedMemberContent {
   position: absolute;
+  top: 10px;
   left: 30px;
+}
+
+.contentInfoDiv {
+  background-color: hsla(229, 100%, 89%, 0.548);
+  width: 70px;
+  height: 25px;
+  text-align: center;
+  font-size: medium;
+  padding-top: 5px;
+}
+
+.contentInfoDiv2 {
+  background-color: hwb(0 100% 0%);
+  box-shadow: 1px 1px 1px hsla(229, 100%, 89%, 0.548);
+  border-radius: 5px;
+  width: fit-content;
+  text-align: center;
+  height: 23px;
+  font-size: medium;
+  padding-top: 2px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 2px;
+  margin-left: -1px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.contentInfoDiv3,
+.contentInfoDiv4 {
+  margin-left: 20px;
+  font-size: x-large;
 }
 
 .selectedMemberDiv {
   position: absolute;
-  top: 65px;
+  top: 170px;
   left: 700px;
   background: hwb(220 78% 21% / 0.192);
-  height: 600px;
+  height: 400px;
   width: 350px;
 }
 
