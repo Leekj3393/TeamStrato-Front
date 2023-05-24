@@ -92,7 +92,7 @@ function EquipmentRegist()
         formData.append("equCategory.categoryCode",equipment.categoryCode);
         formData.append("appTitle",equipment.appTitle);
         formData.append("appContent",equipment.appContent);
-        formData.append("appType",equipment.appType);
+        formData.append("appType","장비추가");
         formData.append("image",image);
 
         dispatch(callEquipmentRegist(formData));

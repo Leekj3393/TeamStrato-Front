@@ -1,19 +1,23 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import RepairModal from "./Modal/RepairModal";
+import ModifyModal from "./Modal/ModifyModal";
+import { callApprovalEquipment, callModifyEquipment } from "../../apis/EquipmentAPICalls";
 
 
 function EquipmentModifyDetail({equ : {  file , equipmentCode , equipmentName , equCategory , equipmentStatus } , category})
 {
     const dispatch = useDispatch();
     const [modifyMode , setModifyMode] = useState(false);
-    const [isClick , setIsClick] = useState(false);
-    const [RmodalOpen , setRModalOpen] = useState(false);
-    const [DmodalOpen , setDModalOpen] = useState(false);
     const imageInput = useRef();
     const [image , setImage] = useState(null);
     const [imageUrl , setImageUrl] = useState();
     const [form , setForm] = useState({});
+    const [modalForm , setModalForm] = useState({});
+
+    const [isStatusClick , setIsStatusClick] = useState(false);
+    const [modalOpen , setModalOpen] = useState(false);
+    const [appType , setAppType] = useState(" ");
+    
 
 
     useEffect(
@@ -47,9 +51,15 @@ function EquipmentModifyDetail({equ : {  file , equipmentCode , equipmentName , 
     const onClickModifyBtnHandler = () =>
     {
         if(modifyMode)
+        {
             setModifyMode(false);
+            setIsStatusClick(false);
+        }
         else
+        {
             setModifyMode(true);
+            setIsStatusClick(true);
+        }
     }
 
     const onChageHandler = (e) =>
@@ -62,14 +72,14 @@ function EquipmentModifyDetail({equ : {  file , equipmentCode , equipmentName , 
 
     const onChageStatusHandler = (e) =>
     {
-        if(e.target.value === '수리요청')
+        if(e.target.value === '수리요청' || e.target.value === '폐기요청' && equipmentStatus != e.target.value)
         {
-            setRModalOpen(true);
-
-        }
-        else if(e.target.value === '폐기요청')
-        {
-
+            setAppType(e.target.value);
+            setModalOpen(true);
+            setForm({
+                ...form,
+                [e.target.name] : [e.target.value]
+            });
         }
         else
         {
@@ -78,28 +88,76 @@ function EquipmentModifyDetail({equ : {  file , equipmentCode , equipmentName , 
                 [e.target.name] : [e.target.value]
             });
         }
+
     }
 
+    const onClickCancellationHandler = () =>
+    {
+        setForm({});
+        setModalForm({});
+        setIsStatusClick(false);
+        setModifyMode(false);
+    }
 
+    const onClickSaveHandler = () =>
+    {
+        const modifyEquipment = new FormData();
+        if(!form.equipmentName)
+        {
+            modifyEquipment.append("equipmentName",equipmentName);
+        }
+        if(!form.categoryCode)
+        {
+            modifyEquipment.append("equCategory.categoryCode" , equCategory.categoryCode);
+        }
+        if(!form.equipmentStatus)
+        {
+            modifyEquipment.append("equipmentStatus",equipmentStatus);
+        }
+        if(image)
+        {
+            modifyEquipment.append("equipmentImage",image);
+        }
+
+        modifyEquipment.append("equipmentCode",equipmentCode);
+        modifyEquipment.append("equipmentName",form.equipmentName);
+        modifyEquipment.append("equCategory.categoryCode",form.categoryCode);
+        modifyEquipment.append("equipmentStatus",form.equipmentStatus);
+        dispatch(callModifyEquipment(modifyEquipment));
+
+        if(modalForm.appTitle)
+        {
+            const approvalFormData = new FormData();
+            approvalFormData.append("appContent",modalForm.appContent);
+            approvalFormData.append("appTitle",modalForm.appTitle);
+            approvalFormData.append("appType",modalForm.appType);
+            approvalFormData.append("equipmentCode",modalForm.equipmentCode);
+            dispatch(callApprovalEquipment(approvalFormData));
+        }
+    }
+    
+    console.log("equipmentStatus : {} " , equipmentStatus);
+    console.log("form.equipmentStatus : {} " , form.equipmentStatus);
+    console.log("modalForm : {}" , modalForm);
+    console.log("form" , form);
     console.log("file : " , file);
-    console.log("modifyMode : " , modifyMode);
-    console.log("RModalOpen : " , RmodalOpen);
     return(
         <div className="itemDiv">
-            { RmodalOpen &&
-                <div className="RepairModal">
-                    <RepairModal equipmentCode={equipmentCode}
+            { modalOpen &&
+                <div className="ModifyModal">
+                    <ModifyModal equipmentCode={equipmentCode}
                                  equipmentName={equipmentName}
-                                 setIsClick={setIsClick}
-                                 setRModalOpen={setRModalOpen}
+                                 setModalOpen={setModalOpen}
+                                 appType={appType}
+                                 setModalForm={setModalForm}
+                                 setIsStatusClick={setIsStatusClick}
                     />
                 </div>
             }
             <div className="button-box">
                 {!modifyMode && <button onClick={ onClickModifyBtnHandler }>수정하기</button>}
-                {modifyMode && <button>저장하기</button>}
-                {modifyMode && <button>취소</button>}
-                <button>삭제하기</button>
+                {modifyMode && <button onClick={ onClickSaveHandler }>저장하기</button>}
+                {modifyMode && <button onClick={ onClickCancellationHandler }>취소</button>}
             </div>
             <div className="image-box">
                 <img  
@@ -135,6 +193,7 @@ function EquipmentModifyDetail({equ : {  file , equipmentCode , equipmentName , 
                                     className="equipmentInput-Info"
                                     value={ !modifyMode ? equipmentName : form.equipmentName}
                                     readOnly={ !modifyMode }
+                                    onChange={ onChageHandler }
                                 />
                             </td>
                         </tr>
@@ -146,26 +205,31 @@ function EquipmentModifyDetail({equ : {  file , equipmentCode , equipmentName , 
                                 }
                                 { modifyMode &&
                                     <select
-                                        name="equCategory.categoryCode"
+                                        name="categoryCode"
                                         className="categorySelect-box"
-                                        onChange={ onChageHandler}>
+                                        onChange={ onChageHandler}
+                                        value={form.categoryCode ? form.categoryCode : equCategory.categoryCode }>
                                             <option value={equCategory.categoryCode}>{equCategory.equCategory.categoryName} - {equCategory.categoryName}</option>
                                             {category && category.map((c) => (
-                                                <option value={ c.categoryCode }>{c.equCategory.categoryName} - {c.categoryName}</option>
+                                                <option key={c.categoryCode} value={ c.categoryCode }>{c.equCategory.categoryName} - {c.categoryName}</option>
                                             ))}
                                     </select>
                                 }
                             </td>
                             <td><label>장비 상태</label></td>
                             <td>
-                                {!modifyMode &&
-                                    <span>{equipmentStatus}</span>
+                                { !isStatusClick &&
+                                    <span>{form?.equipmentStatus ? form.equipmentStatus : equipmentStatus}</span>
                                 }
-                                { modifyMode &&
+                                { isStatusClick && equipmentStatus !== '운영가능' &&
+                                    <span>{form?.equipmentStatus ? form.equipmentStatus : equipmentStatus}</span>
+                                }
+                                { isStatusClick && equipmentStatus === '운영가능'  &&
                                     <select
                                         name="equipmentStatus"
                                         className="select-box"
-                                        onChange={ onChageStatusHandler }>
+                                        onChange={ onChageStatusHandler  }
+                                        value={ form?.equipmentStatus ? form.equipmentStatus : equipmentStatus }>
                                             <option value="운영가능">운영가능</option>
                                             <option value="수리요청">수리요청</option>
                                             <option value="폐기요청">폐기요청</option>

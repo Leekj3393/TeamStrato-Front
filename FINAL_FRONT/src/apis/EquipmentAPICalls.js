@@ -1,4 +1,4 @@
-import { getEquipment, getEquipments , getCategory , postEquipment , getModify, getCategorys} from "../modules/EquipmentModule";
+import { getEquipment, getEquipments , getCategory , postEquipment , getModify, getCategorys , putModify, postApproval} from "../modules/EquipmentModule";
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
@@ -98,6 +98,42 @@ export const callCategory = (categoryCode) =>
         {
             console.log("[callCategory] result : " , result);
             dispatch(getCategorys(result));
+        }
+    }
+}
+
+export const callModifyEquipment = (modifyEquipment) =>
+{
+    const requestURL = `${PRE_URL}/modify`;
+
+    return async(dispatch,getState) =>
+    {
+        const result = await fetch(requestURL,{
+            method : 'PUT',
+            body : modifyEquipment
+        }).then(resp => resp.json());
+
+        if(result.status === 200)
+        {
+            dispatch(putModify(result));
+        }
+    }
+}
+
+export const callApprovalEquipment = (approvalFormData) =>
+{
+    const requestURL = `${PRE_URL}/statusUpdate`;
+
+    return async(dispatch,getState) =>
+    {
+        const result = await fetch(requestURL,{
+            method : 'POST',
+            body : approvalFormData
+        }).then(resp => resp.json());
+
+        if(result.status === 200)
+        {
+            dispatch(postApproval(result));
         }
     }
 }
