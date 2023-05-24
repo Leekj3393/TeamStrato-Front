@@ -1,9 +1,10 @@
 import { getMyNotice } from "../modules/MyPageNoticeModule";
+import axios from 'axios';
 
 // MyPageAPICalls.js
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
-const PRE_URL = `http://${SERVER_IP}:${SERVER_PORT}/skylift/myPage`;
+export const PRE_URL = `http://${SERVER_IP}:${SERVER_PORT}/skylift/myPage`;
 
 //카운
 export const callMyPageAPI = () => {
@@ -391,6 +392,44 @@ export const callMyPageNoticeFileAPI = (noticeCode) => {
 
     if (response.status === 200) {
       dispatch({ type: 'MyPage/GET_MY_FILE', payload: { getMyNoticeFile: result } });
+
+            // 파일 다운로드
+            for (let file of result) {
+              const downloadResponse = await axios.get(`${PRE_URL}/download/${file.fileName}`, { responseType: 'blob' });
+              
+              // Blob to File and Download Logic...
+            }
+      return result;
+    }
+  };
+}
+
+
+// 공지사항 첨부파일
+export const callMyPageNoticeFileDownAPI = (fileName) => {
+  const requestURL = `${PRE_URL}/download/${fileName}`;
+
+  return async (dispatch, getState) => {
+    const response = await fetch(requestURL, {
+      method : 'GET',
+      headers : {
+        "Content-Type" : "application/json",
+      }
+    });
+
+    const result = await response.json();
+    console.log('[첨부파일 다운 확인] : callMyPageNoticeFileDownAPI result : ',result);
+
+    if (response.status === 200) {
+      dispatch({ type: 'MyPage/GET_MY_FILE_NAME', payload: { getMyNoticeFileName: result } });
+
+      // 파일 다운로드
+      for (let file of result) {
+        const downloadResponse = await axios.get(`${PRE_URL}/download/${file.fileName}`, { responseType: 'blob' });
+        
+        // Blob to File and Download Logic...
+      }
+
       return result;
     }
   };

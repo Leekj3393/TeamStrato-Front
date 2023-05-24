@@ -407,47 +407,56 @@ initialView="dayGridMonth"
           <table className="center-table">
             {getAllRequest &&
               getAllRequest.map((request, index) => (
-                <div className="request" key={index}>
-                <button id="deleteRequestB" onClick={() => handleDelete(request.requestCode)}>삭제</button>
+                <tr className="request" key={index}>
+                  <td>
 
-                  
-                  <tr>
-                    <th>결재 서류 상태<br/>
-                    (대기 상태만 삭제 가능)</th>
-                    <td>{request.approvals.map((approval, index) => <p key={index}>{approval.appStatus}</p>)}</td>
-                  </tr>
-                  <tr>
-                    <th>결재 번호</th>
-                    <td>{request.requestCode}</td>
-                  </tr>
-                  <tr>
-                    <th>결재 내용</th>
-                    <td>{request.requestReason}</td>
-                  </tr>
-                  <tr>
-                    <th>결제 타입</th>
-                    <td>{request.requsetType}</td>
-                  </tr>
-                  <tr>
-                    <th>시작일</th>
-                   
-                    <td> {new Date(request.requestStart).toISOString().split('T')[0]}</td>
-                  </tr>
-                  <tr>
-                    <th>종료일</th>
-                    <td> {new Date(request.requestEnd).toISOString().split('T')[0]}</td>
-                  </tr>
+
+
+                  </td>
+                  <td>
+                    <p><b>결재 서류 상태</b><br/>(대기 상태만 삭제 가능)</p>
+                    <p>{request.approvals.map((approval, index) => <span key={index}>{approval.appStatus}</span>)}</p>
+                  </td>
+                  <td>
+                    <p><b>결재 번호</b></p>
+                    <p>{request.requestCode}</p>
+                  </td>
+                  <td>
+                    <p><b>결재 내용</b></p>
+                    <p>{request.requestReason}</p>
+                  </td>
+                  <td>
+                    <p><b>결제 타입</b></p>
+                    <p>{request.requsetType}</p>
+                  </td>
+                  <td>
+                    <p><b>시작일</b></p>
+                    <p>{new Date(request.requestStart).toISOString().split('T')[0]}</p>
+                  </td>
+                  <td>
+                    <p><b>종료일</b></p>
+                    <p>{new Date(request.requestEnd).toISOString().split('T')[0]}</p>
+                  </td>
+                  <div
+  className="deleteRequestBtn"
+  onClick={() => handleDelete(request.requestCode)}
+  style={{ cursor: 'pointer' }}
+>
+  삭제
+</div>
                   {/* Add more fields as needed */}
-                  <br />
-                </div>
+                </tr>
               ))}
           </table>
         </div>
-        <button className="docuBtn" onClick={closeModal}>신청 내역 닫기</button>
+        <button className="docuBtn" onClick={closeModal}>
+          신청 내역 닫기
+        </button>
       </div>
     </div>
   </div>
 )}
+
 
 </div>
 
