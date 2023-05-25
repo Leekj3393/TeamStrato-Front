@@ -11,7 +11,7 @@
 
 .pagingBtn{
     margin: 2px;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     background-color: white;
     font-weight: bold;
     height: 30px;
@@ -20,7 +20,7 @@
 
 .pagingBtn:hover{
     cursor: pointer;
-    background-color: lightgray;
+    background-color: hsla(0, 0%, 83%, 0.473);
 }
 
 li {
