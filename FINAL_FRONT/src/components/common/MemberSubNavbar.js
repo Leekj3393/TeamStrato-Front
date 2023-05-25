@@ -7,6 +7,7 @@ function MemberSubNavbar() {
    const navigate = useNavigate();
 
    const logOutHandler = useCallback(() => {
+      window.localStorage.removeItem('accessToken');
       navigate("/login");
       },
       navigate("/login")
