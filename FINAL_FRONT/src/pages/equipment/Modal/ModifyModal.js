@@ -40,7 +40,7 @@ function RepairModal({equipmentCode , equipmentName , setModalOpen , appType , s
     return(
         <div className="REF-div">
             <button className="ModelBtn" onClick={ onModelClick }>X</button>
-            <table className="table">
+            <table className="table-modal">
                 <tbody className="tbody">
                     <tr className="text1">
                         <td><label>결제 구분</label></td>
