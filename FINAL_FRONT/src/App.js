@@ -50,6 +50,8 @@ import EquipmentModify from "./pages/equipment/EquipmentModify";
 import NestedList from "./pages/approval/NestedList";
 import CompanyCal from "./pages/calendar/CompanyCal";
 import MemberMessage from "./pages/myPage/MemberMessage";
+import SalaryMain from "./pages/salary/SalaryMain";
+import SalaryNavBarSubLayout from "./layouts/SalaryNavBarSubLayout";
 import NoticeDetail from "./pages/notice/NoticeDetail";
 
 function App() {
@@ -136,6 +138,7 @@ function App() {
             <Route path="detail/:categoryCode" element={<EquipmentDetail/>} />
             <Route path="regist" element={<EquipmentRegist/>} />
             <Route path="modify" element={<EquipmentModify/>} />
+            <Route path="modify/search" element={<EquipmentModify/>} />
           </Route>
           <Route path="/member" element={<MemberSubLayout/>}>
             <Route index element={<Member/>}/>
@@ -152,6 +155,9 @@ function App() {
             <Route index element={<Education/>}/>
             <Route path="/education/:edCode" element={<EducationDt/>}/>
             <Route path="/education/safety" element={<EduSafe/>}/>
+          </Route>
+          <Route path="/salary" element={<SalaryNavBarSubLayout/>} >
+              <Route index element={<SalaryMain/>}/>
           </Route>
         </Route>
       </Routes>
