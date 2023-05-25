@@ -1,4 +1,4 @@
-import { getNotices, getNotice, postNotice, putNotice } from "../modules/NoticeModule";
+import { getNotices, /* getNoticesCount, */ getNotice, postNotice, putNotice } from "../modules/NoticeModule";
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
@@ -19,6 +19,21 @@ export const callNoticeListAPI = ({ currentPage = 1}) => {
     }
 }
 
+/* export const callNoticesCountAPI = () => {
+
+    const requestURL = `${PRE_URL}/noticesCount`;
+    
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log('[NoticeAPICalls] : callNoticesCountAPI result : ', result);
+            dispatch(getNoticesCount(result));
+        }
+    }
+} */
+
 
 export const callNoticeSearchListAPI = ({ search, currentPage = 1}) => {
 
@@ -38,7 +53,7 @@ export const callNoticeSearchListAPI = ({ search, currentPage = 1}) => {
 /* 공지사항 게시글 조회 */
 export const callNoticeDetailAPI = ({ noticeCode }) => {
 
-    const requestURL = `${PRE_URL}/notice/${noticeCode}`;
+    const requestURL = `${PRE_URL}/detail/${noticeCode}`;
 
     return async (dispatch, getState) => {
 
@@ -73,3 +88,6 @@ export const callNoticeRegistAPI = (form) => {
         }
     }
 }
+
+// 공지사항 게시판에서 체크한 게시물들을 삭제
+export const callNoticesDeleteAPI = () => {}

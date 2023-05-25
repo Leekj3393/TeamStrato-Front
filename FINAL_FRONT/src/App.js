@@ -50,6 +50,7 @@ import EquipmentModify from "./pages/equipment/EquipmentModify";
 import NestedList from "./pages/approval/NestedList";
 import CompanyCal from "./pages/calendar/CompanyCal";
 import MemberMessage from "./pages/myPage/MemberMessage";
+import NoticeDetail from "./pages/notice/NoticeDetail";
 
 function App() {
   return (
@@ -77,7 +78,21 @@ function App() {
           </Route>
 
           <Route path="/notice" element={<NoticeSubLayout />}>
-            <Route index element={<Notice />} />
+            <Route 
+              index element={
+                <ProtectedRoute loginCheck={true}>
+                  <Notice />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/notice/detail/:noticeCode" 
+              element={
+                <ProtectedRoute loginCheck={true}>
+                  <NoticeDetail />
+                </ProtectedRoute>
+              } 
+            />
             <Route 
               path="/notice/regist" 
               element={
