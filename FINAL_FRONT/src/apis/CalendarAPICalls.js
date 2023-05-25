@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { postCalendar, postCompanycal, postInsertcal, postUpdatecal } from "../modules/CalendarModule";
+import { postCalendar, postCompanycal, postDeletecal, postInsertcal, postUpdatecal } from "../modules/CalendarModule";
 import Swal from 'sweetalert2';
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
@@ -128,6 +128,26 @@ export const callCalendarUpdateAPI = (form) => {
         if(result.status === 200){
             console.log("[CalendarAPICalls] callCalendarUpdateAPI result : ", result);
             dispatch(postUpdatecal(result));
+        }
+    };
+};
+
+export const callCalendarDeleteAPI = (form) => {
+    const requestURL = `${PRE_URL}/calendar/delete`;
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+            },
+            body : JSON.stringify(form)
+        }).then((response) => response.json());
+        
+        if(result.status === 200){
+            console.log("[CalendarAPICalls] callCalendarteAPI result : ", result);
+            dispatch(postDeletecal(result));
         }
     };
 };

@@ -1,6 +1,17 @@
+import { useNavigate } from 'react-router-dom';
 import './SubMainNav.css';
+import { useCallback } from 'react';
 
 function MemberSubNavbar() {
+
+   const navigate = useNavigate();
+
+   const logOutHandler = useCallback(() => {
+      navigate("/login");
+      },
+      navigate("/login")
+    ,[]);
+
     return (
         <div className="memberSubBar">
              <img className="message" src="/image/message.png" alt="로고" />
@@ -11,7 +22,7 @@ function MemberSubNavbar() {
              <div className='cardMember'>
                 My<br/>Card
              </div>
-             <div className='logSub'>
+             <div className='logSub' onClick={logOutHandler}>
                 Logout
              </div>
              <img className="heartCard" src="/image/heart.png" alt="로고" />

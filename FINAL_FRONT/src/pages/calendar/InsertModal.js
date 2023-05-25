@@ -34,7 +34,7 @@ function CalendarInsertModal({memberCode, setCalendarModalOpen}) {
             icon: 'success',
             title: '일정 등록이 완료 되었습니다.'
           })
-        navigate("/calendar")
+          window.location.reload("/calendar");
       
     } 
   }, [insert]);
@@ -100,6 +100,7 @@ function CalendarInsertModal({memberCode, setCalendarModalOpen}) {
                   onChange={onChageHandler}></textarea>
             <br></br>
           <button onClick = { onClickProductReviewHandler }>등록하기</button>
+          <button onClick = { () => setCalendarModalOpen(false) }>돌아가기</button>
           <button
             style={{
               border: "none",
@@ -109,7 +110,7 @@ function CalendarInsertModal({memberCode, setCalendarModalOpen}) {
             }}
             onClick={ () => setCalendarModalOpen(false)}
           >
-            돌아가기
+            
           </button>
         </div>
       </div>

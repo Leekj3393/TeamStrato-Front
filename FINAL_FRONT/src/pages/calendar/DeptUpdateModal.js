@@ -1,19 +1,25 @@
 import { useEffect, useState } from "react";
 import InsertModalCss from "../../components/calendar/InsertModal.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { callCalendarInsertAPI, callCalendarUpdateAPI } from '../../apis/CalendarAPICalls';
+import { callCalendarDeleteAPI, callCalendarInsertAPI, callCalendarUpdateAPI, callCompanyCalAPI } from '../../apis/CalendarAPICalls';
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 
 function CalendarDeptUpdateModal({memberCode, setUpdateCalendarModalOpen, calendarCode}) {
 
-  const [form, setForm] = useState({loggedInMember : { memberCode }});
+  const [form, setForm] = useState({loggedInMember : { memberCode }, calendarCode: calendarCode});
   const dispatch = useDispatch();
   const { update } = useSelector((state) => state.calendarReducer);
+  const { deletecal } = useSelector((state) => state.calendarReducer);
   const loggedInMember = useSelector(state => state.myPageReducer.membersData.memberCode);
   const loggedInMember2 = useSelector(state => state.myPageReducer.membersData.department.deptCode);
-  const calendar = useSelector(state => calendarCode);
   const navigate = useNavigate();
+
+  
+  const [state, setState] = useState({
+    deptCode: loggedInMember, // 현재 로그인된 객체의 memberCode로 설정
+    division: '2'
+  });
 
   useEffect(() => {
     if(update?.status === 200){
@@ -35,10 +41,35 @@ function CalendarDeptUpdateModal({memberCode, setUpdateCalendarModalOpen, calend
             icon: 'success',
             title: '일정 수정이 완료 되었습니다.'
           })
-        navigate("/calendar")
+          window.location.reload("/calendar/companycal");
       
     } 
   }, [update]);
+
+  useEffect(() => {
+    if(deletecal?.status === 200){
+        
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'center',
+            showConfirmButton: false,
+            timer: 1000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', () => Swal.stopTimer())
+                toast.addEventListener('mouseleave', () => Swal.resumeTimer())
+            }
+          })
+
+        setUpdateCalendarModalOpen(false);
+        Toast.fire({
+            icon: 'success',
+            title: '일정 삭제가 완료 되었습니다.'
+          })
+          window.location.reload("/calendar");
+      
+    } 
+  }, [deletecal]);
 
   console.log("지금 캘린더 코드 : ", calendarCode);
 
@@ -49,7 +80,7 @@ function CalendarDeptUpdateModal({memberCode, setUpdateCalendarModalOpen, calend
       division : "2",
       memberCode: loggedInMember,
       deptCode: loggedInMember2,
-      calendarCode: calendar
+      calendarCode: calendarCode
     });
   };
 
@@ -58,6 +89,10 @@ function CalendarDeptUpdateModal({memberCode, setUpdateCalendarModalOpen, calend
   const onClickProductReviewHandler = () => {
     dispatch(callCalendarUpdateAPI(form));
   };
+
+  const onClickDeleteCalendarHandler = () => {
+    dispatch(callCalendarDeleteAPI(form));
+  }
 
   return (
     <div className={InsertModalCss.modal}>
@@ -102,6 +137,7 @@ function CalendarDeptUpdateModal({memberCode, setUpdateCalendarModalOpen, calend
                   onChange={onChageHandler}></textarea>
             <br></br>
           <button onClick = { onClickProductReviewHandler }>수정하기</button>
+          <button onClick = { onClickDeleteCalendarHandler }>삭제하기</button>
           <button
             style={{
               border: "none",
