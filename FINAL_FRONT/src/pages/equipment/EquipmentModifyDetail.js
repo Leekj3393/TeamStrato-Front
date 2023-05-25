@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ModifyModal from "./Modal/ModifyModal";
 import { callApprovalEquipment, callModifyEquipment } from "../../apis/EquipmentAPICalls";
+import EquipmentModifyDetailCSS from './EquipmentModifyDetailCSS.css';
 
 
 function EquipmentModifyDetail({equ : {  file , equipmentCode , equipmentName , equCategory , equipmentStatus } , category})
@@ -18,8 +19,6 @@ function EquipmentModifyDetail({equ : {  file , equipmentCode , equipmentName , 
     const [modalOpen , setModalOpen] = useState(false);
     const [appType , setAppType] = useState(" ");
     
-
-
     useEffect(
         () =>
         {
@@ -103,26 +102,26 @@ function EquipmentModifyDetail({equ : {  file , equipmentCode , equipmentName , 
     {
         const modifyEquipment = new FormData();
         if(!form.equipmentName)
-        {
             modifyEquipment.append("equipmentName",equipmentName);
-        }
+        else
+            modifyEquipment.append("equipmentName",form.equipmentName);       
         if(!form.categoryCode)
-        {
-            modifyEquipment.append("equCategory.categoryCode" , equCategory.categoryCode);
-        }
+            modifyEquipment.append("equCategory.categoryCode",equCategory.categoryCode);
+        else
+            modifyEquipment.append("equCategory.categoryCode",form.categoryCode);
         if(!form.equipmentStatus)
-        {
             modifyEquipment.append("equipmentStatus",equipmentStatus);
-        }
+        else
+            modifyEquipment.append("equipmentStatus",form.equipmentStatus);
+
         if(image)
         {
             modifyEquipment.append("equipmentImage",image);
         }
 
+        console.log("form : {} " , form );
+
         modifyEquipment.append("equipmentCode",equipmentCode);
-        modifyEquipment.append("equipmentName",form.equipmentName);
-        modifyEquipment.append("equCategory.categoryCode",form.categoryCode);
-        modifyEquipment.append("equipmentStatus",form.equipmentStatus);
         dispatch(callModifyEquipment(modifyEquipment));
 
         if(modalForm.appTitle)
@@ -155,9 +154,9 @@ function EquipmentModifyDetail({equ : {  file , equipmentCode , equipmentName , 
                 </div>
             }
             <div className="button-box">
-                {!modifyMode && <button onClick={ onClickModifyBtnHandler }>수정하기</button>}
-                {modifyMode && <button onClick={ onClickSaveHandler }>저장하기</button>}
-                {modifyMode && <button onClick={ onClickCancellationHandler }>취소</button>}
+                {!modifyMode && <button onClick={ onClickModifyBtnHandler } className="modifyBtn">수정하기</button>}
+                {modifyMode && <button onClick={ onClickSaveHandler } className="saveBtn">저장하기</button>}
+                {modifyMode && <button onClick={ onClickCancellationHandler } className="cancelBtn">취소</button>}
             </div>
             <div className="image-box">
                 <img  
@@ -227,7 +226,7 @@ function EquipmentModifyDetail({equ : {  file , equipmentCode , equipmentName , 
                                 { isStatusClick && equipmentStatus === '운영가능'  &&
                                     <select
                                         name="equipmentStatus"
-                                        className="select-box"
+                                        className="Mselect-box"
                                         onChange={ onChageStatusHandler  }
                                         value={ form?.equipmentStatus ? form.equipmentStatus : equipmentStatus }>
                                             <option value="운영가능">운영가능</option>

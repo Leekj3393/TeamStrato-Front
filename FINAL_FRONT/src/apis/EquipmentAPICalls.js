@@ -1,5 +1,5 @@
-import { getEquipment, getEquipments , getCategory , postEquipment , getModify, getCategorys , putModify, postApproval} from "../modules/EquipmentModule";
-
+import { getEquipment, getEquipments , getCategory , postEquipment , getModify, getCategorys , putModify, postApproval, putDelete} from "../modules/EquipmentModule";
+import axios from 'axios';
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
 const PRE_URL = `http://${SERVER_IP}:${SERVER_PORT}/skylift/equipment`;
@@ -71,6 +71,22 @@ export const callEquipmentRegist = (formData) =>
     }
 }
 
+export const callsearch = ({type , value , currentPage = 1}) =>
+{
+    const requestURL = `${PRE_URL}/modify/serach?type=${type}&value=${value}&page=${currentPage}`;
+
+    return async (dispatch,getState) =>{
+        const result = await fetch(requestURL).then(resp => resp.json());
+
+        if(result.status === 200)
+        {
+            console.log("[callsearch] result : " , result);
+            dispatch(getModify(result));
+        }
+    }
+}
+
+
 export const callAllEquiments = ({currentPage = 1}) =>
 {
     const requestURL = `${PRE_URL}/modify?page=${currentPage}`;
@@ -135,5 +151,23 @@ export const callApprovalEquipment = (approvalFormData) =>
         {
             dispatch(postApproval(result));
         }
+    }
+}
+
+export const callDelete = (items) =>
+{
+    const requestURL = `${PRE_URL}/delete`;
+
+     return async(dispatch,getState) =>
+    {
+        try
+        {
+            const result = await axios.put(requestURL, items);
+            if(result.status === 200)
+            {
+                dispatch(putDelete(result));
+            }
+        }
+        catch(e) { console.log(e); }
     }
 }
