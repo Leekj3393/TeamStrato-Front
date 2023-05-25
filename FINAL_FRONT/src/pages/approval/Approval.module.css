@@ -11,7 +11,7 @@
   background-color: white;
   border-radius: 10px;
   height: 670px;
-  width: 1200px;
+  width: 1350px;
   padding-top: 20px;
   padding-bottom: 20px;
 }
@@ -22,7 +22,7 @@
   top: 180px;
   left: 290px; /* Changed 'right' to 'left' */
   height: 670px;
-  width: 1200px;
+  width: 1350px;
   padding-top: 20px;
   padding-bottom: 20px;
   /* text-align: center; */
@@ -257,7 +257,10 @@
 }
 
 .contentInfoDiv3,
-.contentInfoDiv4 {
+.contentInfoDiv4,
+.firstAccessor,
+.secondAccessor,
+.finalAccessor {
   margin-left: 20px;
   font-size: x-large;
 }
@@ -333,17 +336,16 @@
 /* 결재 승인/반려페이지--------------------------------------------------------------------------------------- */
 .appAccessorDiv{
   position: absolute;
-  top: 20px;
-  left: 350px;
-  /* flex-wrap: wrap; */
+  top: -150px;
+  left: 50px;
 }
 
 .applineInfoBoxDiv2 {
   position: absolute;
-  top: -110px;
-  left: 840px;
+  top: -290px;
+  left: 550px;
   width:600px;
-  height: 150px;
+  height: 130px;
   /* flex-wrap: wrap; */
   
 }
@@ -370,26 +372,18 @@
 
 .approvalAccessorTable {
   position: absolute;
-  top: 300px;
-  left: -10px;
-  height: 300px;
+  /* top: 300px; */
+  /* left: -10px; */
+  height: 400px;
   width: 1100px;
 }
-
-/* .approvalAccessorTable th {
-  padding-right: -100px;
-}
-
-.approvalAccessorTable td {
-  padding-left: 100px;
-} */
 
 .appAccessTable {
   position: absolute;
-  top: 610px;
-  left: -10px;
+  top: 710px;
+  /* left: -10px; */
   width: 1100px;
-  height: 150px;
+  height: 70px;
 }
 
 .appAccessTable tr td input {
@@ -433,4 +427,37 @@
   left: 950px;
   /* flex-wrap: nowrap; */
 
+}
+
+.identifyBtn {
+  position: absolute;
+  left: 440px;
+  top: 18px;
+}
+
+.identifyBtn img {
+  height: 30px;
+  width: 80px;
+}
+
+.col1, .col2, .col3, .col4, .col5, .col6, .col7 {
+  text-align: center;
+  width: 65px;
+}
+
+.col10, .col11, .col12 {
+  width: 200px;
+}
+
+.col77 {
+  text-align: center;
+  width: 80px;
+}
+
+.col14 {
+  overflow: scroll;
+}
+
+.accessorTr1, .accessorTr2, .accessorTr3 {
+  height: 20px;
 }

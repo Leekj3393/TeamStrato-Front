@@ -65,7 +65,7 @@ function ApprovalAccessed() {
                                     <th>{formatDate(approval.appRegistDate)}</th>
                                     <th>{approval.appTitle}</th>
                                     <th>{approval.appStatus}</th>
-                                    <th>{/* {approval.member.department.deptName}-{approval.member.memberName} */}</th>     {/* 기안한 사람 조회가 안됨...ㅠㅠㅠㅠ헝 짜증나....ㅠㅠㅠ */}
+                                    <th>{approval.member?.department?.deptName}팀 / {approval.member?.job?.jobName} / {approval.member?.memberName}</th>
                                 </tr>
                             ))}
                         </tbody>
