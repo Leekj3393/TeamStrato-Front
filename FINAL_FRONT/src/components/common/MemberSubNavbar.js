@@ -9,9 +9,7 @@ function MemberSubNavbar() {
    const logOutHandler = useCallback(() => {
       window.localStorage.removeItem('accessToken');
       navigate("/login");
-      },
-      navigate("/login")
-    ,[]);
+      });
 
     return (
         <div className="memberSubBar">
