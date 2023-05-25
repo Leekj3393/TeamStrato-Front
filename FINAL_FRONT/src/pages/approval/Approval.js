@@ -83,7 +83,7 @@ function Approval() {
                                     <th>{formatDate(approval.appRegistDate)}</th>
                                     <th>{approval.appTitle}</th>
                                     <th>{approval.appStatus}</th>
-                                    <th>{/* {approval.member.department.deptName}-{approval.member.memberName} */}</th> 
+                                    <th>{approval.member?.department?.deptName}팀 / {approval.member?.job?.jobName} / {approval.member?.memberName}</th> 
                                 </tr>
                             ))}
                         </tbody>
