@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import SalaryRegistCSS from './SalaryRegistCSS.css';
 import { useDispatch, useSelector } from 'react-redux';
+import { callEmpSearch } from '../../apis/SalaryAPICalls';
 
 function SalaryRegist()
 {
