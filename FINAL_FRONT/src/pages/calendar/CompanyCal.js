@@ -28,7 +28,7 @@ function CompanyCal() {
 
   const [state, setState] = useState({
     deptCode: deptCode, // 현재 로그인된 객체의 memberCode로 설정
-    division: '2'
+    division: '부서'
   });
 
   console.log("현재 로그인 유저의 부서 deptCode : ", deptCode);

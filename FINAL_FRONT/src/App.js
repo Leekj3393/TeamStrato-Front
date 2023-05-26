@@ -132,6 +132,7 @@ function App() {
             <Route path="/calendar/workCheck" element={<WorkCheck/>}/>
             <Route path="/calendar/holidayCheck" element={<HolidayCheck/>}/>
             <Route path="/calendar/companycal" element={<CompanyCal/>}/>
+            <Route path="/calendar/allsch" element={<AllSch/>}/>
           </Route>
           <Route path="/equipment" element={<EquipmentSubLayout/>}>
             <Route index element={<Equipment/>} />
