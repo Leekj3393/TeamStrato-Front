@@ -1,4 +1,5 @@
-import { getList } from "../modules/SalaryModule";
+import axios from "axios";
+import { getList , getSearch } from "../modules/SalaryModule";
 
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
@@ -30,5 +31,14 @@ export const callMemberSalaryList = ({currentPage = 1}) =>
 
 export const callEmpSearch = ({search}) =>
 {
-    
+    const requestURL = `${PRE_URL}/search`;
+
+    return async(dispatch , getState) =>
+    {
+        const result = await axios.get(requestURL,search);
+        if(result.status === 200)
+        {
+            dispatch(getSearch(result));
+        }
+    }
 }
