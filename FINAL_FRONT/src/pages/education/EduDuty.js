@@ -2,25 +2,23 @@ import { useEffect, useState } from 'react';
 import EducationSubNavbar from '../../components/common/EducationSubNavbar';
 import EduSafeCSS from './EduSafe.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { callClassRegistAPI, callClassViewAPI, callEducationSafetyAPI } from '../../apis/EducationAPICalls';
+import { callClassRegistAPI, callClassViewAPI, callEducationDutyAPI, callEducationSafetyAPI } from '../../apis/EducationAPICalls';
 import PagingBar from '../../components/common/EducationPagingBar';
 import { useNavigate } from 'react-router';
 
 
-function EduSafe() {
+function EduDuty() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { data, pageInfo } = useSelector((state) => state.educationReducer);
     const [currentPage, setCurrentPage] = useState(1);
-    const { classViewList } = useSelector((state) => state.classReducer);
+    const { classView } = useSelector((state) => state.classReducer);
     
-    console.log("data", data);
-    console.log("classViewList", classViewList);
 
     useEffect(
         () => {
-            dispatch(callEducationSafetyAPI({currentPage}));
+            dispatch(callEducationDutyAPI({currentPage}));
         },
         [currentPage]
     )
@@ -68,9 +66,9 @@ function EduSafe() {
                 <div className={EduSafeCSS.eduListTime}>
                     영상시간 : {formatTime(education.edTime)}
                 </div> 
-                <div className={classViewList && classViewList.some(item => item.education?.edCode === education.edCode && item.classView === 'Y') ? EduSafeCSS.eduListBtContinue : EduSafeCSS.eduListBtWatch}>
+                <div className={classView && classView.education.edCode === education.edCode && classView.classView === 'Y' ? EduSafeCSS.eduListBtContinue : EduSafeCSS.eduListBtWatch}>
                     <button onClick={() => onClickEducationDtHandler(education.edCode)}>
-                        {classViewList && classViewList.some(item => item.education?.edCode === education.edCode && item.classView === 'Y') ? '이어보기' : '시청'}
+                        {classView && classView.education.edCode === education.edCode && classView.classView === 'Y' ? '이어보기' : '시청'}
                     </button>
                 </div>
             </div>
@@ -86,4 +84,4 @@ function EduSafe() {
     );
 }
 
-export default EduSafe;
+export default EduDuty;
