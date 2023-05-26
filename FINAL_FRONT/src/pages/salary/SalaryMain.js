@@ -25,7 +25,7 @@ function SalaryMain()
     useEffect(
         () =>
         {
-            setInfo(list.content[0]);
+            setInfo(list?.content[0]);
         },
         [list]
     )
