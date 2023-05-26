@@ -1,13 +1,27 @@
 import { useNavigate } from 'react-router-dom';
 import EducationCSS from './Education.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import EducationRegist from './EducationRegist';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { callClassListAPI, callClassViewAPI } from '../../apis/EducationAPICalls';
+import EducationListPagingBar from '../../components/common/EducationListPagingBar';
 
 function Education () {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { classList } = useSelector((state) => state.classReducer);
     const [EdumodalOpen, setEduModalOpen] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    console.log("classList", classList);
+
+    useEffect(
+        () => {
+            dispatch(callClassListAPI({currentPage}));
+        },
+        [currentPage]
+    )
 
     /* 교육 등록 핸들러 */
     const onClickEduRegistHandler = (e) => {
@@ -24,32 +38,58 @@ function Education () {
         navigate('/education/safety');
     };
 
+    /* 직무 교육 리스트 이동 핸들러 */
+    const onClickEduListDutyHandler = (e) => {
+        navigate('/education/duty');
+    };
+
+    /* 기타 교육 리스트 이동 핸들러 */
+    const onClickEduListOtherHandler = (e) => {
+        navigate('/education/other');
+    };
+
     return (
         <div className='eduBack'>
             <div className='eduList'>
                 수강 교육 목록
             </div>
             <div className="eduListBox">
-                <div>
+            {Array.isArray(classList?.data) && classList.data.map(Item => (
+                <div className="eduListFlex" key={Item.classCode}>
                     <div className='eduTitle'>
-                        <div>제목</div>
-                        <div className='eduStatus'>수강상태</div>
+                        <div>{Item.education.edName}</div>
+                        <button 
+                            className='eduStatus'
+                            style={{ backgroundColor: Item.classStatus === "Y" ? "#FFD6D6" : "#D6EEFF" }}
+                        >
+                            {Item.classStatus === "Y" ? "완료" : "수강중"}
+                        </button>
                     </div>
                     <div className='eduPer'>
-                        <div>진도율(%) : </div>
-                        <div className='eduDate'>수강날짜 : </div>
+                        <div >진도율(%) : 
+                            <span style={{ color: Item.classPercent < 90 ? 'red' : 'green' }}>
+                                {Item.classPercent}
+                            </span>%
+                        </div>
+                        <div className='eduDate'>수강날짜 : {Item.classEnd.split("T")[0]}</div>
                     </div>
                     <hr className='eduListHr'/>
                 </div>
-            </div>
+                ))} 
+                <div>
+                    {classList?.pageInfo && (
+                        <EducationListPagingBar pageInfo={classList.pageInfo} setCurrentPage={setCurrentPage}/>
+                    )}
+                </div>  
+            </div> 
             <div className='edListBt1'>
                 <button onClick={onClickEduListSafeHandler}>안 전</button>
             </div>
             <div className='edListBt2'>
-                <button>직 무</button>
+                <button onClick={onClickEduListDutyHandler}>직 무</button>
             </div>
             <div className='edListBt3'>
-                <button>기 타</button>
+                <button onClick={onClickEduListOtherHandler}>기 타</button>
             </div>
             <div className="eduListRg">
                 <button onClick={onClickOpenEduModal}>교육 등록</button>

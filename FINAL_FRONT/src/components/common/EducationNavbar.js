@@ -20,7 +20,7 @@ function EducationNavbar() {
                     <NavLink to="/education">
                     <div className={`eduNavbar ${activeMenu === "educaionList" ? "active" : ""}`} onClick={() => handleClick("educaion")}>교육</div>
                     </NavLink>
-                    <NavLink>
+                    <NavLink to="/education/photoList">
                     <div className={`eduNavbar ${activeMenu === "educaionPhoto" ? "active" : ""}`} onClick={() => handleClick("educaionPhoto")}>교육 사진</div>
                     </NavLink>
                     <NavLink>
