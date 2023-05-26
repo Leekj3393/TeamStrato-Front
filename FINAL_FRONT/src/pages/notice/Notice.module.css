@@ -51,42 +51,52 @@
 
 .noticeSearch {
   position: absolute;
-  top: 70px;
-  left: 850px;
+  top: 110px;
+  left: 800px;
 }
 
 .noticeSearch select {
-  height: 25px;
+  height: 27px;
   width: 100px;
   text-align: center;
-  border-radius: 5px;
-  border-width: 2px;
+  border: 1px solid #ccc;
 }
 
 .noticeSearch select option {
-  border-radius: 1000px;
   text-align: center;
-  width: 100px;
 }
 
 .noticeSearch input {
   margin-left: 5px;
-  border-radius: 5px;
-  height: 20px;
+  border-radius: 2px;
+  border-width: 1px;
+  border: 1px solid #ccc;
+  height: 25px;
+  width: 200px;
+}
+
+.noticeSearch button {
+  /* margin-top: 1px; */
+  border: 1px solid #ccc;
+  height: 28px;
+  background-color: fff;
 }
 
 .tableInfo{
   position: absolute;
-  top: 100px;
-  left: 50px;
+  top: 120px;
+  left: 70px;
 }
 
 .noticeMainTable {
   position: absolute;
-  left: 35px;
+  left: 45px;
   top: 150px;
   width: 1130px;
 }
+
+.noticeMainTable tbody tr .column1,.column2, .column3, .column4 { cursor: pointer;}
+
 
 .column1, .column0 {
   width: 10px;
@@ -109,17 +119,28 @@
 }
   
 .deleteBtnDiv {
-  position: relative;
-  top:inherit;
-  margin-top: 30px;
-  left: 35px;
+  position: absolute;
+  top:600px;
+  left: 45px;
   text-align: center;
   width: 105px;
+  cursor: pointer;
 }
 
-.deleteBtnDiv button {
-  background-color: transparent;
-  border-color: transparent;
+.goToRegistBtnDiv {
+  position: absolute;
+  top: 30px;
+  left: 1050px;
+  cursor: pointer;
+  font-size: medium;
+  color: #181e6c;
+  font-weight: bold;
+  text-align: center;
+  width: 100px;
+  height: 30px;
+  padding-top: 7px;
+  border-radius: 100px;
+  background: hsl(234, 48%, 87%);
 }
 
 /* 작성페이지------------------------------------------------------------------------------------------------------------ */
@@ -150,10 +171,13 @@
 .registBtnDiv {
   position: absolute;
   top: 800px;
-  left: 800px;
+  left: 900px;
   background-color: transparent;
   border-color: transparent;
 }
+
+
+
 
 /* 상세페이지------------------------------------------------------------------- */
 .DetailDiv {
@@ -186,10 +210,12 @@
   position: absolute;
   top: 10px;
   left: 850px;
+  cursor: pointer;
 }
 
 .deleteBtn {
   position: absolute;
   left: 150px;
   top: 1px;
+  cursor: pointer;
 }

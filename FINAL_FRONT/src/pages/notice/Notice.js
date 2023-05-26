@@ -4,7 +4,7 @@ import { NavLink, useNavigate, useParams, useSearchParams } from "react-router-d
 import NoticeCSS from './Notice.module.css';
 import { callNoticeListAPI, callNoticeSearchListAPI, callNoticesDeleteAPI/* , callNoticesCountAPI  */} from "../../apis/NoticeAPICalls";
 import PagingBar from "../../components/common/PagingBar";
-import { isAdmin } from "../../utils/TokenUtils";
+import { isAdmin } from "../../utils/TokenUtils"; /* isAdmin()!!!!! */
 
 function Notice() {
 
@@ -51,11 +51,15 @@ function Notice() {
     const onClickNoticeCode = (noticeCode) => {
       navigate(`/notice/detail/${noticeCode}`);
     }
+    const onClickRegistPage = () => {
+      navigate('/notice/regist');
+    }
 
     const onClickSelectedNoticesDeleteHandler = () => {
         dispatch(callNoticesDeleteAPI()); 
         alert("선택 게시물들이 삭제되었습니다.");
     }
+
 
     return(
         <div className={NoticeCSS}>
@@ -71,6 +75,7 @@ function Notice() {
                         <option>내용</option>
                     </select>
                     <input type="text"/>                            {/* 검색어 입력란 */}
+                    <button type='button'>검색</button>
                 </div>
                 <div className={NoticeCSS.tableInfo}>           {/* 게시글/페이지 정보 */}
                     전체 게시물 {data?.length * pageInfo?.maxPage} 개 || 페이지 {pageInfo?.currentPage} / {pageInfo?.maxPage}
@@ -79,7 +84,7 @@ function Notice() {
                 <table className={NoticeCSS.noticeMainTable}>   {/* 게시판 시작 */}
                     <thead>
                     <tr className={NoticeCSS.title}>
-                        {isAdmin() && <th className={NoticeCSS.column0}>선택</th>}
+                        {isAdmin && <th className={NoticeCSS.column0}>선택</th>}
                         <th className={NoticeCSS.column1}>글번호</th>
                         <th className={NoticeCSS.column2}>부서</th>
                         <th className={NoticeCSS.column3}>제목</th>
@@ -89,7 +94,7 @@ function Notice() {
                     <tbody>
                         {data && data?.map((notice) => (
                             <tr className={NoticeCSS.lists} key={notice.noticeCode} htmlFor="noticeCode">
-                                {isAdmin() && <td className={NoticeCSS.column0}><input type="checkbox" value={notice.noticeCode} id="noticeCode" name="noticeCode"></input></td>}
+                                {isAdmin && <td className={NoticeCSS.column0}><input type="checkbox" value={notice.noticeCode} id="noticeCode" name="noticeCode"></input></td>}
                                 <td className={NoticeCSS.column1}  onClick={() => onClickNoticeCode(notice.noticeCode)}>{notice.noticeCode}</td>
                                 <td className={NoticeCSS.column2}  onClick={() => onClickNoticeCode(notice.noticeCode)}>{notice.noticeType}</td>
                                 <td className={NoticeCSS.column3}  onClick={() => onClickNoticeCode(notice.noticeCode)}>{notice.noticeTitle}</td>
@@ -98,8 +103,12 @@ function Notice() {
                             ))}
                     </tbody>
                 </table>
-                {isAdmin() && <div className={NoticeCSS.deleteBtnDiv} onClick={onClickSelectedNoticesDeleteHandler}>
+                {isAdmin && <div className={NoticeCSS.deleteBtnDiv} onClick={onClickSelectedNoticesDeleteHandler}>
                     선택 삭제
+                </div>}
+                {isAdmin && <div className={NoticeCSS.goToRegistBtnDiv} onClick={onClickRegistPage}>
+                    게시물 등록
+                    {/* <img src="../../image/regist-btn.png"/> */}
                 </div>}
             </div>
             <div>

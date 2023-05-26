@@ -191,7 +191,7 @@ function NoticeRegist() {
                 </div>
             </div>
             <div className={NoticeCSS.registBtnDiv}>
-                <button onClick={onClickRegistHandler}><img src='../image/regist-btn.png' alt='registNotice' /></button>
+                <img onClick={onClickRegistHandler} src='../image/regist-btn.png' alt='registNotice' />
             </div>
         </div>
     );

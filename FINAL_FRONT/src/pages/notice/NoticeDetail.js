@@ -27,6 +27,11 @@ function NoticeDetail() {
     }, []);
 
 
+    const onClickModifyHandler = () => {}
+    const onClickDeleteHandler = () => {
+        // dispatch(callNoticeDeleteAPI());
+        // alert('해당 게시글이 삭제되었습니다.');
+    }
   return (
     <div className={NoticeCSS}>
         <div className={NoticeCSS.square}></div>
@@ -54,9 +59,9 @@ function NoticeDetail() {
                         <td className={NoticeCSS.col10}>{noticeDetail && noticeDetail.noticeContent}</td>
                     </tr>
                 </table>
-                {isAdmin() && <div className={NoticeCSS.detailAdminDiv}>
-                    <div className={NoticeCSS.modifyBtn}><img src='../../image/MODIFY-BTN.png'></img></div>
-                    <div className={NoticeCSS.deleteBtn}><img src='../../image/delete-btn.png'></img></div>
+                {isAdmin && <div className={NoticeCSS.detailAdminDiv}>
+                    <div className={NoticeCSS.modifyBtn} onClick={onClickModifyHandler}><img src='../../image/MODIFY-BTN.png'></img></div>
+                    <div className={NoticeCSS.deleteBtn} onClick={onClickDeleteHandler}><img src='../../image/delete-btn.png'></img></div>
                 </div>}
             </div>
         </div>

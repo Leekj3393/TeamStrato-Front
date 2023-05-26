@@ -7,7 +7,6 @@ import Document from "./pages/myPage/Document";
 import PartNotice from "./pages/myPage/PartNotice";
 import NoticeSubLayout from "./layouts/NoticeSubLayout";
 import Notice from "./pages/notice/Notice";
-import NoticeManage from "./pages/notice/manage/NoticeManage";
 import ApprovalSubLayout from "./layouts/ApprovalSubLayout";
 import Approval from "./pages/approval/Approval";
 import ApprovalRegist from "./pages/approval/ApprovalRegist";
@@ -108,9 +107,7 @@ function App() {
               } 
             />
           </Route>
-          <Route path="/notice-manage" element={<NoticeSubLayout />}>
-            <Route index element={<NoticeManage />} />
-          </Route>
+
           <Route path="/approval" element={<ApprovalSubLayout />}>
             <Route index element={<Approval />} />
             <Route path="/approval/regist" element={<ApprovalRegist />} />
