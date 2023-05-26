@@ -47,7 +47,7 @@ function EquNavbar({url})
 
   console.log(url);
   return (
-    <>
+    <div className="EquNavBody">
       { url && 
         url == '/equipment' &&
           <div>
@@ -125,7 +125,7 @@ function EquNavbar({url})
             >검색</button>
           </>
         }
-    </>
+    </div>
   );
 }
 

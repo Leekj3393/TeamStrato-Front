@@ -29,15 +29,17 @@ export const callMemberSalaryList = ({currentPage = 1}) =>
 
 }
 
-export const callEmpSearch = ({search}) =>
+export const callEmpSearch = (search) =>
 {
-    const requestURL = `${PRE_URL}/search`;
+    console.log("search : {}", search);
+    const requestURL = `${PRE_URL}/search/${search}`;
 
     return async(dispatch , getState) =>
     {
-        const result = await axios.get(requestURL,search);
+        const result = await fetch(requestURL).then(resp => resp.json());
         if(result.status === 200)
         {
+            console.log("[callEmpSearch] callEmpSearch : {}" , result);
             dispatch(getSearch(result));
         }
     }
