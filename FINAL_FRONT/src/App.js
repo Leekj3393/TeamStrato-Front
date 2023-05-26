@@ -53,6 +53,7 @@ import MemberMessage from "./pages/myPage/MemberMessage";
 import SalaryMain from "./pages/salary/SalaryMain";
 import SalaryNavBarSubLayout from "./layouts/SalaryNavBarSubLayout";
 import NoticeDetail from "./pages/notice/NoticeDetail";
+import SalaryRegist from "./pages/salary/SalaryRegist";
 import EduDuty from "./pages/education/EduDuty";
 import EduOther from "./pages/education/EduOther";
 import EducationPhoto from "./pages/education/EducationPhoto";
@@ -165,6 +166,7 @@ function App() {
           </Route>
           <Route path="/salary" element={<SalaryNavBarSubLayout/>} >
               <Route index element={<SalaryMain/>}/>
+              <Route path="regist" element={<SalaryRegist/>}/>
           </Route>
         </Route>
       </Routes>

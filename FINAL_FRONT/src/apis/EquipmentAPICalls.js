@@ -1,5 +1,6 @@
 import { getEquipment, getEquipments , getCategory , postEquipment , getModify, getCategorys , putModify, postApproval, putDelete} from "../modules/EquipmentModule";
 import axios from 'axios';
+
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
 const PRE_URL = `http://${SERVER_IP}:${SERVER_PORT}/skylift/equipment`;

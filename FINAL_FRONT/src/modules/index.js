@@ -13,6 +13,7 @@ import calendarReducer from "./CalendarModule";
 import mailReducer from "./MailModule";
 import educationReducer from "./EducationModule";
 import classReducer from "./ClassModule";
+import SalaryReducer from "./SalaryModule";
 
 
 const rootReducer = combineReducers({
@@ -29,7 +30,8 @@ const rootReducer = combineReducers({
     calendarReducer,
     mailReducer,
     educationReducer,
-    classReducer
+    classReducer,
+    SalaryReducer,
 
 });
 
