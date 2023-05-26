@@ -1,28 +1,23 @@
 .noticeDiv {
     position: absolute;
     top: 800px;
-    left: 700px;
+    left: 800px;
     display: flex;
-    flex-wrap: wrap;
     width: 850px;
-    height: 100%;
     margin: 10px;
 }
 
 .pagingBtn{
-    margin: 2px;
-    /* border-radius: 5px; */
-    background-color: white;
-    font-weight: bold;
-    height: 30px;
-    width: 30px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    margin-right: 4px;
+    cursor: pointer;
+    height: 35px;
+    width: 35px;
+    color: #6e6e6e;
 }
 
 .pagingBtn:hover{
-    cursor: pointer;
-    background-color: hsla(0, 0%, 83%, 0.473);
-}
-
-li {
-    list-style: none;
+    background-color: #ebebeb;
 }
