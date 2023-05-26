@@ -73,13 +73,13 @@ function Notice() {
                     <input type="text"/>                            {/* 검색어 입력란 */}
                 </div>
                 <div className={NoticeCSS.tableInfo}>           {/* 게시글/페이지 정보 */}
-                    전체 게시물 {} 개 || 페이지 {pageInfo.currentPage} / {pageInfo.maxPage}
+                    전체 게시물 {data?.length * pageInfo?.maxPage} 개 || 페이지 {pageInfo?.currentPage} / {pageInfo?.maxPage}
                 </div>
 
                 <table className={NoticeCSS.noticeMainTable}>   {/* 게시판 시작 */}
                     <thead>
                     <tr className={NoticeCSS.title}>
-                        <th className={NoticeCSS.column0}>선택</th>
+                        {isAdmin() && <th className={NoticeCSS.column0}>선택</th>}
                         <th className={NoticeCSS.column1}>글번호</th>
                         <th className={NoticeCSS.column2}>부서</th>
                         <th className={NoticeCSS.column3}>제목</th>
@@ -89,7 +89,7 @@ function Notice() {
                     <tbody>
                         {data && data?.map((notice) => (
                             <tr className={NoticeCSS.lists} key={notice.noticeCode} htmlFor="noticeCode">
-                                <td className={NoticeCSS.column0}><input type="checkbox" value={notice.noticeCode} id="noticeCode" name="noticeCode"></input></td>
+                                {isAdmin() && <td className={NoticeCSS.column0}><input type="checkbox" value={notice.noticeCode} id="noticeCode" name="noticeCode"></input></td>}
                                 <td className={NoticeCSS.column1}  onClick={() => onClickNoticeCode(notice.noticeCode)}>{notice.noticeCode}</td>
                                 <td className={NoticeCSS.column2}  onClick={() => onClickNoticeCode(notice.noticeCode)}>{notice.noticeType}</td>
                                 <td className={NoticeCSS.column3}  onClick={() => onClickNoticeCode(notice.noticeCode)}>{notice.noticeTitle}</td>
@@ -98,9 +98,9 @@ function Notice() {
                             ))}
                     </tbody>
                 </table>
-                <div className={NoticeCSS.deleteBtnDiv} onClick={onClickSelectedNoticesDeleteHandler}>
+                {isAdmin() && <div className={NoticeCSS.deleteBtnDiv} onClick={onClickSelectedNoticesDeleteHandler}>
                     선택 삭제
-                </div>
+                </div>}
             </div>
             <div>
                 { pageInfo && <PagingBar pageInfo={ pageInfo } setCurrentPage={ setCurrentPage }/> }

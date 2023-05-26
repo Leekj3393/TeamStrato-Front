@@ -54,7 +54,7 @@ function NoticeDetail() {
                         <td className={NoticeCSS.col10}>{noticeDetail && noticeDetail.noticeContent}</td>
                     </tr>
                 </table>
-                {isAdmin && <div className={NoticeCSS.detailAdminDiv}>
+                {isAdmin() && <div className={NoticeCSS.detailAdminDiv}>
                     <div className={NoticeCSS.modifyBtn}><img src='../../image/MODIFY-BTN.png'></img></div>
                     <div className={NoticeCSS.deleteBtn}><img src='../../image/delete-btn.png'></img></div>
                 </div>}

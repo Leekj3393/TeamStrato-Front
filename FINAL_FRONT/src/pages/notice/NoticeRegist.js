@@ -12,7 +12,8 @@ function NoticeRegist() {
     const {memberCode} = useParams();
     const { jobDept } = useSelector(state => state.memberRoleReducer);
     const [form, setForm] = useState({member: memberCode});
-    const {regist, appMember} = useSelector(state => state.approvalReducer);
+    const {appMember} = useSelector(state => state.approvalReducer);
+    const {regist, data} = useSelector(state => state.noticeReducer);
     const [image, setImage] = useState(null);
     const [imageUrl, setImageUrl] = useState('');
     const ImageInput = useRef();
@@ -118,18 +119,17 @@ function NoticeRegist() {
                     <table>
                         <tbody>
                             <tr>
-                                <th>부서</th>
-                                <td name='deptCode'>
-                                <select  className={NoticeCSS.deptSelect} name="deptCode" onChange={onChangeDeptHandler}>
+                                <th>구분</th>
+                                <td name='noticeType'>
+                                <select  className={NoticeCSS.deptSelect} name="noticeType" onChange={onChangeDeptHandler}>
                                         <option value="selection">선택</option>
-                                        <option value="selection">선택</option>
-                                        {jobDept?.dept &&
-                                            jobDept.dept.map((dept) => (
+                                        {data &&
+                                            data?.map(() => (
                                                 <option 
-                                                    key={dept.deptCode}
-                                                    value={dept.deptCode}
+                                                    key={data?.noticeType}
+                                                    value={data?.noticeType}
                                                 >
-                                                    {dept.deptCode}.{dept.deptName}
+                                                    {data?.noticeType}
                                                 </option>
                                         ))}
                                     </select>
