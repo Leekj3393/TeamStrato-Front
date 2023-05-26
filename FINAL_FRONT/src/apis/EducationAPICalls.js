@@ -1,5 +1,5 @@
-import { getClassView, postClass, putClass } from "../modules/ClassModule";
-import { getDuty, getEdOther, getEducation, getSafety, postEducation } from "../modules/EducationModule";
+import { getClassInfo, getClassList, getClassView, getClassViewList, postClass, putClass } from "../modules/ClassModule";
+import { getDuty, getEdOther, getEducation, getEducationPhoto, getSafety, postEducation } from "../modules/EducationModule";
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
@@ -26,11 +26,11 @@ export const callEducationRegistAPI = (formData) => {
 
 export const callEducationSafetyAPI = ({currentPage = 1}) => {
 
-    const reqeustURL = `${PRE_URL}/safety?page=${currentPage}`;
+    const requestURL = `${PRE_URL}/safety?page=${currentPage}`;
 
     return async (dispatch, getState) => {
 
-        const result = await fetch(reqeustURL).then(response => response.json());
+        const result = await fetch(requestURL).then(response => response.json());
 
         if(result.status === 200) {
             console.log('result', result);
@@ -43,11 +43,11 @@ export const callEducationSafetyAPI = ({currentPage = 1}) => {
 
 export const callEducationDutyAPI = ({currentPage = 1}) => {
 
-    const reqeustURL = `${PRE_URL}/duty?page=${currentPage}`;
+    const requestURL = `${PRE_URL}/duty?page=${currentPage}`;
 
     return async (dispatch, getState) => {
 
-        const result = await fetch(reqeustURL).then(response => response.json());
+        const result = await fetch(requestURL).then(response => response.json());
 
         if(result.status === 200) {
             console.log('result', result);
@@ -60,11 +60,11 @@ export const callEducationDutyAPI = ({currentPage = 1}) => {
 
 export const callEducationOtherAPI = ({currentPage = 1}) => {
 
-    const reqeustURL = `${PRE_URL}/other?page=${currentPage}`;
+    const requestURL = `${PRE_URL}/other?page=${currentPage}`;
 
     return async (dispatch, getState) => {
 
-        const result = await fetch(reqeustURL).then(response => response.json());
+        const result = await fetch(requestURL).then(response => response.json());
 
         if(result.status === 200) {
             console.log('result', result);
@@ -77,14 +77,14 @@ export const callEducationOtherAPI = ({currentPage = 1}) => {
 
 export const callEducationDetailAPI = ({edCode}) => {
 
-    const reqeustURL = `${PRE_URL}/educations/${edCode}`;
+    const requestURL = `${PRE_URL}/educations/${edCode}`;
 
     return async (dispatch, getState) => {
 
-        const result = await fetch(reqeustURL).then(response => response.json());
+        const result = await fetch(requestURL).then(response => response.json());
 
         if(result.status === 200) {
-            console.log('result', result);
+            console.log('callEducationDetailAPI reuslt : {}', result);
             dispatch(getEducation(result));
         }
 
@@ -136,7 +136,53 @@ export const callEducationUpdateAPI = ({edCode, classTime}) => {
 
 export const callClassViewAPI = () => {
 
-    const requestURL = `${PRE_URL}/classView`;
+    const requestURL = `${PRE_URL}/classViewList`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL, {
+            method : 'GET',
+            headers : {
+            "Content-Type" : "application/json",
+            "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+            }
+        }).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log('callClassViewAPI result', result);
+            dispatch(getClassViewList(result));
+        }
+
+    }
+
+}
+
+export const callClassInfoAPI = ({edCode}) => {
+
+    const requestURL = `${PRE_URL}/classInfo?edCode=${edCode}`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL, {
+            method : 'GET',
+            headers : {
+            "Content-Type" : "application/json",
+            "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+            }
+        }).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log('callClassViewAPI result', result);
+            dispatch(getClassInfo(result));
+        }
+
+    }
+
+}
+
+export const callClassListAPI = ({currentPage = 1}) => {
+
+    const requestURL = `${PRE_URL}/classList?page=${currentPage}`;
 
     return async (dispatch, getState) => {
 
@@ -150,7 +196,54 @@ export const callClassViewAPI = () => {
 
         if(result.status === 200) {
             console.log('result', result);
-            dispatch(getClassView(result));
+            dispatch(getClassList(result));
+        }
+
+    }
+
+}
+
+export const callEducationPhotoListAPI = ({currentPage = 1}) => {
+
+    const requestURL = `${PRE_URL}/photoList?page=${currentPage}`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL, {
+            method : 'GET',
+            headers : {
+            "Content-Type" : "application/json",
+            "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+            }
+        }).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log('callClassViewAPI result', result);
+            dispatch(getEducationPhoto(result));
+        }
+
+    }
+
+}
+
+export const callEducationPhotoInsertAPI = ({fileTitle}, formData) => {
+
+    const requestURL = `${PRE_URL}/photoList?fileTitle=${fileTitle}`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL, {
+            method : 'POST',
+            headers : {
+            "Content-Type" : "application/json",
+            "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+            },
+            body : formData
+        }).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log('callClassViewAPI result', result);
+            dispatch(getEducationPhoto(result));
         }
 
     }

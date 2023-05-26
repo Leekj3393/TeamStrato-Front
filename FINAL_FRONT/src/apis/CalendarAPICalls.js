@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { postCalendar, postCompanycal, postDeletecal, postInsertcal, postUpdatecal } from "../modules/CalendarModule";
+import { getCalendar, postCalendar, postCompanycal, postDeletecal, postInsertcal, postUpdatecal } from "../modules/CalendarModule";
 import Swal from 'sweetalert2';
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
@@ -151,3 +151,19 @@ export const callCalendarDeleteAPI = (form) => {
         }
     };
 };
+
+export const callAllSchAPI = ({ currentPage = 1 }) =>
+{
+    const requestURL = `${PRE_URL}/calendar/findall?page=${currentPage}`;
+
+    return async (dispatch,getState) => {
+        const result = await fetch(requestURL).then(resp => resp.json());
+        
+        if(result.status === 200)
+        {
+            console.log("[callAllSchAPI] result : ", result);
+            dispatch(getCalendar(result));
+        }
+
+    };
+}

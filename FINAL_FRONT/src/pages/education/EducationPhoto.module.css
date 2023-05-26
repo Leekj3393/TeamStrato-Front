@@ -1,0 +1,45 @@
+.back {
+    background-color: #ffffff;
+      border-radius: 15px;
+      width: 1150px;
+      height: 780px;
+      left: 300px;
+      top : 170px;
+      position: absolute;
+}
+
+.title {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.registBt button{
+    background-color: #8CCEFD;
+    left: 990px;
+    top: 50px;
+    border-radius: 15px;
+    font-size: 15px;  
+    border : none;
+    padding : 8px 15px;
+    position : absolute;
+    font-weight: bold;
+}
+
+.Image {
+    height: 200px;
+    width: 200px;
+    border : 1px solid;
+}
+
+.ImgDiv {
+
+}
+.ImgDiv span {
+    margin-left: 60px;
+}
+
+.Flex {
+    
+}

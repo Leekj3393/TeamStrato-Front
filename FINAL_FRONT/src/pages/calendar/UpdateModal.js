@@ -71,7 +71,7 @@ function CalendarUpdateModal({memberCode, setUpdateCalendarModalOpen, calendarCo
     setForm({
       ...form,
       [e.target.name] : e.target.value,
-      division : "1",
+      division : "개인",
       memberCode: loggedInMember,
       deptCode: loggedInMember2,
     });

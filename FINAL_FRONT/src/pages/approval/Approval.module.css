@@ -20,12 +20,11 @@
   font-family: 'SUITE-Regular';
   position: absolute;
   top: 180px;
-  left: 290px; /* Changed 'right' to 'left' */
+  left: 350px;
   height: 670px;
   width: 1350px;
   padding-top: 20px;
   padding-bottom: 20px;
-  /* text-align: center; */
 }
 
 .flowInfo {

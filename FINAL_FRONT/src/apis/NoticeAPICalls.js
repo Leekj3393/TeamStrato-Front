@@ -1,4 +1,4 @@
-import { getNotices, /* getNoticesCount, */ getNotice, postNotice, putNotice } from "../modules/NoticeModule";
+import { getNotices, getNotice, postNotice, putNotice } from "../modules/NoticeModule";
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;

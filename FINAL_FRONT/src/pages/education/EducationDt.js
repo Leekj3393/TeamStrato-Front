@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
-import { callClassViewAPI, callEducationDetailAPI, callEducationUpdateAPI } from "../../apis/EducationAPICalls";
+import { callClassInfoAPI, callClassViewAPI, callEducationDetailAPI, callEducationUpdateAPI } from "../../apis/EducationAPICalls";
 import EduDtCSS from "./EducationDt.module.css";
 import ReactPlayer from "react-player";
 
@@ -13,7 +13,7 @@ function EducationDt () {
     const params = useParams();
     const edCode = params.edCode;
     const serverUrl = "http://localhost:8001/videos/"
-    const { classView } = useSelector((state) => state.classReducer);
+    const { classInfo } = useSelector((state) => state.classReducer);
 
 
     const [playTime, setPlayTime] = useState(0);
@@ -24,10 +24,12 @@ function EducationDt () {
 
     const classTime = Math.floor( playTime * 1000 );
 
+    console.log("classInfo", classInfo);
+
     useEffect(
         () => {
             dispatch(callEducationDetailAPI({edCode}));
-            dispatch(callClassViewAPI());
+            dispatch(callClassInfoAPI({edCode}));
         },
         []
     )
@@ -83,8 +85,8 @@ function EducationDt () {
                 }}
                 progressInterval={1000}
                 onStart={() => {
-                    if(classView && classView.classTime) {
-                        videoRef.current.seekTo(classView.classTime / 1000);
+                    if(classInfo && classInfo.classTime) {
+                        videoRef.current.seekTo(classInfo.classTime / 1000);
                     }
                 }}
             />

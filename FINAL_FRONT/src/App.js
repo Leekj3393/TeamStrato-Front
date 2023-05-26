@@ -54,6 +54,9 @@ import SalaryMain from "./pages/salary/SalaryMain";
 import SalaryNavBarSubLayout from "./layouts/SalaryNavBarSubLayout";
 import NoticeDetail from "./pages/notice/NoticeDetail";
 import SalaryRegist from "./pages/salary/SalaryRegist";
+import EduDuty from "./pages/education/EduDuty";
+import EduOther from "./pages/education/EduOther";
+import EducationPhoto from "./pages/education/EducationPhoto";
 
 function App() {
   return (
@@ -133,6 +136,7 @@ function App() {
             <Route path="/calendar/workCheck" element={<WorkCheck/>}/>
             <Route path="/calendar/holidayCheck" element={<HolidayCheck/>}/>
             <Route path="/calendar/companycal" element={<CompanyCal/>}/>
+            <Route path="/calendar/allsch" element={<AllSch/>}/>
           </Route>
           <Route path="/equipment" element={<EquipmentSubLayout/>}>
             <Route index element={<Equipment/>} />
@@ -156,6 +160,9 @@ function App() {
             <Route index element={<Education/>}/>
             <Route path="/education/:edCode" element={<EducationDt/>}/>
             <Route path="/education/safety" element={<EduSafe/>}/>
+            <Route path="/education/duty" element={<EduDuty/>}/>
+            <Route path="/education/other" element={<EduOther/>}/>
+            <Route path="/education/photoList" element={<EducationPhoto/>}/>
           </Route>
           <Route path="/salary" element={<SalaryNavBarSubLayout/>} >
               <Route index element={<SalaryMain/>}/>

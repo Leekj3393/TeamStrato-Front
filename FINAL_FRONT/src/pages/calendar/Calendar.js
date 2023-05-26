@@ -21,7 +21,7 @@ function Calendar() {
 
   const [state, setState] = useState({
     memberCode: loggedInMember, // 현재 로그인된 객체의 memberCode로 설정
-    division: "1"
+    division: "개인"
   });
 
   console.log("현재 로그인 memberCode : ",loggedInMember);
