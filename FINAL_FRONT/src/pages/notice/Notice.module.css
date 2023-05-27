@@ -52,7 +52,7 @@
 .noticeSearch {
   position: absolute;
   top: 110px;
-  left: 800px;
+  left: 850px;
 }
 
 .noticeSearch select {
@@ -62,17 +62,22 @@
   border: 1px solid #ccc;
 }
 
-.noticeSearch select option {
-  text-align: center;
-}
 
-.noticeSearch input {
+.noticeSearchDiv {
+  position: absolute;
+  left: 100px;
+  top: 1px;
   margin-left: 5px;
-  border-radius: 2px;
   border-width: 1px;
   border: 1px solid #ccc;
   height: 25px;
+  width: fit-content;
+}
+
+.noticeSearchDiv input {
+  border: none;
   width: 200px;
+  height: 21px;
 }
 
 .noticeSearch button {
@@ -141,6 +146,21 @@
   padding-top: 7px;
   border-radius: 100px;
   background: hsl(234, 48%, 87%);
+}
+.goToDelListBtnDiv {
+  position: absolute;
+  top: 30px;
+  left: 930px;
+  cursor: pointer;
+  font-size: medium;
+  color: #181e6cbd;
+  font-weight: bold;
+  text-align: center;
+  width: 100px;
+  height: 30px;
+  padding-top: 7px;
+  border-radius: 100px;
+  background: hsla(234, 48%, 87%, 0.575);
 }
 
 /* 작성페이지------------------------------------------------------------------------------------------------------------ */

@@ -56,6 +56,7 @@ import SalaryRegist from "./pages/salary/SalaryRegist";
 import EduDuty from "./pages/education/EduDuty";
 import EduOther from "./pages/education/EduOther";
 import EducationPhoto from "./pages/education/EducationPhoto";
+import NoticeDeletedList from "./pages/notice/NoticeDeletedList";
 
 function App() {
   return (
@@ -90,6 +91,8 @@ function App() {
                 </ProtectedRoute>
               } 
             />
+            <Route path="/notice/search/title/:noticeTitle" element={<Notice/>}/>
+            <Route path="/notice/search/content/:noticeContent" element={<Notice/>}/>
             <Route 
               path="/notice/detail/:noticeCode" 
               element={
@@ -103,6 +106,14 @@ function App() {
               element={
                 // <ProtectedRoute authCheck={true}>
                   <NoticeRegist />
+                // </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/notice/deleted" 
+              element={
+                // <ProtectedRoute authCheck={true}>
+                  <NoticeDeletedList />
                 // </ProtectedRoute>
               } 
             />

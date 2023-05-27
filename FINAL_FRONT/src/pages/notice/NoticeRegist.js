@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useRef, useState } from 'react';
 import { callNoticeRegistAPI } from '../../apis/NoticeAPICalls';
 import { calljobDeptListAPI } from '../../apis/MemberAPICalls';
+import { callApprovalMemberInfoAPI } from '../../apis/ApprovalAPICalls';
+
 
 function NoticeRegist() {
 
@@ -17,6 +19,7 @@ function NoticeRegist() {
     const [image, setImage] = useState(null);
     const [imageUrl, setImageUrl] = useState('');
     const ImageInput = useRef();
+    // const department = use
 
 
     function formatDate(dateString) {
@@ -28,20 +31,20 @@ function NoticeRegist() {
     }
 
     /* 부서 값 변경 이벤트 */
-    const onChangeDeptHandler = (e) => {
-        setForm({
-            ...form,
-            department : { deptCode : e.target.value}
-        })     
+    const onChangeNoticeTypeHandler = (e) => {
+        if(e.target.name === 'noticeType') {
+            setForm({
+                ...form,
+                [e.target.name] : { noticeType : e.target.value},
+                [e.target.id]: {deptCode: e.target.value}
+            })     
+        }
     }
 
-    useEffect (
-        () => {
-            dispatch(calljobDeptListAPI());
-        }
-        ,
-        []
-    );
+    useEffect (() => {
+        dispatch(callApprovalMemberInfoAPI());
+        dispatch(calljobDeptListAPI());
+    },[]);
 
     useEffect(
         () => {
@@ -63,21 +66,15 @@ function NoticeRegist() {
 
     const onClickRegistHandler = () => {
         if(
-            !form.noticeTitle || !form.noticeContent /* || !form.department.deptCode || !form.appStatus */
+            !form.noticeTitle || !form.noticeContent
         ) {
-            if(!form.appTitle) {
+            if(!form.noticeTitle) {
                 alert("제목을 작성해주세요.");
                 return;
-            } else if(!form.appContent) {
+            } else if(!form.noticeContent) {
                 alert("내용을 작성해주세요.");
                 return;
-            }  /* else if(!form.appType) {
-                alert("기안구분이 누락되었습니다.");
-                return;
-            } else {
-                alert("기안상태가 누락되었습니다.");
-                return;
-            } */
+            } 
         } else if(image) {
             form.append("noticeImage", image);
         }
@@ -112,26 +109,18 @@ function NoticeRegist() {
         <div className={NoticeCSS}>
             <div className={NoticeCSS.square}></div>
             <div className={NoticeCSS.content}>
-                {/* <div className={NoticeCSS.flowInfo}>
-                    <b>기안문 작성</b> &gt; 결재선 선택 &gt; 결재 요청
-                </div> */}
                 <div className={NoticeCSS.noticeFormDiv}>
                     <table>
                         <tbody>
                             <tr>
                                 <th>구분</th>
                                 <td name='noticeType'>
-                                <select  className={NoticeCSS.deptSelect} name="noticeType" onChange={onChangeDeptHandler}>
-                                        <option value="selection">선택</option>
-                                        {data &&
-                                            data?.map(() => (
-                                                <option 
-                                                    key={data?.noticeType}
-                                                    value={data?.noticeType}
-                                                >
-                                                    {data?.noticeType}
-                                                </option>
-                                        ))}
+                                <select  className={NoticeCSS.deptSelect} name="noticeType" onChange={onChangeNoticeTypeHandler} for='noticeType'>
+                                        <option name="selection" >선택</option>
+                                        <option name="noticeType" id=''>공통</option>
+                                        <option name="noticeType" id='D1'>인사</option>
+                                        <option name="noticeType" id='D2'>안전/교육</option>
+                                        <option name="noticeType" id='D3'>장비 관리</option>
                                     </select>
                                 </td>
                             </tr>
@@ -181,7 +170,7 @@ function NoticeRegist() {
                                             className='imgRgBtn'
                                             onClick={onClickImgageUpload}
                                         > 
-                                            이미지 업로드
+                                            파일 업로드
                                         </button>
                                     </div>
                                 </td>

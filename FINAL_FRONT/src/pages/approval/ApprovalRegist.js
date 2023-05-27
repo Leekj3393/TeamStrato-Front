@@ -3,8 +3,6 @@ import ApprovalCSS from './Approval.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { callApprovalRegistAPI, callApprovalMemberInfoAPI } from '../../apis/ApprovalAPICalls';
-import { toDate } from 'date-fns';
-// import approvalReducer from '../../modules/ApprovalModule';
 
 function ApprovalRegist() {
 
