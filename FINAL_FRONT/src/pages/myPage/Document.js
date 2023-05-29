@@ -264,10 +264,31 @@ const Toast = Swal.mixin({
   
 
     
-    const handleDelete = async (requestCode) => {
-      await dispatch(callMyPageRequestDeleteAPI(requestCode));
-      dispatch(callMyPageAllRequestAPI());
-    };
+
+
+  const handleDelete = async (requestCode) => {
+    // 모달을 먼저 닫기
+    closeModal();
+  
+    // 그리고 삭제 확인 알럿 띄우기
+    Swal.fire({
+      title: '정말 삭제하시겠습니까?',
+      showDenyButton: true,
+      confirmButtonText: '예',
+      denyButtonText: '아니오',
+    }).then(async (result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        await dispatch(callMyPageRequestDeleteAPI(requestCode));
+        dispatch(callMyPageAllRequestAPI());
+        Swal.fire('삭제되었습니다!', '', 'success')
+      } else if (result.isDenied) {
+        Swal.fire('삭제가 취소되었습니다!', '', 'info')
+      }
+    })
+  };
+  
+  
     
 
   const handleDateClick1 = (info) => {

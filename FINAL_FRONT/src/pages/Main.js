@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import MainCSS from "../components/main/Main.css";
-import {  callGoToWorkAPI, callEndWorkAPI, callOutWorkAPI, callReturnWorkAPI } from '../apis/MyPageAPICalls';
+import {  callGoToWorkAPI, callEndWorkAPI, callOutWorkAPI, callReturnWorkAPI, callWorkInfoAPI } from '../apis/MyPageAPICalls';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { callNoticeListAPI, callNoticeSearchListAPI } from '../apis/NoticeAPICalls';
+import { callAllSchAPI } from '../apis/CalendarAPICalls';
+import { callMemberSalaryList } from '../apis/SalaryAPICalls';
 
 
 const getDate = (date) => {
@@ -15,8 +17,8 @@ const getDate = (date) => {
   return `${year}-${month}-${day}`
 }
 
-function Main() {
-  //
+function Main(props) {
+  //일정
 
 
   //
@@ -123,6 +125,10 @@ function Main() {
     fetchNewsData();
   }, []);
 
+
+  //날씨
+
+  
   const Weather = () => {
     if (!weatherData) {
       return <div className="loading-text">날씨를 불러오는 중이에요 😚</div>;
@@ -130,7 +136,7 @@ function Main() {
     const temperatureCelsius = (weatherData.main.temp - 273.15).toFixed(2); // 섭씨로 변환 후 소수점 둘째 자리까지 표시
 
     return (
-      <div className="weather" style={{ flex: 1 }}>
+      <div className='next'>
         <div className="weather-text">
           <span role="img" aria-label="weather-icon">🌤</span> 오늘의 날씨는 <b>{weatherData.weather[0].description}</b>이에요~
           <span role="img" aria-label="temperature-icon">✨</span> 온도는 <b>{temperatureCelsius}℃</b>입니다.
@@ -139,8 +145,54 @@ function Main() {
     );
   };
 
+  //
+
+  const navigate = useNavigate();
+  const { allsch }  = useSelector(state => state.calendarReducer);
+
+  useEffect(
+    () =>
+    {
+      dispatch(callAllSchAPI({ currentPage: 1 }));
+    },
+    [dispatch]
+  );
+  
+
+  console.log("캘린더 정보  : ",allsch);
+  //
+
+//급여
+const [currentMonthSalary, setCurrentMonthSalary] = useState(null);
+
+const salaryList = useSelector((state) => state.SalaryReducer.list?.content);
+
+useEffect(() => {
+  dispatch(callMemberSalaryList({ currentPage: 1 }));
+}, [dispatch]);
+
+useEffect(() => {
+  console.log("현재 급여 정보: ", salaryList);
+  // 가장 최근의 급여 정보를 가져옵니다
+  if (salaryList && salaryList.length > 0) {
+    setCurrentMonthSalary(salaryList[0]);
+  } else {
+    setCurrentMonthSalary(null);
+  }
+}, [salaryList]);
 
 
+//근태확인
+const workInfo = useSelector(state => state.myPageReducer.workInfo);
+
+// API를 호출하고, workInfo가 업데이트될 때마다 콘솔에 출력합니다.
+useEffect(() => {
+  dispatch(callWorkInfoAPI());
+}, []);
+
+useEffect(() => {
+  console.log("메인 근태 확인: ",workInfo);
+}, [workInfo]);
 
 
   return (
@@ -149,24 +201,37 @@ function Main() {
         <Weather /> {/* Weather 컴포넌트 사용 */}
         {/* 나머지 코드 */}
       </div>
+      <div className="todo2" style={{ flex: 1 }}>
+      <div className="todoText2">타이틀</div>
+      <div className="todoMinibar1">진행중</div>
+      <div className="todoMinibar2">장치관리</div>
+      <div className="todoMinibar3">물청소</div>
+    </div>
       <div className="todo1" style={{ flex: 1 }}>
-        <div className="todoText1">🗓 할 일</div>
+        <div className="todoText1">🗓 일정</div>
+        
         <div className="todoText0">3</div>
         <div className="todoNumber1">뉴뉴뉴</div>
       </div>
       <div className="All">
-        <div className="todo2" style={{ flex: 1 }}>
-          <div className="todoText2">A 구역 리프트 점검</div>
-          <div className="todoMinibar1">진행중</div>
-          <div className="todoMinibar2">장치관리</div>
-          <div className="todoMinibar3">물청소</div>
-        </div>
-        <div className="todo3" style={{ flex: 1 }}>
-          <div className="todoText3">파트너 관리 교육</div>
-          <div className="todoMinibar4">완료</div>
-          <div className="todoMinibar5">리프트 교육</div>
-          <div className="todoMinibar6">관리</div>
-        </div>
+      {allsch?.data?.slice(0, 2).map((calendar, index) => (
+  <div key={index} className="todo2" style={{ flex: 1 }}>
+    <div className="todoText2">{calendar.title}</div>
+    <div className="todoMinibar1">{calendar.division}</div>
+    <div className="todoMinibar2">{calendar.start}</div>
+    <div className="todoMinibar3">{calendar.end}</div>
+  </div>
+))}
+
+{allsch?.data?.slice(0, 1).map((calendar, index) => (
+  <div className="todo3" style={{ flex: 1 }}>
+    <div className="todoText3">{calendar.title}</div>
+    <div className="todoMinibar4">{calendar.division}</div>
+    <div className="todoMinibar5">{calendar.start}</div>
+    <div className="todoMinibar6">{calendar.end}</div>
+  </div>
+))}
+
       </div>
       <div className="board" style={{ display: "flex", flex: 1 }}>
         <div className="notic" style={{ flex: 1 }}>공지사항</div>
@@ -255,9 +320,23 @@ function Main() {
   <img className="cartFront" src="image/heartca.png"/>
   <div className='cardName1'>내 급여 확인</div>
   </div>
-  <div class="card-face backMain">
-    // Your different back content here
+  <div className="card-face backMain">
+  {currentMonthSalary ? (
+    <>
+      급여 년 월: {currentMonthSalary.salaryDay}
+      급여지급날짜: {currentMonthSalary.salaleDate}
+      지급액 : {currentMonthSalary.amount}
+      실지급액 : {currentMonthSalary.paymentAmount}
+    </>
+  ) : (
+    "이번 달에 조회되는 급여가 없습니다."
+  )}
+  <div className='salaryMain'>
+    자세한 급여 확인
   </div>
+</div>
+
+
 </div>
 
 <div className="card itemMain2">
@@ -286,13 +365,15 @@ function Main() {
   <div className='cardName4'>내 근태 확인</div>
   </div>
   <div class="card-face backMain3">
-    // Your different back content here
+  근태 상태: {workInfo[0]?.status || "오늘 근태 정보가 없습니다."}
+  출근: {workInfo[0]?.startTime || "출근 정보를 등록하세요"}
+  퇴근: {workInfo[0]?.endTime || "퇴근 정보를 등록하세요"}
+  외출: {workInfo[0]?.outTime || "외출 정보가 없습니다."}
+  복귀: {workInfo[0]?.returnTime || "복귀 정보가 없습니다."}
   </div>
 </div>
 
-<div className='next'>
-  
-</div>
+
 
     </div>
     );
