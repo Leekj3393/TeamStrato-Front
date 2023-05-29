@@ -1,8 +1,9 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import ApprovalCSS from './Approval.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { callApprovalListAPIForAccessor } from '../../apis/ApprovalAPICalls';
+import { callApprovalListAPIForAccessor, callApprovalMemberInfoAPI } from '../../apis/ApprovalAPICalls';
+import {} from '../../apis/AppLineAPICalls';
 import PagingBar from '../../components/common/PagingBar';
 
 
@@ -10,8 +11,12 @@ function Approval() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { data, pageInfo } = useSelector((state) => state.approvalReducer);
+    const { data, appMember, appDetail } = useSelector((state) => state.approvalReducer);
+    const memberCode = appMember?.memberCode;
+    const approvals = useSelector(state => state.approvalReducer);
+    const pageInfo = approvals.pageInfo;
     const [currentPage, setCurrentPage] = useState(1);
+    
 
     function formatDate(dateString) {
         const date = new Date(dateString);
@@ -21,17 +26,24 @@ function Approval() {
         return `${year}년 ${month}월 ${day}일`;
     }
 
+    useEffect(
+        () => {
+            dispatch(callApprovalMemberInfoAPI());
+        },
+        []
+    )
 
     useEffect(
         () => {
-            dispatch(callApprovalListAPIForAccessor({currentPage}));
+            dispatch(callApprovalListAPIForAccessor({memberCode, currentPage}));
         },
-        [currentPage]
+        [currentPage, memberCode]
     )
+
 
     /* 상세페이지로 이동 */
     const onClickDetailHandler = (appCode) => {
-        navigate(`${appCode}`);
+        navigate(`../approval/accessor/${appCode}`);
     };
 
     return(
@@ -57,7 +69,7 @@ function Approval() {
                     </div>
                 </div>
                 <div className={ApprovalCSS.appMainTableInfo}>
-                    <h3><b>결재 요청 문서가 {} 개 있습니다.</b></h3> {/* 수정하기 count */}
+                    <h3><b>결재 요청 문서가 {data && data?.length} 개 있습니다.</b></h3> {/* 수정하기 count */}
                 </div>
                 <div className={ApprovalCSS.appMainTatbleDiv}>
                     <table className={ApprovalCSS.appMainTable}>   {/* 게시판 시작 */}

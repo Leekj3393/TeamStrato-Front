@@ -30,20 +30,37 @@ function NoticeRegist() {
         return `${year}년 ${month}월 ${day}일`;
     }
 
+    const onChangeHandler = (e) => {
+        setForm({
+            ...form,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+
     /* 부서 값 변경 이벤트 */
     const onChangeNoticeTypeHandler = (e) => {
-        if(e.target.name === 'noticeType') {
-            setForm({
-                ...form,
-                [e.target.name] : { noticeType : e.target.value},
-                [e.target.id]: {deptCode: e.target.value}
-            })     
+        const selectedValue = e.target.value;
+        let deptCode = '';
+
+        if(selectedValue === '공통') {
+            deptCode = '';
+        } else if(selectedValue === '인사') {
+            deptCode = 'D1';
+        } else if(selectedValue === '안전/교육') {
+            deptCode = 'D2';
+        } else if(selectedValue === '장비관리') {
+            deptCode = 'D3';
         }
-    }
+        setForm({
+            ...form,
+            noticeType: selectedValue,
+            deptCode : deptCode
+        });
+    };
 
     useEffect (() => {
         dispatch(callApprovalMemberInfoAPI());
-        dispatch(calljobDeptListAPI());
     },[]);
 
     useEffect(
@@ -56,13 +73,6 @@ function NoticeRegist() {
         [regist]
     );
 
-    const onChangeHandler = (e) => {
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value,
-        });
-        
-    };
 
     const onClickRegistHandler = () => {
         if(
@@ -128,7 +138,7 @@ function NoticeRegist() {
                                 <th>제목</th>
                                 <td>
                                     <input
-                                        id='textInput'
+                                        id='noticeTitle'
                                         name='noticeTitle'
                                         type='text'
                                         placeholder='제목을 입력해주세요.'
@@ -141,6 +151,7 @@ function NoticeRegist() {
                                 <td colSpan={3}>
                                     <textarea
                                         placeholder='내용을 입력해주세요.'
+                                        id='noticeContent'
                                         name='noticeContent'
                                         onChange={onChangeHandler}
                                     />

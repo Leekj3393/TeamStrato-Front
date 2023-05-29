@@ -41,7 +41,7 @@ function ApprovalRegist() {
         if(e.target.name === 'appStatus' || e.target.name === 'appType' && e.target.checked) {
             setForm({
                 ...form,
-                appStatus: '대기',
+                appStatus: 'wait',
                 appType: '기안문'
             });
         } else {setForm({
@@ -123,7 +123,7 @@ function ApprovalRegist() {
                                             type="radio" 
                                             name='appStatus'  
                                             onChange={onChangeHandler}
-                                            checked={form.appStatus === '대기'}
+                                            checked={form.appStatus === 'wait'}
                                         />
                                     대기
                                     </label>
