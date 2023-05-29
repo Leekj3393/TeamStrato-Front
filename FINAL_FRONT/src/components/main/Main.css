@@ -328,11 +328,176 @@ color: #3E6039;
     position: absolute;
     top: 545px;
     height: 400px;
-    width: 460px;
-    left: 1230px;
+    width: 410px;
+    left:300px;
     border-radius: 10px;
 
 }
+
+
+
+
+.card {
+  position: relative;
+  width: 230px;
+  height: 250px;
+  perspective: 1000px;
+  
+}
+
+.cardName1{
+  width: 115px;
+  height: 40px;
+  background-color: #f9a6d4;
+  text-align: center;
+  border-radius: 10px;
+
+  margin-top: 15px;
+  margin-left: 60px;
+  font-weight: 600px;
+  line-height: 40px;
+  color: #ffffff;
+}
+
+.cardName2{
+  width: 115px;
+  height: 40px;
+  background-color: #abadff;
+  text-align: center;
+  border-radius: 10px;
+
+  margin-top: 15px;
+  margin-left: 60px;
+  font-weight: 600px;
+  line-height: 40px;
+  color: #ffffff;
+}
+
+.cardName3{
+  width: 115px;
+  height: 40px;
+  background-color: #fca689;
+  text-align: center;
+  border-radius: 10px;
+
+  margin-top: 15px;
+  margin-left: 60px;
+  font-weight: 600px;
+  line-height: 40px;
+  color: #ffffff;
+}
+
+.cardName4{
+  width: 115px;
+  height: 40px;
+  background-color: #ffd11b;
+  text-align: center;
+  border-radius: 10px;
+
+  margin-top: 15px;
+  margin-left: 60px;
+  font-weight: 600px;
+  line-height: 40px;
+  color: #ffffff;
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transition: transform 1s;
+}
+
+.front {
+  background: rgb(255, 255, 255);
+  box-shadow: 0 0 15px rgb(228, 234, 250)
+}
+
+.next{
+  position: absolute;
+  width: 960px;
+  height: 120px;
+  left: 740px;
+  top: 820px;
+  background: linear-gradient(266.4deg, rgba(3, 101, 249, 0.2) 3.1%, rgba(0, 0, 0, 0) 52.96%), linear-gradient(93.59deg, rgba(255, 255, 255, 0.2) 7.8%, rgba(0, 0, 0, 0) 52.95%), linear-gradient(267.63deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 51.99%), linear-gradient(90.99deg, #6F88DD 1.62%, rgba(111, 136, 221, 0) 94.99%), linear-gradient(252.49deg, rgba(102, 25, 255, 0.7) 17.51%, rgba(77, 112, 237, 0) 61.99%), rgba(136, 162, 255, 0.7);
+  border-radius: 10px;
+}
+.backMain {
+  background: #f9a6d4;
+  box-shadow: 0 0 10px rgb(212, 212, 212);
+  transform: rotateY(180deg);
+}
+
+.card:hover .front {
+  transform: rotateY(-180deg);
+}
+
+.card:hover .backMain {
+  transform: rotateY(0);
+}
+
+
+.backMain1 {
+  background: #abadff;
+  box-shadow: 0 0 10px rgb(212, 212, 212);
+  transform: rotateY(180deg);
+}
+
+.card:hover .backMain1 {
+  transform: rotateY(0);
+}
+
+.backMain2 {
+  background: #fca689;
+  box-shadow: 0 0 10px rgb(212, 212, 212);
+  transform: rotateY(180deg);
+}
+
+.card:hover .backMain2 {
+  transform: rotateY(0);
+}
+
+.backMain3 {
+  background: #ffd11b;
+  box-shadow: 0 0 10px rgb(212, 212, 212);
+  transform: rotateY(180deg);
+}
+
+.card:hover .backMain3 {
+  transform: rotateY(0);
+}
+
+
+.cartFront{
+  width: 120px;
+  margin-left: 60px;
+  margin-top: 40px;
+}
+.itemMain1 {
+  position: absolute;
+  top: 545px;
+  left:740px;
+}
+
+.itemMain2 {
+  position: absolute;
+  top: 545px;
+  left:985px;
+}
+
+.itemMain3 {
+  position: absolute;
+  top: 545px;
+  left:1228px;
+}
+
+.itemMain4 {
+  position: absolute;
+  top: 545px;
+  left:1472px;
+}
+
 
 
 .meal{

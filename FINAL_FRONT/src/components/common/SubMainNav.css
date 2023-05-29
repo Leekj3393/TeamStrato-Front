@@ -7,7 +7,19 @@
     height: 50px;
     border-radius: 30px;
     box-shadow: 0 0 10px rgb(212, 212, 212);
+    transition: height 0.8s; 
 }
+
+
+
+.memberEmail:hover + .memberSubBar {
+    height: 400px;
+}
+
+.memberSubBar.expanded {
+    height: 400px;
+}
+
 
 .message{
     position: absolute;
@@ -56,4 +68,60 @@
         background-color: rgb(242, 245, 255);
         top: 8px;
         left: 295px;
+}
+
+
+.cardSkyLift{
+    position: absolute;
+    left: 165px;  /* 수정된 부분 */
+    top: 100px;  /* 수정된 부분 */
+
+    font-size: 16px;
+}
+
+.memberCard{
+    position: absolute;
+    top: 10px;
+
+    height: 160px;
+    width: 160px;
+
+    border-radius: 10px;
+}
+
+.cardContent{
+    position: absolute;
+    top: 180px;
+    left: 10px;
+    font-size: 20px;
+}
+.titleAllMember {
+    position: relative;
+    height: 300px;
+    left: -200px;
+    top: 30px;
+    width: 340px;
+    border:2px solid rgb(224, 224, 224); 
+    border-radius: 10px;
+}
+
+.submitMember{
+    position: absolute;
+  left: -115px;
+  top: 43px;
+  font-size: 20px;
+  color: rgb(51, 51, 51);
+}
+
+
+
+
+
+
+/* SubMainNav.css */
+
+.MembersEmail {
+    text-align: center;
+    margin-left: -110px;
+    margin-top: 10px;
 }

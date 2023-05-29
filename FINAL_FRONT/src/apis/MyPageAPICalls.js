@@ -1,6 +1,7 @@
 import { getMyNotice } from "../modules/MyPageNoticeModule";
 import axios from 'axios';
 import { useState } from 'react';
+import Swal from 'sweetalert2';
 
 
 // MyPageAPICalls.js
@@ -235,10 +236,22 @@ export const callMyPageAllRequestAPI = () => {
 
 
 
-
 export const callInsertRequestAPI = ({requestReason, requestStart, requestEnd, requestType}) => {
   const requestURL = `${PRE_URL}/request/insert`;
   const selectedDates1 = new Date().toISOString();
+
+   //알러트창
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'center',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+      toast.addEventListener('mouseenter', () => Swal.stopTimer())
+      toast.addEventListener('mouseleave', () => Swal.resumeTimer())
+  }
+})
 
   return async (dispatch, getState) => {
     try {
@@ -261,19 +274,32 @@ export const callInsertRequestAPI = ({requestReason, requestStart, requestEnd, r
       if (response.ok) {  
         console.log('response', response)
         dispatch({type: 'MyPage/INSERT_REQUEST', payload: {selectedDates1}});  
-        alert(requestType + ' 완료되었습니다');
+        // alert(requestType + ' 완료되었습니다');
+        Toast.fire({
+          icon: 'success',
+          title: requestType + ' 완료되었습니다.'
+        });
       } else {  
         const message = await response.text();
-        alert(message);
+        // alert(message);
+        Toast.fire({
+          icon: 'error',
+          title: message
+        });
       }
 
       console.log(response)
     } catch (error) {
       console.log(error)
       console.error('Failed to fetch member list:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Failed to fetch member list: ' + error.message
+      });
     }
   };
 };
+
 
 
 
@@ -437,5 +463,65 @@ export const callMyPageNoticeFileDownAPI = (fileName) => {
     }
   };
 }
+
+
+//멤버이름으로 이메일 찾기
+// export const callMemberEmailAPI = (memberName) => {
+//   const requestURL = `${PRE_URL}/member/${memberName}/email`;
+
+//   return async (dispatch, getState) => {
+//     const response = await fetch(requestURL, {
+//       method : 'GET',
+//       headers : {
+//         "Content-Type" : "application/json",
+//       }
+//     });
+
+//     const result = await response.json();
+//     console.log('[회원 이메일 찾기] : callMemberEmailAPI result : ',result);
+
+//     if (response.status === 200) {
+//       dispatch({ type: 'MyPage/GET_MEMBER_EMAIL_MY', payload: { getMemberEmailMy: result } });
+//       return result;
+//     }
+//   };
+// }
+
+export const callMemberEmailAPI = (memberName) => {
+  const requestURL = `${PRE_URL}/member/${memberName}/email`;
+
+  return async (dispatch, getState) => {
+    const response = await fetch(requestURL, {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+
+    if (response.ok && response.headers.get('Content-Type').includes('application/json')) {
+      const result = await response.text();
+      console.log('[회원 이메일 찾기] : callMemberEmailAPI result: ', result);
+
+      // check if result is not empty before dispatching the action
+      if (result) {
+        const parsedResult = JSON.parse(result);
+        dispatch({ type: 'MyPage/GET_MEMBER_EMAIL_MY', payload: { getMemberEmailMy: parsedResult } });
+        return parsedResult;
+      } else {
+        console.error("API returned empty result");
+      }
+    } else {
+      console.error("Error while calling the API: ", response);
+    }
+  };
+};
+
+
+
+
+//
+
+
+
 
 

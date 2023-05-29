@@ -14,6 +14,7 @@ const initialState = {
   getAllRequest: '',
   getMyNotice: '',
   deletRequestCode:'' ,
+  getMemberEmailMy:''
   
 };
 
@@ -37,11 +38,17 @@ const GET_INFO_WORK ='MyPage/GET_INFO_WORK';
 
 const POST_INSERT_REQUEST = 'MyPage/INSERT_REQUEST';
 
+//
+const GET_MEMBER_EMAIL_MY = 'MyPage/GET_MEMBER_EMAIL_MY';
 
 
 // Action creators
 export const data = createActions({
-  //공지
+  //이메일 찾기
+  [GET_MEMBER_EMAIL_MY]: (getMemberEmailMy) => {
+    console.log(getMemberEmailMy)
+    return ({ getMemberEmailMy })
+  }, 
 
 
 
@@ -120,6 +127,15 @@ export const getMyNotice = (deletRequestCode) => {
 // Reducer
 const myPageReducer = handleActions(
   {
+
+        //이메일 찾기
+        [GET_MEMBER_EMAIL_MY]: (state, { payload }) => {
+          console.log('Reducer GET_MEMBER_EMAIL_MY:', payload);
+          return {
+            ...state,
+            getMemberEmailMy: payload,
+          };
+        },
     //도큐 삭제
     [DELETE_REQUEST_CODE]: (state, { payload }) => {
       console.log('Reducer deletRequestCode:', payload);
