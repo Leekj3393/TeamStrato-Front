@@ -33,13 +33,16 @@
     border : 1px solid;
 }
 
-.ImgDiv {
-
+.div {
+    margin-left: 100px;
+    margin-top: 60px;
 }
+
 .ImgDiv span {
     margin-left: 60px;
 }
 
-.Flex {
-    
+.flex {
+    display : flex;
+    flex-wrap : wrap;
 }
