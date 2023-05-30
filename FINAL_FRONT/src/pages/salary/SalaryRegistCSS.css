@@ -1,9 +1,36 @@
 .regist-salary
 {
     position: relative;
-    bottom: 650px;
+    bottom: 820px;
     left: 280px;
     width: 970px;
     height: 800px;
     background-color: white;
 } 
+
+.saMember-Info
+{
+    width: 100px;
+    height: 700px;
+}
+
+.saThCell
+{
+    width: 150px;
+    text-align: left;
+    background-color: #F0F0F0;
+    color: rgb(61, 61, 61);
+    writing-mode: horizontal-tb;
+    text-orientation: mixed;
+    padding: 15px;
+    font-size: 18px;
+}
+
+.saTdCell
+{
+    background-color: #ffffff;
+    color: rgb(61, 61, 61);
+    writing-mode: horizontal-tb;
+    text-orientation: mixed;
+    padding: 10px;
+}

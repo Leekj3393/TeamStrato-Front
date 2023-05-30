@@ -8,12 +8,12 @@ const GET_SEARCH = 'salary/GET_SEARCH'
 
 export const {salary : { getList ,getSearch }} = createActions({
     [GET_LIST] : res => res.data,
-    [GET_SEARCH] : res => res.data,
+    [GET_SEARCH] : res => res,
 });
 
 const SalaryReducer = handleActions({
     [GET_LIST] : (state , { payload }) => ({ list : payload }),
-    [GET_SEARCH] : (state , { payload }) => ({ search : payload}),
+    [GET_SEARCH] : (state , { payload }) => ({ searchEmp : payload}),
 },initialState);
 
 export default SalaryReducer;
