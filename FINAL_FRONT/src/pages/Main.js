@@ -296,7 +296,7 @@ useEffect(() => {
 
 
         </div>
-        <img className="BoradImg" src="image/image 434.png" alt="Board Image" />
+        <img className="BoradImg" src="/image/image 434.png" alt="Board Image" />
       </div>
       <div className="partBoard" style={{ flex: 1 }}>Strato News<div class="animated-news">💡</div></div>
       <div className="att">
@@ -310,14 +310,14 @@ useEffect(() => {
             <div className="edu">
                 <div class="edutitle1">내가 해야 할 </div>
                 <div class="educircle1"></div><div class="edutitle2">화재 교육</div>
-                <img className="img1" src="image/image 188.png"/>
+                <img className="img1" src="/image/image 188.png"/>
                 <div class="ing">진행중</div>
                </div>
 
 
                <div className="card itemMain1">
   <div class="card-face front">
-  <img className="cartFront" src="image/heartca.png"/>
+  <img className="cartFront" src="/image/heartca.png"/>
   <div className='cardName1'>내 급여 확인</div>
   </div>
   <div className="card-face backMain">
@@ -341,7 +341,7 @@ useEffect(() => {
 
 <div className="card itemMain2">
   <div class="card-face front">
-  <img className="cartFront" src="image/astronaut.png"/>
+  <img className="cartFront" src="/image/astronaut.png"/>
   <div className='cardName2'>스키장 장비 확인</div>
   </div>
   <div class="card-face backMain1">
