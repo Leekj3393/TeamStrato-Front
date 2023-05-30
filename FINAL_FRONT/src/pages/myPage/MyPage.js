@@ -137,68 +137,123 @@ console.log("Months:", months);
   };
 
   const handleOutOnClick = () => {
-    if (workInfo && workInfo[0] && workInfo[0].endTime) {
-      // 이미 퇴근한 경우 외출 불가능
-      Toast.fire({
-        icon: 'error',
-        title: '퇴근한 상태에서는 외출할 수 없습니다!'
-      });
-      return;
-    }
-    Toast.fire({
-      icon: 'success',
-      title: '외출이 완료되었습니다!'
+    // Current date and time
+    let currentDateTime = new Date();
+    
+    // Ask for confirmation
+    Swal.fire({
+      title: '정말 외출하시겠습니까?',
+      text: "현재 시간: " + currentDateTime,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '예',
+      cancelButtonText: '아니오'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (workInfo && workInfo[0] && workInfo[0].endTime) {
+          // 이미 퇴근한 경우 외출 불가능
+          Toast.fire({
+            icon: 'error',
+            title: '퇴근한 상태에서는 외출할 수 없습니다!'
+          });
+          return;
+        }
+        Toast.fire({
+          icon: 'success',
+          title: '외출이 완료되었습니다!'
+        });
+        dispatch(callOutWorkAPI());
+    
+        // 2초 후에 페이지 자동 새로고침
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      }
     });
-    dispatch(callOutWorkAPI());
-  
-    // 2초 후에 페이지 자동 새로고침
-    setTimeout(() => {
-      window.location.reload();
-    }, 20);
   }
   
+  
+
   const handleWorknClick = () => {
-    // 출근하기 API 호출
-    dispatch(callGoToWorkAPI());
-  
-    // 출근 날짜 선택 확인
-    if (workInfo && workInfo[0] && workInfo[0].startTime) {
-      Toast.fire({
-        icon: 'error',
-        title: '이미 출근하셨습니다!'
-      });
-      return;
-    }
-    Toast.fire({
-      icon: 'success',
-      title: '출근이 완료되었습니다!'
+    // Current date and time
+    let currentDateTime = new Date();
+    
+    // Ask for confirmation
+    Swal.fire({
+      title: '정말 출근하시겠습니까?',
+      text: "현재 시간: " + currentDateTime,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '예',
+      cancelButtonText: '아니오'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // 출근하기 API 호출
+        dispatch(callGoToWorkAPI());
+    
+        // 출근 날짜 선택 확인
+        if (workInfo && workInfo[0] && workInfo[0].startTime) {
+          Toast.fire({
+            icon: 'error',
+            title: '이미 출근하셨습니다!'
+          });
+          return;
+        }
+        Toast.fire({
+          icon: 'success',
+          title: '출근이 완료되었습니다!'
+        });
+    
+        // 2초 후에 페이지 자동 새로고침
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      }
     });
-  
-    // 2초 후에 페이지 자동 새로고침
-    setTimeout(() => {
-      window.location.reload();
-    }, 20);
   }
+  
   
   const handleEndOnClick = () => {
-    if (workInfo && workInfo[0] && workInfo[0].endTime) {
-      Toast.fire({
-        icon: 'error',
-        title: '이미 퇴근하셨습니다!'
-      });
-      return;
-    }
-    Toast.fire({
-      icon: 'success',
-      title: '퇴근이 완료되었습니다 ᕕ༼✿•̀︿•́༽ᕗ!'
-    });
-    dispatch(callEndWorkAPI());
+    // Current date and time
+    let currentDateTime = new Date();
+    
+    // Ask for confirmation
+    Swal.fire({
+      title: '정말 퇴근하시겠습니까?',
+      text: "현재 시간: " + currentDateTime,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '예',
+      cancelButtonText: '아니오'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (workInfo && workInfo[0] && workInfo[0].endTime) {
+          Toast.fire({
+            icon: 'error',
+            title: '이미 퇴근하셨습니다!'
+          });
+          return;
+        }
+        Toast.fire({
+          icon: 'success',
+          title: '퇴근이 완료되었습니다 ᕕ༼✿•̀︿•́༽ᕗ!'
+        });
+        dispatch(callEndWorkAPI());
   
-    // 2초 후에 페이지 자동 새로고침
-    setTimeout(() => {
-      window.location.reload();
-    }, 20);
+        // 2초 후에 페이지 자동 새로고침
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      }
+    });
   }
+  
   
   
   
@@ -218,25 +273,43 @@ const Toast = Swal.mixin({
 })
 
 const handleReturnOnClick = () => {
-  if (!workInfo || workInfo.length === 0 || !workInfo[0].startTime || workInfo[0].endTime) {
-    // 출근하지 않았거나 퇴근한 경우 복귀 불가능
-    Toast.fire({
-      icon: 'error',
-      title: '출근 또는 외출한 상태에서만 복귀할 수 있습니다!'
-    })
-    return;
-  }
-  Toast.fire({
-    icon: 'success',
-    title: '복귀가 완료되었습니다!'
-  })
-  dispatch(callReturnWorkAPI());
+  // Current date and time
+  let currentDateTime = new Date();
+  
+  // Ask for confirmation
+  Swal.fire({
+    title: '정말 복귀하시겠습니까?',
+    text: "현재 시간: " + currentDateTime,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: '예',
+    cancelButtonText: '아니오'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      if (!workInfo || workInfo.length === 0 || !workInfo[0].startTime || workInfo[0].endTime) {
+        // 출근하지 않았거나 퇴근한 경우 복귀 불가능
+        Toast.fire({
+          icon: 'error',
+          title: '출근 또는 외출한 상태에서만 복귀할 수 있습니다!'
+        })
+        return;
+      }
+      Toast.fire({
+        icon: 'success',
+        title: '복귀가 완료되었습니다!'
+      })
+      dispatch(callReturnWorkAPI());
 
-  // 2초 후에 페이지 자동 새로고침
-  setTimeout(() => {
-    window.location.reload();
-  }, 20);
+      // 2초 후에 페이지 자동 새로고침
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    }
+  });
 }
+
 
   return (
     <div className={MyPageCSS}>
@@ -447,8 +520,8 @@ const handleReturnOnClick = () => {
             </table>
             </div>
             {editMode.phone || editMode.address || editMode.bank ? (
-  <div class="modiFianl" onClick={handleUpdateClick}>
-    수정완료!
+  <div class="modiFianlModi" onClick={handleUpdateClick}>
+    수정완료
   </div>
 ) : null}
 

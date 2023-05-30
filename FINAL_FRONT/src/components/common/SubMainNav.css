@@ -1,13 +1,25 @@
 .memberSubBar {
     position: absolute;
-    left: 1250px;
+    left: 300px;
     top: 7px;
     background-color: rgb(255, 255, 255);
-    width: 380px;
+    width: 400px;
     height: 50px;
     border-radius: 30px;
     box-shadow: 0 0 10px rgb(212, 212, 212);
+    transition: height 0.8s; 
 }
+
+
+
+.memberEmail:hover + .memberSubBar {
+    height: 400px;
+}
+
+.memberSubBar.expanded {
+    height: 400px;
+}
+
 
 .message{
     position: absolute;
@@ -57,3 +69,101 @@
         top: 8px;
         left: 295px;
 }
+
+
+.cardSkyLift{
+    position: absolute;
+    left: 165px;  /* 수정된 부분 */
+    top: 80px;  /* 수정된 부분 */
+
+    font-size: 16px;
+}
+
+.memberCard{
+    position: absolute;
+    top: 10px;
+
+    height: 160px;
+    width: 160px;
+
+    border-radius: 10px;
+}
+
+.cardContent{
+    position: absolute;
+    top: 180px;
+    left: 10px;
+    font-size: 20px;
+}
+.titleAllMember {
+    position: relative;
+    height: 310px;
+    left: -190px;
+    top: 30px;
+    width: 340px;
+    border:2px solid rgb(224, 224, 224); 
+    border-radius: 10px;
+}
+
+.secondLogo{
+    margin-top: -20px;
+    margin-left: 150px;
+    width: 225px;
+    height: 130px;
+}
+
+.submitMember{
+    position: absolute;
+  left: -115px;
+  top: 43px;
+  font-size: 20px;
+  color: rgb(51, 51, 51);
+}
+
+
+
+
+
+
+/* SubMainNav.css */
+
+.MembersEmail {
+    text-align: center;
+    margin-left: -110px;
+    margin-top: 10px;
+}
+
+
+
+
+
+.name-label {
+    width: 130px;
+    padding: 1px;
+    background: #E3DBEE;
+    border-radius: 20px;
+    text-align: center;
+    font-family: 'Inria Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 31px;
+
+    color: #411978;
+  }
+  
+
+  .name-ski{
+    width: 180px;
+    padding: 1px;
+    background: rgb(208, 207, 251);
+    border-radius: 3px;
+    text-align: center;
+    font-family: 'Inria Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 31px;
+
+    color: #0b0053;
+  }
