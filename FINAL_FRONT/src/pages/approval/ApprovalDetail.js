@@ -38,26 +38,26 @@ function ApprovalDetail () {
                         <table>
                                 <thead>
                                     <tr>
-                                        <th>기안자</th>
-                                        <th>제1 결재선</th>
-                                        <th>제2 결재선</th>
-                                        <th>최종 결재선</th>
+                                        <th className={ApprovalCSS.col01}>기안자</th>
+                                        <th className={ApprovalCSS.col02}>제1 결재선</th>
+                                        <th className={ApprovalCSS.col03}>제2 결재선</th>
+                                        <th className={ApprovalCSS.col04}>최종 결재선</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>{appDetail && appDetail.member?.memberName}</td>
-                                        <td>홍길동{/* {appLine && appLine.member.memberName} */}</td>
-                                        <td>홍길동{/* {appLine && appLine.member.memberName} */}</td>
-                                        <td>홍길동{/* {appLine && appLine.member.memberName} */}</td>
+                                        <td className={ApprovalCSS.col05}>{appDetail && appDetail.member?.memberName}</td>
+                                        <td className={ApprovalCSS.col06}>홍길동{/* {appLine && appLine.member.memberName} */}</td>
+                                        <td className={ApprovalCSS.col07}>홍길동{/* {appLine && appLine.member.memberName} */}</td>
+                                        <td className={ApprovalCSS.col08}>홍길동{/* {appLine && appLine.member.memberName} */}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td>요청</td>
-                                        <td>승인{/* {appLine && appLine.appStatus} */}</td>
-                                        <td>승인{/* {appLine && appLine.appStatus} */}</td>
-                                        <td>반려{/* {appLine && appLine.appStatus} */}</td>
+                                        <td className={ApprovalCSS.col09}>요청</td>
+                                        <td className={ApprovalCSS.col90}>승인{/* {appLine && appLine.appStatus} */}</td>
+                                        <td className={ApprovalCSS.col91}>승인{/* {appLine && appLine.appStatus} */}</td>
+                                        <td className={ApprovalCSS.col92}>반려{/* {appLine && appLine.appStatus} */}</td>
                                     </tr>
 
                                 </tfoot>
@@ -66,27 +66,27 @@ function ApprovalDetail () {
                     <div className={ApprovalCSS.appDetailDiv}>
                         <table className={ApprovalCSS.approvalDetailTable}>
                             <tbody>
-                                <tr>
-                                    <th className={ApprovalCSS.colm1}>문서번호</th>
-                                    <td className={ApprovalCSS.colm8}>{appDetail  && appDetail.appCode}</td>
-                                    <th className={ApprovalCSS.colm5}>부서</th>
-                                    <td className={ApprovalCSS.colm9}>부서명{/* {appDetail && appDetail.member.department.deptName} */}</td>
+                                <tr className={ApprovalCSS.accessorTr1}>
+                                    <th className={ApprovalCSS.col1}>문서번호</th>
+                                    <td className={ApprovalCSS.col8}>{appDetail  && appDetail.appCode}</td>
+                                    <th className={ApprovalCSS.col5}>부서</th>
+                                    <td className={ApprovalCSS.col9}>{appDetail && appDetail.member?.department?.deptName}</td>
                                 </tr>
-                                <tr>
-                                    <th className={ApprovalCSS.colm2}>구분</th>
-                                    <td className={ApprovalCSS.colm10}>{appDetail && appDetail.appType}</td>
-                                    <th className={ApprovalCSS.colm6}>상태</th>
-                                    <td className={ApprovalCSS.colm11}>{appDetail && appDetail.appStatus}</td>
-                                    <th className={ApprovalCSS.colm7}>등록일</th>
-                                    <td className={ApprovalCSS.colm12}>{formatDate(appDetail && appDetail.appRegistDate)}</td>
+                                <tr className={ApprovalCSS.accessorTr2}>
+                                    <th className={ApprovalCSS.col2}>구분</th>
+                                    <td className={ApprovalCSS.col10}>{appDetail && appDetail.appType}</td>
+                                    <th className={ApprovalCSS.col6}>상태</th>
+                                    <td className={ApprovalCSS.col11}>{appDetail && appDetail.appStatus}</td>
+                                    <th className={ApprovalCSS.col7}>등록일</th>
+                                    <td className={ApprovalCSS.col12}>{formatDate(appDetail && appDetail.appRegistDate)}</td>
                                 </tr>
-                                <tr>
-                                    <th className={ApprovalCSS.colm3}>제목</th>
-                                    <td className={ApprovalCSS.colm13}>{appDetail && appDetail.appTitle}</td>
+                                <tr className={ApprovalCSS.accessorTr3}>
+                                    <th className={ApprovalCSS.col3}>제목</th>
+                                    <td className={ApprovalCSS.col13}>{appDetail && appDetail.appTitle}</td>
                                 </tr>
-                                <tr>
-                                    <th className={ApprovalCSS.colm4}>내용</th>
-                                    <td className={ApprovalCSS.colm14}>
+                                <tr className={ApprovalCSS.accessorTr4}>
+                                    <th className={ApprovalCSS.col4}>내용</th>
+                                    <td className={ApprovalCSS.col14}>
                                         {appDetail && appDetail.appContent}
                                     </td>
                                 </tr>

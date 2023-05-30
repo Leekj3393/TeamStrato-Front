@@ -416,6 +416,25 @@ color: rgba(74, 72, 72, 0.8);
   font-size: 18px;
 }
 
+.modiFianlModi{
+  background: #E3DBEE;
+  border-radius: 20px;
+  position: absolute;
+  width: 57px;
+  height: 16px;
+  color: #411978;
+  padding: 10px;
+  text-align: center;
+  font-weight: 400;
+  font-size: 15px;
+
+  /* 가운데 정렬을 위한 스타일 */
+  
+  right: 20px;
+  top: 120px;
+  transform: translate(-50%, -50%);
+}
+
 .modiFianl {
   background: #E3DBEE;
   border-radius: 20px;
@@ -544,7 +563,7 @@ td {
   padding: 20px;
   border-radius: 5px;
   width: 700px; /* 모달의 최대 너비를 600px로 지정 */
-  height: 500px;
+  height: 550px;
   text-align: center;
   position: relative;
 }

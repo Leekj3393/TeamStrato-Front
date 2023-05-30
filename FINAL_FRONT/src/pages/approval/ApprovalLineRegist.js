@@ -3,32 +3,49 @@ import ApprovalCSS from './Approval.module.css';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { callAppLine1InsertAPI, callAppLine2InsertAPI,  callAppLine3InsertAPI, callMemberListForAppAPI, callApprovalInfoForAppAPI } from '../../apis/AppLineAPICalls';
-import { callApprovalMemberInfoAPI } from '../../apis/ApprovalAPICalls';
-/* todolist 참고해서 만들어보기 */
+import { callApprovalMemberInfoAPI, callApprovalDetailAPI } from '../../apis/ApprovalAPICalls';
+import { callMemberDetailAPI } from '../../apis/MemberAPICalls';
+
 
 function ApprovalLineRegist() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {regist2} = useSelector(state => state.approvalReducer);
+    const {regist2, appDetail, appMember} = useSelector(state => state.approvalReducer);
     const [expandedItems, setExpandedItems] = useState([]);
     const { accessors } = useSelector(state => state.applineReducer);
     const {appCode} = useParams();
-    const [form, setForm] = useState({approval: appCode});
+    const {memberCode} = useParams();
+    const [form, setForm] = useState({});
     const [select, setSelect] = useState({});
     const [selected, setSelected] = useState({});
-    const {appMember} = useSelector(state => state.approvalReducer);
 
     const [firstAccessor, setFirstAccessor] = useState(null); // 첫 번째 결재선 직원 정보를 저장할 상태 변수
     const [secondAccessor, setSecondAccessor] = useState(null); // 두 번째 결재선 직원 정보를 저장할 상태 변수
     const [finalAccessor, setFinalAccessor] = useState(null); // 세 번째 결재선 직원 정보를 저장할 상태 변수
+
+    /* 선택된 결재선에 대한 조회 */
+    useEffect(() => {
+        dispatch(callMemberDetailAPI({memberCode}));
+    }, []);
 
     const onChangeHandler = (e) => {
         setForm({
             ...form,
             [e.target.name]: e.target.value,
         });
-
+    };
+    const onChangeHandler2 = (e) => {
+        setForm({
+            ...form,
+            [e.target.name]: e.target.value,
+        });
+    };
+    const onChangeHandler3 = (e) => {
+        setForm({
+            ...form,
+            [e.target.name]: e.target.value,
+        });
     };
 
     // 부서에 해당하는 동일 직급 직원 조회
@@ -64,13 +81,6 @@ function ApprovalLineRegist() {
         );
     };
 
-
-    const onClickRemoveSelectedMember = (member) =>  {
-        const removedList = selected.filter(slt => slt.memberCode !== member.memberCode);
-        alert('선택된 결재자를 삭제합니다.');
-        setSelected(removedList);
-    }
-
     const handleItemClick = (dept, jobName) => {
         const item = { dept, jobName };
         const isExpanded = expandedItems.some(
@@ -88,12 +98,14 @@ function ApprovalLineRegist() {
     };
 
     useEffect(() => {
+        dispatch(callApprovalDetailAPI({appCode}));
         dispatch(callMemberListForAppAPI());
         dispatch(callApprovalMemberInfoAPI());
         dispatch(callApprovalInfoForAppAPI({appCode}));
     }, []);
 
-
+/* 서버 api 통신이 성공하면 받은 객체를 regist2 라는 키 값으로 저장한다. 
+    useEffect에서 해당 값이 변화함이 감지 되면 200번 코드임을 확인한 뒤 alert('상신완료!!!! 전자결재 메인화면으로 이동!!');을 띄운다 */
     useEffect(
         () => {
             if(regist2?.status === 200) {
@@ -106,15 +118,16 @@ function ApprovalLineRegist() {
         [regist2]
     );
 
+    /* 결재 요청 버튼 클릭 시 이벤트 */
     const onClickInsertHandler = () => {
-        if(!firstAccessor || !secondAccessor || !finalAccessor) {
-            if(!firstAccessor) {
+        if(!firstAccessor || !secondAccessor || !finalAccessor || !form.memberCode || !form.memberCode || !form.memberCode) {
+            if(!firstAccessor && !form.memberCode) {
                 alert("제1 결재선이 선택되지 않았습니다.");
                 return;
-            } else if(!secondAccessor) {
+            } else if(!secondAccessor && !form.memberCode) {
                 alert("제2 결재선이 선택되지 않았습니다.");
                 return;
-            } else {
+            } else if(!finalAccessor  && !form.memberCode) {
                 alert("최종 결재선이 선택되지 않았습니다.");
                 return;
             }
@@ -151,7 +164,7 @@ function ApprovalLineRegist() {
             ...selected,
             [e.target.name] : e.target.value
         });
-    }
+    };
 
     /* 결재선에서 이름을 클릭하면 삭제되는 클릭 이벤트 */
     const onClickApplineRemoveHandler = (e, member) => {
@@ -196,6 +209,7 @@ function ApprovalLineRegist() {
         });
     }
 
+    // 요거를 어떻게 해야할지 모르겠다@@
     const onClickResetHandler = () => {}
 
 
@@ -282,7 +296,7 @@ function ApprovalLineRegist() {
                              <li>
                                 <div 
                                     className={ApprovalCSS.secondAccessor}
-                                    onChange={onChangeApplineSelectHandler && onChangeHandler}
+                                    onChange={onChangeApplineSelectHandler && onChangeHandler2}
                                     onClick={onClickApplineRemoveHandler2}
                                     name="memberCode"
                                 >
@@ -299,7 +313,7 @@ function ApprovalLineRegist() {
                              <li>
                                 <div 
                                     className={ApprovalCSS.finalAccessor}
-                                    onChange={onChangeApplineSelectHandler && onChangeHandler}
+                                    onChange={onChangeApplineSelectHandler && onChangeHandler3}
                                     onClick={onClickApplineRemoveHandler3}
                                     name="memberCode"
                                 >

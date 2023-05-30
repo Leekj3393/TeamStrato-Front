@@ -1,5 +1,5 @@
 import { getClassInfo, getClassList, getClassView, getClassViewList, postClass, putClass } from "../modules/ClassModule";
-import { getDuty, getEdOther, getEducation, getEducationPhoto, getSafety, postEducation } from "../modules/EducationModule";
+import { getDuty, getEdOther, getEducation, getEducationPhoto, getSafety, postEducation, postEducationPhoto } from "../modules/EducationModule";
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
@@ -226,16 +226,15 @@ export const callEducationPhotoListAPI = ({currentPage = 1}) => {
 
 }
 
-export const callEducationPhotoInsertAPI = ({fileTitle}, formData) => {
+export const callEducationPhotoInsertAPI = (formData) => {
 
-    const requestURL = `${PRE_URL}/photoList?fileTitle=${fileTitle}`;
+    const requestURL = `${PRE_URL}/photoRegist`;
 
     return async (dispatch, getState) => {
 
         const result = await fetch(requestURL, {
             method : 'POST',
             headers : {
-            "Content-Type" : "application/json",
             "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
             },
             body : formData
@@ -243,7 +242,7 @@ export const callEducationPhotoInsertAPI = ({fileTitle}, formData) => {
 
         if(result.status === 200) {
             console.log('callClassViewAPI result', result);
-            dispatch(getEducationPhoto(result));
+            dispatch(postEducationPhoto(result));
         }
 
     }
