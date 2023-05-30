@@ -86,15 +86,70 @@
 }
 
 .todoText0 {
-    padding: 40px 40px 10px 350px;
+    padding: 60px 50px 10px 290px;
     font-family: 'Inria Sans';
     font-style: normal;
     font-weight: 520; /* 폰트 두께를 600으로 지정 */
-    font-size: 24px;
+    font-size: 17px;
     line-height: 36px;
   
-    color: #153ABC;
+    color: #5c5c5c;
 }
+
+.todoTextNotice{
+  padding: 60px 50px 10px 360px;
+  font-family: 'Inria Sans';
+  font-style: normal;
+  font-weight: 520; /* 폰트 두께를 600으로 지정 */
+  font-size: 17px;
+  line-height: 36px;
+
+  color: #5c5c5c;
+}
+
+.more2{
+  position: absolute;
+  width: 30px;
+  height: 32px;
+}
+.more{
+  margin-left: 0px;
+  position: absolute;
+  width: 30px;
+  height: 32px;
+}
+
+.salaryMain1 {
+
+  width: 200px;
+  height: 150px;
+  margin-left: 15px;
+  margin-top: 20px;
+  border-radius: 10px;
+  line-height: 30px;
+  color: #050505;
+}
+.salaryMain2{
+  background-color: rgba(255, 255, 255);
+  margin-top: 30px;
+  height: 50px;
+}
+
+.more3{
+  margin-left: 30px;
+  position: absolute;
+  width: 30px;
+  height: 32px;
+}
+
+.more4{
+  margin-left: 0px;
+  margin-top: -8px;
+  position: absolute;
+  width: 30px;
+  height: 32px;
+}
+
 
 .todoNumber1 {
     padding: 100px 40px 10px 40px;
@@ -415,17 +470,22 @@ color: #3E6039;
   box-shadow: 0 0 15px rgb(228, 234, 250)
 }
 
-.next{
+.next {
   position: absolute;
   width: 960px;
   height: 120px;
   left: 740px;
   top: 820px;
-  background: linear-gradient(266.4deg, rgba(3, 101, 249, 0.2) 3.1%, rgba(0, 0, 0, 0) 52.96%), linear-gradient(93.59deg, rgba(255, 255, 255, 0.2) 7.8%, rgba(0, 0, 0, 0) 52.95%), linear-gradient(267.63deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 51.99%), linear-gradient(90.99deg, #6F88DD 1.62%, rgba(111, 136, 221, 0) 94.99%), linear-gradient(252.49deg, rgba(102, 25, 255, 0.7) 17.51%, rgba(77, 112, 237, 0) 61.99%), rgba(136, 162, 255, 0.7);
+  background: rgba(255, 255, 255, 0.9) url("/Users/kim-yujeong/new0523/TeamStrato-Front/FINAL_FRONT/public/image/하늘.png");
+  background-position-x: 100px;
   border-radius: 10px;
 }
+
+
+
+
 .backMain {
-  background: #f9a6d4;
+  background: #ffffff;
   box-shadow: 0 0 10px rgb(212, 212, 212);
   transform: rotateY(180deg);
 }
@@ -440,7 +500,8 @@ color: #3E6039;
 
 
 .backMain1 {
-  background: #abadff;
+
+  background: #ffffff;
   box-shadow: 0 0 10px rgb(212, 212, 212);
   transform: rotateY(180deg);
 }
@@ -450,7 +511,7 @@ color: #3E6039;
 }
 
 .backMain2 {
-  background: #fca689;
+  background: #ffffff;
   box-shadow: 0 0 10px rgb(212, 212, 212);
   transform: rotateY(180deg);
 }
@@ -460,9 +521,10 @@ color: #3E6039;
 }
 
 .backMain3 {
-  background: #ffd11b;
+  background: #ffffff;
   box-shadow: 0 0 10px rgb(212, 212, 212);
   transform: rotateY(180deg);
+  text-align: center;
 }
 
 .card:hover .backMain3 {
@@ -1292,4 +1354,31 @@ opacity: 0.3;
   line-height: 41px;
   color: #3E6039;
 
+}
+
+
+.name-salry{
+  width: 150px;
+  background: #ececec;
+  border-radius: 10px;
+  text-align: center;
+  font-family: 'Inria Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 31px;
+
+  color: #616161;
+}
+
+
+.memberMain{
+  text-align: center;
+  font-size: 19px;
+  color: #0a0f6e;
+
+}
+
+.salaryMain2{
+  text-align: center;
 }

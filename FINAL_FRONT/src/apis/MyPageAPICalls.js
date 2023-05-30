@@ -486,35 +486,39 @@ export const callMyPageNoticeFileDownAPI = (fileName) => {
 //     }
 //   };
 // }
-
-export const callMemberEmailAPI = (memberName) => {
-  const requestURL = `${PRE_URL}/member/${memberName}/email`;
+export const callMemberEmailAPI = (name) => {
+  const requestURL = `${PRE_URL}/member/${name}/email`;
 
   return async (dispatch, getState) => {
-    const response = await fetch(requestURL, {
-      method: 'GET',
-      headers: {
-        "Content-Type": "application/json",
-      }
-    });
+    try {
+      const response = await fetch(requestURL, {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json",
+        }
+      });
 
-    if (response.ok && response.headers.get('Content-Type').includes('application/json')) {
-      const result = await response.text();
-      console.log('[회원 이메일 찾기] : callMemberEmailAPI result: ', result);
+      if (response.ok && response.headers.get('Content-Type').includes('application/json')) {
+        const result = await response.text();
+        console.log('[회원 이메일 찾기] : callMemberEmailAPI result: ', result);
 
-      // check if result is not empty before dispatching the action
-      if (result) {
-        const parsedResult = JSON.parse(result);
-        dispatch({ type: 'MyPage/GET_MEMBER_EMAIL_MY', payload: { getMemberEmailMy: parsedResult } });
-        return parsedResult;
+        if (result && result.trim().length > 0) { // check if result is not empty
+          const parsedResult = JSON.parse(result);
+          dispatch({ type: 'MyPage/GET_MEMBER_EMAIL_MY', payload: { getMemberEmailMy: parsedResult } });
+          return parsedResult;
+        } else {
+          throw new Error("API returned empty result");
+        }
       } else {
-        console.error("API returned empty result");
+        throw new Error(`Error while calling the API. Status: ${response.status} ${response.statusText}`);
       }
-    } else {
-      console.error("Error while calling the API: ", response);
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
   };
 };
+
 
 
 

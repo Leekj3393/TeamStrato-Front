@@ -129,13 +129,14 @@ const myPageReducer = handleActions(
   {
 
         //이메일 찾기
-        [GET_MEMBER_EMAIL_MY]: (state, { payload }) => {
-          console.log('Reducer GET_MEMBER_EMAIL_MY:', payload);
+        [GET_MEMBER_EMAIL_MY]: (state, { payload: { getMemberEmailMy } }) => {
+          console.log('Reducer GET_MEMBER_EMAIL_MY:', getMemberEmailMy);
           return {
             ...state,
-            getMemberEmailMy: payload,
+            getMemberEmailMy: getMemberEmailMy,
           };
         },
+        
     //도큐 삭제
     [DELETE_REQUEST_CODE]: (state, { payload }) => {
       console.log('Reducer deletRequestCode:', payload);

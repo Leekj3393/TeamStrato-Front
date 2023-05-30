@@ -137,6 +137,7 @@ function Main(props) {
 
     return (
       <div className='next'>
+
         <div className="weather-text">
           <span role="img" aria-label="weather-icon">🌤</span> 오늘의 날씨는 <b>{weatherData.weather[0].description}</b>이에요~
           <span role="img" aria-label="temperature-icon">✨</span> 온도는 <b>{temperatureCelsius}℃</b>입니다.
@@ -194,6 +195,15 @@ useEffect(() => {
   console.log("메인 근태 확인: ",workInfo);
 }, [workInfo]);
 
+//
+
+const formatDateTime = (isoDateTime) => {
+  const dateObj = new Date(isoDateTime);
+  const date = dateObj.toLocaleDateString();
+  const time = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  return `${date}, ${time}`;
+};
+
 
   return (
     <div className={MainCSS}>
@@ -210,8 +220,7 @@ useEffect(() => {
       <div className="todo1" style={{ flex: 1 }}>
         <div className="todoText1">🗓 일정</div>
         
-        <div className="todoText0">3</div>
-        <div className="todoNumber1">뉴뉴뉴</div>
+        <div className="todoText0">더보기 <img className="more" src="/image/더보기.png"/></div>
       </div>
       <div className="All">
       {allsch?.data?.slice(0, 2).map((calendar, index) => (
@@ -235,6 +244,7 @@ useEffect(() => {
       </div>
       <div className="board" style={{ display: "flex", flex: 1 }}>
         <div className="notic" style={{ flex: 1 }}>공지사항</div>
+        <div className="todoTextNotice">더보기<img className="more2" src="/image/더보기.png"/></div>
         <div className="noticNemo"></div>
         <div className="boardMinibar1">
           <div className="notic1">
@@ -308,7 +318,8 @@ useEffect(() => {
                 
 
             <div className="edu">
-                <div class="edutitle1">내가 해야 할 </div>
+                <div class="edutitle1">내가 해야 할  </div>
+                
                 <div class="educircle1"></div><div class="edutitle2">화재 교육</div>
                 <img className="img1" src="/image/image 188.png"/>
                 <div class="ing">진행중</div>
@@ -322,17 +333,19 @@ useEffect(() => {
   </div>
   <div className="card-face backMain">
   {currentMonthSalary ? (
-    <>
-      급여 년 월: {currentMonthSalary.salaryDay}
-      급여지급날짜: {currentMonthSalary.salaleDate}
-      지급액 : {currentMonthSalary.amount}
-      실지급액 : {currentMonthSalary.paymentAmount}
-    </>
+    <div className='salaryMain1'>
+      <div className='memberMain'><u>{currentMonthSalary.member.memberName}</u>님의 급여</div>
+      <span class="name-salry">급여 년 월 :</span> {currentMonthSalary.salaryDay}<br/>
+      <span class="name-salry">지급날짜 : </span>{currentMonthSalary.salaleDate}<br/>
+      <span class="name-salry">지급액 :</span> {currentMonthSalary.amount}<br/>
+      <span class="name-salry">실지급액 :</span> {currentMonthSalary.paymentAmount}
+    </div>
   ) : (
     "이번 달에 조회되는 급여가 없습니다."
   )}
-  <div className='salaryMain'>
-    자세한 급여 확인
+  <div className='salaryMain2'>
+  자세한 급여 확인
+  <img className="more4" src="/image/더보기.png"/> 
   </div>
 </div>
 
@@ -351,7 +364,7 @@ useEffect(() => {
 
 <div className="card itemMain3">
   <div class="card-face front">
-  <img className="cartFront" src="image/shape.png"/>
+  <img className="cartFront" src="/image/shape.png"/>
   <div className='cardName3'>서류 진행 사항</div>
   </div>
   <div class="card-face backMain2">
@@ -361,16 +374,23 @@ useEffect(() => {
 
 <div className="card itemMain4">
   <div class="card-face front">
-  <img className="cartFront" src="image/phantom.png"/>
+  <img className="cartFront" src="/image/phantom.png"/>
   <div className='cardName4'>내 근태 확인</div>
   </div>
   <div class="card-face backMain3">
-  근태 상태: {workInfo[0]?.status || "오늘 근태 정보가 없습니다."}
-  출근: {workInfo[0]?.startTime || "출근 정보를 등록하세요"}
-  퇴근: {workInfo[0]?.endTime || "퇴근 정보를 등록하세요"}
-  외출: {workInfo[0]?.outTime || "외출 정보가 없습니다."}
-  복귀: {workInfo[0]?.returnTime || "복귀 정보가 없습니다."}
+  <div className='memberMain'><u></u>님의 근태</div>
+  근태 상태: {workInfo[0]?.status || "오늘 근태 정보가 없습니다."}<br/>
+  <span class="name-salry">출근 : </span> {workInfo[0]?.startTime ? formatDateTime(workInfo[0].startTime) : "출근 정보를 등록하세요"}<br/>
+  <span class="name-salry">퇴근: </span> {workInfo[0]?.endTime ? formatDateTime(workInfo[0].endTime) : "퇴근 정보를 등록하세요"}<br/>
+  <span class="name-salry">외출: </span>{workInfo[0]?.outTime ? formatDateTime(workInfo[0].outTime) : "외출 정보가 없습니다."}<br/>
+  <span class="name-salry">복귀:</span> {workInfo[0]?.returnTime ? formatDateTime(workInfo[0].returnTime) : "복귀 정보가 없습니다."}
+
+  <div className='salaryMain2'>
+  자세한 근태 확인
+  <img className="more4" src="/image/더보기.png"/> 
   </div>
+  </div>
+
 </div>
 
 
