@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import MainCSS from "../components/main/Main.css";
-import {  callGoToWorkAPI, callEndWorkAPI, callOutWorkAPI, callReturnWorkAPI } from '../apis/MyPageAPICalls';
+import {  callGoToWorkAPI, callEndWorkAPI, callOutWorkAPI, callReturnWorkAPI, callWorkInfoAPI } from '../apis/MyPageAPICalls';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { callNoticeListAPI, callNoticeSearchListAPI } from '../apis/NoticeAPICalls';
+import { callAllSchAPI } from '../apis/CalendarAPICalls';
+import { callMemberSalaryList } from '../apis/SalaryAPICalls';
 
 
 const getDate = (date) => {
@@ -15,8 +17,8 @@ const getDate = (date) => {
   return `${year}-${month}-${day}`
 }
 
-function Main() {
-  //
+function Main(props) {
+  //일정
 
 
   //
@@ -123,6 +125,10 @@ function Main() {
     fetchNewsData();
   }, []);
 
+
+  //날씨
+
+  
   const Weather = () => {
     if (!weatherData) {
       return <div className="loading-text">날씨를 불러오는 중이에요 😚</div>;
@@ -130,7 +136,8 @@ function Main() {
     const temperatureCelsius = (weatherData.main.temp - 273.15).toFixed(2); // 섭씨로 변환 후 소수점 둘째 자리까지 표시
 
     return (
-      <div className="weather" style={{ flex: 1 }}>
+      <div className='next'>
+
         <div className="weather-text">
           <span role="img" aria-label="weather-icon">🌤</span> 오늘의 날씨는 <b>{weatherData.weather[0].description}</b>이에요~
           <span role="img" aria-label="temperature-icon">✨</span> 온도는 <b>{temperatureCelsius}℃</b>입니다.
@@ -139,78 +146,64 @@ function Main() {
     );
   };
 
-  const canvasRef = useRef(null);
-  const imageRef = useRef(null);
-  const snowflakes = useRef([]);
+  //
 
-  const createSnowflake = () => {
-    const x = Math.random() * canvasRef.current.width;
-    const y = 0;
-    const speed = Math.random() * 3 + 2; // Adjust speed here
-    const radius = Math.random() * 4 + 1; // Adjust size here
+  const navigate = useNavigate();
+  const { allsch }  = useSelector(state => state.calendarReducer);
 
-    snowflakes.current.push({ x, y, speed, radius });
+  useEffect(
+    () =>
+    {
+      dispatch(callAllSchAPI({ currentPage: 1 }));
+    },
+    [dispatch]
+  );
+  
+
+  console.log("캘린더 정보  : ",allsch);
+  //
+
+//급여
+const [currentMonthSalary, setCurrentMonthSalary] = useState(null);
+
+const salaryList = useSelector((state) => state.SalaryReducer.list?.content);
+
+useEffect(() => {
+  dispatch(callMemberSalaryList({ currentPage: 1 }));
+}, [dispatch]);
+
+useEffect(() => {
+  console.log("현재 급여 정보: ", salaryList);
+  // 가장 최근의 급여 정보를 가져옵니다
+  if (salaryList && salaryList.length > 0) {
+    setCurrentMonthSalary(salaryList[0]);
+  } else {
+    setCurrentMonthSalary(null);
   }
-
-  // ... previous code ...
-
-  const imageOnLoad = () => {
-    resize();
-
-    // Initialize snowflakes after image has been loaded
-    for (let i = 0; i < 100; i++) {
-      createSnowflake();
-    }
-
-    animate();
-  }
-
-  const drawSnowflake = (snowflake) => {
-    const ctx = canvasRef.current.getContext('2d');
-    ctx.beginPath();
-    ctx.arc(snowflake.x, snowflake.y, snowflake.radius, 0, Math.PI * 2);
-    ctx.fillStyle = 'white';
-    ctx.fill();
-  }
-
-  const updateSnowflake = (snowflake) => {
-    snowflake.y += snowflake.speed;
-
-    if (snowflake.y > canvasRef.current.height) {
-        snowflake.y = 0;
-    }
-  }
-
-  const animate = () => {
-    if (!canvasRef.current) return;
-
-    const ctx = canvasRef.current.getContext('2d');
-    ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-
-    snowflakes.current.forEach((snowflake) => {
-        drawSnowflake(snowflake);
-        updateSnowflake(snowflake);
-    });
-
-    requestAnimationFrame(animate);
-}
+}, [salaryList]);
 
 
-  const resize = () => {
-    canvasRef.current.width = imageRef.current.width;
-    canvasRef.current.height = imageRef.current.height;
-  }
+//근태확인
+const workInfo = useSelector(state => state.myPageReducer.workInfo);
 
-  useEffect(() => {
-    for (let i = 0; i < 100; i++) {
-        createSnowflake();
-    }
-    animate();
-    window.addEventListener('resize', resize);
-    return () => {
-        window.removeEventListener('resize', resize);
-    }
-}, []); // 의존성 배열을 빈 배열로 설정
+// API를 호출하고, workInfo가 업데이트될 때마다 콘솔에 출력합니다.
+useEffect(() => {
+  dispatch(callWorkInfoAPI());
+}, []);
+
+useEffect(() => {
+  console.log("메인 근태 확인: ",workInfo);
+}, [workInfo]);
+
+//
+
+const formatDateTime = (isoDateTime) => {
+  const dateObj = new Date(isoDateTime);
+  const date = dateObj.toLocaleDateString();
+  const time = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  return `${date}, ${time}`;
+};
+
 
   return (
     <div className={MainCSS}>
@@ -218,41 +211,55 @@ function Main() {
         <Weather /> {/* Weather 컴포넌트 사용 */}
         {/* 나머지 코드 */}
       </div>
+      <div className="todo2" style={{ flex: 1 }}>
+      <div className="todoText2">타이틀</div>
+      <div className="todoMinibar1">진행중</div>
+      <div className="todoMinibar2">장치관리</div>
+      <div className="todoMinibar3">물청소</div>
+    </div>
       <div className="todo1" style={{ flex: 1 }}>
-        <div className="todoText1">🗓 할 일</div>
-        <div className="todoText0">3</div>
-        <div className="todoNumber1">뉴뉴뉴</div>
+        <div className="todoText1">🗓 일정</div>
+        
+        <div className="todoText0">더보기 <img className="more" src="/image/더보기.png"/></div>
       </div>
       <div className="All">
-        <div className="todo2" style={{ flex: 1 }}>
-          <div className="todoText2">A 구역 리프트 점검</div>
-          <div className="todoMinibar1">진행중</div>
-          <div className="todoMinibar2">장치관리</div>
-          <div className="todoMinibar3">물청소</div>
-        </div>
-        <div className="todo3" style={{ flex: 1 }}>
-          <div className="todoText3">파트너 관리 교육</div>
-          <div className="todoMinibar4">완료</div>
-          <div className="todoMinibar5">리프트 교육</div>
-          <div className="todoMinibar6">관리</div>
-        </div>
+      {allsch?.data?.slice(0, 2).map((calendar, index) => (
+  <div key={index} className="todo2" style={{ flex: 1 }}>
+    <div className="todoText2">{calendar.title}</div>
+    <div className="todoMinibar1">{calendar.division}</div>
+    <div className="todoMinibar2">{calendar.start}</div>
+    <div className="todoMinibar3">{calendar.end}</div>
+  </div>
+))}
+
+{allsch?.data?.slice(0, 1).map((calendar, index) => (
+  <div className="todo3" style={{ flex: 1 }}>
+    <div className="todoText3">{calendar.title}</div>
+    <div className="todoMinibar4">{calendar.division}</div>
+    <div className="todoMinibar5">{calendar.start}</div>
+    <div className="todoMinibar6">{calendar.end}</div>
+  </div>
+))}
+
       </div>
       <div className="board" style={{ display: "flex", flex: 1 }}>
         <div className="notic" style={{ flex: 1 }}>공지사항</div>
+        <div className="todoTextNotice">더보기<img className="more2" src="/image/더보기.png"/></div>
         <div className="noticNemo"></div>
         <div className="boardMinibar1">
           <div className="notic1">
 
           
           <div className="notic2">
-  {data && data.map((notice) => (  
+  {data && data.slice(0, 5).map((notice) => (  
     <tr key={notice.noticeCode}>
       <th><li>{notice.noticeTitle}</li></th>
       <div className={`circle${notice.noticeCode}`}></div>
-      <th>new!</th>
+      <th></th>
     </tr>
   ))}
 </div>
+
 
 
                                 
@@ -299,7 +306,7 @@ function Main() {
 
 
         </div>
-        <img className="BoradImg" src="image/image 434.png" alt="Board Image" />
+        <img className="BoradImg" src="/image/image 434.png" alt="Board Image" />
       </div>
       <div className="partBoard" style={{ flex: 1 }}>Strato News<div class="animated-news">💡</div></div>
       <div className="att">
@@ -311,53 +318,83 @@ function Main() {
                 
 
             <div className="edu">
-                <div class="edutitle1">내가 해야 할 </div>
+                <div class="edutitle1">내가 해야 할  </div>
+                
                 <div class="educircle1"></div><div class="edutitle2">화재 교육</div>
-                <img className="img1" src="image/image 188.png"/>
+                <img className="img1" src="/image/image 188.png"/>
                 <div class="ing">진행중</div>
                </div>
 
 
-      <div className="news">
-        <div className="mapText">
-           우리 스키장 한 눈에 보기
-        </div>
-       
-      <div id="map-container">
-            <canvas id="snow-canvas" ref={canvasRef}></canvas>
-            <img id="map-image" ref={imageRef} src="image/스키장.png" alt="Map" onLoad={resize} />
-            <div className="info-container" style={{ position: 'absolute', top: '100px', left: '20px' }}>
-                <div className="circle" style={{paddingTop: "5px", boxSizing: "border-box"}}>
-                 
-                ⚪
-                    <div className="info-popup">안전교육장</div>
-                </div>
-            </div>
-            <div className="info-container" style={{ position: 'absolute', top: '250px', left: '150px' }}>
-                <div className="circle" style={{paddingTop: "5px", boxSizing: "border-box"}}>
-                ⚪
-                    <div className="info-popup">스케이트장</div>
-                </div>
-            </div>
-            <div className="info-container" style={{ position: 'absolute', top: '130px', left: '200px' }}>
-                <div className="circle" style={{paddingTop: "5px", boxSizing: "border-box"}}>
-                ⚪
-                    <div className="info-popup">식당</div>
-                </div>
-            </div>
-            <div className="info-container" style={{ position: 'absolute', top: '150px', left: '350px' }}>
-                <div className="circle" style={{paddingTop: "5px", boxSizing: "border-box"}}>
-                    ⚪                <div className="info-popup">장비대여관</div>
-                </div>
-            </div>
-            <div className="info-container" style={{ position: 'absolute', top: '120px', left: '450px' }}>
-                <div className="circle" style={{paddingTop: "5px", boxSizing: "border-box"}}>
-                    ⚪                <div className="info-popup">휴게실</div>
-                </div>
-            </div>
-        </div>
+               <div className="card itemMain1">
+  <div class="card-face front">
+  <img className="cartFront" src="/image/heartca.png"/>
+  <div className='cardName1'>내 급여 확인</div>
+  </div>
+  <div className="card-face backMain">
+  {currentMonthSalary ? (
+    <div className='salaryMain1'>
+      <div className='memberMain'><u>{currentMonthSalary.member.memberName}</u>님의 급여</div>
+      <span class="name-salry">급여 년 월 :</span> {currentMonthSalary.salaryDay}<br/>
+      <span class="name-salry">지급날짜 : </span>{currentMonthSalary.salaleDate}<br/>
+      <span class="name-salry">지급액 :</span> {currentMonthSalary.amount}<br/>
+      <span class="name-salry">실지급액 :</span> {currentMonthSalary.paymentAmount}
+    </div>
+  ) : (
+    "이번 달에 조회되는 급여가 없습니다."
+  )}
+  <div className='salaryMain2'>
+  자세한 급여 확인
+  <img className="more4" src="/image/더보기.png"/> 
+  </div>
+</div>
 
-        </div>
+
+</div>
+
+<div className="card itemMain2">
+  <div class="card-face front">
+  <img className="cartFront" src="/image/astronaut.png"/>
+  <div className='cardName2'>스키장 장비 확인</div>
+  </div>
+  <div class="card-face backMain1">
+    // Your different back content here
+  </div>
+</div>
+
+<div className="card itemMain3">
+  <div class="card-face front">
+  <img className="cartFront" src="/image/shape.png"/>
+  <div className='cardName3'>서류 진행 사항</div>
+  </div>
+  <div class="card-face backMain2">
+    // Your different back content here
+  </div>
+</div>
+
+<div className="card itemMain4">
+  <div class="card-face front">
+  <img className="cartFront" src="/image/phantom.png"/>
+  <div className='cardName4'>내 근태 확인</div>
+  </div>
+  <div class="card-face backMain3">
+  <div className='memberMain'><u></u>님의 근태</div>
+  근태 상태: {workInfo[0]?.status || "오늘 근태 정보가 없습니다."}<br/>
+  <span class="name-salry">출근 : </span> {workInfo[0]?.startTime ? formatDateTime(workInfo[0].startTime) : "출근 정보를 등록하세요"}<br/>
+  <span class="name-salry">퇴근: </span> {workInfo[0]?.endTime ? formatDateTime(workInfo[0].endTime) : "퇴근 정보를 등록하세요"}<br/>
+  <span class="name-salry">외출: </span>{workInfo[0]?.outTime ? formatDateTime(workInfo[0].outTime) : "외출 정보가 없습니다."}<br/>
+  <span class="name-salry">복귀:</span> {workInfo[0]?.returnTime ? formatDateTime(workInfo[0].returnTime) : "복귀 정보가 없습니다."}
+
+  <div className='salaryMain2'>
+  자세한 근태 확인
+  <img className="more4" src="/image/더보기.png"/> 
+  </div>
+  </div>
+
+</div>
+
+
+
     </div>
     );
 

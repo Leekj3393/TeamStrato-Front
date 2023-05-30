@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
-import { callMyPageNoticeDetailAPI, callMyPageNoticeFileAPI, PRE_URL } from '../../apis/MyPageAPICalls';
+import { callMyPageMemberAPI, callMyPageNoticeDetailAPI, callMyPageNoticeFileAPI, PRE_URL } from '../../apis/MyPageAPICalls';
 import PartBoardCSS from "../../components/main/PartBoardCSS.css"
 
 function PartNoticeContent() {
@@ -68,10 +68,22 @@ useEffect(() => {
     });
   };
 
+  const membersData = useSelector(state => state.myPageReducer.membersData);
 
+  console.log("membersData", membersData);
+
+  useEffect(() => {
+    dispatch(callMyPageMemberAPI());
+  }, []);
 
   return (
     <div className={PartBoardCSS}>
+      <div className="partNemo">
+      <div className="circlePart"></div>
+        <div className="partName">
+          
+        {membersData.department.deptName }
+          부서 공지사항</div>
       <div className="PartContent">
         {MyNoticeDetail && MyNoticeDetail.data && (
           <table className="noticeTable">
@@ -103,7 +115,7 @@ useEffect(() => {
               <tr>
                 <td colSpan="8" className="contentCell">
                   <span className="itemLabel">내용<br></br></span>
-                  <span className="itemContent" style={{ height: '500px' }}>
+                  <span className="itemContent" style={{ height: '380px' }}>
   {MyNoticeDetail.data.noticeContent}
 </span>
                 </td>
@@ -114,6 +126,7 @@ useEffect(() => {
           </table>
         )}
       </div>
+    </div>
     </div>
   );
   

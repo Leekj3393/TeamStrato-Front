@@ -132,10 +132,10 @@ const Toast = Swal.mixin({
 
   //여기 한개
   const handleRequestVacation = () => {
-    const today = new Date();  // 오늘 날짜를 가져옵니다. 시간은 무시하기 위해 시, 분, 초, 밀리초를 0으로 설정합니다.
+    const today = new Date();
     today.setHours(0, 0, 0, 0);
   
-    if (!selectedDates1[0] || !selectedDates1[1]) {  // 날짜 선택 확인
+    if (!selectedDates1[0] || !selectedDates1[1]) {
       Toast.fire({
         icon: 'error',
         title: '휴가 신청을 위해 시작일과 종료일을 선택해주세요.'
@@ -144,7 +144,7 @@ const Toast = Swal.mixin({
       return;
     }
   
-    if (selectedDates1[0] < today || selectedDates1[1] < today) {  // 선택한 날짜가 오늘 이후인지 확인
+    if (selectedDates1[0] < today || selectedDates1[1] < today) {
       Toast.fire({
         icon: 'error',
         title: '휴가 신청 시작일과 종료일은 오늘 날짜 이후여야 합니다.'
@@ -153,83 +153,142 @@ const Toast = Swal.mixin({
       return;
     }
   
-    
-    dispatch(callInsertRequestAPI({
-      requestReason: textareaValue,
-      requestStart: getDate(selectedDates1[0]),
-      requestEnd: getDate(selectedDates1[1]),
-      requestType: "휴가 신청"
-    }));
+    Swal.fire({
+      title: '정말 휴가를 신청하시겠습니까?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '예',
+      cancelButtonText: '아니오'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(callInsertRequestAPI({
+          requestReason: textareaValue,
+          requestStart: getDate(selectedDates1[0]),
+          requestEnd: getDate(selectedDates1[1]),
+          requestType: "휴가 신청"
+        }));
+      }
+    });
   };
   
 
 
   const handleRequestLeave = () => {
-    const today = new Date();  // 오늘 날짜를 가져옵니다. 시간은 무시하기 위해 시, 분, 초, 밀리초를 0으로 설정합니다.
+    const today = new Date();
     today.setHours(0, 0, 0, 0);
   
-    if (!selectedDates2[0] || !selectedDates2[1]) {  // 날짜 선택 확인
-      alert('휴가 신청을 위해 시작일과 종료일을 선택해주세요.');
-      return;
-    }
-  
-    if (selectedDates2[0] < today || selectedDates2[1] < today) {  // 선택한 날짜가 오늘 이후인지 확인
-      alert('휴가 신청 시작일과 종료일은 오늘 날짜 이후여야 합니다.');
-      return;
-    }
-    
-    console.log(textareaValue)
-  
-    dispatch(callInsertRequestAPI({
-      requestReason: textareaValue,
-      requestStart: getDate(selectedDates2[0]),
-      requestEnd: getDate(selectedDates2[1]),
-      requestType: "휴직 신청"
-    }))
-  }
-
-
-    const handleWorkOutRequest = () => {
-      const today = new Date();  // 오늘 날짜를 가져옵니다. 시간은 무시하기 위해 시, 분, 초, 밀리초를 0으로 설정합니다.
-      today.setHours(0, 0, 0, 0);
-    
-    
-      if (selectedDates1[0] < today || selectedDates1[1] < today) {  // 선택한 날짜가 오늘 이후인지 확인
-        alert('퇴직 신청 시작일과 종료일은 오늘 날짜 이후여야 합니다.',
-        '아닐 시에 결재관리자가 알아서 회수하겠습니다. ');
-        return;
-      }
-    
-      console.log(textareaValue);
+    if (!selectedDates2[0] || !selectedDates2[1]) {
+      Toast.fire({
+        icon: 'error',
+        title: '휴직 신청을 위해 시작일과 종료일을 선택해주세요.'
+      })
       
-      dispatch(callInsertRequestAPI({
-        requestReason: textareaValue,
-        requestStart: getDate(selectedDates3[0]),
-        requestEnd: getDate(selectedDates3[1]),
-        requestType: "퇴직 신청"
-      }));
-    };
+      return;
+    }
+  
+    if (selectedDates2[0] < today || selectedDates2[1] < today) {
+      Toast.fire({
+        icon: 'error',
+        title: '휴직 신청 시작일과 종료일은 오늘 날짜 이후여야 합니다.'
+      })
+      
+      return;
+    }
+  
+    Swal.fire({
+      title: '정말 휴직을 신청하시겠습니까?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '예',
+      cancelButtonText: '아니오'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(callInsertRequestAPI({
+          requestReason: textareaValue,
+          requestStart: getDate(selectedDates2[0]),
+          requestEnd: getDate(selectedDates2[1]),
+          requestType: "휴직 신청"
+        }));
+      }
+    });
+  };
   
 
-    //삭제 버튼
-    // const handleDelete = async (request) => {
-    //   // 요청을 삭제하는 API를 호출합니다.
-    //   // API 호출에 실패하면 에러 메시지를 표시하고 함수를 종료합니다.
-    //   try {
-    //     await callDeleteRequestAPI(request);
-    //   } catch (error) {
-    //     alert('삭제 실패: ' + error.message);
-    //     return;
-    //   }
+
+  const handleWorkOutRequest = () => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+  
+    if (!selectedDates3[0] || !selectedDates3[1]) {
+      Toast.fire({
+        icon: 'error',
+        title: '퇴직 신청을 위해 시작일과 종료일을 선택해주세요.'
+      })
+      
+      return;
+    }
+  
+    if (selectedDates3[0] < today || selectedDates3[1] < today) {
+      Toast.fire({
+        icon: 'error',
+        title: '퇴직 신청 시작일과 종료일은 오늘 날짜 이후여야 합니다.'
+      })
+      
+      return;
+    }
+  
+    Swal.fire({
+      title: '정말 퇴직을 신청하시겠습니까?',
+      text: " 퇴직을 신청하셨다면 중복으로 신청이 어렵습니다. ",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '예',
+      cancelButtonText: '아니오'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(callInsertRequestAPI({
+          requestReason: textareaValue,
+          requestStart: getDate(selectedDates3[0]),
+          requestEnd: getDate(selectedDates3[1]),
+          requestType: "퇴직 신청"
+        }));
+      }
+    });
+  };
+  
+
     
-    //   // 상태를 업데이트해서 요청 목록을 다시 렌더링합니다.
-    //   setAllRequest(allRequest.filter(r => r !== request));
-    // };
-    
-    const handleDelete = async (requestCode) => {
-      await dispatch(callMyPageRequestDeleteAPI(requestCode));
-      dispatch(callMyPageAllRequestAPI());
-    };
+
+
+  const handleDelete = async (requestCode) => {
+    // 모달을 먼저 닫기
+    closeModal();
+  
+    // 그리고 삭제 확인 알럿 띄우기
+    Swal.fire({
+      title: '정말 삭제하시겠습니까?',
+      showDenyButton: true,
+      confirmButtonText: '예',
+      denyButtonText: '아니오',
+    }).then(async (result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        await dispatch(callMyPageRequestDeleteAPI(requestCode));
+        dispatch(callMyPageAllRequestAPI());
+        Swal.fire('삭제되었습니다!', '', 'success')
+      } else if (result.isDenied) {
+        Swal.fire('삭제가 취소되었습니다!', '', 'info')
+      }
+    })
+  };
+  
+  
     
 
   const handleDateClick1 = (info) => {
