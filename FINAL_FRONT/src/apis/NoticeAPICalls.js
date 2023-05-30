@@ -1,4 +1,4 @@
-import { getNotices, getNotice, postNotice, putNotice } from "../modules/NoticeModule";
+import { getNotices, getNotice, getNoticesDeleted, postNotice, putNotice } from "../modules/NoticeModule";
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
@@ -19,32 +19,48 @@ export const callNoticeListAPI = ({ currentPage = 1}) => {
     }
 }
 
-/* export const callNoticesCountAPI = () => {
+export const callNoticeDeletedListAPI = ({ currentPage = 1}) => {
 
-    const requestURL = `${PRE_URL}/noticesCount`;
+    const requestURL = `${PRE_URL}/deleted/?page=${currentPage}`;
     
     return async (dispatch, getState) => {
 
         const result = await fetch(requestURL).then(response => response.json());
 
         if(result.status === 200) {
-            console.log('[NoticeAPICalls] : callNoticesCountAPI result : ', result);
-            dispatch(getNoticesCount(result));
+            console.log('[NoticeAPICalls] : callNoticeDeltedListAPI result : ', result);
+            dispatch(getNoticesDeleted(result));
         }
     }
-} */
+}
 
 
-export const callNoticeSearchListAPI = ({ search, currentPage = 1}) => {
+export const callNoticeSearchContentListAPI = ({ search, currentPage = 1}) => {
 
-    const requestURL = `${PRE_URL}/notice/search?search=${search}&page=${currentPage}`;
+    const requestURL = `${PRE_URL}/search/content/search?search=${search}&page=${currentPage}`;
 
     return async (dispatch, getState) => {
 
         const result = await fetch(requestURL).then(response => response.json());
 
         if(result.status === 200) {
-            console.log("[NoticeAPICalls] callNoticeSearchListAPI result : ", result);
+            console.log("[NoticeAPICalls] callNoticeSearchContentListAPI result : ", result);
+            dispatch(getNotices(result));
+        }
+    }
+}
+
+
+export const callNoticeSearchTitleListAPI = ({ search, currentPage = 1}) => {
+
+    const requestURL = `${PRE_URL}/search/title/search?search=${search}&page=${currentPage}`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log("[NoticeAPICalls] callNoticeSearchTitleListAPI result : ", result);
             dispatch(getNotices(result));
         }
     }

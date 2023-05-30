@@ -7,7 +7,6 @@ import Document from "./pages/myPage/Document";
 import PartNotice from "./pages/myPage/PartNotice";
 import NoticeSubLayout from "./layouts/NoticeSubLayout";
 import Notice from "./pages/notice/Notice";
-import NoticeManage from "./pages/notice/manage/NoticeManage";
 import ApprovalSubLayout from "./layouts/ApprovalSubLayout";
 import Approval from "./pages/approval/Approval";
 import ApprovalRegist from "./pages/approval/ApprovalRegist";
@@ -57,6 +56,7 @@ import SalaryRegist from "./pages/salary/SalaryRegist";
 import EduDuty from "./pages/education/EduDuty";
 import EduOther from "./pages/education/EduOther";
 import EducationPhoto from "./pages/education/EducationPhoto";
+import NoticeDeletedList from "./pages/notice/NoticeDeletedList";
 
 function App() {
   return (
@@ -91,6 +91,8 @@ function App() {
                 </ProtectedRoute>
               } 
             />
+            <Route path="/notice/search/title/:noticeTitle" element={<Notice/>}/>
+            <Route path="/notice/search/content/:noticeContent" element={<Notice/>}/>
             <Route 
               path="/notice/detail/:noticeCode" 
               element={
@@ -107,10 +109,16 @@ function App() {
                 // </ProtectedRoute>
               } 
             />
+            <Route 
+              path="/notice/deleted" 
+              element={
+                // <ProtectedRoute authCheck={true}>
+                  <NoticeDeletedList />
+                // </ProtectedRoute>
+              } 
+            />
           </Route>
-          <Route path="/notice-manage" element={<NoticeSubLayout />}>
-            <Route index element={<NoticeManage />} />
-          </Route>
+
           <Route path="/approval" element={<ApprovalSubLayout />}>
             <Route index element={<Approval />} />
             <Route path="/approval/regist" element={<ApprovalRegist />} />

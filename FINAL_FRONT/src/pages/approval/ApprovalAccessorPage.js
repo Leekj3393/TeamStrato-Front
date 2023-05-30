@@ -11,7 +11,7 @@ function ApprovalAccessorPage () {
     const navigate = useNavigate();
     const { access, appDetail } = useSelector(state => state.approvalReducer);
     const [formForAccessor, setFormAccessor] = useState();
-
+    const {memberCode} = useParams();
     const params = useParams();
     const appCode = params.appCode;
 
@@ -55,7 +55,7 @@ function ApprovalAccessorPage () {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td className={ApprovalCSS.col05}>{appDetail && appDetail.member?.memberName}</td>
+                                        <td className={ApprovalCSS.col05}>{appDetail && appDetail?.member?.memberName}</td>
                                         <td className={ApprovalCSS.col06}>홍길동{/* {appLine && appLine.member.memberName} */}</td>
                                         <td className={ApprovalCSS.col07}>홍길동{/* {appLine && appLine.member.memberName} */}</td>
                                         <td className={ApprovalCSS.col08}>홍길동{/* {appLine && appLine.member.memberName} */}</td>
@@ -79,7 +79,7 @@ function ApprovalAccessorPage () {
                                     <th className={ApprovalCSS.col1}>문서번호</th>
                                     <td className={ApprovalCSS.col8}>{appDetail  && appDetail.appCode}</td>
                                     <th className={ApprovalCSS.col5}>부서</th>
-                                    <td className={ApprovalCSS.col9}>부서명{/* {appDetail && appDetail.member.department.deptName} */}</td>
+                                    <td className={ApprovalCSS.col9}>{appDetail && appDetail.member?.department?.deptName}</td>
                                 </tr>
                                 <tr className={ApprovalCSS.accessorTr2}>
                                     <th className={ApprovalCSS.col2}>구분</th>

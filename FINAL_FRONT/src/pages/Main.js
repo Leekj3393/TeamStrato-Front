@@ -3,6 +3,8 @@ import axios from 'axios';
 import MainCSS from "../components/main/Main.css";
 import {  callGoToWorkAPI, callEndWorkAPI, callOutWorkAPI, callReturnWorkAPI, callWorkInfoAPI } from '../apis/MyPageAPICalls';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
+import { callNoticeListAPI/* , callNoticeSearchListAPI */ } from '../apis/NoticeAPICalls';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { callNoticeListAPI, callNoticeSearchListAPI } from '../apis/NoticeAPICalls';
 import { callAllSchAPI } from '../apis/CalendarAPICalls';
@@ -38,7 +40,7 @@ function Main(props) {
       () => {
           if(search) {
               /* 검색어에 해당하는 게시글에 대한 요청 */
-              dispatch(callNoticeSearchListAPI({ search, currentPage }));
+              // dispatch(callNoticeSearchListAPI({ search, currentPage }));
           } else {
               /* 모든 게시들에 대한 요청 */
               dispatch(callNoticeListAPI

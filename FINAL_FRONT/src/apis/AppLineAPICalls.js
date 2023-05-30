@@ -1,21 +1,26 @@
-import {getApplineMembers, getApprovalInfo, postAppline} from "../modules/ApplineModule";
+import {getDemandList, getApplineMembers, getApprovalInfo, postAppline} from "../modules/ApplineModule";
+import {getApproval} from "../modules/ApprovalModule";
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
 const PRE_URL = `http://${SERVER_IP}:${SERVER_PORT}/skylift/approval`;
 
+// 결재 요청 조회
+export const callDemandListForAppAPI = () => {}
+
 // 결재선 선택을 위한 결재정보 조회
-export const callApprovalInfoForAppAPI = ({appCode}) => {
+export const callApprovalInfoForAppAPI = () => {
 
-    const reqeustURL = `${PRE_URL}/registedApp/${appCode}`;
-
+    const reqeustURL = `${PRE_URL}/registedApp`;
+    
     return async (dispatch, getState) => {
 
         const result = await fetch(reqeustURL).then(res => res.json());
 
         if(result.status === 200) {
             console.log('callApprovalInfoForAppAPI result : ', result);
-            dispatch(getApprovalInfo(result));
+            
+            dispatch(getApproval(result));
         }
 
     }

@@ -115,28 +115,46 @@
 }
 
 /* 결재문서 목록--------------------------------------------------------------------------------------- */
-.appListTatbleDiv {
+.approvalTitleCircle{
   position: absolute;
-  top: 200px;
+  background: #dfe2fe;
   left: 50px;
-  border-style: solid none solid none;
-  border-width: thick;
-  border-radius: 0%;
-  width: 1100px;
+  top: 15px;
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+}
+.appListTable {
+  position: absolute;
+  left: 45px;
+  top: 130px;
+  width: 1150px;
+  height: min-content;
 }
 
-.appListTatbleDiv th {
-  background-color: transparent;
+.appListTable thead th, tbody {
   text-align: center;
-  border-style: none none solid none;
-  border-width: 1px;
 }
+
+.appListTable tbody td{ cursor: pointer; }
+
+.column1{ width: 66px; }
+.column2{ width: 50px; } 
+.column4 { width: 200px; } 
+.column5 { width: 50px; } 
+.column6 { width: 150px; } 
+.column3 { width: 150px; } 
 
 .appListTableInfo {
+  color: #181e6c;
+  padding: 10px;
+  text-align: left;
   position: absolute;
-  top: 150px;
-  left: 60px;
-  font-size: medium;
+  left: 50px;
+  top: 15px;
+  
+  font-weight: 1000;
+  font-size: 28px;
 }
 
 
@@ -292,17 +310,15 @@
   position: absolute;
   top: 20px;
   left: 350px;
-  /* flex-wrap: wrap; */
 }
 
 .applineInfoBoxDiv {
   position: absolute;
-  top: -90px;
-  left: 850px;
+  top: -270px;
+  left: 550px;
   width:600px;
-  height: 200px;
+  height: 130px;
   /* flex-wrap: wrap; */
-  text-align: center;
   
 }
 
@@ -310,7 +326,8 @@
   position: absolute;
   /* margin-right: 1px; */
   /* flex-wrap: wrap; */
-  height: 150px;
+  text-align: center;
+  height: 100px;
 }
 
 .applineInfoBoxDiv table th {
@@ -327,9 +344,14 @@
 
 .approvalDetailTable {
   position: absolute;
-  top: 350px;
-  height: 450px;
+  top: 150px;
+  left: -300px;
+  height: 500px;
   width: 1100px;
+}
+
+.col14 {
+  overflow: scroll;
 }
 
 /* 결재 승인/반려페이지--------------------------------------------------------------------------------------- */
