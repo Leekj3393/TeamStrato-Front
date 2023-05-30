@@ -3,8 +3,6 @@ import axios from 'axios';
 import MainCSS from "../components/main/Main.css";
 import {  callGoToWorkAPI, callEndWorkAPI, callOutWorkAPI, callReturnWorkAPI, callWorkInfoAPI } from '../apis/MyPageAPICalls';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSearchParams } from 'react-router-dom';
-import { callNoticeListAPI/* , callNoticeSearchListAPI */ } from '../apis/NoticeAPICalls';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { callNoticeListAPI, callNoticeSearchListAPI } from '../apis/NoticeAPICalls';
 import { callAllSchAPI } from '../apis/CalendarAPICalls';
