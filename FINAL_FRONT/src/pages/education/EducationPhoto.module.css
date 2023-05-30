@@ -15,7 +15,7 @@
     margin-top: 20px;
 }
 
-.registBt button{
+.registBt a{
     background-color: #8CCEFD;
     left: 990px;
     top: 50px;
@@ -29,17 +29,30 @@
 
 .Image {
     height: 200px;
-    width: 200px;
+    width: 250px;
     border : 1px solid;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
-.ImgDiv {
-
+.Image img {
+    height: 200px;
+    width: 250px;
 }
+
+.div {
+    margin-left: 100px;
+    margin-top: 60px;
+}
+
 .ImgDiv span {
-    margin-left: 60px;
+    margin-left: 50px;
+    font-size: 20px; 
 }
 
-.Flex {
-    
+.flexDiv {
+    display : flex;
+    flex-wrap : wrap;
 }
+
+
