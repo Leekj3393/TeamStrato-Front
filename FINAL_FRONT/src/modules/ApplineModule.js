@@ -23,7 +23,6 @@ const applineReducer = handleActions(
         [GET_APPLINE_MEMBERS] : (state, {payload}) => ({accessors: payload}),
         [GET_APPROVAL_INFO] : (state, {payload}) => ({approvalInfo: payload}),
         [POST_APPLINE] : (state, {payload}) => ({regist2: payload}),
-        
     }
     , initialState);
 

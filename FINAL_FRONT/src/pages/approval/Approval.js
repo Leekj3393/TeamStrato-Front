@@ -12,6 +12,7 @@ function Approval() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { data, appMember, appDetail } = useSelector((state) => state.approvalReducer);
+    const {demandList} = useSelector((state) => state.applineReducer)
     const memberCode = appMember?.memberCode;
     const approvals = useSelector(state => state.approvalReducer);
     const pageInfo = approvals.pageInfo;

@@ -16,18 +16,7 @@ function ApprovalLineRegist() {
     const { accessors } = useSelector(state => state.applineReducer);
     const {appCode} = useParams();
     const {memberCode} = useParams();
-    const [form, setForm] = useState({
-        approval: {appCode},
-        member: {memberCode}
-    });
-    const [form2, setForm2] = useState({
-        approval: {appCode},
-        member: {memberCode}
-    });
-    const [form3, setForm3] = useState({
-        approval: {appCode},
-        member: {memberCode}
-    });
+    const [form, setForm] = useState({});
     const [select, setSelect] = useState({});
     const [selected, setSelected] = useState({});
 
@@ -47,14 +36,14 @@ function ApprovalLineRegist() {
         });
     };
     const onChangeHandler2 = (e) => {
-        setForm2({
-            ...form2,
+        setForm({
+            ...form,
             [e.target.name]: e.target.value,
         });
     };
     const onChangeHandler3 = (e) => {
-        setForm3({
-            ...form3,
+        setForm({
+            ...form,
             [e.target.name]: e.target.value,
         });
     };
@@ -131,22 +120,22 @@ function ApprovalLineRegist() {
 
     /* 결재 요청 버튼 클릭 시 이벤트 */
     const onClickInsertHandler = () => {
-        if(!firstAccessor || !secondAccessor || !finalAccessor || !form.memberCode || !form2.memberCode || !form3.memberCode) {
+        if(!firstAccessor || !secondAccessor || !finalAccessor || !form.memberCode || !form.memberCode || !form.memberCode) {
             if(!firstAccessor && !form.memberCode) {
                 alert("제1 결재선이 선택되지 않았습니다.");
                 return;
-            } else if(!secondAccessor && !form2.memberCode) {
+            } else if(!secondAccessor && !form.memberCode) {
                 alert("제2 결재선이 선택되지 않았습니다.");
                 return;
-            } else if(!finalAccessor  && !form3.memberCode) {
+            } else if(!finalAccessor  && !form.memberCode) {
                 alert("최종 결재선이 선택되지 않았습니다.");
                 return;
             }
         }
 
         dispatch(callAppLine1InsertAPI(form));
-        dispatch(callAppLine2InsertAPI(form2));
-        dispatch(callAppLine3InsertAPI(form3));
+        dispatch(callAppLine2InsertAPI(form));
+        dispatch(callAppLine3InsertAPI(form));
     }
 
     /* 조직도에서 이름을 클릭하면 결재선으로 선택되는 클릭 이벤트 */
