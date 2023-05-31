@@ -15,7 +15,19 @@ function MemberReigst () {
     const [imageUrl, setImageUrl] = useState('');
     const [form, setForm] = useState({});
     
-    console.log("form", form);
+    /* 오류 메세지 전달을 위한 상태값 세팅 */
+    const [ idMessage, setIdMessage ] = useState('');
+    const [ pwdMessage, setPwdMessage ] = useState('');
+    const [ nameMessage, setNameMessage ] = useState('');
+    const [ resMessage, setResMessage ] = useState('');
+    const [ phoneMessage, setPhoneMessage ] = useState('');
+
+    /* 유효성 검사를 위한 세팅 */
+    const [ isId, setIsId ] = useState(false);
+    const [ isPwd, setIsPwd ] = useState(false);
+    const [ isName, setIsName ] = useState(false);
+    const [ isRes, setIsRes ] = useState(false);
+    const [ isPhone, setIsPhone ] = useState(false);
 
     useEffect (
         () => {
@@ -42,9 +54,9 @@ function MemberReigst () {
     useEffect(
         () => {
             if(regist?.status === 200) {
-                alert('상품 등록이 완료됐습니다.');
+                alert('직원 등록이 완료됐습니다.');
                 navigate('/', {replace : true});
-            }
+            } 
         },
         [regist]
     );
@@ -83,8 +95,104 @@ function MemberReigst () {
         });
     }
 
+    /* 아이디 유효성 검사 */
+    const onChangeId = (e) => {
+        const currentId = e.target.value;
+        const idRegExp = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
+        
+        if(!idRegExp.test(currentId)) {
+            setIdMessage("사용 불가능한 아이디입니다.")
+            setIsId(false);
+        } else {
+            setForm({
+                ...form,
+                [e.target.name] : e.target.value
+            });
+            setIdMessage("사용 가능한 아이디입니다.")
+            setIsId(true);
+            console.log("IsId", isId);
+            console.log("form", form);
+        }
+    }
+
+    /* 비밀번호 유효성 검사 */
+    const onChangePwd = (e) => {
+        const currentPwd = e.target.value;
+        const pwdRegExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+        
+        if(!pwdRegExp.test(currentPwd)) {
+            setPwdMessage("사용 불가능한 비밀번호입니다.")
+            setIsPwd(false);
+        } else {
+            setForm({
+                ...form,
+                [e.target.name] : e.target.value
+            });
+            setPwdMessage("사용 가능한 비밀번호입니다.")
+            setIsPwd(true);
+        }
+    }
+
+    /* 이름 유효성 검사 */
+    const onChangeName = (e) => {
+        const currentName = e.target.value;
+        const nameRegExp = /^[가-힣]+$/;
+        
+        if(!nameRegExp.test(currentName)) {
+            setNameMessage("사용 불가능한 이름입니다.")
+            setIsName(false);
+        } else {
+            setForm({
+                ...form,
+                [e.target.name] : e.target.value
+            });
+            setNameMessage("사용 가능한 이름입니다.")
+            setIsName(true);
+        }
+    }
+
+    /* 주민번호 유효성 검사 */
+    const onChangeResident = (e) => {
+        const currentRes = e.target.value;
+        const ResRegExp = /^\d{13}$/;
+        
+        if(!ResRegExp.test(currentRes)) {
+            setResMessage("사용 불가능한 번호입니다.")
+            setIsRes(false);
+        } else {
+            setForm({
+                ...form,
+                [e.target.name] : e.target.value
+            });
+            setResMessage("사용 가능한 번호입니다.")
+            setIsRes(true);
+        }
+    }
+
+    /* 전화번호 유효성 검사 */
+    const onChangePhone = (e) => {
+        const currentPhone = e.target.value;
+        const PhoneRegExp = /^\d{11}$/;
+        
+        if(!PhoneRegExp.test(currentPhone)) {
+            setPhoneMessage("사용 불가능한 번호입니다.")
+            setIsPhone(false);
+        } else {
+            setForm({
+                ...form,
+                [e.target.name] : e.target.value
+            });
+            setPhoneMessage("사용 가능한 번호입니다.")
+            setIsPhone(true);
+        }
+    }
+
+
     const onClickMemberRegistrationHandler = () => {
         
+        if( isId === true && isPwd === true && isName === true
+            && isRes === true && isPhone === true) {
+
         /* 서버로 전달할 FormData 형태의 객체 설정 */
         const formData = new FormData();
         formData.append("memberId", form.memberId);
@@ -106,6 +214,10 @@ function MemberReigst () {
         }
 
         dispatch(callMemberRegistAPI(formData));
+        } else {
+            alert('직원등록에 실패했습니다.');
+            navigate('/', {replace : true});
+        }
     }
 
     return (
@@ -118,13 +230,11 @@ function MemberReigst () {
             </div>
             <div class="MemberBackground">
                 <div className='MemberRgImg'>
-                    {imageUrl &&
                     <img 
-                        src={imageUrl} 
+                        src={imageUrl && imageUrl} 
                         alt="preview"
                         className="MemberRgPreview"
-                    />
-                    }   
+                    />  
                     <input 
                         style={{display : 'none'}}
                         type="file"
@@ -141,17 +251,28 @@ function MemberReigst () {
                     </button>
                 </div>
                 <div className="memberRgTable">
-                    <table>
+                    <table className="memberRgTables">
                         <tbody>
                             <tr>
                                 <td><label class="memberRgLabel">아이디(이메일)</label></td>
                                 <td>
                                 <input 
                                     name="memberId"
-                                    onChange={onChangeHandler}
+                                    onChange={onChangeId}
                                     placeholder='이메일을 입력해주세요'
                                     class="memberRgInput"
-                                />
+                                />                                                                                           
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td className="memberTest">
+                                    <span 
+                                        className="memberVali"
+                                        style={{ color : isId ? 'green' : 'red'}}
+                                    >
+                                        {idMessage}
+                                    </span>
                                 </td>
                             </tr>
                             <tr>
@@ -159,9 +280,22 @@ function MemberReigst () {
                                 <td>
                                 <input
                                     name="memberPwd"
-                                    onChange={onChangeHandler}
+                                    type="password"
+                                    onChange={onChangePwd}
                                     class="memberRgInput"
+                                    placeholder='영문자+숫자+특수문자 조합 8자리로 입력해주세요'
                                 />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td className="memberTest">
+                                    <span 
+                                        className="memberVali"
+                                        style={{color : isPwd ? 'green' : 'red'}}
+                                    >
+                                        {pwdMessage}
+                                    </span>
                                 </td>
                             </tr>
                             <tr>
@@ -170,8 +304,20 @@ function MemberReigst () {
                                     <input 
                                         name="memberName" 
                                         class="memberRgInput" 
-                                        onChange={onChangeHandler}
+                                        onChange={onChangeName}
+                                        placeholder='이름을 한글로 입력해주세요.'
                                     />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td className="memberTest">
+                                    <span 
+                                        className="memberVali"
+                                        style={{color : isName ? 'green' : 'red'}}
+                                    >
+                                        {nameMessage}
+                                    </span>
                                 </td>
                             </tr>
                             <tr>
@@ -179,15 +325,27 @@ function MemberReigst () {
                                 <td>
                                     <input 
                                     name="residentNo"
-                                    onChange={onChangeHandler} 
+                                    onChange={onChangeResident} 
                                     class="memberRgInput"
+                                    placeholder="'-' 를 제외한 13자리 숫자를 입력해주세요."
                                     />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td className="memberTest">
+                                    <span 
+                                        className="memberVali"
+                                        style={{color : isRes ? 'green' : 'red'}}
+                                    >
+                                        {resMessage}
+                                    </span>
                                 </td>
                             </tr>
                             <tr>
                                 <td><label class="memberRgLabel">부서</label></td>
                                 <td >
-                                    <select  class="memberMdSelect1" name="deptCode" onChange={onChangeDeptHandler}>
+                                    <select  class="memberRgSelect1" name="deptCode" onChange={onChangeDeptHandler}>
                                         <option value="selection">선택</option>
                                         {jobDept?.dept &&
                                             jobDept.dept.map((dept) => (
@@ -229,21 +387,34 @@ function MemberReigst () {
                             </tr>
                             <tr>
                                 <td className="memberRgTd"><label class="memberRgLabel">전화번호</label></td>
-                                <td>
+                                <td className="memberRgUp2">
                                 <input 
                                     name="phone" 
-                                    onChange={onChangeHandler} 
+                                    onChange={onChangePhone} 
                                     class="memberRgInput"
+                                    placeholder="'-' 를 제외한 11자리 번호를 입력해주세요."
                                 />
                                 </td>
                             </tr>
                             <tr>
+                                <td></td>
+                                <td className="memberTest">
+                                    <span 
+                                        className="memberVali"
+                                        style={{color : isPhone ? 'green' : 'red'}}
+                                    >
+                                        {phoneMessage}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td className="memberRgTd"><label class="memberRgLabel">주소</label></td>
-                                <td>
+                                <td className="memberRgUp">
                                 <input 
                                     name="address" 
                                     onChange={onChangeHandler}
-                                    class="memberRgInput"        
+                                    class="memberRgInput"
+                                    placeholder='주소를 입력해주세요'        
                                 />
                                 </td>
                             </tr>
@@ -265,28 +436,31 @@ function MemberReigst () {
                                     name="bankNo" 
                                     onChange={onChangeHandler}
                                     class="memberRgInput"
+                                    placeholder='계좌번호를 적어주세요'
                                 />
                                 </div>
                                 </td>                           
                             </tr>
                             <tr>
                                 <td className="memberRgTd"><label class="memberRgLabel">급여</label></td>
-                                <td>
+                                <td className="memberRgUp">
                                     <input 
                                         name="memberSalary" 
                                         onChange={onChangeHandler} 
                                         class="memberRgInput"
+                                        placeholder='급여를 적어주세요'
                                     />
                                 </td>
                             </tr>
                             <tr>
                                 <td className="memberRgTd" ><label class="memberRgLabel">잔여연차</label></td>
-                                <td>
+                                <td className="memberRgUp">
                                     <input 
                                         name="memberAnnual" 
                                         type="number" 
                                         onChange={onChangeHandler}
                                         class="memberRgInput"
+                                        placeholder='잔여 연차를 적어주세요'
                                     />
                                 </td>
                             </tr>

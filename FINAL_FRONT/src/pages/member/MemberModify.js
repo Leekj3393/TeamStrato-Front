@@ -19,7 +19,15 @@ function MemberModify () {
     const [ form, setForm ] = useState(memberDt);
     const serverUrl = "http://localhost:8001/images/member/"
 
-    // const [ modifyMode, setModifyMode ] = useState(true);
+    /* 오류 메세지 전달을 위한 상태값 세팅 */
+    const [ nameMessage, setNameMessage ] = useState('');
+    const [ resMessage, setResMessage ] = useState('');
+    const [ phoneMessage, setPhoneMessage ] = useState('');
+
+    /* 유효성 검사를 위한 세팅 */
+    const [ isName, setIsName ] = useState(false);
+    const [ isRes, setIsRes ] = useState(false);
+    const [ isPhone, setIsPhone ] = useState(false);
 
     useEffect(
         () => {
@@ -72,8 +80,64 @@ function MemberModify () {
         });
     }
 
+    /* 이름 유효성 검사 */
+    const onChangeName = (e) => {
+        const currentName = e.target.value;
+        const nameRegExp = /^[가-힣]+$/;
+        
+        if(!nameRegExp.test(currentName)) {
+            setNameMessage("사용 불가능한 이름입니다.")
+            setIsName(false);
+        } else {
+            setForm({
+                ...form,
+                [e.target.name] : e.target.value
+            });
+            setNameMessage("사용 가능한 이름입니다.")
+            setIsName(true);
+        }
+    }
+
+    /* 주민번호 유효성 검사 */
+    const onChangeResident = (e) => {
+        const currentRes = e.target.value;
+        const ResRegExp = /^\d{13}$/;
+        
+        if(!ResRegExp.test(currentRes)) {
+            setResMessage("사용 불가능한 번호입니다.")
+            setIsRes(false);
+        } else {
+            setForm({
+                ...form,
+                [e.target.name] : e.target.value
+            });
+            setResMessage("사용 가능한 번호입니다.")
+            setIsRes(true);
+        }
+    }
+
+    /* 전화번호 유효성 검사 */
+    const onChangePhone = (e) => {
+        const currentPhone = e.target.value;
+        const PhoneRegExp = /^\d{11}$/;
+        
+        if(!PhoneRegExp.test(currentPhone)) {
+            setPhoneMessage("사용 불가능한 번호입니다.")
+            setIsPhone(false);
+        } else {
+            setForm({
+                ...form,
+                [e.target.name] : e.target.value
+            });
+            setPhoneMessage("사용 가능한 번호입니다.")
+            setIsPhone(true);
+        }
+    }
+
     const onClickMemberUpdateHandler = () => {
         
+        if( isName === true && isRes === true && isPhone === true) {
+
         /* 서버로 전달할 FormData 형태의 객체 설정 */
         const formData = new FormData();
         formData.append("memberCode", form.memberCode);
@@ -92,7 +156,11 @@ function MemberModify () {
         }
 
         dispatch(callMemberUpdateAPI(formData));
-    }
+        } else {
+            alert('직원 수정에 실패했습니다.')
+            navigate('/', {replace : true})
+        }
+    }   
     return (
         <>
             <>
@@ -135,9 +203,20 @@ function MemberModify () {
                                     <input 
                                         name="memberName" 
                                         placeholder={ memberDt && memberDt.memberName } 
-                                        onChange={onChangeHandler}
+                                        onChange={onChangeName}
                                         class="memberRgInput"    
                                     />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td className="memberTest">
+                                    <span 
+                                        className="memberVali"
+                                        style={{ color : isName ? 'green' : 'red'}}
+                                    >
+                                        {nameMessage}
+                                    </span>
                                 </td>
                             </tr>
                             <tr>
@@ -145,10 +224,21 @@ function MemberModify () {
                                 <td>
                                     <input 
                                     name="residentNo"
-                                    onChange={onChangeHandler}
+                                    onChange={onChangeResident}
                                     placeholder={ memberDt && memberDt.residentNo } 
                                     class="memberMdInput"
                                     />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td className="memberTest">
+                                    <span 
+                                        className="memberVali"
+                                        style={{ color : isRes ? 'green' : 'red'}}
+                                    >
+                                        {resMessage}
+                                    </span>
                                 </td>
                             </tr>
                             <tr>
@@ -182,9 +272,20 @@ function MemberModify () {
                                 <input 
                                     name="phone" 
                                     placeholder={ memberDt && memberDt.phone } 
-                                    onChange={onChangeHandler} 
+                                    onChange={onChangePhone} 
                                     class="memberMdInput"
                                 />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td className="memberTest">
+                                    <span 
+                                        className="memberVali"
+                                        style={{ color : isPhone ? 'green' : 'red'}}
+                                    >
+                                        {phoneMessage}
+                                    </span>
                                 </td>
                             </tr>
                             <tr>
