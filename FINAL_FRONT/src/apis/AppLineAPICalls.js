@@ -103,5 +103,24 @@ export const callAppLine3InsertAPI = (form) => {
     }
 }
 
-//
+// callAppLineInsertAPI
+export const callAppLineInsertAPI = (data) => {
+    const requestURL = `${PRE_URL}/appline-insert`;
+  
+    return async (dispatch, getState) => {
+      const result = await fetch(requestURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + window.localStorage.getItem('accessToken'),
+        },
+        body: JSON.stringify(data),
+      }).then((response) => response.json());
+  
+      if (result.status === 200) {
+        console.log('[ApprovalAPICalls] :  callAppLineInsertAPI result : ', result);
+        dispatch(postAppline(result));
+      }
+    };
+  };
 
