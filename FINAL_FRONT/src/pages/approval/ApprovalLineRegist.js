@@ -16,9 +16,19 @@ function ApprovalLineRegist() {
     const {regist2, accessors } = useSelector(state => state.applineReducer);
     const appCode = appDetail?.appCode;
     const {memberCode} = useParams();
-    const [form, setForm] = useState([]);
-    const [form2, setForm2] = useState([]);
-    const [form3, setForm3] = useState([]);
+    const form = {};
+    form.appLineStatus = 'appWait';
+    form.appPriorYn = 'Y';
+    form.appOrder = 1;
+    const form2 = {};
+    form2.appLineStatus = 'appWait';
+    form2.appPriorYn = 'N';
+    form2.appOrder = 2;
+    const form3 = {};
+    form3.appLineStatus = 'appWait';
+    form3.appPriorYn = 'N';
+    form3.appOrder = 3;
+    
     const [select, setSelect] = useState({});
     const [selected, setSelected] = useState({});
 
@@ -33,64 +43,6 @@ function ApprovalLineRegist() {
         dispatch(callApprovalMemberInfoAPI());
         dispatch(callApprovalInfoForAppAPI({appCode}));
     }, []);
-
-    const onChangeHandler = (e) => {
-        if(appCode){
-            if(e.target.name === 'appLineStatus1' || e.target.name === 'appPriorYn1' || e.target.name === 'appOrder1' ) {
-                setForm({
-                    ...form,
-                    appLineStatus: 'appWait',
-                    appPriorYn: 'Y',
-                    appOrder: '1'
-                });
-            } else {
-                setForm({
-                    ...form,
-                    approval: {appCode : appCode},
-                    member: {memberCode : e.target.value},
-                    
-                });
-            };
-        };
-    };
-    const onChangeHandler2 = (e) => {
-        if(appCode){
-            if(e.target.name === 'appLineStatus2' || e.target.name === 'appPriorYn2' || e.target.name === 'appOrder2' ) {
-                setForm2({
-                    ...form2,
-                    appLineStatus: 'appWait',
-                    appPriorYn: 'N',
-                    appOrder: '2'
-                })
-            } else {
-                setForm2({
-                    ...form2,
-                    approval: {appCode : appCode},
-                    member: {memberCode : e.target.value},
-                    
-                });
-            };
-        };
-    };
-    const onChangeHandler3 = (e) => {
-        if(appCode){
-            if(e.target.name === 'appLineStatus3' || e.target.name === 'appPriorYn3' || e.target.name === 'appOrder3' ) {
-                setForm3({
-                    ...form3,
-                    appLineStatus: 'appWait',
-                    appPriorYn: 'N',
-                    appOrder: '3'
-                })
-            } else {
-                setForm3({
-                    ...form3,
-                    approval: {appCode : appCode},
-                    member: {memberCode : e.target.value},
-                    
-                });
-            };
-        };
-    };
     
     // 부서에 해당하는 동일 직급 직원 조회
     const renderMembers = (dept, jobName) => {
@@ -210,10 +162,19 @@ useEffect(
         // 선택된 직원의 정보를 해당 결재선 상태 변수에 저장
         if (!firstAccessor) {
             setFirstAccessor(member);
+            if(firstAccessor){
+                form.member.memberCode = firstAccessor;
+            }
         } else if (!secondAccessor) {
             setSecondAccessor(member);
+            if(secondAccessor){
+                form3.member.memberCode = secondAccessor;
+            }
         } else {
             setFinalAccessor(member);
+            if(finalAccessor){
+                form3.member.memberCode = finalAccessor;
+            }
         }
 
         setSelect({
@@ -343,15 +304,12 @@ useEffect(
                              <li>
                                 <div 
                                     className={ApprovalCSS.firstAccessor}
-                                    onChange={onChangeApplineSelectHandler && onChangeHandler}
+                                    onChange={onChangeApplineSelectHandler}
                                     onClick={onClickApplineRemoveHandler}
                                     name="memberCode"
                                 >
                                     {firstAccessor?.job?.jobName} - {firstAccessor?.memberName}
                                 </div>
-                                <div onChange={onChangeHandler} name="appOrder1"></div>
-                                <div onChange={onChangeHandler}  name="appLineStatus1"></div>
-                                <div onChange={onChangeHandler}  name="appPriorYn1"></div>
                              </li>
                              )}
                         </ul>
@@ -363,15 +321,12 @@ useEffect(
                              <li>
                                 <div 
                                     className={ApprovalCSS.secondAccessor}
-                                    onChange={onChangeApplineSelectHandler && onChangeHandler2}
+                                    onChange={onChangeApplineSelectHandler}
                                     onClick={onClickApplineRemoveHandler2}
                                     name="memberCode"
                                 >
                                     {secondAccessor?.job?.jobName} - {secondAccessor?.memberName}
                                 </div>
-                                <div onChange={onChangeHandler2}  name="appOrder2"></div>
-                                <div onChange={onChangeHandler2}  name="appLineStatus2"></div>
-                                <div onChange={onChangeHandler2}  name="appPriorYn2"></div>
                              </li>
                              )}
                         </ul>
@@ -383,15 +338,12 @@ useEffect(
                              <li>
                                 <div 
                                     className={ApprovalCSS.finalAccessor}
-                                    onChange={onChangeApplineSelectHandler && onChangeHandler3}
+                                    onChange={onChangeApplineSelectHandler}
                                     onClick={onClickApplineRemoveHandler3}
                                     name="memberCode"
                                 >
                                     {finalAccessor?.job?.jobName} - {finalAccessor?.memberName}
                                 </div>
-                                <div onChange={onChangeHandler3}  name="appOrder3"></div>
-                                <div onChange={onChangeHandler3}  name="appLineStatus3"></div>
-                                <div onChange={onChangeHandler3}  name="appPriorYn3"></div>
                              </li>
                              )} 
                         </ul>
