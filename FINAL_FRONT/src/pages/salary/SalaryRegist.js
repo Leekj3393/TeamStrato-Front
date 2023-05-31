@@ -1,88 +1,63 @@
 import { useEffect, useRef, useState } from 'react';
 import SalaryRegistCSS from './SalaryRegistCSS.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { callEmpSearch } from '../../apis/SalaryAPICalls';
+import { callEmpSchDay, callEmpSearch } from '../../apis/SalaryAPICalls';
 import SalaryRegistDetail from './SalaryRegistDetail';
+import SalaryFindEmpModal from './Modal/SalaryFindEmpModal';
+import { useNavigate } from 'react-router-dom';
 
 function SalaryRegist()
 {
+    const [day , setDay] = useState();
+    const [isModal , setIsModal] = useState(false);
+    const { member } = useSelector((state) => state.SalaryReducer);
     const disptch = useDispatch();
-    const search = useRef();
-    const [member , setMember] = useState(false);
-    const {searchEmp} = useSelector((state) => state.SalaryReducer);
-    const emp = searchEmp?.data;
-    const regex = /[가-힣]/;
-
-    console.log("emp : {}", emp);
-    let timer;
-    const searchMember = () =>
-    {
-        if(timer)
-            clearTimeout(timer);
-        timer = setTimeout(function()
-        {
-            disptch(callEmpSearch(search.current.value))
-        },500);
-    }
 
     useEffect(
         () =>
         {
-            if(searchEmp?.status === 200)
+            if(day != null && member)
             {
-                alert("검색 완료");
-                search.current.value = null;
-
-            }            
+                disptch(callEmpSchDay(day,member.memberCode));
+            }
         },
-        [searchEmp]
+        [day , member]
     )
 
-    const onClikHandler = (member) =>
+    const onClickHandler = () =>
     {
-        setMember(member);
+        setIsModal(true);
     }
 
+    const onChangeHandler = (e) =>
+    {
+       setDay(e.target.value);
+    }
+
+    console.log("member : {}", member);
+    console.log("day : {}", day);
+
     return(
-        <div className="regist-salary">
-            <div className='search-emp'>
-                <p className='searchType'>이름</p>
-                <input 
-                    className='searchValue'
-                    type='text' placeholder='직원명'
-                    ref={search}
-                    onChange={(e) => {
-                        if(regex.test(search.current.value))
-                        {
-                            searchMember();
-                        }
-                    }}
-                />
-            </div>
-            <table className='saMember-Info'>
-                <thead>
-                    <th className='saThCell'>사진</th>
-                    <th className='saThCell'>사번</th>
-                    <th className='saThCell'>이름</th>
-                </thead>
-                <tbody>
-                    {emp && emp?.map((member) => (
-                        <tr 
-                            className='member-Info' 
-                            key={member.memberCode} 
-                            onClick={() => onClikHandler(member) }>
-                            <td className='saTdCell'><img src={member.file?.filePath } alt='당신의 얼굴입니다'/></td>
-                            <td className='saTdCell'><label>{member.memberCode}</label></td>
-                            <td className='saTdCell'><label>{member.memberName}</label></td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            <div className='salaryInfo'>
-                { member && <SalaryRegistDetail key={member.memberCode} member={member}/>}
+            <div>
+                {isModal && <SalaryFindEmpModal 
+                    setIsModal={setIsModal} />}
+            <div className='salary-info'>
+                <div className='member-Info'>
+                    <p className='mP-1'>사원</p>
+                    <p className='mP-2'>{member?.memberCode}</p>
+                    <p className='mP-3'>{member?.memberName}</p>
+                    <button className='member-select' 
+                        onClick={onClickHandler}>조회</button>
+                </div>
+                <hr className='vv-line'/>
+                <div className='year-month'>
+                    <p className='datetext'>기간</p>
+                    <input type='date' name='day' onChange={(e) => onChangeHandler(e) }/>
+                </div>
             </div>
         </div>
     );
+    
 }
 
 export default SalaryRegist;
