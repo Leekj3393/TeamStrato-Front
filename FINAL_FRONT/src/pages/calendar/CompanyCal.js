@@ -14,7 +14,7 @@ function CompanyCal() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loggedInMember = useSelector(state => state.myPageReducer.membersData.memberCode);
-  const deptCode = useSelector(state => state.myPageReducer.membersData.department?.deptCode);
+  const department = useSelector(state => state.myPageReducer.membersData.department);
   const { companycal } = useSelector((state) => state.calendarReducer);
   const [calUpdateModalOpen, setUpdateCalendarModalOpen] = useState(false);
   const [calModalOpen, setCalendarModalOpen] = useState(false);
@@ -26,22 +26,29 @@ function CompanyCal() {
   setIsAdmin(isAdminUser); 추가
 }, []); */
 
+  // const [state, setState] = useState({
+  //   department: department, // 현재 로그인된 객체의 memberCode로 설정
+  //   division: '부서',
+  // });
+
   const [state, setState] = useState({
-    deptCode: deptCode, // 현재 로그인된 객체의 memberCode로 설정
-    division: '부서'
+    memberCode: loggedInMember, // 현재 로그인된 객체의 memberCode로 설정
+    division: "부서",
+    deptCode: department.deptCode,
   });
 
-  console.log("현재 로그인 유저의 부서 deptCode : ", deptCode);
+  console.log("현재 로그인 유저의 부서 deptCode : ", department.deptCode);
+  console.log("현재 로그인 유저의 부서 이름 : ", department.deptName);
   console.log("현재 로그인 유저의 코드 : ", loggedInMember);
 
   useEffect(() => {
-    if (deptCode) { // loggedInMember가 정의되어 있는지 확인
+    if (department) { // loggedInMember가 정의되어 있는지 확인
       setState(prevState => ({
         ...prevState,
-        deptCode: deptCode, // 로그인 정보가 변경되면 dpteCode를 업데이트
+        department: department, // 로그인 정보가 변경되면 dpteCode를 업데이트
       }));
     }
-  }, [deptCode]);
+  }, [department]);
 
   const personalCalClick = () => {
     navigate("/calendar");
@@ -76,7 +83,7 @@ function CompanyCal() {
         {calModalOpen &&
           <div>
             <DeptInsertModal
-              deptCode={deptCode}
+              department={department}
               setCalendarModalOpen={setCalendarModalOpen}
             />
           </div>}
@@ -85,7 +92,7 @@ function CompanyCal() {
         {calUpdateModalOpen &&
           <div>
             <CalendarDeptUpdateModal
-              deptCode={deptCode}
+              department={department}
               setUpdateCalendarModalOpen={setUpdateCalendarModalOpen}
               calendarCode={calendarCode}
             />
@@ -101,12 +108,12 @@ function CompanyCal() {
             defaultView="dayGridMonth"
             plugins={[dayGridPlugin, interactionPlugin]}
             height={770}
-            events={companycal && companycal.map((deptCode) => ({
-              id: deptCode.calendarCode,
-              title: deptCode.title,
-              start: deptCode.start,
-              end: deptCode.end,
-              color: deptCode.color
+            events={companycal && companycal.map((department) => ({
+              id: department.calendarCode,
+              title: department.title,
+              start: department.start,
+              end: department.end,
+              color: department.color
             }))}
             eventClick={isAdmin ? (e) => eventClickHandler(e) : null}
           />

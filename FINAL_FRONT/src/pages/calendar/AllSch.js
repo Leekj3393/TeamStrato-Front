@@ -12,6 +12,7 @@ function AllSch() {
     const { allsch }  = useSelector(state => state.calendarReducer);
     const pageInfo = allsch?.pageInfo;
     const [currentPage, setCurrentPage] = useState(1);
+    const loggedInMember = useSelector(state => state.myPageReducer.membersData.memberCode);
 
 
     useEffect(
