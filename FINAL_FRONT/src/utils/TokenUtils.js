@@ -19,3 +19,15 @@ export function getMemberId() {
     const token = decodeJwt();
     return (token && token.sub);
 }
+
+/* 인사관리자 권한 */
+export function isHr() {
+    const token = decodeJwt();
+    return (token && token.exp * 1000 > Date.now() && token.auth[0]) === 'ROLE_HR'
+}
+
+/* 안전관리자 권한 */
+export function isSafety() {
+    const token = decodeJwt();
+    return (token && token.exp * 1000 > Date.now() && token.auth[0]) === 'ROLE_SAFETY'
+}

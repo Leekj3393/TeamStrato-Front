@@ -1,7 +1,11 @@
 import { Navigate } from "react-router-dom";
-import { isAdmin, isLogin } from "../../utils/TokenUtils";
+import { isAdmin, isHr, isLogin } from "../../utils/TokenUtils";
 
-function ProtectedRoute({ loginCheck, authCheck, children }) {
+function ProtectedRoute({ loginCheck, authCheck, children, hrCheck }) {
+
+    if(hrCheck) {
+        return isHr() ? children : <Navigate to ="/member/regist"/>
+    }
 
     if(authCheck) {
         // 권한 없이 접근 불가 기능 -> props로 authCheck 값을 true로 전달

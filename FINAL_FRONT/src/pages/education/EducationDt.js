@@ -38,6 +38,7 @@ function EducationDt () {
     const onClickEducationUpdateHandler = (edCode, classTime) => {
         dispatch(callEducationUpdateAPI({edCode, classTime}));   
         navigate(`/education`, {replace : true});
+        window.location.reload();
     };
 
     const handleProgress = (progress) => {
@@ -117,8 +118,7 @@ function EducationDt () {
                 </div>
             </div>
             <div className={EduDtCSS.eduDtpro}>
-            <p>* 교육 영상을 모두 시청하여야 교육완료 상태로 변환됩니다. <br/>
-            도중에 시청을 끝내실시 처음부터 다시 재강의 하여야 하니 주의 바랍니다. </p>
+            <p> * 교육 영상을 모두 시청하여야 교육완료 상태로 변환됩니다. </p>
             </div>
             <div className={EduDtCSS.eduDtBt}>
                 <button onClick={ () => onClickEducationUpdateHandler(edCode, classTime)}>수강 완료</button>

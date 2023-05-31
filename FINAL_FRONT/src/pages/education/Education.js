@@ -71,7 +71,7 @@ function Education () {
                                 {Item.classPercent}
                             </span>%
                         </div>
-                        <div className='eduDate'>수강날짜 : {Item.classEnd.split("T")[0]}</div>
+                        <div className='eduDate'>수강날짜 : {Item?.classEnd.split("T")[0]}</div>
                     </div>
                     <hr className='eduListHr'/>
                 </div>
