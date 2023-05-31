@@ -11,9 +11,9 @@ function ApprovalLineRegist() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {regist2, appDetail, appMember} = useSelector(state => state.approvalReducer);
+    const {appDetail, appMember} = useSelector(state => state.approvalReducer);
     const [expandedItems, setExpandedItems] = useState([]);
-    const { accessors } = useSelector(state => state.applineReducer);
+    const {regist2, accessors } = useSelector(state => state.applineReducer);
     const appCode = appDetail?.appCode;
     const {memberCode} = useParams();
     const [form, setForm] = useState([]);
