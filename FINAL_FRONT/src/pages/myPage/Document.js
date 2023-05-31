@@ -173,8 +173,6 @@ const Toast = Swal.mixin({
     });
   };
   
-
-
   const handleRequestLeave = () => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -261,10 +259,6 @@ const Toast = Swal.mixin({
       }
     });
   };
-  
-
-    
-
 
   const handleDelete = async (requestCode) => {
     // 모달을 먼저 닫기
@@ -287,9 +281,6 @@ const Toast = Swal.mixin({
       }
     })
   };
-  
-  
-    
 
   const handleDateClick1 = (info) => {
     handleDateClick(info, setSelectedDates1);
@@ -416,13 +407,11 @@ const Toast = Swal.mixin({
           <div class="content">
           <form>
           <div class="title"><b>퇴직 신청</b></div>
-<div class="modi0" onClick={handleWorkOutRequest}>
-  신청하기
-</div>
-
+        <div class="modi0" onClick={handleWorkOutRequest}>
+          신청하기
+        </div>
               
         <label htmlFor="name" style={{ marginLeft: "40px",padding: "10px", fontSize: "20px" }}>신청인 이름: <b>{membersData ? membersData.memberName : ''}</b> </label><br/><br/>
-    
 
         <label htmlFor="reason" style={{ marginLeft: "50px", fontSize: "20px" }}>신청사유: 퇴직 신청 선택 날짜는 해당 날짜를 두번 똑같이 눌러주세요</label><br/><br/>
 
@@ -442,15 +431,15 @@ const Toast = Swal.mixin({
   </span>
 )}
 </div>
-<div style={{ width: "400px", height: "500px", position: "relative", left: "800px", top: "-500px" }}>
-<FullCalendar
-ref={calendarRef3}
-plugins={[dayGridPlugin, interactionPlugin]}
-selectable={false}
-height="500px"
-initialView="dayGridMonth"
-/>
-</div>
+        <div style={{ width: "400px", height: "500px", position: "relative", left: "800px", top: "-500px" }}>
+        <FullCalendar
+        ref={calendarRef3}
+        plugins={[dayGridPlugin, interactionPlugin]}
+        selectable={false}
+        height="500px"
+        initialView="dayGridMonth"
+        />
+        </div>
           </div>
         </div>
         <div>
@@ -515,10 +504,7 @@ initialView="dayGridMonth"
     </div>
   </div>
 )}
-
-
 </div>
-
       </body>
     </div>
 );

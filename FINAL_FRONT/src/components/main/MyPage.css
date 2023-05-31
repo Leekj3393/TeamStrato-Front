@@ -17,6 +17,52 @@
   background-color: #ffffff;
   border-radius: 15px;
 }
+.AllmemberAdd{
+  background: #E3DBEE;
+  border-radius: 20px;
+  text-align: center;
+  width: 307px;
+  height: 40px;
+  margin-left: 250px;
+  color: #411978;
+  font-weight: 400;
+  font-size: 30px;
+}
+
+.modal-content {
+  max-height: 400px; /* 모달 내용의 최대 높이 설정 */
+  overflow-y: auto; /* 세로 스크롤바 표시 */
+}
+
+
+.custom-button {
+  background-color: #0a0a0a; /* 배경색 */
+  color: white; /* 글자색 */
+  padding: 5px 5px; /* 여백 */
+  border: none; /* 테두리 제거 */
+  cursor: pointer; /* 커서 모양 변경 */
+  font-size: 16px; /* 글자 크기 */
+  margin-right: 4px; /* 오른쪽 여백 설정 */
+}
+
+.custom-button:hover {
+  color: #0a0a0a;
+  background-color: #c2c2c2; /* 호버 시 배경색 변경 */
+}
+
+.custom-button:last-child {
+  margin-right: 0; /* 마지막 버튼의 오른쪽 여백 제거 */
+}
+
+
+
+
+.MyPageSetting{
+  position: absolute;
+  left: 1160px;
+  top: 25px;
+  width: 60px;
+}
 
 
 
@@ -629,3 +675,6 @@ td {
 }
 
 
+.change-width {
+  width:150px; /* 원하는 너비 값으로 설정 */
+}

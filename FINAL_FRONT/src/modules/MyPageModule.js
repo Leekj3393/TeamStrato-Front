@@ -14,7 +14,8 @@ const initialState = {
   getAllRequest: '',
   getMyNotice: '',
   deletRequestCode:'' ,
-  getMemberEmailMy:''
+  getMemberEmailMy:'',
+  workInfoAll:''
   
 };
 
@@ -34,11 +35,11 @@ const POST_END_WORK = 'MyPage/END_WORK';
 const POST_OUT_WORK = 'MyPage/OUT_WORK';
 const POST_RETURN_WORK = 'MyPage/RETURN_WORK';
 const GET_INFO_WORK ='MyPage/GET_INFO_WORK';
-
+const GET_INFO_WORK_ALL ='MyPage/GET_INFO_WORK_ALL';
 
 const POST_INSERT_REQUEST = 'MyPage/INSERT_REQUEST';
 
-//
+//이메일 검색
 const GET_MEMBER_EMAIL_MY = 'MyPage/GET_MEMBER_EMAIL_MY';
 
 
@@ -50,6 +51,11 @@ export const data = createActions({
     return ({ getMemberEmailMy })
   }, 
 
+  //모든 사람의 근태 정보 조회
+  [GET_INFO_WORK_ALL]: (workInfoAll) => {
+    console.log("모든 사람의 근태조회",workInfoAll)
+    return ({ workInfoAll })
+  }, 
 
 
   [GET_ALL_REQUEST]: (getAllRequest) => {
@@ -123,6 +129,9 @@ export const getMyNotice = (deletRequestCode) => {
     payload: deletRequestCode,
   };
 };
+
+//결근
+
 
 // Reducer
 const myPageReducer = handleActions(
@@ -199,6 +208,14 @@ const myPageReducer = handleActions(
       return{
         ...state,
         workInfo,
+      }
+    },
+
+    //모든 사람의 출석 조회
+    [GET_INFO_WORK_ALL] :(state, {payload : { workInfoAll}}) =>{
+      return{
+        ...state,
+        workInfoAll,
       }
     },
   

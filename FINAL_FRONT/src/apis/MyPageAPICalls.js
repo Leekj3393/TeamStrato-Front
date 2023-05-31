@@ -1,6 +1,5 @@
 import { getMyNotice } from "../modules/MyPageNoticeModule";
 import axios from 'axios';
-import { useState } from 'react';
 import Swal from 'sweetalert2';
 
 
@@ -42,7 +41,6 @@ export const callMyPageMemberAPI = () => {
         "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
       }
     });
-
     const result = await response.json();
 
     if (response.status === 200) {
@@ -63,12 +61,9 @@ export const callDocuMember = () => {
         console.log('memberRequest:', result); // 로그 추가
         dispatch({ type: 'request/GET_DOCU_REQUEST_MEMBER', payload: { memberRequest: result } });
       }
-
-      // 여기서 Promise를 반환합니다.
       return Promise.resolve();
     } catch (error) {
       console.error('Failed to fetch member list:', error);
-      // 에러 발생 시에도 Promise를 반환합니다.
       return Promise.reject(error);
     }
   };
@@ -209,8 +204,6 @@ export const updateMemberAPI = (updatedData) => {
   };
 };
 
-
-// 리퀘스트 전체 조회
 // 리퀘스트 전체 조회
 export const callMyPageAllRequestAPI = () => {
   const requestURL = `${PRE_URL}/request`;
@@ -301,10 +294,7 @@ const Toast = Swal.mixin({
 };
 
 
-
-
-
-//출근한 정보 얻어오기
+//오늘 회원이 출근한 정보 얻어오기
 export const callWorkInfoAPI = () => {
   const requestURL = `${PRE_URL}/workToday`;
 
@@ -334,9 +324,38 @@ export const callWorkInfoAPI = () => {
   };
 };
 
+// 모든 회원의 출근 정보 불러오기
+export const callWorkInfoAllAPI = () => {
+  const requestURL = `${PRE_URL}/workInfo`;
+
+  return async (dispatch, getState) => {
+    try {
+      const response = await fetch(requestURL, {
+        method: 'GET',
+        headers: {
+          "Content-Type" : "application/json",
+          "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+        }
+      });
+
+      if (response.status === 200) {
+        // result는 fetch 호출에서 반환된 응답의 내용을 담는 변수입니다.
+        const result = await response.json();
+
+        // workInfo는 result를 파싱한 결과를 담는 변수입니다.
+        const workInfoAll = result; //이 부분은 실제 응답 형식에 맞게 수정해야 합니다.
+
+        // 넘어온 시간값 넘기기
+        dispatch({type: 'MyPage/GET_INFO_WORK_ALL', payload: {workInfoAll}});
+      }
+    } catch (error) {
+      console.error('Failed to fetch member list:', error);
+    }
+  };
+};
+
 
 //게시판
-
 export const callMyPageNoticeAPI = ({ currentPage = 1}) => {
 
   const requestURL = `${PRE_URL}/notice/part?page=${currentPage}`;
@@ -523,8 +542,100 @@ export const callMemberEmailAPI = (name) => {
 
 
 
-//
 
+
+
+//근태 결근으로 하기
+export const callMyPageAttendanceAbsenteeismAPI = (attendanceCode) => {
+  const requestURL = `${PRE_URL}/workInfo/Absenteeism/${attendanceCode}`;
+
+  return async (dispatch, getState) => {
+    const response = await fetch(requestURL, {
+      method : 'POST',
+      headers : {
+        "Content-Type" : "application/json",
+      }
+    });
+
+    const result = await response.json();
+    console.log('[회원 근태 결근] : callMyPageAttendanceAbsenteeismAPI : ',result);
+
+    if (response.status === 200) {
+      dispatch({ type: 'MyPage/POST_ABSENTEEISM', payload: { AbsenteeismCode: result } });
+      return result;
+    }
+  };
+}
+
+
+//근태 지각으로 하기
+export const callMyPageAttendanceLazyAPI = (attendanceCode) => {
+  const requestURL = `${PRE_URL}/workInfo/lazyTime/${attendanceCode}`;
+
+  return async (dispatch, getState) => {
+    const response = await fetch(requestURL, {
+      method : 'POST',
+      headers : {
+        "Content-Type" : "application/json",
+      }
+    });
+
+    const result = await response.json();
+    console.log('[회원 근태 지각] : callMyPageAttendanceLazyAPI : ',result);
+
+    if (response.status === 200) {
+      dispatch({ type: 'MyPage/POST_LAZYTIME', payload: { attendanceCode: result } });
+      return result;
+    }
+    
+  };
+}
+
+//근태 관리자 퇴근으로 하기
+export const callMyPagemanagerEndTimeAPI = (attendanceCode) => {
+  const requestURL = `${PRE_URL}/workInfo/managerEndTime/${attendanceCode}`;
+
+  return async (dispatch, getState) => {
+    const response = await fetch(requestURL, {
+      method : 'POST',
+      headers : {
+        "Content-Type" : "application/json",
+      }
+    });
+
+    const result = await response.json();
+    console.log('[회원 관리자 권한 퇴근] : callMyPagemanagerEndTimeAPI : ',result);
+
+    if (response.status === 200) {
+      dispatch({ type: 'MyPage/POST_MANAGERENDTIME', payload: { attendanceCode: result } });
+      return result;
+    }
+    
+  };
+}
+
+//근태 관리자 퇴근으로 하기
+export const callMyPagDeleteTimeAPI = (attendanceCode) => {
+  const requestURL = `${PRE_URL}/workInfo/deleteTime/${attendanceCode}`;
+
+  return async (dispatch, getState) => {
+    const response = await fetch(requestURL, {
+      method : 'DELETE',
+      headers : {
+        "Content-Type" : "application/json",
+      }
+    });
+
+    const result = await response.json();
+    console.log('[회원 삭제] : callMyPagDeleteTimeAPI : ',result);
+
+    if (response.status === 200) {
+      dispatch({ type: 'MyPage/DELETE_DELETETIME', payload: { attendanceCode: result } });
+      return result;
+    }
+    
+  };
+}
 
 
 

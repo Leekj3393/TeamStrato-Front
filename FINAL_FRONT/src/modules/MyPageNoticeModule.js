@@ -75,7 +75,7 @@ const myPageNoticeReducer = handleActions(
         console.log('Reducer MyNoticeDetail:', payload);
         return {
           ...state,
-          MyNoticeDetail: payload.MyNoticeDetail,  // 여기를 수정합니다.
+          MyNoticeDetail: payload.MyNoticeDetail,
         };
       },
       
