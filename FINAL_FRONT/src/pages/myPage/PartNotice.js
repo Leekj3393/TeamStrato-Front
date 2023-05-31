@@ -65,18 +65,7 @@ function NoticePart() {
           
         {membersData.department.deptName }
           부서 공지사항</div>
-        <div className="partInput">
-          <input
-            className="PartInput"
-            type="text"
-            // value={searchText}
-            placeholder="검색어를 입력하세요"
-            style={{ width: '250px', height: '25px' }}
-          />
-          <div className="searchPart" onClick={handleSearch}>
-            검색
-          </div>
-        </div>
+
       </div>
 
       <table className="boardTable">

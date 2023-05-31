@@ -4,8 +4,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import html2canvas from 'html2canvas';
 import { callMemberEmailAPI, callMyPageMemberAPI } from '../../apis/MyPageAPICalls';
+import Swal from 'sweetalert2';
 
 function MemberSubNavbar() {
+    //알러트 창
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'center',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', () => Swal.stopTimer())
+        toast.addEventListener('mouseleave', () => Swal.resumeTimer())
+    }
+    })
+    //
 
     //멤버 정보
     const dispatch = useDispatch();
@@ -22,10 +36,31 @@ function MemberSubNavbar() {
     const onHoverCard = () => setActiveItem('card');
     const onHoverLeave = () => setActiveItem(null);
 
+    //로그아웃
+    // const logOutHandler = useCallback(() => {
+    //     window.localStorage.removeItem('accessToken');
+    //     navigate("/login");
+    // }, [navigate]);
+    //
     const logOutHandler = useCallback(() => {
-        window.localStorage.removeItem('accessToken');
-        navigate("/login");
+        Swal.fire({
+            title: '정말 로그아웃하시겠습니까?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '예',
+            cancelButtonText: '아니오'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.localStorage.removeItem('accessToken');
+                navigate("/login");
+            }
+        });
     }, [navigate]);
+    
+
+
 
     const titleAllMemberRef = useRef(null);  // Create a new reference
 
@@ -35,26 +70,15 @@ function MemberSubNavbar() {
                 const imgData = canvas.toDataURL('image/png');
                 const link = document.createElement('a');
                 link.href = imgData;
-                link.download = 'my-card-all-content.png';
+                link.download = '명함.png';
                 link.click();
             });
         }
     };
 
-
-
-    //
-
-    //
-
-    //... other code ...
-
-
-    // Add these states for email search
     const [searchEmail, setSearchEmail] = useState('');
     const [emailResult, setEmailResult] = useState(null);
 
-    // Add this function to call the API when clicking the Search button
     const searchEmailHandler = async () => {
         if (!searchEmail) {
             console.error("No email entered for search");
