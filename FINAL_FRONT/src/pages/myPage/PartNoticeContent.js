@@ -92,7 +92,7 @@ useEffect(() => {
                 <td colSpan="2" className="titleCell">
                   <span className="itemLabel">{MyNoticeDetail.data.noticeType}부서 직원들께 알립니다!</span>
   <img src="/image/kakao내보내기.png" alt="카카오톡 이미지" className="kakaoIcon" onClick={sendKakaoLink}/>
-                  <div className="backPartNotice" onClick={() => navigate(-1)}>뒤로가기 <img src="/image/kakao내보내기.png" alt="카카오톡 이미지" className="kakaoIcon" onClick={sendKakaoLink}/></div>
+                  <div className="backPartNotice" onClick={() => navigate(-1)}>뒤로가기</div>
                   <span className="itemContent noticeTitle">📢 {MyNoticeDetail.data.noticeTitle}</span>
 
                 </td>
