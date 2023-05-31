@@ -44,3 +44,18 @@ export const callEmpSearch = (search) =>
         }
     }
 }
+
+export const callEmpSchDay = (day , memberCode) =>
+{
+    const requestURL = `${PRE_URL}/attendance/${memberCode}?day=${day}`;
+
+    return async(dispatch , getState) =>
+    {
+        const result = await fetch(requestURL).then(resp => resp.json());
+        if(result.status === 200)
+        {
+            console.log("[callEmpSchDay] callEmpSchDay : {}" , result);
+            dispatch(getSearch(result));
+        }
+    }
+}
