@@ -17,14 +17,19 @@ function ApprovalLineRegist() {
     const appCode = appDetail?.appCode;
     const {memberCode} = useParams();
     const form = {};
+    form.member = {memberCode};
     form.appLineStatus = 'appWait';
     form.appPriorYn = 'Y';
     form.appOrder = 1;
+    
     const form2 = {};
+    form2.member = {memberCode};
     form2.appLineStatus = 'appWait';
     form2.appPriorYn = 'N';
     form2.appOrder = 2;
+
     const form3 = {};
+    form3.member = {memberCode};
     form3.appLineStatus = 'appWait';
     form3.appPriorYn = 'N';
     form3.appOrder = 3;
@@ -43,6 +48,8 @@ function ApprovalLineRegist() {
         dispatch(callApprovalMemberInfoAPI());
         dispatch(callApprovalInfoForAppAPI({appCode}));
     }, []);
+
+
     
     // 부서에 해당하는 동일 직급 직원 조회
     const renderMembers = (dept, jobName) => {
@@ -76,6 +83,43 @@ function ApprovalLineRegist() {
         </ul>
         );
     };
+
+    // 1. 가장 최근에 'tbl_approval'에 저장된 데이터의 값을 가져와서 form 객체에 저장
+    useEffect(() => {
+        dispatch(callApprovalDetailAPI({ appCode }));
+        dispatch(callMemberDetailAPI({ memberCode }));
+        dispatch(callApprovalInfoForAppAPI({ appCode }));
+    }, []);
+
+    useEffect(() => {
+        if (appDetail && appMember) {
+          form.member.memberCode = appMember.memberCode;
+          // form의 나머지 컬럼들에 고정된 값을 할당
+          form.appLineStatus = 'appWait';
+          form.appPriorYn = 'Y';
+          form.appOrder = 1;
+        }
+    }, [appDetail, appMember]);
+
+    useEffect(() => {
+        if (appDetail && appMember) {
+          form2.member.memberCode = appMember.memberCode;
+          // form의 나머지 컬럼들에 고정된 값을 할당
+          form2.appLineStatus = 'appWait';
+          form2.appPriorYn = 'N';
+          form2.appOrder = 2;
+        }
+    }, [appDetail, appMember]);
+
+    useEffect(() => {
+        if (appDetail && appMember) {
+          form3.member.memberCode = appMember.memberCode;
+          // form의 나머지 컬럼들에 고정된 값을 할당
+          form3.appLineStatus = 'appWait';
+          form3.appPriorYn = 'N';
+          form3.appOrder = 3;
+        }
+    }, [appDetail, appMember]);
     
     const handleItemClick = (dept, jobName) => {
         const item = { dept, jobName };
@@ -117,17 +161,17 @@ useEffect(
     /* 결재 요청 버튼 클릭 시 이벤트 */
     const onClickInsertHandler = () => {
         if (!firstAccessor || !secondAccessor || !finalAccessor 
-            || !form?.memberCode || !form?.appPriorYn || !form?.appLineStatus
-            || !form2?.memberCode || !form2?.appPriorYn || !form2?.appLineStatus
-            || !form3?.memberCode || !form3?.appPriorYn || !form3?.appLineStatus
+            || !form.member?.memberCode || !form.appPriorYn || !form.appLineStatus
+            || !form2.member?.memberCode || !form2.appPriorYn || !form2.appLineStatus
+            || !form3.member?.memberCode || !form3.appPriorYn || !form3.appLineStatus
             ) {
             if (!firstAccessor && !form?.memberCode) {
                 alert("제1 결재선이 선택되지 않았습니다.");
                 return;
-            } else if (!secondAccessor && !form2?.memberCode) {
+            } else if (!secondAccessor && !form2.member.memberCode) {
                 alert("제2 결재선이 선택되지 않았습니다.");
                 return;
-            } else if (!finalAccessor && !form3?.memberCode) {
+            } else if (!finalAccessor && !form3.member.memberCode) {
                 alert("최종 결재선이 선택되지 않았습니다.");
                 return;
             } else if ( !form?.appLineStatus) {
@@ -144,14 +188,35 @@ useEffect(
                 return;
             }
         }
+
+        // form에 선택된 멤버의 정보 저장
+        form.member.memberCode = firstAccessor?.memberCode;
+        // form의 나머지 컬럼들에 고정된 값을 할당
+        form.appLineStatus = 'appWait';
+        form.appPriorYn = 'Y';
+        form.appOrder = 1;
+
+        // form2에 선택된 멤버의 정보 저장
+        form2.member.memberCode = secondAccessor?.memberCode;
+        // form2의 나머지 컬럼들에 고정된 값을 할당
+        form2.appLineStatus = 'appWait';
+        form2.appPriorYn = 'N';
+        form2.appOrder = 2;
+
+        // form3에 선택된 멤버의 정보 저장
+        form3.member.memberCode = finalAccessor?.memberCode;
+        // form3의 나머지 컬럼들에 고정.
+        form3.appLineStatus = 'appWait';
+        form3.appPriorYn = 'N';
+        form3.appOrder = 3;
+
+        console.log('form:', form);
+        console.log('form2:', form2);
+        console.log('form3:', form3);    
     
-        const combinedData = {
-            form: form,
-            form2: form2,
-            form3: form3,
-        };
-    
-        dispatch(callAppLineInsertAPI(combinedData));
+        dispatch(callAppLineInsertAPI(form, 1));
+        dispatch(callAppLineInsertAPI(form2, 2));
+        dispatch(callAppLineInsertAPI(form3, 3));
     };
 
     /* 조직도에서 이름을 클릭하면 결재선으로 선택되는 클릭 이벤트 */

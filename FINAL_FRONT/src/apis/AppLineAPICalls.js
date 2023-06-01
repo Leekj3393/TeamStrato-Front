@@ -48,6 +48,10 @@ export const callMemberListForAppAPI = () => {
 export const callAppLine1InsertAPI = (data) => {
     const requestURL = `${PRE_URL}/appline-insert`;
   
+    // memberCode 추가
+    data.memberCode = data.member.memberCode;
+    delete data.member;
+
     return async (dispatch, getState) => {
       const result = await fetch(requestURL, {
         method: 'POST',
@@ -104,7 +108,7 @@ export const callAppLine3InsertAPI = (data) => {
 }
 
 // callAppLineInsertAPI
-export const callAppLineInsertAPI = (data) => {
+export const callAppLineInsertAPI = (data, order) => {
     const requestURL = `${PRE_URL}/appline-insert`;
   
     return async (dispatch, getState) => {
@@ -114,7 +118,7 @@ export const callAppLineInsertAPI = (data) => {
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + window.localStorage.getItem('accessToken'),
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(data, order),
       }).then((response) => response.json());
   
       if (result.status === 200) {
