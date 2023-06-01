@@ -45,62 +45,62 @@ export const callMemberListForAppAPI = () => {
 }
 
 // 결재선 등록
-export const callAppLine1InsertAPI = (form) => {
-    const requestURL = `${PRE_URL}/appline1`;
-
+export const callAppLine1InsertAPI = (data) => {
+    const requestURL = `${PRE_URL}/appline-insert`;
+  
     return async (dispatch, getState) => {
-        const result = await fetch(requestURL, {
-            method: 'POST',
-            headers : {
-                "Content-Type" : "application/json",
-                "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
-            },
-            body : JSON.stringify(form),
-        }).then(response => response.json());
-
-        if(result.status === 200) {
-            console.log('[ApprovalAPICalls] :  callAppLineInsertAPI result : ', result);
-            dispatch(postAppline(result));
-        }
-    }
+      const result = await fetch(requestURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + window.localStorage.getItem('accessToken'),
+        },
+        body: JSON.stringify(data),
+      }).then((response) => response.json());
+  
+      if (result.status === 200) {
+        console.log('[ApprovalAPICalls] :  callAppLineInsertAPI result : ', result);
+        dispatch(postAppline(result));
+      }
+    };
 }
-export const callAppLine2InsertAPI = (form) => {
-    const requestURL = `${PRE_URL}/appline2`;
-
+export const callAppLine2InsertAPI = (data) => {
+    const requestURL = `${PRE_URL}/appline-insert`;
+  
     return async (dispatch, getState) => {
-        const result = await fetch(requestURL, {
-            method: 'POST',
-            headers : {
-                "Content-Type" : "application/json",
-                "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
-            },
-            body : JSON.stringify(form),
-        }).then(response => response.json());
-
-        if(result.status === 200) {
-            console.log('[ApprovalAPICalls] :  callAppLineInsertAPI result : ', result);
-            dispatch(postAppline(result));
-        }
-    }
+      const result = await fetch(requestURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + window.localStorage.getItem('accessToken'),
+        },
+        body: JSON.stringify(data),
+      }).then((response) => response.json());
+  
+      if (result.status === 200) {
+        console.log('[ApprovalAPICalls] :  callAppLineInsertAPI result : ', result);
+        dispatch(postAppline(result));
+      }
+    };
 }
-export const callAppLine3InsertAPI = (form) => {
-    const requestURL = `${PRE_URL}/appline3`;
-
+export const callAppLine3InsertAPI = (data) => {
+    const requestURL = `${PRE_URL}/appline-insert`;
+  
     return async (dispatch, getState) => {
-        const result = await fetch(requestURL, {
-            method: 'POST',
-            headers : {
-                "Content-Type" : "application/json",
-                "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
-            },
-            body : JSON.stringify(form),
-        }).then(response => response.json());
-
-        if(result.status === 200) {
-            console.log('[ApprovalAPICalls] :  callAppLineInsertAPI result : ', result);
-            dispatch(postAppline(result));
-        }
-    }
+      const result = await fetch(requestURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + window.localStorage.getItem('accessToken'),
+        },
+        body: JSON.stringify(data),
+      }).then((response) => response.json());
+  
+      if (result.status === 200) {
+        console.log('[ApprovalAPICalls] :  callAppLineInsertAPI result : ', result);
+        dispatch(postAppline(result));
+      }
+    };
 }
 
 // callAppLineInsertAPI
