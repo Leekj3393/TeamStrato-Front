@@ -15,6 +15,7 @@ function Approval() {
     const {demandList} = useSelector((state) => state.applineReducer)
     const memberCode = appMember?.memberCode;
     const approvals = useSelector(state => state.approvalReducer);
+    const appCode = approvals?.appCode;
     const pageInfo = approvals.pageInfo;
     const [currentPage, setCurrentPage] = useState(1);
     
@@ -72,8 +73,8 @@ function Approval() {
                 <div className={ApprovalCSS.appMainTableInfo}>
                     <h3><b>결재 요청 문서가 {data && data?.length} 개 있습니다.</b></h3> {/* 수정하기 count */}
                 </div>
-                <div className={ApprovalCSS.appMainTatbleDiv}>
-                    <table className={ApprovalCSS.appMainTable}>   {/* 게시판 시작 */}
+                <div className={ApprovalCSS.appListTatbleDiv2}>
+                    <table className={ApprovalCSS.appListTable}>   {/* 게시판 시작 */}
                         <thead>
                             <tr className={ApprovalCSS.title}>
                                 <th>문서번호</th>
@@ -85,18 +86,18 @@ function Approval() {
                             </tr>                               {/* 게시글은 한 페이지 당 5개씩!!! */}
                         </thead>
                         <tbody>
-                            {data && data.map((approval) => (
+                            {data && data.map((approvals) => (
                                 <tr 
                                     className={ApprovalCSS.lists} 
-                                    key={approval.appCode}
-                                    onClick={() => onClickDetailHandler(approval.appCode)}
+                                    key={approvals.appCode}
+                                    onClick={() => onClickDetailHandler(approvals.approval.appCode)}
                                 >
-                                    <th>{approval.appCode}</th>
-                                    <th>{approval.appType}</th>
-                                    <th>{formatDate(approval.appRegistDate)}</th>
-                                    <th>{approval.appTitle}</th>
-                                    <th>{approval.appStatus}</th>
-                                    <th>{approval.member?.department?.deptName}팀 / {approval.member?.job?.jobName} / {approval.member?.memberName}</th> 
+                                    <td>{approvals.approval?.appCode}</td>
+                                    <td>{approvals.approval?.appType}</td>
+                                    <td>{formatDate(approvals.approval?.appRegistDate)}</td>
+                                    <td>{approvals.approval?.appTitle}</td>
+                                    <td>{approvals.approval?.appStatus}</td>
+                                    <td>{approvals.approval?.member?.department?.deptName}팀 / {approvals.approval?.member?.job?.jobName} / {approvals.approval?.member?.memberName}</td> 
                                 </tr>
                             ))}
                         </tbody>

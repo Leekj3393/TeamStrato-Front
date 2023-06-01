@@ -52,7 +52,7 @@ function ApprovalDetail () {
                                     <tr>
                                     <td className={ApprovalCSS.col05}>{appDetail && appDetail?.member?.memberName}</td>
                                     {appLineDetail && appLineDetail?.map((appLine) => (
-                                        <td className={ApprovalCSS.col05}>{appLine?.member?.memberName}</td>
+                                        <td className={ApprovalCSS.col05}>{appLine?.accessor?.memberName}</td>
                                         ))}
                                     </tr>
                                 </tbody>

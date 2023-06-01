@@ -1,12 +1,9 @@
-import {getDemandList, getAppLines, getApplineMembers, getApprovalInfo, postAppline} from "../modules/ApplineModule";
+import {getAppLines, getApplineMembers, getApprovalInfo, postAppline} from "../modules/ApplineModule";
 import {getApproval} from "../modules/ApprovalModule";
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
 const PRE_URL = `http://${SERVER_IP}:${SERVER_PORT}/skylift/approval`;
-
-// 결재 요청 목록 조회
-export const callDemandListForAppAPI = () => {}
 
 // 결재선 선택을 위한 결재정보 조회
 export const callApprovalInfoForAppAPI = () => {

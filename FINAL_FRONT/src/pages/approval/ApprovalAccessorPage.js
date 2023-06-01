@@ -2,24 +2,49 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import ApprovalCSS from './Approval.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { callApprovalDetailAPI, callAccessPutAPI } from '../../apis/ApprovalAPICalls';
+import { callApprovalDetailAPI, callAccessPutAPI, callIdentifyAccessorAPI, callApprovalMemberInfoAPI } from '../../apis/ApprovalAPICalls';
 import { callAppLineDetailAPI } from '../../apis/AppLineAPICalls';
-
+import {getMemberId, decodeJwt} from '../../utils/TokenUtils';
 
 function ApprovalAccessorPage () {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { access, appDetail } = useSelector(state => state.approvalReducer);
+    const { access, appDetail, appMember } = useSelector(state => state.approvalReducer);
     const { appLineDetail } = useSelector(state => state.applineReducer);
-    const [formForAccessor, setFormAccessor] = useState();
-    const {memberCode} = useParams();
+    const memberCode = appLineDetail?.approval?.member?.memberCode;
+
+    const [identifyingForm, setIdentifyingForm] = useState({
+        memberId: getMemberId(),
+        memberPassword: ''
+    });
+
+
+    const form = {};
+    form.accessor = {memberCode};
+    form.appLineStatus = 'appAccessed';
+    const form2 = {};
+    form2.accessor = {memberCode};
+    form2.appPriorYn = 'Y';
     const params = useParams();
     const appCode = params.appCode;
 
-    const onClickIdenticationHandler = (e) => {}
-    const onClickApprovalAccessHandler = () => {}
-    const onClickApprovalReturnHandler = () => {}
+    const onChangeIdentifyHandler = (e) => {
+        setIdentifyingForm({
+            ...identifyingForm,
+            [e.target.name] : e.target.value
+        });
+    };
+
+    const onClickIdenticationHandler = () => {
+        dispatch(callIdentifyAccessorAPI(identifyingForm));
+    };
+
+    const onClickApprovalAccessHandler = () => {
+        dispatch(callAccessPutAPI(form));
+    };
+
+    const onClickApprovalReturnHandler = () => {};
 
     // const onClickBack = () => {}
 
@@ -31,6 +56,11 @@ function ApprovalAccessorPage () {
         return `${year}년 ${month}월 ${day}일`;
     }
 
+    useEffect(() => {
+        dispatch(callApprovalMemberInfoAPI());
+    }, 
+    []);
+
     useEffect(
         () => {
             dispatch(callApprovalDetailAPI({appCode}));
@@ -38,15 +68,6 @@ function ApprovalAccessorPage () {
         },
         [appCode]
     );
-
-    useEffect(
-        () => {
-            dispatch(callAccessPutAPI(formForAccessor));
-        },
-        [formForAccessor]
-    );
-
-
 
     return (
             <div className={ApprovalCSS}>
@@ -66,7 +87,7 @@ function ApprovalAccessorPage () {
                                     <tr>
                                         <td className={ApprovalCSS.col05}>{appDetail && appDetail?.member?.memberName}</td>
                                         {appLineDetail && appLineDetail?.map((appLine) => (
-                                        <td className={ApprovalCSS.col05}>{appLine?.member?.memberName}</td>
+                                        <td className={ApprovalCSS.col05}>{appLine?.accessor?.memberName}</td>
                                         ))}
                                     </tr>
                                 </tbody>
@@ -77,7 +98,6 @@ function ApprovalAccessorPage () {
                                         <td className={ApprovalCSS.col05}>{appLine?.appLineStatus}</td>
                                         ))}
                                     </tr>
-
                                 </tfoot>
                         </table>
                     </div>
@@ -114,7 +134,8 @@ function ApprovalAccessorPage () {
                             <tr>
                                 <th className={ApprovalCSS.col77}>본인인증</th>
                                 <td className={ApprovalCSS.col55}>
-                                    <input name="memberPassword" type="password" placeholder='비밀번호'/>
+                                    <input name="memberId" type="text" placeholder='아이디' value={getMemberId()} readOnly={true}/*  onChange={onChangeIdentifyHandler} *//>
+                                    <input name="memberPassword" type="password" placeholder='비밀번호' onChange={onChangeIdentifyHandler}/>
                                     <div className={ApprovalCSS.identifyBtn} onClick={onClickIdenticationHandler}><img src='../../image/identify-btn.png'/></div>
                                 </td>
                             </tr>

@@ -11,24 +11,20 @@ function NoticeRegist() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {memberCode} = useParams();
-    const { jobDept } = useSelector(state => state.memberRoleReducer);
-    const [form, setForm] = useState({member: memberCode});
     const {appMember} = useSelector(state => state.approvalReducer);
-    const {regist, data} = useSelector(state => state.noticeReducer);
+    const memberCode = appMember?.memberCode;
+    const { jobDept } = useSelector(state => state.memberRoleReducer);
+    const [form, setForm] = useState({});
+    const {regist} = useSelector(state => state.noticeReducer);
     const [image, setImage] = useState(null);
     const [imageUrl, setImageUrl] = useState('');
     const ImageInput = useRef();
     // const department = use
 
+    useEffect (() => {
+        dispatch(callApprovalMemberInfoAPI());
+    },[]);
 
-    function formatDate(dateString) {
-        const date = new Date(dateString);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}년 ${month}월 ${day}일`;
-    }
 
     const onChangeHandler = (e) => {
         setForm({
@@ -36,32 +32,6 @@ function NoticeRegist() {
             [e.target.name]: e.target.value,
         });
     };
-
-
-    /* 부서 값 변경 이벤트 */
-    const onChangeNoticeTypeHandler = (e) => {
-        const selectedValue = e.target.value;
-        let deptCode = '';
-
-        if(selectedValue === '공통') {
-            deptCode = '';
-        } else if(selectedValue === '인사') {
-            deptCode = 'D1';
-        } else if(selectedValue === '안전/교육') {
-            deptCode = 'D2';
-        } else if(selectedValue === '장비관리') {
-            deptCode = 'D3';
-        }
-        setForm({
-            ...form,
-            noticeType: selectedValue,
-            deptCode : deptCode
-        });
-    };
-
-    useEffect (() => {
-        dispatch(callApprovalMemberInfoAPI());
-    },[]);
 
     useEffect(
         () => {
@@ -76,13 +46,19 @@ function NoticeRegist() {
 
     const onClickRegistHandler = () => {
         if(
-            !form.noticeTitle || !form.noticeContent
+            !form?.noticeTitle || !form?.noticeContent || !form?.noticeType || !form?.memberCode
         ) {
-            if(!form.noticeTitle) {
+            if(!form?.noticeTitle) {
                 alert("제목을 작성해주세요.");
                 return;
-            } else if(!form.noticeContent) {
+            } else if(!form?.noticeContent) {
                 alert("내용을 작성해주세요.");
+                return;
+            } else if(!form?.noticeType) {
+                alert("공지사항 구분이 누락되었습니다.");
+                return;
+            } else if(!form?.member?.memberCode) {
+                alert("작성자 정보가 누락되었습니다.");
                 return;
             } 
         } else if(image) {
@@ -125,13 +101,25 @@ function NoticeRegist() {
                             <tr>
                                 <th>구분</th>
                                 <td name='noticeType'>
-                                <select  className={NoticeCSS.deptSelect} name="noticeType" onChange={onChangeNoticeTypeHandler} for='noticeType'>
+                                <select  className={NoticeCSS.deptSelect} name="noticeType" onChange={onChangeHandler} for='noticeType'>
                                         <option name="selection" >선택</option>
                                         <option name="noticeType" id=''>공통</option>
                                         <option name="noticeType" id='D1'>인사</option>
                                         <option name="noticeType" id='D2'>안전/교육</option>
                                         <option name="noticeType" id='D3'>장비 관리</option>
                                     </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>작성자</th>
+                                <td>
+                                    <div 
+                                        id='memberCode'
+                                        name="memberCode"
+                                        onChange={onChangeHandler}
+                                    >
+                                        {appMember?.memberName}
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
