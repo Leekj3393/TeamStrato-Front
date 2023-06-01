@@ -1,0 +1,41 @@
+
+.imgbox{
+    position: relative;
+    bottom: 650px;
+    left: 300px;
+    background-color: black;
+    width: 550px;
+    height: 265px;
+}
+
+.imgbox img{
+
+    width: 533px;
+    height: 245px;
+    margin-left: 9px;
+    margin-top: 9px;
+}
+
+.text-box1{
+    position: relative;
+    bottom: 850px;
+    left: 950px;
+} 
+
+.text-box2{
+    position: relative;
+    bottom: 865px;
+    left: 1200px;
+}
+
+.text-box3{
+    position: relative;
+    bottom: 800px;
+    left: 950px;
+}
+
+.text-box4{
+  position: relative;
+    bottom : 815px;
+    left : 1200px;
+}

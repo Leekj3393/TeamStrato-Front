@@ -1,0 +1,89 @@
+
+.EquTitle
+{
+    position: relative;
+    bottom: 800px;
+    left:800px; 
+    font-family: 'SUITE-Regular';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 54px;
+
+    color: black;
+}
+
+.EquSTitle
+{
+    position: relative;
+    bottom: 800px;
+    left: 830px;
+    font-family: 'SUITE-Regular';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 54px;
+}
+
+.category
+{
+    position : absolute;
+    top : 180px;
+    left: 300px;
+    width: 130px;
+    height: 30px;
+}
+
+.Select-Box 
+{
+    width: 120px;
+    height: 30px;
+    padding: 5px 30px 5px 10px;
+    border-radius: 8px;
+}
+
+.EquInput
+{
+    position: absolute;
+    width: 150px;
+    height: 15px;
+    margin-left: 10px ;
+    padding: 5px 0px 5px 10px;
+    border-radius: 8px;
+}
+
+.inputBtn
+{
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    top: 2px;
+    left: 300px;
+}
+
+.type-selcet
+{
+    position: relative;
+    bottom: 750px;
+    left: 380px;
+    height: 40px;
+    width: 100px;
+}
+
+.value
+{
+    position: relative;
+    bottom: 750px;
+    left: 400px;
+    height: 40px;
+    width: 190px;
+}
+
+.search-Btn
+{
+    position: relative;
+    bottom: 750px;
+    left: 405px;
+    height: 40px;
+    width: 45px;
+}
