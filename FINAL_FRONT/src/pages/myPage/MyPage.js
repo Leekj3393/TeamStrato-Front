@@ -1,10 +1,13 @@
 import MyPageCSS from '../../components/main/MyPage.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { callMyPageAPI, callGoToWorkAPI, callEndWorkAPI, callOutWorkAPI, callReturnWorkAPI, callMyPageMemberAPI, updateMemberAPI, callWorkInfoAPI, callWorkInfoAllAPI, callMyPageAttendanceAbsenteeismAPI, callMyPageAttendanceLazyAPI, callMyPagemanagerEndTimeAPI, callMyPagDeleteTimeAPI } from '../../apis/MyPageAPICalls';
 import { useDispatch, useSelector } from 'react-redux';
 import { parseISO, differenceInMonths } from 'date-fns';
 import Swal from 'sweetalert2';
 import { updateAttendanceStatus } from '../../modules/AttendanceReducerModule';
+import { Doughnut } from 'react-chartjs-2';
+import { Chart, registerables } from 'chart.js';
+
 
 
 
@@ -21,6 +24,7 @@ function MyPage() {
   const membersData = useSelector(state => state.myPageReducer.membersData);
   const workInfo = useSelector(state => state.myPageReducer.workInfo);
   const workInfoAll = useSelector(state => state.myPageReducer.workInfoAll);
+  console.log(workInfo);
   console.log("모든회원근태조회완료:",workInfoAll);
 
   // 기본 값을 세팅하는 부분을 useEffect 내부로 이동
@@ -35,6 +39,32 @@ function MyPage() {
     dispatch(callWorkInfoAPI());
     dispatch(callWorkInfoAllAPI());
   }, []);
+
+  //도넛차트
+  Chart.register(...registerables);
+  const data = {
+    labels: ['출근', '결근', '지각', '퇴근'],
+    datasets: [
+      {
+        label: '출근율',
+        data: [10, 2, 1, 5],
+        backgroundColor: [
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(153, 102, 255, 0.2)'
+        ],
+        borderColor: [
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(153, 102, 255, 1)'
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
+
 
   // 개별 항목의 편집 모드를 관리
   const [editMode, setEditMode] = useState({
@@ -325,6 +355,10 @@ const handleAbsenteeism = async (attendanceCode) => {
   });
 }
 
+//차트
+
+
+
 //지각 
 const handleLazyTime = async (attendanceCode) => {
   Swal.fire({
@@ -346,6 +380,8 @@ const handleLazyTime = async (attendanceCode) => {
     }
   });
 }
+
+// 
 
 //관리자 권한 퇴근
 const handleManagerTime = async (attendanceCode) => {
@@ -391,10 +427,18 @@ const handleDeleteTime = async (attendanceCode) => {
   });
 }
 
+//
+function formatPhoneNumber(phone) {
+  // '-'을 포함한 형식으로 변경
+  const formattedPhone = phone.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+  return formattedPhone;
+}
+
 
   return (
     <div className={MyPageCSS}>
         <div className="employeetitle">
+  
             <div class="employeeStatus">
             Strato 직원 현황
             </div>
@@ -536,7 +580,8 @@ const handleDeleteTime = async (attendanceCode) => {
 </tr>
 <tr>
 <th>휴대폰 번호</th>
-<td> {membersData ? membersData.phone : '직원 정보를 가져오는 중입니다.'}</td>
+<td> {membersData ? formatPhoneNumber(membersData.phone) : '직원 정보를 가져오는 중입니다.'}</td>
+
 <th>부서</th>
 <td> {membersData ? membersData.department.deptName : '직원 정보를 가져오는 중입니다.'}</td>
 
@@ -557,7 +602,7 @@ const handleDeleteTime = async (attendanceCode) => {
 <td>{membersData ? membersData.memberStatus : '직원 정보를 가져오는 중입니다.'}</td>
 </tr>
 <tr>
-<th>근속 기간</th>
+<th>출결 상태</th>
 <td>
 {(workInfo && workInfo.length > 0) ? workInfo[0].status : '사유를 가져오는중입니다.'}
 

@@ -22,6 +22,14 @@ function Navbar() {
     dispatch(callMyPageMemberAPI());
   }, []);
 
+  //
+  function formatPhoneNumber(phone) {
+    // '-'을 포함한 형식으로 변경
+    const formattedPhone = phone.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+    return formattedPhone;
+  }
+  
+
   return (
     <body>
       <div className={NavbarCSS}>
@@ -35,7 +43,11 @@ function Navbar() {
             <img className="memberNemo" src="/image/차은우 존잘.png" alt="멤버 이미지" />
           </div>
           <div className="memberName1">{membersData ? membersData.memberName : '직원 정보를 가져오는 중입니다.'}</div>
-          <div className="memberName2">{membersData ? membersData.phone : '직원 정보를 가져오는 중입니다.'}</div>
+          <div className="memberName2">
+            
+          {membersData ? formatPhoneNumber(membersData.phone) : '직원 정보를 가져오는 중입니다.'}
+            
+            </div>
         </div>
           <div className="menu" style={{ marginTop: "-20px" }}>
           <NavLink to="/MyPage" activeClassName="active">

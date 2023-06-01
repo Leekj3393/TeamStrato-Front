@@ -7,7 +7,8 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { callNoticeListAPI, callNoticeSearchListAPI } from '../apis/NoticeAPICalls';
 import { callAllSchAPI } from '../apis/CalendarAPICalls';
 import { callMemberSalaryList } from '../apis/SalaryAPICalls';
-
+import { Doughnut } from 'react-chartjs-2';
+import { Chart, registerables } from 'chart.js';
 
 const getDate = (date) => {
   const newDate = new Date(date);
@@ -140,6 +141,58 @@ function Main(props) {
       </div>
     );
   };
+  //도넛차트
+  //도넛 차트
+// Chart.register(...registerables);
+// const data = {
+//   labels: ['출근', '결근', '지각', '퇴근'],
+//   datasets: [
+//     {
+//       label: '출근율',
+//       data: [10, 2, 1, 5],
+//       backgroundColor: [
+//         'rgba(75, 192, 192, 0.2)',
+//         'rgba(255, 99, 132, 0.2)',
+//         'rgba(255, 206, 86, 0.2)',
+//         'rgba(153, 102, 255, 0.2)'
+//       ],
+//       borderColor: [
+//         'rgba(75, 192, 192, 1)',
+//         'rgba(255, 99, 132, 1)',
+//         'rgba(255, 206, 86, 1)',
+//         'rgba(153, 102, 255, 1)'
+//       ],
+//       borderWidth: 1,
+//     },
+//   ],
+// };
+
+  //도넷
+
+  //도넛차트
+  Chart.register(...registerables);
+  const dataTwo = {
+    labels: ['출근', '결근', '지각', '퇴근'],
+    datasets: [
+      {
+        label: '출근율',
+        data: [10, 2, 1, 5],
+        backgroundColor: [
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(153, 102, 255, 0.2)'
+        ],
+        borderColor: [
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(153, 102, 255, 1)'
+        ],
+        borderWidth: 1,
+      },
+    ],
+};
 
   //
 
@@ -297,11 +350,13 @@ const formatDateTime = (isoDateTime) => {
             </div>
 
               
-            <div className="edu">
-                <div class="edutitle1">내가 해야 할  </div>
-                <div class="educircle1"></div><div class="edutitle2">화재 교육</div>
-                <img className="img1" src="/image/image 188.png"/>
-                <div class="ing">진행중</div>
+            <div className="charMain">
+                <div class="edutitle1">우리 회사 </div>
+                <div className="chart-container">
+    <Doughnut data={dataTwo} />
+    
+</div>
+
             </div>
 
                <div className="card itemMain1">
@@ -352,6 +407,7 @@ const formatDateTime = (isoDateTime) => {
   <div class="card-face front">
   <img className="cartFront" src="/image/phantom.png"/>
   <div className='cardName4'>내 근태 확인</div>
+
   </div>
   <div class="card-face backMain3">
   <div className='memberMain'><u></u>님의 근태</div>
@@ -367,6 +423,10 @@ const formatDateTime = (isoDateTime) => {
   </div>
   </div>
 
+</div>
+
+<div className='edu'>
+<div class="edutitle3">내가 받을  </div>
 </div>
 
 
