@@ -158,10 +158,6 @@ function Main(props) {
     },
     [dispatch]
   );
-  
-
-  console.log("캘린더 정보  : ",allsch);
-  //
 
 //급여
 const [currentMonthSalary, setCurrentMonthSalary] = useState(null);
@@ -185,8 +181,6 @@ useEffect(() => {
 
 //근태확인
 const workInfo = useSelector(state => state.myPageReducer.workInfo);
-
-// API를 호출하고, workInfo가 업데이트될 때마다 콘솔에 출력합니다.
 useEffect(() => {
   dispatch(callWorkInfoAPI());
 }, []);
@@ -209,7 +203,6 @@ const formatDateTime = (isoDateTime) => {
     <div className={MainCSS}>
       <div style={{ display: "flex" }}>
         <Weather /> {/* Weather 컴포넌트 사용 */}
-        {/* 나머지 코드 */}
       </div>
       <div className="todo2" style={{ flex: 1 }}>
       <div className="todoText2">타이틀</div>
