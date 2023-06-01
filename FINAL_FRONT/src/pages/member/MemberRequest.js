@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { callMemberDetailAPI, callMemberRequestUpdateAPI, calljobDeptListAPI } from "../../apis/MemberAPICalls";
 import MemberRequsetCSS from './MemberRequest.module.css';
+import Swal from 'sweetalert2';
 
 function MemberRequest({memberCode, setRequestModalOpen}) {
 
@@ -12,7 +13,18 @@ function MemberRequest({memberCode, setRequestModalOpen}) {
     const { jobDept } = useSelector(state => state.memberRoleReducer);
     const { memberDt, Mbrequest } = useSelector(state => state.memberReducer);
 
-    console.log("form : {}", form);
+    /* 알러트창 세팅 */
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', () => Swal.stopTimer())
+            toast.addEventListener('mouseleave', () => Swal.resumeTimer())
+        }
+      })
 
     useEffect(
         () => {
@@ -25,7 +37,10 @@ function MemberRequest({memberCode, setRequestModalOpen}) {
     useEffect(
         () => {
             if(Mbrequest?.status === 200) {
-                alert('직원 인사이동이 완료 되었습니다.');
+                Toast.fire({
+                    icon: 'success',
+                    title: '직원 인사 이동이 완료 되었습니다.'
+                });
                 navigate('/', { replace : true });
             }
         },

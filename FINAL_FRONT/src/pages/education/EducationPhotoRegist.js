@@ -3,6 +3,7 @@ import EduCSS from './EducationPhotoRegist.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
 import { callEducationPhotoInsertAPI } from '../../apis/EducationAPICalls';
+import Swal from 'sweetalert2';
 
 function EducationPhotoRegist({setPhotoModalOpen}) {
 
@@ -12,12 +13,26 @@ function EducationPhotoRegist({setPhotoModalOpen}) {
     const { eduPhotoAdd } = useSelector(state => state.educationReducer);
     const [form, setForm] = useState({});
 
-    console.log("form", form);
+    /* 알러트창 세팅 */
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', () => Swal.stopTimer())
+            toast.addEventListener('mouseleave', () => Swal.resumeTimer())
+        }
+      })
 
     useEffect(
         () => {
             if(eduPhotoAdd?.status === 200) {
-                alert('사진 등록이 완료됐습니다.');
+                Toast.fire({
+                    icon: 'success',
+                    title: '사진 등록이 완료 되었습니다.'
+                });
                 navigate('/', {replace : true});
             }
         },

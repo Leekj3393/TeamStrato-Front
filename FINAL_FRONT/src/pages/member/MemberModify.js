@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { callMemberDetailAPI, callMemberUpdateAPI } from "../../apis/MemberAPICalls";
 import { callMemberImageAPI } from "../../apis/MemberFileAPICalls";
 import MemberModifyCSS from './MemberModify.css';
+import Swal from 'sweetalert2';
 
 function MemberModify () {
 
@@ -28,6 +29,19 @@ function MemberModify () {
     const [ isName, setIsName ] = useState(false);
     const [ isRes, setIsRes ] = useState(false);
     const [ isPhone, setIsPhone ] = useState(false);
+
+    /* 알러트창 세팅 */
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', () => Swal.stopTimer())
+            toast.addEventListener('mouseleave', () => Swal.resumeTimer())
+        }
+      })
 
     useEffect(
         () => {
@@ -55,9 +69,13 @@ function MemberModify () {
     useEffect(
         () => {
             if(modify?.status === 200) {
-                alert('직원 정보 수정이 완료 되었습니다.');
+                // alert('직원 정보 수정이 완료 되었습니다.');
+                Toast.fire({
+                    icon: 'success',
+                    title: '직원 정보 수정이 완료 되었습니다.'
+                });
                 navigate('/', { replace : true });
-            }
+            } 
         },
         [modify]
     )
@@ -99,6 +117,7 @@ function MemberModify () {
     }
 
     /* 주민번호 유효성 검사 */
+
     const onChangeResident = (e) => {
         const currentRes = e.target.value;
         const ResRegExp = /^\d{13}$/;
@@ -136,7 +155,7 @@ function MemberModify () {
 
     const onClickMemberUpdateHandler = () => {
         
-        if( isName === true && isRes === true && isPhone === true) {
+       
 
         /* 서버로 전달할 FormData 형태의 객체 설정 */
         const formData = new FormData();
@@ -156,11 +175,8 @@ function MemberModify () {
         }
 
         dispatch(callMemberUpdateAPI(formData));
-        } else {
-            alert('직원 수정에 실패했습니다.')
-            navigate('/', {replace : true})
-        }
-    }   
+        } 
+     
     return (
         <>
             <>
