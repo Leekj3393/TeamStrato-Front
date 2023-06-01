@@ -20,9 +20,6 @@ const getDate = (date) => {
 function Main(props) {
   //일정
 
-
-  //
-
   const {data} = useSelector(state => state.noticeReducer);
   const notices = useSelector(state => state.noticeReducer);
   const noticeList = notices.data;
@@ -134,10 +131,8 @@ function Main(props) {
       return <div className="loading-text">날씨를 불러오는 중이에요 😚</div>;
     }
     const temperatureCelsius = (weatherData.main.temp - 273.15).toFixed(2); // 섭씨로 변환 후 소수점 둘째 자리까지 표시
-
     return (
       <div className='next'>
-
         <div className="weather-text">
           <span role="img" aria-label="weather-icon">🌤</span> 오늘의 날씨는 <b>{weatherData.weather[0].description}</b>이에요~
           <span role="img" aria-label="temperature-icon">✨</span> 온도는 <b>{temperatureCelsius}℃</b>입니다.
@@ -178,7 +173,6 @@ useEffect(() => {
   }
 }, [salaryList]);
 
-
 //근태확인
 const workInfo = useSelector(state => state.myPageReducer.workInfo);
 useEffect(() => {
@@ -189,15 +183,12 @@ useEffect(() => {
   console.log("메인 근태 확인: ",workInfo);
 }, [workInfo]);
 
-//
-
 const formatDateTime = (isoDateTime) => {
   const dateObj = new Date(isoDateTime);
   const date = dateObj.toLocaleDateString();
   const time = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   return `${date}, ${time}`;
 };
-
 
   return (
     <div className={MainCSS}>
@@ -303,21 +294,15 @@ const formatDateTime = (isoDateTime) => {
       </div>
       <div className="partBoard" style={{ flex: 1 }}>Strato News<div class="animated-news">💡</div></div>
       <div className="att">
-
-
-
             </div>
 
-                
-
+              
             <div className="edu">
                 <div class="edutitle1">내가 해야 할  </div>
-                
                 <div class="educircle1"></div><div class="edutitle2">화재 교육</div>
                 <img className="img1" src="/image/image 188.png"/>
                 <div class="ing">진행중</div>
-               </div>
-
+            </div>
 
                <div className="card itemMain1">
   <div class="card-face front">
@@ -341,8 +326,6 @@ const formatDateTime = (isoDateTime) => {
   <img className="more4" src="/image/더보기.png"/> 
   </div>
 </div>
-
-
 </div>
 
 <div className="card itemMain2">
