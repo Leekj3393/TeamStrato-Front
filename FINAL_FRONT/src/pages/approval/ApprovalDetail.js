@@ -3,6 +3,7 @@ import ApprovalCSS from './Approval.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { callApprovalDetailAPI } from '../../apis/ApprovalAPICalls';
+import { callAppLineDetailAPI } from '../../apis/AppLineAPICalls';
 
 
 function ApprovalDetail () {
@@ -10,8 +11,10 @@ function ApprovalDetail () {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { appDetail } = useSelector(state => state.approvalReducer);
+    const { appLineDetail } = useSelector(state => state.applineReducer);
     const params = useParams();
     const appCode = params.appCode;
+    const appLineCode = params.appLineCode;
 
     function formatDate(dateString) {
         const date = new Date(dateString);
@@ -24,6 +27,7 @@ function ApprovalDetail () {
     useEffect(
         () => {
             dispatch(callApprovalDetailAPI({appCode}));
+            dispatch(callAppLineDetailAPI({appCode}));
         },
         []
     );
@@ -46,18 +50,18 @@ function ApprovalDetail () {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td className={ApprovalCSS.col05}>{appDetail && appDetail.member?.memberName}</td>
-                                        <td className={ApprovalCSS.col06}>홍길동{/* {appLine && appLine.member.memberName} */}</td>
-                                        <td className={ApprovalCSS.col07}>홍길동{/* {appLine && appLine.member.memberName} */}</td>
-                                        <td className={ApprovalCSS.col08}>홍길동{/* {appLine && appLine.member.memberName} */}</td>
+                                    <td className={ApprovalCSS.col05}>{appDetail && appDetail?.member?.memberName}</td>
+                                    {appLineDetail && appLineDetail?.map((appLine) => (
+                                        <td className={ApprovalCSS.col05}>{appLine?.member?.memberName}</td>
+                                        ))}
                                     </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <td className={ApprovalCSS.col09}>요청</td>
-                                        <td className={ApprovalCSS.col90}>승인{/* {appLine && appLine.appStatus} */}</td>
-                                        <td className={ApprovalCSS.col91}>승인{/* {appLine && appLine.appStatus} */}</td>
-                                        <td className={ApprovalCSS.col92}>반려{/* {appLine && appLine.appStatus} */}</td>
+                                        {appLineDetail && appLineDetail?.map((appLine) => (
+                                        <td className={ApprovalCSS.col05}>{appLine?.appLineStatus}</td>
+                                        ))}
                                     </tr>
 
                                 </tfoot>

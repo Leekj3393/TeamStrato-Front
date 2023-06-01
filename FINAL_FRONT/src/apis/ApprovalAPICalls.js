@@ -125,19 +125,14 @@ export const callApprovalListAPIForAccessor = ({ memberCode, currentPage = 1 }) 
 
 /* 결재 문서 상세 조회 */
 export const callApprovalDetailAPI = ({appCode}) => {
-
     const reqeustURL = `${PRE_URL}/${appCode}`;
-
     return async (dispatch, getState) => {
-
         const result = await fetch(reqeustURL).then(res => res.json());
-
         if(result.status === 200) {
             console.log('[ApprovalAPICalls] : callApprovalDetailAPI result : ', result);
             dispatch(getApproval(result));
         }
     }
-
 }
 
 // 결재 승인/반려
