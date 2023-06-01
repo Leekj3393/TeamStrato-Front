@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getList , getSearch } from "../modules/SalaryModule";
+import { getList , getSch, getSearch } from "../modules/SalaryModule";
 
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
@@ -45,9 +45,9 @@ export const callEmpSearch = (search) =>
     }
 }
 
-export const callEmpSchDay = (day , memberCode) =>
+export const callEmpSchDay = (day , memberCode, {currntPage = 1}) =>
 {
-    const requestURL = `${PRE_URL}/attendance/${memberCode}?day=${day}`;
+    const requestURL = `${PRE_URL}/attendance/${memberCode}?day=${day}&page=${currntPage}`;
 
     return async(dispatch , getState) =>
     {
@@ -55,7 +55,7 @@ export const callEmpSchDay = (day , memberCode) =>
         if(result.status === 200)
         {
             console.log("[callEmpSchDay] callEmpSchDay : {}" , result);
-            dispatch(getSearch(result));
+            dispatch(getSch(result));
         }
     }
 }

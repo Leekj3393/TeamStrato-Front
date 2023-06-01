@@ -63,7 +63,7 @@ function SalaryDetail({info})
                                 <td>{info.incomeTax}</td>
                             </tr>
                             <tr>
-                                {info.allowance != 0 &&
+                                {info.allowance > 0 &&
                                     <>
                                     <td><label>특별수당</label></td>
                                     <td>{info.allowance}</td>
