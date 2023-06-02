@@ -22,9 +22,19 @@
     margin-left: 20px;
     background-color: gray;
     text-align: center;
+}
+
+.mP-1 , .mP-2
+{
     font-size: 20px;
     width: 89px;
     height: 25px;
+}
+
+.mP-3
+{
+    font-size: 20px;
+    width: 150px;
 }
 
 .selcet-salary
