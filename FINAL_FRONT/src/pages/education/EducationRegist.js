@@ -3,6 +3,7 @@ import edCSS from"./EducationRegist.module.css";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { callEducationRegistAPI } from "../../apis/EducationAPICalls";
+import Swal from 'sweetalert2';
 
 function EducationRegist({setEduModalOpen}) {
 
@@ -14,13 +15,27 @@ function EducationRegist({setEduModalOpen}) {
     const [form, setForm] = useState({});
     const { eduAdd } = useSelector(state => state.educationReducer);
 
-    console.log("eduAdd", eduAdd);
+    /* 알러트창 세팅 */
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', () => Swal.stopTimer())
+            toast.addEventListener('mouseleave', () => Swal.resumeTimer())
+        }
+      })
 
     /* 교육 등록  */
     useEffect(
         () => {
             if(eduAdd?.status === 200) {
-                alert('교육 등록이 완료됐습니다');
+                Toast.fire({
+                    icon: 'success',
+                    title: '교육 등록이 완료 되었습니다.'
+                });
                 navigate('/', {replace : true});
             } 
         },

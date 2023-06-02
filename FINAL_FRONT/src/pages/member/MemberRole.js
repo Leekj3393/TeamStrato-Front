@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { callMemberDetailAPI, callMemberRoleUpdateAPI } from "../../apis/MemberAPICalls";
 import MemberRoleCSS from "./MemberRole.module.css";
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 function MemberRole({setRoleModalOpen, memberCode}) {
 
@@ -13,8 +14,18 @@ function MemberRole({setRoleModalOpen, memberCode}) {
     const navigate = useNavigate();
     const [form, setForm] = useState({});
 
-    console.log("memberRole : {}", memberRole);
-    console.log("form : {}", form);
+    /* 알러트창 세팅 */
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', () => Swal.stopTimer())
+            toast.addEventListener('mouseleave', () => Swal.resumeTimer())
+        }
+      })
 
     useEffect (
         () => {
@@ -28,7 +39,10 @@ function MemberRole({setRoleModalOpen, memberCode}) {
     useEffect(
         () => {
             if(roleModify?.status === 200) {
-                alert('직원 권한 수정이 완료 되었습니다.');
+                Toast.fire({
+                    icon: 'success',
+                    title: '권한 수정이 완료 되었습니다.'
+                });
                 navigate('/', { replace : true });
             }
         },

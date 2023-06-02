@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { callMemberRegistAPI, calljobDeptListAPI, calljobListAPI } from '../../apis/MemberAPICalls';
+import Swal from 'sweetalert2';
 
 function MemberReigst () {
 
@@ -29,6 +30,19 @@ function MemberReigst () {
     const [ isRes, setIsRes ] = useState(false);
     const [ isPhone, setIsPhone ] = useState(false);
 
+    /* 알러트창 세팅 */
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', () => Swal.stopTimer())
+            toast.addEventListener('mouseleave', () => Swal.resumeTimer())
+        }
+      })
+
     useEffect (
         () => {
             dispatch(calljobDeptListAPI());
@@ -54,7 +68,10 @@ function MemberReigst () {
     useEffect(
         () => {
             if(regist?.status === 200) {
-                alert('직원 등록이 완료됐습니다.');
+                Toast.fire({
+                    icon: 'success',
+                    title: '직원 등록이 완료 되었습니다.'
+                });
                 navigate('/', {replace : true});
             } 
         },
@@ -215,7 +232,10 @@ function MemberReigst () {
 
         dispatch(callMemberRegistAPI(formData));
         } else {
-            alert('직원등록에 실패했습니다.');
+            Toast.fire({
+                icon: 'error',
+                title: '직원 등록에 실패했습니다.'
+            });
             navigate('/', {replace : true});
         }
     }
