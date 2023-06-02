@@ -35,32 +35,7 @@ function MemberSubNavbar() {
     const onHoverEmail = () => setActiveItem('email');
     const onHoverCard = () => setActiveItem('card');
     const onHoverLeave = () => setActiveItem(null);
-
-    //로그아웃
-    // const logOutHandler = useCallback(() => {
-    //     window.localStorage.removeItem('accessToken');
-    //     navigate("/login");
-    // }, [navigate]);
-    //
-    const logOutHandler = useCallback(() => {
-        Swal.fire({
-            title: '정말 로그아웃하시겠습니까?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: '예',
-            cancelButtonText: '아니오'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.localStorage.removeItem('accessToken');
-                navigate("/login");
-            }
-        });
-    }, [navigate]);
     
-
-
 
     const titleAllMemberRef = useRef(null);  // Create a new reference
 
@@ -76,26 +51,19 @@ function MemberSubNavbar() {
         }
     };
 
+    const emailResult = useSelector(state => state.myPageReducer.getMemberEmailMy);
     const [searchEmail, setSearchEmail] = useState('');
-    const [emailResult, setEmailResult] = useState(null);
-
-    const searchEmailHandler = async () => {
-        if (!searchEmail) {
-            console.error("No email entered for search");
-            return;
-        }
-        try {
-            const result = await callMemberEmailAPI(searchEmail); // Call the API
-            console.log("Email search result: ", result);
-            if(result) {
-                setEmailResult(`Result: ${JSON.stringify(result)}`);
-            } else {
-                setEmailResult("No result found");
-            }
-        } catch (error) {
-            console.error("Error while searching for email: ", error);
-        }
+  
+    const searchEmailHandler = () => {
+      if (!searchEmail) {
+        console.error("No email entered for search");
+        return;
+      }
+      dispatch(callMemberEmailAPI(searchEmail));  // 이메일 API 호출
     };
+  
+    
+    
     
 //
 
@@ -111,12 +79,10 @@ function MemberSubNavbar() {
             <div>
                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
                     <span>Send Members Email</span>
-
-                    {/* Add this block */}
                     <div>
                         <input 
                             type="text"
-                            placeholder="Search email..."
+                            placeholder="이메일"
                             value={searchEmail}
                             onChange={e => setSearchEmail(e.target.value)}
                         />
@@ -125,7 +91,14 @@ function MemberSubNavbar() {
 
                 </div>
                 
-                {emailResult && <p className="MembersEmail">Result: {emailResult}</p>}
+                {emailResult && emailResult.map((result, index) => (
+    <div key={index} className="MembersEmail">
+        <p>Name: {result.name}, Email: {result.email}<a href={`mailto:${result.email}`}><button>📧</button></a></p>
+        
+    </div>
+))}
+
+
 
             </div>}
         </div>
@@ -164,10 +137,6 @@ function MemberSubNavbar() {
                     </div>
                 )}
             </div>
-            <div className='logSub' onClick={logOutHandler}>
-                Logout
-            </div>
-            <img className="heartCard" src="/image/heart.png" alt="로고" />
         </div>
     );
 }

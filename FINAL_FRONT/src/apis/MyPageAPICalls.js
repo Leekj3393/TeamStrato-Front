@@ -630,7 +630,7 @@ export const callMyPagDeleteTimeAPI = (attendanceCode) => {
     console.log('[회원 삭제] : callMyPagDeleteTimeAPI : ',result);
 
     if (response.status === 200) {
-      dispatch({ type: 'MyPage/DELETE_DELETETIME', payload: { attendanceCode: result } });
+      dispatch({ type: 'MyPage/DELETE_DELETE', payload: { attendanceCode: result } });
       return result;
     }
     

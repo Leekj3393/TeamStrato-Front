@@ -319,6 +319,8 @@ const Toast = Swal.mixin({
       <body>
         <div class="document-container">
           <div class="btnDocu" onClick={handleButtonClick}>내가 쓴 <b>신청</b> 보기</div>
+         
+         
           <div class="menu-wrapper">
             <div class="menu-item active"><b>휴가</b> 신청</div>
             <div class="menu-item"><b>휴직</b> 신청</div>
@@ -391,6 +393,7 @@ const Toast = Swal.mixin({
       </div>
 
       <div style={{ width: "400px", height: "500px", position: "relative", left: "800px", top: "-500px" }}>
+      
       <FullCalendar
         ref={calendarRef2}
         plugins={[dayGridPlugin, interactionPlugin]}
@@ -432,6 +435,7 @@ const Toast = Swal.mixin({
 )}
 </div>
         <div style={{ width: "400px", height: "500px", position: "relative", left: "800px", top: "-500px" }}>
+       
         <FullCalendar
         ref={calendarRef3}
         plugins={[dayGridPlugin, interactionPlugin]}
@@ -439,6 +443,7 @@ const Toast = Swal.mixin({
         height="500px"
         initialView="dayGridMonth"
         />
+        
         </div>
           </div>
         </div>

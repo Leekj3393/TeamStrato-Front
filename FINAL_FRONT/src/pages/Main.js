@@ -7,7 +7,8 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { callNoticeListAPI, callNoticeSearchListAPI } from '../apis/NoticeAPICalls';
 import { callAllSchAPI } from '../apis/CalendarAPICalls';
 import { callMemberSalaryList } from '../apis/SalaryAPICalls';
-
+import { Doughnut } from 'react-chartjs-2';
+import { Chart, registerables } from 'chart.js';
 
 const getDate = (date) => {
   const newDate = new Date(date);
@@ -19,9 +20,6 @@ const getDate = (date) => {
 
 function Main(props) {
   //일정
-
-
-  //
 
   const {data} = useSelector(state => state.noticeReducer);
   const notices = useSelector(state => state.noticeReducer);
@@ -134,10 +132,8 @@ function Main(props) {
       return <div className="loading-text">날씨를 불러오는 중이에요 😚</div>;
     }
     const temperatureCelsius = (weatherData.main.temp - 273.15).toFixed(2); // 섭씨로 변환 후 소수점 둘째 자리까지 표시
-
     return (
       <div className='next'>
-
         <div className="weather-text">
           <span role="img" aria-label="weather-icon">🌤</span> 오늘의 날씨는 <b>{weatherData.weather[0].description}</b>이에요~
           <span role="img" aria-label="temperature-icon">✨</span> 온도는 <b>{temperatureCelsius}℃</b>입니다.
@@ -145,6 +141,58 @@ function Main(props) {
       </div>
     );
   };
+  //도넛차트
+  //도넛 차트
+// Chart.register(...registerables);
+// const data = {
+//   labels: ['출근', '결근', '지각', '퇴근'],
+//   datasets: [
+//     {
+//       label: '출근율',
+//       data: [10, 2, 1, 5],
+//       backgroundColor: [
+//         'rgba(75, 192, 192, 0.2)',
+//         'rgba(255, 99, 132, 0.2)',
+//         'rgba(255, 206, 86, 0.2)',
+//         'rgba(153, 102, 255, 0.2)'
+//       ],
+//       borderColor: [
+//         'rgba(75, 192, 192, 1)',
+//         'rgba(255, 99, 132, 1)',
+//         'rgba(255, 206, 86, 1)',
+//         'rgba(153, 102, 255, 1)'
+//       ],
+//       borderWidth: 1,
+//     },
+//   ],
+// };
+
+  //도넷
+
+  //도넛차트
+  Chart.register(...registerables);
+  const dataTwo = {
+    labels: ['출근', '결근', '지각', '퇴근'],
+    datasets: [
+      {
+        label: '출근율',
+        data: [10, 2, 1, 5],
+        backgroundColor: [
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(153, 102, 255, 0.2)'
+        ],
+        borderColor: [
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(153, 102, 255, 1)'
+        ],
+        borderWidth: 1,
+      },
+    ],
+};
 
   //
 
@@ -158,10 +206,6 @@ function Main(props) {
     },
     [dispatch]
   );
-  
-
-  console.log("캘린더 정보  : ",allsch);
-  //
 
 //급여
 const [currentMonthSalary, setCurrentMonthSalary] = useState(null);
@@ -182,11 +226,8 @@ useEffect(() => {
   }
 }, [salaryList]);
 
-
 //근태확인
 const workInfo = useSelector(state => state.myPageReducer.workInfo);
-
-// API를 호출하고, workInfo가 업데이트될 때마다 콘솔에 출력합니다.
 useEffect(() => {
   dispatch(callWorkInfoAPI());
 }, []);
@@ -195,8 +236,6 @@ useEffect(() => {
   console.log("메인 근태 확인: ",workInfo);
 }, [workInfo]);
 
-//
-
 const formatDateTime = (isoDateTime) => {
   const dateObj = new Date(isoDateTime);
   const date = dateObj.toLocaleDateString();
@@ -204,12 +243,10 @@ const formatDateTime = (isoDateTime) => {
   return `${date}, ${time}`;
 };
 
-
   return (
     <div className={MainCSS}>
       <div style={{ display: "flex" }}>
         <Weather /> {/* Weather 컴포넌트 사용 */}
-        {/* 나머지 코드 */}
       </div>
       <div className="todo2" style={{ flex: 1 }}>
       <div className="todoText2">타이틀</div>
@@ -310,21 +347,17 @@ const formatDateTime = (isoDateTime) => {
       </div>
       <div className="partBoard" style={{ flex: 1 }}>Strato News<div class="animated-news">💡</div></div>
       <div className="att">
-
-
-
             </div>
 
-                
+              
+            <div className="charMain">
+                <div class="edutitle1">우리 회사 </div>
+                <div className="chart-container">
+    <Doughnut data={dataTwo} />
+    
+</div>
 
-            <div className="edu">
-                <div class="edutitle1">내가 해야 할  </div>
-                
-                <div class="educircle1"></div><div class="edutitle2">화재 교육</div>
-                <img className="img1" src="/image/image 188.png"/>
-                <div class="ing">진행중</div>
-               </div>
-
+            </div>
 
                <div className="card itemMain1">
   <div class="card-face front">
@@ -348,8 +381,6 @@ const formatDateTime = (isoDateTime) => {
   <img className="more4" src="/image/더보기.png"/> 
   </div>
 </div>
-
-
 </div>
 
 <div className="card itemMain2">
@@ -376,6 +407,7 @@ const formatDateTime = (isoDateTime) => {
   <div class="card-face front">
   <img className="cartFront" src="/image/phantom.png"/>
   <div className='cardName4'>내 근태 확인</div>
+
   </div>
   <div class="card-face backMain3">
   <div className='memberMain'><u></u>님의 근태</div>
@@ -391,6 +423,10 @@ const formatDateTime = (isoDateTime) => {
   </div>
   </div>
 
+</div>
+
+<div className='edu'>
+<div class="edutitle3">내가 받을  </div>
 </div>
 
 

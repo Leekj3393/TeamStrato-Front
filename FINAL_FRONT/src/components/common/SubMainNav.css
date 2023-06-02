@@ -1,9 +1,9 @@
 .memberSubBar {
     position: absolute;
-    left: 300px;
-    top: 7px;
+    left: 1300px;
+    top: 70px;
     background-color: rgb(255, 255, 255);
-    width: 400px;
+    width: 300px;
     height: 50px;
     border-radius: 30px;
     box-shadow: 0 0 10px rgb(212, 212, 212);
@@ -51,10 +51,11 @@
 .heartCard{
     position: absolute;
     width: 30px;
-
-    top:10px;
-   left: 270px;
+    height: 32px;
+    top:5px;
+   left: 1610px;
     color: rgb(125, 125, 125);
+    border-radius: 10px;
 }
 
 .logSub{
@@ -64,10 +65,12 @@
         height: 30px;
         text-align: center;
         line-height: 25px;
-        color: rgb(125, 125, 125);
-        background-color: rgb(242, 245, 255);
+        color: rgb(255, 255, 255);
+        background: linear-gradient(266.4deg, rgba(3, 101, 249, 0.2) 3.1%, rgba(0, 0, 0, 0) 52.96%), linear-gradient(93.59deg, rgba(255, 255, 255, 0.2) 7.8%, rgba(0, 0, 0, 0) 52.95%), linear-gradient(267.63deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 51.99%), linear-gradient(90.99deg, #6e90ff 1.62%, rgba(177, 195, 254, 0) 94.99%), linear-gradient(252.49deg, rgba(118, 49, 255, 0.7) 17.51%, rgba(77, 112, 237, 0) 61.99%), rgba(92, 126, 252, 0.7);
+        border-radius: 10px;
         top: 8px;
-        left: 295px;
+        left: 1550px;
+        font-weight: 800px;
 }
 
 
