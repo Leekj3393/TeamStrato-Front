@@ -13,22 +13,22 @@ function NoticeRegist() {
     const navigate = useNavigate();
     const {appMember} = useSelector(state => state.approvalReducer);
     const memberCode = appMember?.memberCode;
-    const noticeRegistDate = useParams();
     const { jobDept } = useSelector(state => state.memberRoleReducer);
-    const [form, setForm] = useState({member:{memberCode}, noticeRegistDate:Date()});
     const {regist} = useSelector(state => state.noticeReducer);
     const [image, setImage] = useState(null);
     const [imageUrl, setImageUrl] = useState('');
     const ImageInput = useRef();
-    // const department = use
-
+    
     function formatDate(dateString) {
         const date = new Date(dateString);
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
-        return `${year}년 ${month}월 ${day}일`;
+        return `${year}-${month}-${day}`;
     }
+
+    // const noticeRegistDate = useParams();
+    const [form, setForm] = useState({member:{memberCode}, noticeRegistDate:formatDate(Date()), noticeDelYn:'N'});
 
     useEffect (() => {
         dispatch(callApprovalMemberInfoAPI());
@@ -45,7 +45,7 @@ function NoticeRegist() {
         } else if(e.target.name === 'noticeRegistDate'){
             setForm({
                 ...form,
-                noticeRegistDate: Date()
+                noticeRegistDate: formatDate(Date())
             });
             console.log('form : ', form);
         } else{
@@ -70,7 +70,7 @@ function NoticeRegist() {
 
     const onClickRegistHandler = () => {
         if(
-            !form?.noticeTitle || !form?.noticeContent || !form?.noticeType || !form?.member?.memberCode ||!form?.noticeRegistDate
+            !form?.noticeTitle || !form?.noticeContent || !form?.noticeType || !form?.member?.memberCode ||!form?.noticeRegistDate ||!form?.noticeDelYn
         ) {
             if(!form?.noticeTitle) {
                 alert("제목을 작성해주세요.");
@@ -88,8 +88,12 @@ function NoticeRegist() {
                 alert("작성자 정보가 누락되었습니다.");
                 console.log('form : ', form);
                 return;
-            } {
+            } else if(!form?.noticeRegistDate) {
                 alert("작성일 정보가 누락되었습니다.");
+                console.log('form : ', form);
+                return;
+            } else {
+                alert("삭제 여부가 누락되었습니다.");
                 console.log('form : ', form);
                 return;
             }
@@ -116,7 +120,7 @@ function NoticeRegist() {
     );
 
     /* 이미지 업로드 버튼 클릭 이벤트 */
-    const onClickImgageUpload = () => {
+    const onClickImageUpload = () => {
         ImageInput.current.click();
     }
 
@@ -148,13 +152,15 @@ function NoticeRegist() {
                                     </select>
                                 </td>
                             </tr>
+                            <div className={NoticeCSS.noticeTh} hidden>삭제여부</div>
+                            <div name='noticeDelYn' onChange={onChangeHandler}  hidden>{'N'}</div>
                             <tr>
                                 <th className={NoticeCSS.noticeTh}>등록일</th>
                                 <td
-                                        name="noticeRegistDate"
-                                        onChange={onChangeHandler}
+                                    name="noticeRegistDate"
+                                    onChange={onChangeHandler}
                                 >
-                                        {formatDate(Date())}
+                                    {formatDate(Date())}
                                 </td>
                             </tr>
                             <tr>
@@ -211,7 +217,7 @@ function NoticeRegist() {
                                         />
                                         <button 
                                             className='imgRgBtn'
-                                            onClick={onClickImgageUpload}
+                                            onClick={onClickImageUpload}
                                         > 
                                             파일 업로드
                                         </button>
