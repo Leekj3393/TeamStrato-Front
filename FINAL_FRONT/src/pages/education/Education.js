@@ -5,6 +5,7 @@ import EducationRegist from './EducationRegist';
 import { useDispatch, useSelector } from 'react-redux';
 import { callClassListAPI, callClassViewAPI } from '../../apis/EducationAPICalls';
 import EducationListPagingBar from '../../components/common/EducationListPagingBar';
+import { callMyPageMemberAPI } from '../../apis/MyPageAPICalls';
 
 function Education () {
 
@@ -14,7 +15,8 @@ function Education () {
     const [EdumodalOpen, setEduModalOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
 
-    console.log("classList", classList);
+    /* 로그인한 직원 정보 조회 */
+    const { membersData } = useSelector(state => state.myPageReducer);
 
     useEffect(
         () => {
@@ -22,6 +24,11 @@ function Education () {
         },
         [currentPage]
     )
+
+    /* 로그인한 직원 정보 조회 */
+    useEffect(() => {
+        dispatch(callMyPageMemberAPI());
+    }, []);
 
     /* 교육 등록 핸들러 */
     const onClickEduRegistHandler = (e) => {
@@ -92,7 +99,7 @@ function Education () {
                 <button onClick={onClickEduListOtherHandler}>기 타</button>
             </div>
             <div className="eduListRg">
-                <button onClick={onClickOpenEduModal}>교육 등록</button>
+                { membersData?.memberRole?.roleDes === '안전관리자' && <button onClick={onClickOpenEduModal}>교육 등록</button>}
                 {EdumodalOpen && <EducationRegist setEduModalOpen={setEduModalOpen}/>}
             </div>
         </div>

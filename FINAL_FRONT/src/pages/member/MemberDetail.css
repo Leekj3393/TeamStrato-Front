@@ -90,6 +90,16 @@
     background-color: rgba(140, 206, 253, 0.5);
 }
 
+.memberDtBt4 {
+    margin-left: 50px;
+    background-color: white;
+    font-family: 'SUITE-Regular';
+    border: 1px solid;
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: rgba(250, 0, 0, 0.8);
+}
+
 .memberDtDpt {
     position:absolute;
     top: 130px;

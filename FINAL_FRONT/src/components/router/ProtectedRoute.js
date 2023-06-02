@@ -1,10 +1,36 @@
 import { Navigate } from "react-router-dom";
-import { isAdmin, isHr, isLogin } from "../../utils/TokenUtils";
+import { isAdmin, isHr, isLogin, isSafety } from "../../utils/TokenUtils";
 
-function ProtectedRoute({ loginCheck, authCheck, children, hrCheck }) {
+function ProtectedRoute({ loginCheck, authCheck, children, hrCheck, safetyCheck }) {
 
+    /* 직원 등록 */
     if(hrCheck) {
-        return isHr() ? children : <Navigate to ="/member/regist"/>
+        return isHr() ? children : <Navigate to ="/member"/>
+    }
+
+    /* 직원 수정 */
+    if(hrCheck) {
+        return isHr() ? children : <Navigate to ="/member"/>
+    }
+
+    /* 직원 권한 수정 */
+    if(hrCheck) {
+        return isHr() ? children : <Navigate to ="/member/updaterole"/>
+    }
+
+    /* 직원 인사이동 */
+    if(hrCheck) {
+        return isHr() ? children : <Navigate to ="/member/updateRequest"/>
+    }
+
+    /* 교육 등록 */
+    if(safetyCheck) {
+        return isSafety() ? children : <Navigate to ="/education/add"/>
+    }
+
+    /* 교육 사진 등록 */
+    if(safetyCheck) {
+        return isSafety() ? children : <Navigate to ="/education/photoRegist"/>
     }
 
     if(authCheck) {

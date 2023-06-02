@@ -5,6 +5,7 @@ import { callMemberCodesListAPI, callMemberDeptListAPI, callMemberJobListAPI, ca
 import MemberPagingBar from '../../components/common/MemberPagingBar';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import MemberSearch from './MemberSearch';
+import { callMyPageMemberAPI } from '../../apis/MyPageAPICalls';
 
 
 function Member() {
@@ -22,6 +23,11 @@ function Member() {
      const [searchParams] = useSearchParams();
      const search = searchParams.get('value');
 
+     /* 로그인한 직원 정보 조회 */
+     const { membersData } = useSelector(state => state.myPageReducer);
+
+    console.log("membersData의 값", membersData);
+    
     /* 검색 기능 구현 */
     useEffect(() => {
         if(filter === "memberName") {  
@@ -63,6 +69,11 @@ function Member() {
     useEffect(() => {
         dispatch(callMemberListAPI({currentPage}));        
     }, [currentPage]);
+
+    /* 로그인한 직원 정보 조회 */
+    useEffect(() => {
+        dispatch(callMyPageMemberAPI());
+    }, []);
 
     /* 근무일수 */
     const getWorkDays = (startDate, endDate) => {
@@ -113,7 +124,7 @@ function Member() {
                 <MemberSearch filter={filter}/>
             </div>
             <div className="mbInsert">
-                <button onClick={onClickMemberRegistHandler}>직원 등록</button>
+                { membersData?.memberRole?.roleDes === '인사관리자' && <button onClick={onClickMemberRegistHandler}>직원 등록</button> }
             </div>
             <div className='mbTableDiv'>
             <table className='mbTable'>

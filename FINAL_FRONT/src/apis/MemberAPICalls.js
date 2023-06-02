@@ -1,4 +1,5 @@
 import { getMemberImage } from "../modules/MemberFileModule";
+import { memberdelete } from "../modules/MemberModule";
 import { getMember,getMembers, getMembersId, getMembersName, postMembers, putMemberRole, putMemberrequest, putMemberrole, putMembers } from "../modules/MemberModule";
 import { getJobdepts } from "../modules/MemberRoleModule";
 
@@ -187,6 +188,25 @@ export const callMemberJobListAPI = ({ search , currentPage = 1}) => {
         if(result.status === 200) {
             console.log('result', result);
             dispatch(getMembers(result));
+        }
+
+    }
+}
+
+export const callMemberDeleteAPI = (memberCode) => {
+    
+    const requestURL = `${PRE_URL}/delete/${memberCode}`;
+
+    console.log("API memberCode : ", memberCode);
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL, {
+            method : 'DELETE'
+        }).then(response => response.json());
+
+        if(result.status === 200) {
+            dispatch(memberdelete(result));
         }
 
     }
