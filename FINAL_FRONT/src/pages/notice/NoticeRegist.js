@@ -115,7 +115,7 @@ function NoticeRegist() {
                                 <td>
                                     <div 
                                         id='memberCode'
-                                        name="memberCode"
+                                        name="member.memberCode"
                                         onChange={onChangeHandler}
                                     >
                                         {appMember?.memberName}
