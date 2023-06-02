@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getList , getSch, getSearch } from "../modules/SalaryModule";
+import { getList , getSch, getSearch, postSal } from "../modules/SalaryModule";
 
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
@@ -56,6 +56,29 @@ export const callEmpSchDay = (day , memberCode, {currntPage = 1}) =>
         {
             console.log("[callEmpSchDay] callEmpSchDay : {}" , result);
             dispatch(getSch(result));
+        }
+    }
+}
+
+export const callEmpSaveSal = (formData) =>
+{
+    console.log("formData : " ,formData);
+    const requestURL = `${PRE_URL}/regist`;
+
+    return async(dispatch , getState) =>
+    {
+        const result = await fetch(requestURL, {
+            method : 'POST',
+            headers : {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify(formData)
+        }).then(resp => resp.json());
+        if(result.status === 200)
+        {
+            console.log("[callEmpSchDay] callEmpSchDay : {}" , result);
+            console.log("formData : " ,formData);
+            dispatch(postSal(result));
         }
     }
 }
