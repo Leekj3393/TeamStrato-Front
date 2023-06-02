@@ -35,6 +35,12 @@
     z-index: 1000;
 }
 
+.modal-img
+{
+    width: 40px;
+    height: 40px;
+}
+
 .modal-member-Info
 {
     width: 280px;

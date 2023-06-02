@@ -50,7 +50,7 @@ function SalaryFindEmpModal({setIsModal , setForm})
         search.current.value = null;
     }
 
-
+    console.log("emp" , emp);
     return(
         <div className="salary-modal-back">
             <button onClick={onClickCancelHandler}>X</button>
@@ -79,7 +79,10 @@ function SalaryFindEmpModal({setIsModal , setForm})
                             className='modal-member-Info' 
                             key={member.memberCode} 
                             onClick={() => onClikMemberHandler(member) }>
-                            <td className='modal-saTdCell-image'><img src={member.file?.filePath } alt='당신의 얼굴입니다'/></td>
+                            <td className='modal-saTdCell-image'><img
+                                                                    className="modal-img" 
+                                                                    src={member.files[0].filePath } 
+                                                                    alt='당신의 얼굴입니다'/></td>
                             <td className='modal-saTdCell'><label>{member.memberCode}</label></td>
                             <td className='modal-saTdCell'><label>{member.memberName}</label></td>
                         </tr>
