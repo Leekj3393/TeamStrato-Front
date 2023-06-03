@@ -12,10 +12,12 @@ function Notice() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const {data , noticesCount } = useSelector(state => state.noticeReducer);
+    const { pDelete } =useSelector(state => state.noticeReducer);
     const notices = useSelector(state => state.noticeReducer);
     const noticeList = notices.data;
     const pageInfo = notices.pageInfo;
     const [currentPage, setCurrentPage] = useState(1);
+    const [checked , setChecked] = useState(new Array());
 
     /* 검색어 요청시 사용할 값 */
     const [searchParams] = useSearchParams();
@@ -45,7 +47,18 @@ function Notice() {
         
     },
     [currentPage, search, filter]
-);
+    );
+
+    useEffect(
+        () =>
+        {
+            if(pDelete?.status === 200)
+            {
+                alert("선택 게시물들이 삭제되었습니다.");
+                window.location.reload();
+            }
+        }
+    )
 
     const { noticeCode } = useParams();
     const onClickNoticeCode = (noticeCode) => {
@@ -58,11 +71,21 @@ function Notice() {
         navigate('/notice/deleted');
     }
 
-    const onClickSelectedNoticesDeleteHandler = () => {
-        dispatch(callNoticesDeleteAPI()); 
-        alert("선택 게시물들이 삭제되었습니다.");
+    const checkedChange = (checked , code) =>
+    {
+        if(checked)
+        {
+            setChecked(item => [...item , code]);
+        }
+        else
+            setChecked(checked.filter((item) => item !== code));
     }
 
+    const onClickSelectedNoticesDeleteHandler = () => {
+        dispatch(callNoticesDeleteAPI(checked)); 
+    }
+
+    console.log("checked : {}" , checked);
 
     return(
         <div className={NoticeCSS}>
@@ -99,7 +122,13 @@ function Notice() {
                     <tbody>
                         {data && data?.map((notice) => (
                             <tr className={NoticeCSS.lists} key={notice.noticeCode} htmlFor="noticeCode">
-                                {isAdmin && <td className={NoticeCSS.column0}><input type="checkbox" value={notice.noticeCode} id="noticeCode" name="noticeCode"></input></td>}
+                                {isAdmin && <td className={NoticeCSS.column0}><input 
+                                                                                type="checkbox" 
+                                                                                onChange={(e) => checkedChange(e.target.checked , notice.noticeCode)} 
+                                                                                id="noticeCode" 
+                                                                                name="noticeCode"
+                                                                                checked={checked.includes(notice.noticeCode) ? true : false}>
+                                                                                </input></td>}
                                 <td className={NoticeCSS.column1}  onClick={() => onClickNoticeCode(notice.noticeCode)}>{notice.noticeCode}</td>
                                 <td className={NoticeCSS.column2}  onClick={() => onClickNoticeCode(notice.noticeCode)}>{notice.noticeType}</td>
                                 <td className={NoticeCSS.column3}  onClick={() => onClickNoticeCode(notice.noticeCode)}>{notice.noticeTitle}</td>

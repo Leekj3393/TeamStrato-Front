@@ -1,4 +1,5 @@
-import { getNotices, getNotice, getNoticesDeleted, postNotice, putNotice } from "../modules/NoticeModule";
+import axios from "axios";
+import { getNotices, getNotice, getNoticesDeleted, postNotice, putNotice, putNoticeDelete } from "../modules/NoticeModule";
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
@@ -83,7 +84,7 @@ export const callNoticeDetailAPI = ({ noticeCode }) => {
 }
 
 /* 공지사항 등록 */
-export const callNoticeRegistAPI = (form) => {
+export const callNoticeRegistAPI = (formDate) => {
 
     const requestURL = `${PRE_URL}/regist`;
 
@@ -92,10 +93,9 @@ export const callNoticeRegistAPI = (form) => {
         const result = await fetch(requestURL, {
             method : 'POST',
             headers: {
-                "Content-Type" : "application/json",
                 Authorization : "Bearer " + window.localStorage.getItem('accessToken')
             },
-            body : JSON.stringify(form),
+            body : formDate
         }).then(response => response.json());
 
         if(result.status === 200) {
@@ -105,5 +105,42 @@ export const callNoticeRegistAPI = (form) => {
     }
 }
 
+export const callModifyNotice = (formDate) =>
+{
+    const requestURL = `${PRE_URL}/modify`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL, {
+            method : 'PUT',
+            headers: {
+                Authorization : "Bearer " + window.localStorage.getItem('accessToken')
+            },
+            body : formDate
+        }).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log('[callModifyNotice] : callModifyNotice result : ', result);
+            dispatch(putNotice(result));
+        }
+    }
+}
+
 // 공지사항 게시판에서 체크한 게시물들을 삭제
-export const callNoticesDeleteAPI = () => {}
+export const callNoticesDeleteAPI = (checked) => 
+{
+    const requestURL = `${PRE_URL}/delete`;
+
+    return async(dispatch,getState) =>
+    {
+        try
+        {
+            const result = await axios.put(requestURL, checked);
+            if(result.status === 200)
+            {
+                dispatch(putNoticeDelete(result));
+            }
+        }
+        catch(e) { console.log(e); }
+    }
+}

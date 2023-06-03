@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import SalaryRegistCSS from './SalaryRegistCSS.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { callEmpSaveSal, callEmpSchDay, callEmpSearch } from '../../apis/SalaryAPICalls';
+import { callEmpSaveSal, callEmpSchDay, callEmpSearch, callReIncomeTex } from '../../apis/SalaryAPICalls';
 import SalaryRegistDetail from './SalaryRegistDetail';
 import SalaryFindEmpModal from './Modal/SalaryFindEmpModal';
 import { useNavigate } from 'react-router-dom';
@@ -11,13 +11,18 @@ function SalaryRegist()
 {
     const [day , setDay] = useState();
     const [isModal , setIsModal] = useState(false);
+    const [isClick , setIsClick] = useState(false);
+    const [isModify , setIsModify] = useState(false);
     const { member } = useSelector((state) => state.SalaryReducer);
     const { sch } = useSelector((state) => state.SalaryReducer);
+    const { reIncome } = useSelector((state) => state.SalaryReducer);
     const [form , setForm] = useState({});
-    const [isClick , setIsClick] = useState(false);
+    const [reSalary , setReSalary] = useState({});
     const [currntPage , setCurrentPage] = useState(1);
     const disptch = useDispatch();
 
+    console.log("reSalary : {}", reSalary);
+    console.log("reIncome : {}" , reIncome);
     useEffect(
         () =>
         {
@@ -26,9 +31,42 @@ function SalaryRegist()
         [currntPage]
     );
 
+    useEffect(
+        () =>
+        {
+            setReSalary(reIncome?.data);
+        },
+        [reIncome]
+    )
+
+    const onChangeSalary = (e) =>
+    {
+        setForm({
+            ...form,
+            [e.target.name] : [e.target.value],
+        });
+    }
+
+    const onEnterKeyHanler = (e) =>
+    {
+
+        if(e.key === 'Enter')
+        {
+            disptch(callReIncomeTex(form.salary , sch.overTime));
+        }
+    }
+
     const onClickHandler = () =>
     {
         setIsModal(true);
+    }
+
+    const onClickModify = () =>
+    {
+        if(!isModify)
+            setIsModify(true);
+        else
+            setIsModify(false);
     }
 
     const onChangeHandler = (e) =>
@@ -50,28 +88,44 @@ function SalaryRegist()
 
     const onClickSave = () =>
     {
-        const salaleDate = dateFormat(new Date());
-        setForm({
-            memberCode : sch.member.memberCode,
-            salaryClassification : '월정급여',
-            salary : sch.member.memberSalary,
-            allowance : sch.allowance,
-            incomeTax : sch.incomeTax,
-            employmentInsurance : sch.employmentInsurance,
-            nationalPesion : sch.nationalPesion,
-            medicalInsurance : sch.medicalInsurance,
-            totalAmount : sch.totalAmount,
-            totalDeducted : sch.totalDeducted,
-            paymentAmount : sch.paymentAmount,
-            salaleDate : salaleDate
-        });
+        if(!reSalary.salary)
+        {
+            setForm({
+                memberCode : sch.member.memberCode,
+                salaryClassification : '월정급여',
+                salary : sch.member.memberSalary,
+                allowance : sch.allowance,
+                incomeTax : sch.incomeTax,
+                employmentInsurance : sch.employmentInsurance,
+                nationalPesion : sch.nationalPesion,
+                medicalInsurance : sch.medicalInsurance,
+                totalAmount : sch.totalAmount,
+                totalDeducted : sch.totalDeducted,
+                paymentAmount : sch.paymentAmount,
+            });
+        }
+        else
+        {
+            setForm({
+                memberCode : sch.member.memberCode,
+                salaryClassification : '월정급여',
+                salary : reSalary.salary,
+                allowance : reSalary.allowance,
+                incomeTax : reSalary.incomeTax,
+                employmentInsurance : reSalary.employmentInsurance,
+                nationalPesion : reSalary.nationalPesion,
+                medicalInsurance : reSalary.medicalInsurance,
+                totalAmount : reSalary.totalAmount,
+                totalDeducted : reSalary.totalDeducted,
+                paymentAmount : reSalary.paymentAmount,
+            });
+        }
         setIsClick(true);
     }
 
     useEffect(
         () =>
         {
-            console.log(form);
             if(isClick === true)
             {   
                 disptch(callEmpSaveSal(form));
@@ -80,6 +134,8 @@ function SalaryRegist()
         },
         [isClick]
     )
+
+    console.log("form : {}", form);
     return(
         <div className='Ref-sal-att'>
                 {isModal && <SalaryFindEmpModal 
@@ -178,6 +234,10 @@ function SalaryRegist()
                             {sch &&
                             <>
                                 <p>급여</p>
+                                <button 
+                                            className="sal-modify"
+                                            onClick={onClickModify}
+                                    >{isModify === true ? '저장' : '수정' }</button>
                                 <tr>
                                     <td>
                                         <p>지급내역</p> 
@@ -190,15 +250,26 @@ function SalaryRegist()
                                 </tr>
                                 <tr>
                                     <td><label>기본급</label></td>
-                                    <td>{sch.member.memberSalary}</td>
+                                    {
+                                        isModify === false ?
+                                        <td>{reSalary?.salary ? reSalary.salary  : sch.member.memberSalary}</td>
+                                        :
+                                        <input 
+                                            name='salary'
+                                            className='modify-salary'
+                                            onChange={(e) => onChangeSalary(e)}
+                                            onKeyUp={onEnterKeyHanler}
+                                            placeholder='변경할 금액 입력'
+                                        />
+                                    }
                                     <td><label>소득세</label></td>
-                                    <td>{sch.incomeTax}</td>
+                                    <td>{reSalary?.incomeTax ? reSalary.incomeTax : sch.incomeTax}</td>
                                 </tr>
                                 <tr>
                                     {sch.allowance > 0 &&
                                         <>
                                         <td><label>초과수당</label></td>
-                                        <td>{sch.allowance}</td>
+                                        <td>{reSalary?.allowance ? reSalary.allowance : sch.allowance}</td>
                                         </>
                                     }
                                     {sch.allowance <= 0  &&
@@ -208,31 +279,31 @@ function SalaryRegist()
                                         </>
                                     }
                                     <td><label>고용보험</label></td>
-                                    <td>{sch.employmentInsurance}</td>
+                                    <td>{reSalary?.employmentInsurance ? reSalary.employmentInsurance : sch.employmentInsurance}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td></td>
                                     <td><label>국민연금</label></td>
-                                    <td>{sch.nationalPesion}</td>
+                                    <td>{reSalary?.nationalPesion ? reSalary.nationalPesion : sch.nationalPesion}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td></td>
                                     <td><label>요양보험료</label></td>
-                                    <td>{sch.medicalInsurance}</td>
+                                    <td>{reSalary?.medicalInsurance ? reSalary.medicalInsurance : sch.medicalInsurance}</td>
                                 </tr>
                                 <tr>
                                     <td><label>총지급액</label></td>
-                                    <td>{sch.totalAmount}</td>
+                                    <td>{reSalary?.totalAmount ? reSalary.totalAmount : sch.totalAmount}</td>
                                     <td><label>공제총액</label></td>
-                                    <td>{sch.totalDeducted}</td>
+                                    <td>{reSalary?.totalDeducted ? reSalary.totalDeducted : sch.totalDeducted}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td></td>
                                     <td><label>실지급액</label></td>
-                                    <td>{sch.paymentAmount}</td>
+                                    <td>{reSalary?.paymentAmount ? reSalary.paymentAmount : sch.paymentAmount}</td>
                                 </tr>
                             </>
                             }
@@ -246,20 +317,5 @@ function SalaryRegist()
 }
 
 
-function dateFormat(date) {
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
-    let hour = date.getHours();
-    let minute = date.getMinutes();
-    let second = date.getSeconds();
-
-    month = month >= 10 ? month : '0' + month;
-    day = day >= 10 ? day : '0' + day;
-    hour = hour >= 10 ? hour : '0' + hour;
-    minute = minute >= 10 ? minute : '0' + minute;
-    second = second >= 10 ? second : '0' + second;
-
-    return date.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
-}
 
 export default SalaryRegist;

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getList , getSch, getSearch, postSal } from "../modules/SalaryModule";
+import { getList , getReincome, getSch, getSearch, postSal } from "../modules/SalaryModule";
 
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
@@ -79,6 +79,21 @@ export const callEmpSaveSal = (formData) =>
             console.log("[callEmpSchDay] callEmpSchDay : {}" , result);
             console.log("formData : " ,formData);
             dispatch(postSal(result));
+        }
+    }
+}
+
+export const callReIncomeTex = (salary , overTime) =>
+{
+    const requestURL = `${PRE_URL}/reIncom/${salary}?overTime=${overTime}`;
+    
+    return async(dispatch , getState) =>
+    {
+        const result = await fetch(requestURL).then(resp => resp.json());
+        if(result.status === 200)
+        {
+            console.log("[callEmpSchDay] callReIncomeTex : {}" , result);
+            dispatch(getReincome(result));
         }
     }
 }
