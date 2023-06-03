@@ -5,15 +5,17 @@ import Main from '../../pages/Main';
 import Calendar from "../../pages/calendar/Calendar";
 import { useDispatch, useSelector } from "react-redux";
 import { callMyMemberImageAPI, callMyPageMemberAPI } from "../../apis/MyPageAPICalls";
-import { PRE_URL } from "../../apis/MyPageAPICalls";
-
 function Navbar() {
   const [activeMenu, setActiveMenu] = useState("");
 
   const handleClick = (menuName) => {
     setActiveMenu(menuName);
   };
-  
+
+  const IMAGE_SERVER_URL = "http://localhost:8001/images/member/";
+
+// ...
+ 
   const dispatch = useDispatch();
   const membersData = useSelector(state => state.myPageReducer.membersData);
   const getMemberImage = useSelector(state => state.myPageReducer.getMemberImage);
@@ -43,7 +45,10 @@ function Navbar() {
           <div className="circle2"></div>
           <div className="circle3"></div>
           <div className="nemo">
-          <img className="memberNemo" src={`${PRE_URL}/${getMemberImage?.filePath}`} alt="멤버 이미지" />
+
+          <img className="memberNemo" src={`${IMAGE_SERVER_URL}${getMemberImage?.filePath}`} alt="멤버 이미지" />
+
+ 
 
           </div>
           <div className="memberName1">{membersData ? membersData.memberName : '직원 정보를 가져오는 중입니다.'}</div>
