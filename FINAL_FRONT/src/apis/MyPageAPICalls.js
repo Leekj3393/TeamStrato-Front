@@ -640,3 +640,25 @@ export const callMyPagDeleteTimeAPI = (attendanceCode) => {
 
 
 
+export const callMyMemberImageAPI = () => {
+  // Replace with your actual server URL and route
+  const requestURL = `${PRE_URL}/memberImage`;
+
+  return async (dispatch, getState) => {
+    const response = await fetch(requestURL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + window.localStorage.getItem('accessToken') // 로컬 스토리지에 저장된 액세스 토큰을 사용합니다.
+      }
+    });
+
+    const result = await response.json();
+    console.log('[멤버이미지] : callMemberImageAPI result : ', result);
+
+    if(response.status === 200) {
+      dispatch({ type: 'MyPage/GET_MY_MEMBER_IMAGE', payload: { getMemberImage: result.data } }); // 받은 결과를 저장합니다.
+    }
+  }
+}
+
