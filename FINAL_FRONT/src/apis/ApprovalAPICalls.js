@@ -1,3 +1,4 @@
+import axios from "axios";
 import { getAppMemberInfo, postApproval, getApprovals, getApproval, putApproval, } from "../modules/ApprovalModule";
 import {postLogin} from "../modules/MemberModule";
 
@@ -137,55 +138,7 @@ export const callApprovalDetailAPI = ({appCode}) => {
     }
 }
 
-// 결재 승인/반려 전 본인인증
-export const callIdentifyAccessorAPI = (form) => {
 
-    const requestURL = `${PRE_URL}/accessor-identify`;
-
-    return async (dispatch, getState) => {
-
-        const result = await fetch(requestURL, {
-            method : 'POST', // get으로 바꾼 뒤에 토큰을 가져와야하나? 흠,,,,,,
-            headers : {
-                'Content-Type' : 'application/json'
-            },
-            body : JSON.stringify(form)
-        })
-        .then(response => response.json());
-
-        console.log('[MemberAPICalls] callLoginAPI result : ', result);
-
-        if(result.status === 200){
-            /* 로그인 성공 시 발급 받은 accessToken을 클라이언트 측의 localStorage에 저장한다.
-            이후 토큰이 필요한 요청에는 저장 된 토큰을 넣어 요청하도록 한다. */
-            alert("본인 인증이 완료되었습니다.");
-            window.localStorage.setItem('accessToken', result.data.accessToken);
-        } else{
-            alert("본인 인증을 다시 해주세요.");
-        }
-
-        dispatch(postLogin(result));
-        
-    }
-}
-
-// 결재 승인/반려
-// 결재 승인/반려
-export const callAccessPutAPI = (formForAccessor) => {
-    const requestURL = `${PRE_URL}/access`;
-    return async (dispatch, getState) => {
-        const result = await fetch(requestURL, {
-            method: 'PUT',
-            headers: {
-                "Authorization" : "Bearer " + window.localStorage.getItem('accessToken'),
-                "Content-Type": "application/json" // JSON 형식으로 전송함을 명시
-            },
-            body: JSON.stringify(formForAccessor) // 객체를 JSON 문자열로 변환하여 전송
-        }).then(response => response.json());
-
-        if(result.status === 200) {
-            console.log('[ApprovalAPICalls] :  callAccessPutAPI result : ', result);
-            dispatch(putApproval(result));
-        }
-    }
-}
+export const callApprovalAccessAPI = async (form) => {
+    
+  };
