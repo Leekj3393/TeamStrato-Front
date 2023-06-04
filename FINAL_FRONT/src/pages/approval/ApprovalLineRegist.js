@@ -17,19 +17,19 @@ function ApprovalLineRegist() {
     const appCode = appDetail?.appCode;
     const {memberCode} = useParams();
     const form = {};
-    form.member = {memberCode};
+    form.accessor = {memberCode};
     form.appLineStatus = 'appWait';
     form.appPriorYn = 'Y';
     form.appOrder = 1;
     
     const form2 = {};
-    form2.member = {memberCode};
+    form2.accessor = {memberCode};
     form2.appLineStatus = 'appWait';
     form2.appPriorYn = 'N';
     form2.appOrder = 2;
 
     const form3 = {};
-    form3.member = {memberCode};
+    form3.accessor = {memberCode};
     form3.appLineStatus = 'appWait';
     form3.appPriorYn = 'N';
     form3.appOrder = 3;
@@ -93,7 +93,7 @@ function ApprovalLineRegist() {
 
     useEffect(() => {
         if (appDetail && appMember) {
-          form.member.memberCode = appMember.memberCode;
+          form.accessor.memberCode = appMember.memberCode;
           // form의 나머지 컬럼들에 고정된 값을 할당
           form.appLineStatus = 'appWait';
           form.appPriorYn = 'Y';
@@ -103,7 +103,7 @@ function ApprovalLineRegist() {
 
     useEffect(() => {
         if (appDetail && appMember) {
-          form2.member.memberCode = appMember.memberCode;
+          form2.accessor.memberCode = appMember.memberCode;
           // form의 나머지 컬럼들에 고정된 값을 할당
           form2.appLineStatus = 'appWait';
           form2.appPriorYn = 'N';
@@ -113,7 +113,7 @@ function ApprovalLineRegist() {
 
     useEffect(() => {
         if (appDetail && appMember) {
-          form3.member.memberCode = appMember.memberCode;
+          form3.accessor.memberCode = appMember.memberCode;
           // form의 나머지 컬럼들에 고정된 값을 할당
           form3.appLineStatus = 'appWait';
           form3.appPriorYn = 'N';
@@ -161,17 +161,17 @@ useEffect(
     /* 결재 요청 버튼 클릭 시 이벤트 */
     const onClickInsertHandler = () => {
         if (!firstAccessor || !secondAccessor || !finalAccessor 
-            || !form.member?.memberCode || !form.appPriorYn || !form.appLineStatus
-            || !form2.member?.memberCode || !form2.appPriorYn || !form2.appLineStatus
-            || !form3.member?.memberCode || !form3.appPriorYn || !form3.appLineStatus
+            || !form.accessor?.memberCode || !form.appPriorYn || !form.appLineStatus
+            || !form2.accessor?.memberCode || !form2.appPriorYn || !form2.appLineStatus
+            || !form3.accessor?.memberCode || !form3.appPriorYn || !form3.appLineStatus
             ) {
-            if (!firstAccessor && !form?.memberCode) {
+            if (!firstAccessor && !form?.accessor.memberCode) {
                 alert("제1 결재선이 선택되지 않았습니다.");
                 return;
-            } else if (!secondAccessor && !form2.member.memberCode) {
+            } else if (!secondAccessor && !form2.accessor.memberCode) {
                 alert("제2 결재선이 선택되지 않았습니다.");
                 return;
-            } else if (!finalAccessor && !form3.member.memberCode) {
+            } else if (!finalAccessor && !form3.accessor.memberCode) {
                 alert("최종 결재선이 선택되지 않았습니다.");
                 return;
             } else if ( !form?.appLineStatus) {
@@ -190,21 +190,21 @@ useEffect(
         }
 
         // form에 선택된 멤버의 정보 저장
-        form.member.memberCode = firstAccessor?.memberCode;
+        form.accessor.memberCode = firstAccessor?.memberCode;
         // form의 나머지 컬럼들에 고정된 값을 할당
         form.appLineStatus = 'appWait';
         form.appPriorYn = 'Y';
         form.appOrder = 1;
 
         // form2에 선택된 멤버의 정보 저장
-        form2.member.memberCode = secondAccessor?.memberCode;
+        form2.accessor.memberCode = secondAccessor?.memberCode;
         // form2의 나머지 컬럼들에 고정된 값을 할당
         form2.appLineStatus = 'appWait';
         form2.appPriorYn = 'N';
         form2.appOrder = 2;
 
         // form3에 선택된 멤버의 정보 저장
-        form3.member.memberCode = finalAccessor?.memberCode;
+        form3.accessor.memberCode = finalAccessor?.memberCode;
         // form3의 나머지 컬럼들에 고정.
         form3.appLineStatus = 'appWait';
         form3.appPriorYn = 'N';
@@ -228,17 +228,17 @@ useEffect(
         if (!firstAccessor) {
             setFirstAccessor(member);
             if(firstAccessor){
-                form.member.memberCode = firstAccessor;
+                form.accessor.memberCode = firstAccessor?.memberCode;
             }
         } else if (!secondAccessor) {
             setSecondAccessor(member);
             if(secondAccessor){
-                form3.member.memberCode = secondAccessor;
+                form3.accessor.memberCode = secondAccessor?.memberCode;
             }
         } else {
             setFinalAccessor(member);
             if(finalAccessor){
-                form3.member.memberCode = finalAccessor;
+                form3.accessor.memberCode = finalAccessor?.memberCode;
             }
         }
 
@@ -352,6 +352,16 @@ useEffect(
                         </div>
                     </div>
                 </div>
+                        <div className={ApprovalCSS.contentInfoDiv2}>
+                            <ul>설명서 모달로 만들면 좋겠다!!!
+                                <li>
+                                    ※선택된 직원은 조직도 목록에서 사라집니다.
+                                </li>
+                                <li>
+                                    ※선택된 결재선을 취소하려면 ~~ㅇ 모달 만들기
+                                </li>
+                            </ul>
+                        </div>
                 <div className={ApprovalCSS.selectedMemberDiv}>
                     <div className={ApprovalCSS.selectedMemberContent}>
                         <div className={ApprovalCSS.contentInfoDiv}>결재선</div>

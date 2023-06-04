@@ -2,7 +2,6 @@ import { getAppMemberInfo, postApproval, getApprovals, getApproval, putApproval,
 import {postLogin} from "../modules/MemberModule";
 
 
-
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
 const PRE_URL = `http://${SERVER_IP}:${SERVER_PORT}/skylift/approval`;
@@ -171,15 +170,17 @@ export const callIdentifyAccessorAPI = (form) => {
 }
 
 // 결재 승인/반려
+// 결재 승인/반려
 export const callAccessPutAPI = (formForAccessor) => {
-    const requestURL = `${PRE_URL}/approval-accessor`;
+    const requestURL = `${PRE_URL}/access`;
     return async (dispatch, getState) => {
         const result = await fetch(requestURL, {
             method: 'PUT',
             headers: {
-                "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+                "Authorization" : "Bearer " + window.localStorage.getItem('accessToken'),
+                "Content-Type": "application/json" // JSON 형식으로 전송함을 명시
             },
-            body: formForAccessor
+            body: JSON.stringify(formForAccessor) // 객체를 JSON 문자열로 변환하여 전송
         }).then(response => response.json());
 
         if(result.status === 200) {
