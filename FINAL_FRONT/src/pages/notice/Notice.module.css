@@ -122,6 +122,12 @@
   width: 50px;
   text-align: center;
 }
+
+.contentImg
+{
+  width: 400px;
+  height: 300px;
+}
   
 .deleteBtnDiv {
   position: absolute;

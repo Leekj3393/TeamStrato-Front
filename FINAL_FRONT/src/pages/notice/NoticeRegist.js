@@ -30,10 +30,12 @@ function NoticeRegist() {
     // const noticeRegistDate = useParams();
     const [form, setForm] = useState({member:{memberCode}, noticeRegistDate:formatDate(Date()), noticeDelYn:'N'});
 
-    useEffect (() => {
+    useEffect (() =>
+     {
         dispatch(callApprovalMemberInfoAPI());
     },[]);
 
+    console.log("appMember : {}", appMember);
 
     const onChangeHandler = (e) => {
         if(e.target.name === 'memberCode'){
@@ -68,41 +70,39 @@ function NoticeRegist() {
     );
 
 
-    const onClickRegistHandler = () => {
-        if(
-            !form?.noticeTitle || !form?.noticeContent || !form?.noticeType || !form?.member?.memberCode ||!form?.noticeRegistDate ||!form?.noticeDelYn
-        ) {
+    const onClickRegistHandler = () => 
+    {
+        const formData = new FormData();
+        if(!form?.noticeTitle || !form?.noticeContent || !form?.noticeType || !form?.memberCode) 
+        {
             if(!form?.noticeTitle) {
                 alert("제목을 작성해주세요.");
                 console.log('form : ', form);
                 return;
-            } else if(!form?.noticeContent) {
+            } 
+            else if(!form?.noticeContent) {
                 alert("내용을 작성해주세요.");
                 console.log('form : ', form);
                 return;
-            } else if(!form?.noticeType) {
+            } 
+            else if(!form?.noticeType) {
                 alert("공지사항 구분이 누락되었습니다.");
                 console.log('form : ', form);
                 return;
-            } else if(!form?.member?.memberCode) {
-                alert("작성자 정보가 누락되었습니다.");
-                console.log('form : ', form);
-                return;
-            } else if(!form?.noticeRegistDate) {
-                alert("작성일 정보가 누락되었습니다.");
-                console.log('form : ', form);
-                return;
-            } else {
-                alert("삭제 여부가 누락되었습니다.");
-                console.log('form : ', form);
-                return;
-            }
-        } else if(image) {
-            form.append("noticeImage", image);
-            console.log('form : ', form);
+            } 
+            else if(!form?.memberCode) 
+            {
+                formData.append("member.memberCode" , appMember.memberCode);
+            } 
+        } 
+        if(image) 
+        {
+            formData.append("noticeImage", image);
         }
-        console.log('form : ', form);
-         dispatch(callNoticeRegistAPI(form));
+        formData.append("noticeTitle" , form.noticeTitle);
+        formData.append("noticeContent",form.noticeContent);
+        formData.append("noticeType", form.noticeType);
+        dispatch(callNoticeRegistAPI(formData));
     };
 
     useEffect(
@@ -147,8 +147,8 @@ function NoticeRegist() {
                                         <option name="selection" >선택</option>
                                         <option name="noticeType" id=''>공통</option>
                                         <option name="noticeType" id='D1'>인사</option>
-                                        <option name="noticeType" id='D2'>안전/교육</option>
-                                        <option name="noticeType" id='D3'>장비 관리</option>
+                                        <option name="noticeType" id='D2'>안전교육</option>
+                                        <option name="noticeType" id='D3'>시설관리</option>
                                     </select>
                                 </td>
                             </tr>
