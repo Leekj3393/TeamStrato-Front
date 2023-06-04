@@ -47,7 +47,7 @@ function MemberRole({setRoleModalOpen, memberCode}) {
             }
         },
         [roleModify]
-    )
+    );
 
     const closeRoleModal = () => {
         setRoleModalOpen(false);

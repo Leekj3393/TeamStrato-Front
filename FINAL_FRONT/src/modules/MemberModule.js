@@ -14,9 +14,10 @@ const PUT_MEMBERS = 'member/PUT_MEMBERS';
 const PUT_MEBMERROLE = 'member/PUT_MEMBERROLE';
 const PUT_MEMBERREQUEST = 'member/PUT_MEMBERREQUEST'
 const POST_UPDATEPWD = 'member/POST_UPDATEPWD';
+const DELETE_MEMBERDELETE = 'member/DELETE_MEMBERDELETE';
 
 export const { member : {getMember , getMembers, postLogin, resetMember, postMember, postMembers, 
- putMemberrole, putMemberrequest, putMembers, postUpdatepwd
+ putMemberrole, putMemberrequest, putMembers, postUpdatepwd, memberdelete
 }} = createActions({
     [GET_MEMBERS] : res => res.data,
     [GET_MEMBER] : res => res.data,
@@ -30,6 +31,7 @@ export const { member : {getMember , getMembers, postLogin, resetMember, postMem
     [PUT_MEBMERROLE] : res => res,
     [PUT_MEMBERREQUEST] : res => res,
     [POST_UPDATEPWD] : res => res,
+    [DELETE_MEMBERDELETE] : res => res,
 });
 
 const memberReducer = handleActions(
@@ -46,6 +48,7 @@ const memberReducer = handleActions(
         [PUT_MEBMERROLE] : (state, {payload}) => ({roleModify : payload}),
         [PUT_MEMBERREQUEST] : (state, {payload}) => ({ Mbrequest : payload}),
         [POST_UPDATEPWD] : (state, {payload}) => ({ updateOk : payload }),
+        [DELETE_MEMBERDELETE] : (state, {payload}) => ({memberDelete : payload}),
     }
     , initialState);
 

@@ -6,6 +6,8 @@ import { callMemberDetailAPI } from '../../apis/MemberAPICalls';
 import { callMemberImageAPI } from '../../apis/MemberFileAPICalls';
 import MemberRole from './MemberRole';
 import MemberRequest from './MemberRequest';
+import { callMyPageMemberAPI } from '../../apis/MyPageAPICalls';
+import MemberDelete from './MemberDelete';
 
 
 function MemberDetail () {
@@ -19,9 +21,10 @@ function MemberDetail () {
     const serverUrl = "http://localhost:8001/images/member/"
     const [RolemodalOpen, setRoleModalOpen] = useState(false);
     const [reqeustModalOpen, setRequestModalOpen] = useState(false);
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
-    console.log("member", memberDt);
-    console.log("memberImg", memberImg);
+    /* 로그인한 직원 정보 조회 */
+    const { membersData } = useSelector(state => state.myPageReducer);
 
     useEffect(
         () => {
@@ -30,6 +33,11 @@ function MemberDetail () {
         },
         []
     );
+
+    /* 로그인한 직원 정보 조회 */
+    useEffect(() => {
+        dispatch(callMyPageMemberAPI());
+    }, []);
 
     const onClickMemberModify = () => {
         navigate(`/member/modify/${memberCode}`);
@@ -41,6 +49,10 @@ function MemberDetail () {
 
     const onClickOpenRequestModal = () => {
         setRequestModalOpen(true);
+    };
+
+    const onClickOpenDeleteModal = () => {
+        setDeleteModalOpen(true);
     };
 
     return (
@@ -60,11 +72,13 @@ function MemberDetail () {
                 <span className='memberDtName'>
                     { memberDt && memberDt.memberName }
                 </span>
-                <button className='memberDtBt1' onClick={onClickOpenRoleModal}>권한</button>
+                { membersData?.memberRole?.roleDes === '인사관리자' && <button className='memberDtBt1' onClick={onClickOpenRoleModal}>권한</button> }
                 {RolemodalOpen && <MemberRole memberCode={memberCode} setRoleModalOpen={setRoleModalOpen}/>}
-                <button className='memberDtBt2' onClick={onClickOpenRequestModal}>인사이동</button>
+                { membersData?.memberRole?.roleDes === '인사관리자' && <button className='memberDtBt2' onClick={onClickOpenRequestModal}>인사이동</button> }
                 {reqeustModalOpen && <MemberRequest memberCode={memberCode} setRequestModalOpen={setRequestModalOpen}/>}
-                <button className='memberDtBt3' onClick={onClickMemberModify}>수정하기</button>
+                { membersData?.memberRole?.roleDes === '인사관리자' && <button className='memberDtBt3' onClick={onClickMemberModify}>수정하기</button> }
+                { membersData?.memberRole?.roleDes === '인사관리자' && <button className="memberDtBt4" onClick={onClickOpenDeleteModal}>삭제</button>}
+                { deleteModalOpen && <MemberDelete membercode={memberCode} setDeleteModalOpen={setDeleteModalOpen}/>}
             </div>
             <div className='memberDtDpt'>
                 <span className="memberDptName">부서</span>

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { callEducationPhotoListAPI } from '../../apis/EducationAPICalls';
 import EducationPhotoRegist from './EducationPhotoRegist';
 import PagingBar from '../../components/common/EducationPagingBar';
+import { callMyPageMemberAPI } from '../../apis/MyPageAPICalls';
 
 function EducationPhoto() {
 
@@ -15,12 +16,20 @@ function EducationPhoto() {
     const { eduPhoto } = useSelector((state) => state.educationReducer);
     const serverUrl = "http://localhost:8001/images/education/";
 
+    /* 로그인한 직원 정보 조회 */
+    const { membersData } = useSelector(state => state.myPageReducer);
+
     useEffect(
         () => {
             dispatch(callEducationPhotoListAPI({currentPage}));
         },
         [currentPage]
     )
+
+    /* 로그인한 직원 정보 조회 */
+    useEffect(() => {
+        dispatch(callMyPageMemberAPI());
+    }, []);
     
     /* 사진 등록 모달창  */
     const onClickOpenPhotoModal = () => {
@@ -39,9 +48,7 @@ function EducationPhoto() {
                 교육사진
             </div>
             <div className={EduPhotoCSS.registBt}>
-                <a onClick={onClickOpenPhotoModal}>
-                    사진 등록
-                </a>
+                { membersData?.memberRole?.roleDes === '안전관리자' && <a onClick={onClickOpenPhotoModal}>사진 등록</a> }
                 {photoModalOpen && <EducationPhotoRegist setPhotoModalOpen={setPhotoModalOpen}/>}
             </div>
             <div className={EduPhotoCSS.flexDiv}>
