@@ -77,23 +77,27 @@ function MemberSubNavbar() {
             Member <br/>Email
             {activeItem === 'email' && 
             <div>
+                <div className="myStyle">
                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                    <span>Send Members Email</span>
-                    <div>
+                
+                    <div className='searchNameMy'>
                         <input 
+                    
                             type="text"
-                            placeholder="이메일"
+                            placeholder="이메일 보낼 회원 이름 입력"
                             value={searchEmail}
                             onChange={e => setSearchEmail(e.target.value)}
                         />
                         <button onClick={searchEmailHandler}>Search</button>
+                   </div>
                     </div>
 
                 </div>
                 
                 {emailResult && emailResult.map((result, index) => (
     <div key={index} className="MembersEmail">
-        <p>Name: {result.name}, Email: {result.email}<a href={`mailto:${result.email}`}><button>📧</button></a></p>
+        <div className='resultName'>Name: {result.name}</div>
+       <br/> <div className='resultName2'>Email: {result.email}<a href={`mailto:${result.email}`}><button>📧</button></a></div>
         
     </div>
 ))}
@@ -113,11 +117,12 @@ function MemberSubNavbar() {
                 My<br/>Card
                 {activeItem === 'card' && (
                     <div>
-                        <div className='submitMember' onClick={downloadTitleAllMember}>
-                        🧑‍💻 My Card Download
-                        </div>
+                        <button className='submitMember' onClick={downloadTitleAllMember}>
+                        🧑‍💻 My Card Download 
+                        </button>
+
+
                         <div className='titleAllMember' ref={titleAllMemberRef}>
-                            <img className="memberCard" src="/image/차은우 존잘.png" alt="로고" />
                                 <img className="secondLogo" src="/image/카드로고.png" alt="로고" />
                             <div className='cardSkyLift'>
                                 <div className='skyLift'></div>
