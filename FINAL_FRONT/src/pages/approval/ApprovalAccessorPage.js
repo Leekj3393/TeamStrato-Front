@@ -15,6 +15,12 @@ function ApprovalAccessorPage () {
     const params = useParams();
     const memberCode = appMember?.memberCode;
     const { appLineDetail } = useSelector(state => state.applineReducer);
+    const [form, setForm] = useState({
+        appLineCode: appLineDetail?.appLineCode,
+        appLineStatus: '',
+        appTime: ''
+      });
+
     useEffect(
         () => {
             dispatch(callApprovalMemberInfoAPI());
@@ -40,10 +46,7 @@ function ApprovalAccessorPage () {
         }
     }, [access])
     
-    const form = {};
-    form.appLineCode = appLineDetail?.appLineCode;
-    form.appLineStatus = 'appAccessed';
-    form.appTime = Date();
+
        
 
     const onChangeIdentifyHandler = (e) => {
@@ -58,10 +61,14 @@ function ApprovalAccessorPage () {
     };
 
     const onClickApprovalAccessHandler = () => {
-        form.appLineStatus = 'appAccessed';
-        form.appTime = Date();
-
-        dispatch(callAccessPutAPI(form));
+        const updatedForm = {
+            ...form,
+            appLineStatus: 'appAccessed',
+            appTime: new Date().toString()
+          };
+          setForm(updatedForm);
+        
+          dispatch(callAccessPutAPI(updatedForm));
     };
 
     const onClickApprovalReturnHandler = () => {};
