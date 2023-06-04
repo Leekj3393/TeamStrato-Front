@@ -34,11 +34,15 @@ function CompanyCal() {
   const [state, setState] = useState({
     memberCode: loggedInMember, // 현재 로그인된 객체의 memberCode로 설정
     division: "부서",
-    deptCode: department.deptCode,
+    deptCode: department?.deptCode,
   });
 
-  console.log("현재 로그인 유저의 부서 deptCode : ", department.deptCode);
-  console.log("현재 로그인 유저의 부서 이름 : ", department.deptName);
+  console.log("state에는 뭐가 있나: ", state);
+  console.log("department에는 뭐가 있나: ", department);
+  if (department) {
+    console.log("현재 로그인 유저의 부서 deptCode : ", department.deptCode);
+    console.log("현재 로그인 유저의 부서 이름 : ", department.deptName);
+  }
   console.log("현재 로그인 유저의 코드 : ", loggedInMember);
 
   useEffect(() => {

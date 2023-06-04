@@ -13,6 +13,7 @@ function AllSch() {
     const pageInfo = allsch?.pageInfo;
     const [currentPage, setCurrentPage] = useState(1);
     const loggedInMember = useSelector(state => state.myPageReducer.membersData.memberCode);
+    const department = useSelector(state => state.myPageReducer.membersData.department);
 
 
     useEffect(
@@ -47,6 +48,7 @@ function AllSch() {
                         <th className={AllSchCSS.schStart}>시작일</th>
                         <th className={AllSchCSS.schEnd}>종료일</th>
                         <th className={AllSchCSS.schWho}>구분</th>
+                        <th className={AllSchCSS.schDept}>부서명</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -57,6 +59,7 @@ function AllSch() {
                                 <td className={AllSchCSS.schStart}>{calendar.start}</td>
                                 <td className={AllSchCSS.schEnd}>{calendar.end}</td>
                                 <td className={AllSchCSS.schWho}>{calendar.division}</td>
+                                <td className={AllSchCSS.schDept}>{calendar.deptCode}</td>
                             </tr>
                             ))}
                     </tbody>
