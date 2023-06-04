@@ -11,37 +11,64 @@ function ApprovalAccessorPage () {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { access, appDetail, appMember } = useSelector(state => state.approvalReducer);
-    const { appLineDetail } = useSelector(state => state.applineReducer);
-    const memberCode = appLineDetail?.approval?.member?.memberCode;
-
-    const [identifyingForm, setIdentifyingForm] = useState({
-        memberId: getMemberId(),
-        memberPassword: ''
-    });
-
-
-    const form = {};
-    form.accessor = {memberCode};
-    form.appLineStatus = 'appAccessed';
-    const form2 = {};
-    form2.accessor = {memberCode};
-    form2.appPriorYn = 'Y';
+    const {appLineCode} = useParams();
     const params = useParams();
+    const memberCode = appMember?.memberCode;
+    const { appLineDetail } = useSelector(state => state.applineReducer);
+    const [form, setForm] = useState({
+        appLineCode: appLineDetail?.appLineCode,
+        appLineStatus: '',
+        appTime: ''
+      });
+
+    useEffect(
+        () => {
+            dispatch(callApprovalMemberInfoAPI());
+        },[]
+        );
     const appCode = params.appCode;
+    useEffect(
+        () => {
+        dispatch(callAppLineDetailAPI({appCode}));
+        dispatch(callApprovalDetailAPI({appCode}));
+    },[]
+    );
+    
+    // const [identifyingForm, setIdentifyingForm] = useState({
+    //     memberId: getMemberId(),
+    //     memberPassword: ''
+    // });
+    
+    useEffect(() => {
+        if(access?.status === 200){
+            alert("결재 승인/반려 처리가 완료되었습니다.");
+            navigate('/', { replace : true });
+        }
+    }, [access])
+    
+
+       
 
     const onChangeIdentifyHandler = (e) => {
-        setIdentifyingForm({
-            ...identifyingForm,
-            [e.target.name] : e.target.value
-        });
+    //     setIdentifyingForm({
+    //         ...identifyingForm,
+    //         [e.target.name] : e.target.value
+    //     });
     };
 
     const onClickIdenticationHandler = () => {
-        dispatch(callIdentifyAccessorAPI(identifyingForm));
+        // dispatch(callIdentifyAccessorAPI(identifyingForm));
     };
 
     const onClickApprovalAccessHandler = () => {
-        dispatch(callAccessPutAPI(form));
+        const updatedForm = {
+            ...form,
+            appLineStatus: 'appAccessed',
+            appTime: new Date().toString()
+          };
+          setForm(updatedForm);
+        
+          dispatch(callAccessPutAPI(updatedForm));
     };
 
     const onClickApprovalReturnHandler = () => {};
@@ -56,18 +83,7 @@ function ApprovalAccessorPage () {
         return `${year}년 ${month}월 ${day}일`;
     }
 
-    useEffect(() => {
-        dispatch(callApprovalMemberInfoAPI());
-    }, 
-    []);
-
-    useEffect(
-        () => {
-            dispatch(callApprovalDetailAPI({appCode}));
-            dispatch(callAppLineDetailAPI({appCode}));
-        },
-        [appCode]
-    );
+ 
 
     return (
             <div className={ApprovalCSS}>
@@ -106,26 +122,26 @@ function ApprovalAccessorPage () {
                             <tbody>
                                 <tr className={ApprovalCSS.accessorTr1}>
                                     <th className={ApprovalCSS.col1}>문서번호</th>
-                                    <td className={ApprovalCSS.col8}>{appDetail  && appDetail.appCode}</td>
+                                    <td className={ApprovalCSS.col8}>{appDetail  && appDetail?.appCode}</td>
                                     <th className={ApprovalCSS.col5}>부서</th>
-                                    <td className={ApprovalCSS.col9}>{appDetail && appDetail.member?.department?.deptName}</td>
+                                    <td className={ApprovalCSS.col9}>{appDetail && appDetail?.member?.department?.deptName}</td>
                                 </tr>
                                 <tr className={ApprovalCSS.accessorTr2}>
                                     <th className={ApprovalCSS.col2}>구분</th>
-                                    <td className={ApprovalCSS.col10}>{appDetail && appDetail.appType}</td>
+                                    <td className={ApprovalCSS.col10}>{appDetail && appDetail?.appType}</td>
                                     <th className={ApprovalCSS.col6}>상태</th>
-                                    <td className={ApprovalCSS.col11}>{appDetail && appDetail.appStatus}</td>
+                                    <td className={ApprovalCSS.col11}>{appDetail && appDetail?.appStatus}</td>
                                     <th className={ApprovalCSS.col7}>등록일</th>
-                                    <td className={ApprovalCSS.col12}>{formatDate(appDetail && appDetail.appRegistDate)}</td>
+                                    <td className={ApprovalCSS.col12}>{formatDate(appDetail && appDetail?.appRegistDate)}</td>
                                 </tr>
                                 <tr className={ApprovalCSS.accessorTr3}>
                                     <th className={ApprovalCSS.col3}>제목</th>
-                                    <td className={ApprovalCSS.col13}>{appDetail && appDetail.appTitle}</td>
+                                    <td className={ApprovalCSS.col13}>{appDetail && appDetail?.appTitle}</td>
                                 </tr>
                                 <tr className={ApprovalCSS.accessorTr4}>
                                     <th className={ApprovalCSS.col4}>내용</th>
                                     <td className={ApprovalCSS.col14}>
-                                        {appDetail && appDetail.appContent}
+                                        {appDetail && appDetail?.appContent}
                                     </td>
                                 </tr>
                             </tbody>
@@ -146,7 +162,7 @@ function ApprovalAccessorPage () {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
     );
             
 }

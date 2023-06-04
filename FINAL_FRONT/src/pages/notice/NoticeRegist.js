@@ -14,12 +14,21 @@ function NoticeRegist() {
     const {appMember} = useSelector(state => state.approvalReducer);
     const memberCode = appMember?.memberCode;
     const { jobDept } = useSelector(state => state.memberRoleReducer);
-    const [form, setForm] = useState({});
     const {regist} = useSelector(state => state.noticeReducer);
     const [image, setImage] = useState(null);
     const [imageUrl, setImageUrl] = useState('');
     const ImageInput = useRef();
-    // const department = use
+    
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    // const noticeRegistDate = useParams();
+    const [form, setForm] = useState({member:{memberCode}, noticeRegistDate:formatDate(Date()), noticeDelYn:'N'});
 
     useEffect (() =>
      {
@@ -29,10 +38,25 @@ function NoticeRegist() {
     console.log("appMember : {}", appMember);
 
     const onChangeHandler = (e) => {
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value,
-        });
+        if(e.target.name === 'memberCode'){
+            setForm({
+                ...form,
+                member: appMember
+            })
+            console.log('form : ', form);
+        } else if(e.target.name === 'noticeRegistDate'){
+            setForm({
+                ...form,
+                noticeRegistDate: formatDate(Date())
+            });
+            console.log('form : ', form);
+        } else{
+            setForm({
+                ...form,
+                [e.target.name]: e.target.value
+            });
+            console.log('form : ', form);
+        }
     };
 
     useEffect(
@@ -53,14 +77,17 @@ function NoticeRegist() {
         {
             if(!form?.noticeTitle) {
                 alert("제목을 작성해주세요.");
+                console.log('form : ', form);
                 return;
             } 
             else if(!form?.noticeContent) {
                 alert("내용을 작성해주세요.");
+                console.log('form : ', form);
                 return;
             } 
             else if(!form?.noticeType) {
                 alert("공지사항 구분이 누락되었습니다.");
+                console.log('form : ', form);
                 return;
             } 
             else if(!form?.memberCode) 
@@ -93,7 +120,7 @@ function NoticeRegist() {
     );
 
     /* 이미지 업로드 버튼 클릭 이벤트 */
-    const onClickImgageUpload = () => {
+    const onClickImageUpload = () => {
         ImageInput.current.click();
     }
 
@@ -106,11 +133,15 @@ function NoticeRegist() {
         <div className={NoticeCSS}>
             <div className={NoticeCSS.square}></div>
             <div className={NoticeCSS.content}>
+                <div className={NoticeCSS.noticeTitleCircle}></div>
+                <div className={NoticeCSS.noticeTitle}>
+                    공지사항 작성
+                </div>
                 <div className={NoticeCSS.noticeFormDiv}>
-                    <table>
+                    <table className={NoticeCSS.noticeFormTable}>
                         <tbody>
                             <tr>
-                                <th>구분</th>
+                                <th className={NoticeCSS.noticeTh}>구분</th>
                                 <td name='noticeType'>
                                 <select  className={NoticeCSS.deptSelect} name="noticeType" onChange={onChangeHandler} for='noticeType'>
                                         <option name="selection" >선택</option>
@@ -121,22 +152,30 @@ function NoticeRegist() {
                                     </select>
                                 </td>
                             </tr>
+                            <div className={NoticeCSS.noticeTh} hidden>삭제여부</div>
+                            <div name='noticeDelYn' onChange={onChangeHandler}  hidden>{'N'}</div>
                             <tr>
-                                <th>작성자</th>
-                                <td>
-                                    <div 
-                                        id='memberCode'
-                                        name="member.memberCode"
-                                        onChange={onChangeHandler}
-                                    >
-                                        {appMember?.memberName}
-                                    </div>
+                                <th className={NoticeCSS.noticeTh}>등록일</th>
+                                <td
+                                    name="noticeRegistDate"
+                                    onChange={onChangeHandler}
+                                >
+                                    {formatDate(Date())}
                                 </td>
                             </tr>
                             <tr>
-                                <th>제목</th>
+                                <th className={NoticeCSS.noticeTh}>작성자</th>
+                                <td
+                                    name="memberCode"
+                                    onChange={onChangeHandler}
+                                >
+                                    {appMember?.memberName}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th className={NoticeCSS.noticeTh}>제목</th>
                                 <td>
-                                    <input
+                                    <input  className={NoticeCSS.noticeInput}
                                         id='noticeTitle'
                                         name='noticeTitle'
                                         type='text'
@@ -146,9 +185,9 @@ function NoticeRegist() {
                                 </td>
                             </tr>
                             <tr>
-                                <th>내용</th>
+                                <th className={NoticeCSS.noticeTh}>내용</th>
                                 <td colSpan={3}>
-                                    <textarea
+                                    <textarea className={NoticeCSS.noticeTextrea}
                                         placeholder='내용을 입력해주세요.'
                                         id='noticeContent'
                                         name='noticeContent'
@@ -157,7 +196,7 @@ function NoticeRegist() {
                                 </td>
                             </tr>
                             <tr>
-                                <th>파일첨부</th>
+                                <th className={NoticeCSS.noticeTh}>파일첨부</th>
                                 <td>
                                     <div className='AttechedRgImg'>
                                         {imageUrl &&
@@ -178,7 +217,7 @@ function NoticeRegist() {
                                         />
                                         <button 
                                             className='imgRgBtn'
-                                            onClick={onClickImgageUpload}
+                                            onClick={onClickImageUpload}
                                         > 
                                             파일 업로드
                                         </button>

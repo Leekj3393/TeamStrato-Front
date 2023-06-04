@@ -161,8 +161,8 @@ function App() {
             <Route path="/member/department/:deptName" element={<Member/>}/>
             <Route path="/member/job/:jobName" element={<Member/>}/> 
             <Route path="/member/:memberCode" element={<MemberDetail/>}/>
-            <Route path="/member/regist" element={<MemberReigst/>}/>
-            <Route path="/member/modify/:memberCode" element={<MemberModify/>}/>
+            <Route path="/member/regist" element={<ProtectedRoute hrCheck={true}><MemberReigst/></ProtectedRoute>}/>
+            <Route path="/member/modify/:memberCode" element={<ProtectedRoute hrCheck={true}><MemberModify/></ProtectedRoute>}/>
           </Route>
           <Route path="/calendar" element={<Calendar/>}/>
           <Route path="/education" element={<EducationSubLayout/>}>

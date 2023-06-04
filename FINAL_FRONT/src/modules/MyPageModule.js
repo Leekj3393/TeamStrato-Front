@@ -15,12 +15,14 @@ const initialState = {
   getMyNotice: '',
   deletRequestCode:'' ,
   getMemberEmailMy:'',
-  workInfoAll:''
+  workInfoAll:'',
+  getMemberImage:''
   
 };
 
 // Action types
 const GET_MEMBERS_ALL = 'MyPage/GET_MEMBERS_ALL';
+const GET_MY_MEMBER_IMAGE = 'MyPage/GET_MY_MEMBER_IMAGE';
 
 const GET_MY_MEMBERS = 'MyPage/GET_MY_MEMBERS';
 const PUT_MODIFY_MYMEMBER =  'MyPage/PUT_MODIFY_MYMEMBER';
@@ -45,6 +47,14 @@ const GET_MEMBER_EMAIL_MY = 'MyPage/GET_MEMBER_EMAIL_MY';
 
 // Action creators
 export const data = createActions({
+
+  //회원이미지
+    //이메일 찾기
+    [GET_MY_MEMBER_IMAGE]: (getMemberImage) => {
+      console.log(getMemberImage)
+      return ({ getMemberImage })
+    }, 
+  
   //이메일 찾기
   [GET_MEMBER_EMAIL_MY]: (getMemberEmailMy) => {
     console.log(getMemberEmailMy)
@@ -136,6 +146,15 @@ export const getMyNotice = (deletRequestCode) => {
 // Reducer
 const myPageReducer = handleActions(
   {
+    //멤버 이미지
+            //이메일 찾기
+            [GET_MY_MEMBER_IMAGE]: (state, { payload: { getMemberImage } }) => {
+              console.log('GET_MY_MEMBER_IMAGE:', getMemberImage);
+              return {
+                ...state,
+                getMemberImage,
+              };
+            },
 
         //이메일 찾기
         [GET_MEMBER_EMAIL_MY]: (state, { payload: { getMemberEmailMy } }) => {

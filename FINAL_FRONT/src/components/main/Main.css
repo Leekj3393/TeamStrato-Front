@@ -922,6 +922,60 @@ opacity: 0.3;
 
 }
 
+.image-item {
+  margin-right: 10px; /* 오른쪽에 10px 간격을 줍니다. */
+}
+
+.image-container {
+  display: flex; 
+}
+
+.image-item img {
+  width: 150px; 
+  height: 100px; 
+  object-fit: cover;
+  margin-left: 220px;
+  margin-top: -30px;
+}
+
+.image-item:not(:last-child) {
+  margin-right: -90px; /* 원하는 간격으로 조절하세요. */
+}
+
+.eduName {
+  margin-left: 270px;
+  margin-top: -10px; /* 원하는 간격으로 조절하세요. */
+}
+
+.eduMain2{
+  position: absolute;
+  width: 170px;
+  height: 100px;
+  margin-left: 480px;
+  margin-top: -30px;
+}
+
+.eduName2{
+  position: absolute;
+  margin-left: 520px;
+  margin-top: 75px;
+}
+
+.eduMain3{
+  position: absolute;
+  width: 170px;
+  height: 100px;
+  margin-left: 730px;
+  margin-top: -30px;
+}
+
+.eduName3{
+  position: absolute;
+  margin-left: 770px;
+  margin-top: 75px;
+}
+
+
 
   .edutitle3::after {
     content: "교육 보기";

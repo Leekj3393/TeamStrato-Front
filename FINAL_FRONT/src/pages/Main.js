@@ -9,6 +9,7 @@ import { callAllSchAPI } from '../apis/CalendarAPICalls';
 import { callMemberSalaryList } from '../apis/SalaryAPICalls';
 import { Doughnut } from 'react-chartjs-2';
 import { Chart, registerables } from 'chart.js';
+import { callEducationPhotoListAPI } from '../apis/EducationAPICalls';
 
 const getDate = (date) => {
   const newDate = new Date(date);
@@ -19,6 +20,23 @@ const getDate = (date) => {
 }
 
 function Main(props) {
+  //교육 사진
+//교육 사진
+const [photoModalOpen, setPhotoModalOpen] = useState(false);
+
+const { eduPhoto } = useSelector((state) => state.educationReducer);
+
+const serverUrl = "http://localhost:8001/images/education/";
+console.log("사진 불러오기:",eduPhoto);
+useEffect(() => {
+    // `currentPage`를 대체하는 값을 넣어줘야 합니다.
+    dispatch(callEducationPhotoListAPI({}));
+}, []);
+
+// 수정
+const imagesToShow = eduPhoto?.data?.slice(1, 7) || [];
+
+console.log(imagesToShow); // 이 부분 추가
   //일정
 
   const {data} = useSelector(state => state.noticeReducer);
@@ -427,6 +445,20 @@ const formatDateTime = (isoDateTime) => {
 
 <div className='edu'>
 <div class="edutitle3">내가 받을  </div>
+<div className="image-container">
+  {imagesToShow.map((photo, index) => {
+    const fileName = photo.fileName.split('^')[0]; // ^ 이후의 문자를 제거
+    return (
+      <div key={photo.fileCode} className="image-item">
+        <img src={`${serverUrl}${photo.filePath}`} alt={fileName} />
+        <div className="eduName">{fileName}</div>
+      </div>
+    );
+  })}
+</div>
+
+
+
 </div>
 
 
