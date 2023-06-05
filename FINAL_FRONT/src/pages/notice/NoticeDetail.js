@@ -120,7 +120,12 @@ function NoticeDetail() {
         });
     }
 
+    const onClickDeleteHandler = (e) =>
+    {
 
+    }
+
+    console.log("image : {} " , image);
 
   return (
     <div className={NoticeCSS}>
@@ -139,7 +144,7 @@ function NoticeDetail() {
                                 <select  
                                     className={NoticeCSS.deptSelect} 
                                     name="noticeType" onChange={onChangeHandler} 
-                                    for='noticeType' value={noticeDetail?.noticeType}>
+                                    for='noticeType' value={form?.noticeType ? form.noticeType : noticeDetail?.noticeType}>
                                     <option name="noticeType" id=''>공통</option>
                                     <option name="noticeType" id='D1'>인사</option>
                                     <option name="noticeType" id='D2'>안전교육</option>
@@ -206,7 +211,7 @@ function NoticeDetail() {
                             </>
                             : 
                             <img className={NoticeCSS.contentImg} 
-                                src={ imageUrl ? imageUrl : noticeDetail?.noticefiles[0].filePath} 
+                                src={ imageUrl ? imageUrl : noticeDetail?.noticefiles[0]?.filePath ? noticeDetail.noticefiles[0].filePath : null} 
                                 alt="게시판 이미지입니다"/>
                         }       
                     </tr>

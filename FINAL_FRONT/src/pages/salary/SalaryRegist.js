@@ -88,7 +88,7 @@ function SalaryRegist()
 
     const onClickSave = () =>
     {
-        if(!reSalary.salary)
+        if(!reSalary?.salary)
         {
             setForm({
                 memberCode : sch.member.memberCode,
