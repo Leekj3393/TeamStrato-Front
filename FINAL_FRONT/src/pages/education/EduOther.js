@@ -13,7 +13,7 @@ function EduOther() {
     const navigate = useNavigate();
     const { data, pageInfo } = useSelector((state) => state.educationReducer);
     const [currentPage, setCurrentPage] = useState(1);
-    const { classView } = useSelector((state) => state.classReducer);
+    const { classViewList } = useSelector((state) => state.classReducer);
     
 
     useEffect(
@@ -66,9 +66,9 @@ function EduOther() {
                 <div className={EduSafeCSS.eduListTime}>
                     영상시간 : {formatTime(education.edTime)}
                 </div> 
-                <div className={classView && classView.education.edCode === education.edCode && classView.classView === 'Y' ? EduSafeCSS.eduListBtContinue : EduSafeCSS.eduListBtWatch}>
+                <div className={classViewList && classViewList.some(item => item.education?.edCode === education.edCode && item.classView === 'Y') ? EduSafeCSS.eduListBtContinue : EduSafeCSS.eduListBtWatch}>
                     <button onClick={() => onClickEducationDtHandler(education.edCode)}>
-                        {classView && classView.education.edCode === education.edCode && classView.classView === 'Y' ? '이어보기' : '시청'}
+                        {classViewList && classViewList.some(item => item.education?.edCode === education.edCode && item.classView === 'Y') ? '이어보기' : '시청'}
                     </button>
                 </div>
             </div>
