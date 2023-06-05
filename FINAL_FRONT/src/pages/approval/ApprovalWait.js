@@ -22,6 +22,7 @@ function ApprovalWait() {
     []);
     
     useEffect(() => {
+        if(memberCode)
         dispatch(callApprovalWListAPI({memberCode, currentPage}));
     }, 
     [currentPage, memberCode]);
