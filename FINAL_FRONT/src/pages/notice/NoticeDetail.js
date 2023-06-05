@@ -100,6 +100,7 @@ function NoticeDetail() {
         formData.append("noticeCode",noticeDetail.noticeCode);
         dispatch(callModifyNotice(formData));
     }
+    
 
 
         /* 이미지 업로드 버튼 클릭 이벤트 */
@@ -214,7 +215,7 @@ function NoticeDetail() {
                 {isAdmin && <div className={NoticeCSS.detailAdminDiv}>
                     {!isModify &&<div className={NoticeCSS.modifyBtn} onClick={onClickModifyHandler}> <img src='../../image/MODIFY-BTN.png'></img></div>}
                     {isModify && <div className={NoticeCSS.modifyBtn} onClick={onClickModifySaveHandler}>저장</div>}
-                    <div className={NoticeCSS.deleteBtn} onClick={onClickDeleteHandler}><img src='../../image/delete-btn.png'></img></div>
+                    { <div className={NoticeCSS.deleteBtn} onClick={onClickDeleteHandler}><img src='../../image/delete-btn.png'></img></div> }
                 </div>}
             </div>
         </div>
