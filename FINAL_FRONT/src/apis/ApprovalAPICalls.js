@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getAppMemberInfo, postApproval, getApprovals, getApproval, putApproval } from "../modules/ApprovalModule";
+import { getAppMemberInfo, postApproval, getApprovals, getApprovalCount, getApproval, putApproval } from "../modules/ApprovalModule";
 import {postLogin} from "../modules/MemberModule";
 
 
@@ -61,6 +61,21 @@ export const callApprovalWListAPI = ({ memberCode, currentPage = 1 }) => {
             console.log('memberCode : ', memberCode);
             console.log('requestURL : ', requestURL);
             dispatch(getApprovals(result));
+        }
+    }    
+}
+export const callApprovalsCountAPI = ({ memberCode, appStatus}) => {
+    const requestURL = `${PRE_URL}/count/${memberCode}/${appStatus}`;
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log('[ApprovalAPICalls] : callApprovalListAPI result : ', result);
+            console.log('memberCode : ', memberCode);
+            console.log('appStatus : ', appStatus);
+            console.log('requestURL : ', requestURL);
+            dispatch(getApprovalCount(result));
         }
     }    
 }
@@ -185,3 +200,4 @@ export const callApprovalReturnAPI = ({appCode, memberCode}) => {
       }
     }
 };
+
