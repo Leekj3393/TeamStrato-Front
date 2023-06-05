@@ -102,6 +102,8 @@ function NoticeDetail() {
     }
     
 
+    const onClickDeleteHandler = () => {
+    }
 
         /* 이미지 업로드 버튼 클릭 이벤트 */
         const onClickImgageUpload = () => {
@@ -216,6 +218,8 @@ function NoticeDetail() {
                     {!isModify &&<div className={NoticeCSS.modifyBtn} onClick={onClickModifyHandler}> <img src='../../image/MODIFY-BTN.png'></img></div>}
                     {isModify && <div className={NoticeCSS.modifyBtn} onClick={onClickModifySaveHandler}>저장</div>}
                     { <div className={NoticeCSS.deleteBtn} onClick={onClickDeleteHandler}><img src='../../image/delete-btn.png'></img></div> }
+                    {/* <div className={NoticeCSS.deleteBtn} onClick={onClickDeleteHandler}><img src='../../image/delete-btn.png'></img></div> */}
+                    {/*여기가 오류가 떠요*/}
                 </div>}
             </div>
         </div>

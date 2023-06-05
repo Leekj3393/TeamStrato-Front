@@ -68,7 +68,7 @@ function Notice() {
       navigate('/notice/regist');
     }
     const onClickDelListPage = () => {
-        navigate('/notice/deleted');
+        // navigate('/notice/deleted');
     }
 
     const checkedChange = (checked , code) =>
@@ -82,7 +82,7 @@ function Notice() {
     }
 
     const onClickSelectedNoticesDeleteHandler = () => {
-        dispatch(callNoticesDeleteAPI(checked)); 
+        // dispatch(callNoticesDeleteAPI(checked)); 
     }
 
     console.log("checked : {}" , checked);
