@@ -64,8 +64,8 @@ export const callApprovalWListAPI = ({ memberCode, currentPage = 1 }) => {
         }
     }    
 }
-export const callApprovalsCountAPI = ({ memberCode, appStatus}) => {
-    const requestURL = `${PRE_URL}/count/${memberCode}/${appStatus}`;
+export const callApprovalsCountWaitAPI = ({memberCode}) => {
+    const requestURL = `${PRE_URL}/count/${memberCode}/wait`;
 
     return async (dispatch, getState) => {
         const result = await fetch(requestURL).then(response => response.json());
@@ -73,7 +73,48 @@ export const callApprovalsCountAPI = ({ memberCode, appStatus}) => {
         if(result.status === 200) {
             console.log('[ApprovalAPICalls] : callApprovalListAPI result : ', result);
             console.log('memberCode : ', memberCode);
-            console.log('appStatus : ', appStatus);
+            console.log('requestURL : ', requestURL);
+            dispatch(getApprovalCount(result));
+        }
+    }    
+}
+export const callApprovalsCountInProgressAPI = ({memberCode}) => {
+    const requestURL = `${PRE_URL}/count/${memberCode}/inProgress`;
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log('[ApprovalAPICalls] : callApprovalListAPI result : ', result);
+            console.log('memberCode : ', memberCode);
+            console.log('requestURL : ', requestURL);
+            dispatch(getApprovalCount(result));
+        }
+    }    
+}
+export const callApprovalsCountAccessedAPI = ({memberCode}) => {
+    const requestURL = `${PRE_URL}/count/${memberCode}/accessed`;
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log('[ApprovalAPICalls] : callApprovalListAPI result : ', result);
+            console.log('memberCode : ', memberCode);
+            console.log('requestURL : ', requestURL);
+            dispatch(getApprovalCount(result));
+        }
+    }    
+}
+export const callApprovalsCountReturnedAPI = ({memberCode}) => {
+    const requestURL = `${PRE_URL}/count/${memberCode}/returned`;
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log('[ApprovalAPICalls] : callApprovalListAPI result : ', result);
+            console.log('memberCode : ', memberCode);
             console.log('requestURL : ', requestURL);
             dispatch(getApprovalCount(result));
         }

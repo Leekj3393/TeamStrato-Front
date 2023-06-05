@@ -3,7 +3,7 @@ import ApprovalCSS from './Approval.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { callApprovalListAPIForAccessor, callApprovalMemberInfoAPI } from '../../apis/ApprovalAPICalls';
-import { callApprovalsCountAPI } from '../../apis/ApprovalAPICalls';
+import { callApprovalsCountWaitAPI, callApprovalsCountInProgressAPI, callApprovalsCountAccessedAPI, callApprovalsCountReturnedAPI } from '../../apis/ApprovalAPICalls';
 import PagingBar from '../../components/common/PagingBar';
 
 
@@ -12,13 +12,11 @@ function Approval() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { data, appMember, appDetail, count } = useSelector((state) => state.approvalReducer);
-    const {demandList} = useSelector((state) => state.applineReducer)
     const memberCode = appMember?.memberCode;
     const approvals = useSelector(state => state.approvalReducer);
-    const appCode = approvals?.appCode;
     const pageInfo = approvals.pageInfo;
     const [currentPage, setCurrentPage] = useState(1);
-    const [appStatus, setAppStatus] = useState('');
+    // const [appStatus, setAppStatus] = useState('');
 
     function formatDate(dateString) {
         const date = new Date(dateString);
@@ -37,22 +35,36 @@ function Approval() {
 
     useEffect(
         () => {
-            dispatch(callApprovalListAPIForAccessor({memberCode, currentPage}));
-            dispatch(callApprovalsCountAPI({memberCode, appStatus}));
+            if(memberCode){
+                dispatch(callApprovalsCountWaitAPI({memberCode}));
+            }
+            // if(memberCode){
+            //     dispatch(callApprovalsCountInProgressAPI({memberCode}));
+            // }
+            // if(memberCode){
+            //     dispatch(callApprovalsCountAccessedAPI({memberCode}));
+            // }
+            // if(memberCode){
+            //     dispatch(callApprovalsCountReturnedAPI({memberCode}));
+            // }
         },
-        [currentPage, memberCode, appStatus]
+        [memberCode]
     )
 
-    const onChangeAppStatus = (e) => {
-        setAppStatus({
-            [e.tartget.name] : e.target.value
-        })
-    }
+    useEffect(
+        () => {
+            if(memberCode)
+            dispatch(callApprovalListAPIForAccessor({memberCode, currentPage}));
+        },
+        [currentPage, memberCode]
+    )
+
 
     /* 상세페이지로 이동 */
     const onClickDetailHandler = (appCode) => {
         navigate(`../approval/accessor/${appCode}`);
     };
+    const onChangeAppStatus = () => {}
 
     return(
         <div className={ApprovalCSS}>
@@ -61,19 +73,19 @@ function Approval() {
                 <div className={ApprovalCSS.appInfoBoxDiv}>
                     <div className={ApprovalCSS.WTBox}>
                         결재 대기 문서 개수
-                        <div className={ApprovalCSS.ea} onChange={() => onChangeAppStatus('wait')}><b>{}</b> 개</div>
+                        <div className={ApprovalCSS.ea}><b>{}</b> 개</div>
                     </div>
                     <div className={ApprovalCSS.IPBox}>
                         결재 진행중 문서 개수
-                        <div className={ApprovalCSS.ea} onChange={() => onChangeAppStatus('inProgress')}><b>{}</b> 개</div>
+                        <div className={ApprovalCSS.ea}><b>{}</b> 개</div>
                     </div>
                     <div className={ApprovalCSS.ACBox}>
                         결재 승인 문서 개수
-                        <div className={ApprovalCSS.ea} onChange={() => onChangeAppStatus('accessed')}><b>{}</b> 개</div>
+                        <div className={ApprovalCSS.ea}><b>{}</b> 개</div>
                     </div>
                     <div className={ApprovalCSS.RTBox}>
                         결재 반려 문서 개수
-                        <div className={ApprovalCSS.ea} onChange={() => onChangeAppStatus('returned')}><b>{}</b> 개</div>
+                        <div className={ApprovalCSS.ea}><b>{}</b> 개</div>
                     </div>
                 </div>
                 <div className={ApprovalCSS.appMainTableInfo}>
