@@ -170,6 +170,7 @@ const Toast = Swal.mixin({
           requestType: "휴가 신청"
         }));
       }
+      window.location.href = 'http://localhost:3000/approval/appline';
     });
   };
   
@@ -212,6 +213,7 @@ const Toast = Swal.mixin({
           requestType: "휴직 신청"
         }));
       }
+      window.location.href = 'http://localhost:3000/approval/appline';
     });
   };
   
@@ -257,6 +259,7 @@ const Toast = Swal.mixin({
           requestType: "퇴직 신청"
         }));
       }
+      window.location.href = 'http://localhost:3000/approval/appline';
     });
   };
 
