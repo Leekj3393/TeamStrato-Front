@@ -1,4 +1,4 @@
-import {getAppLines, getApplineMembers, getApprovalInfo, postAppline} from "../modules/ApplineModule";
+import {getAppLines, getAppLine, getApplineMembers, getApprovalInfo, postAppline} from "../modules/ApplineModule";
 import {getApproval} from "../modules/ApprovalModule";
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
@@ -57,6 +57,18 @@ export const callAppLineDetailAPI = ({appCode}) => {
         if(result.status === 200) {
             console.log('[AppLineAPICalls] : callAppLineDetailAPI result : ', result);
             dispatch(getAppLines(result));
-        }
-    }
+        };
+    };
+};
+
+//결재선 코드 찾기!!!!
+export const callAppLineInfoAPI = ({appCode, memberCode}) => {
+    const reqeustURL = `${PRE_URL}/access/appLineInfo?appCode=${appCode}&memberCode=${memberCode}`;
+    return async (dispatch, getState) => {
+        const result = await fetch(reqeustURL).then(res => res.json());
+        if(result.status === 200) {
+            console.log('[AppLineAPICalls] : callAppLineInfoAPI result : ', result);
+            dispatch(getAppLine(result));
+        };
+    };
 }

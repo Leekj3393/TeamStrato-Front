@@ -3,25 +3,45 @@ import ApprovalCSS from './Approval.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { callApprovalDetailAPI } from '../../apis/ApprovalAPICalls';
-import { callAppLineDetailAPI } from '../../apis/AppLineAPICalls';
+import { callAppLineDetailAPI, callAppLineInfoAPI } from '../../apis/AppLineAPICalls';
+import { callApprovalAccessAPI, callApprovalReturnAPI } from '../../apis/ApprovalAPICalls';
+import { callMyPageMemberAPI } from "../../apis/MyPageAPICalls";
 
 function ApprovalAccessorPage () {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { appDetail } = useSelector(state => state.approvalReducer);
-    const { appLineDetail } = useSelector(state => state.applineReducer);
+    const { appLineDetail, appLineInfo  } = useSelector(state => state.applineReducer);
+    const membersData = useSelector(state => state.myPageReducer.membersData);
     const params = useParams();
     const appCode = params.appCode;
-    const appLineCode = params.appLineCode;
+    const memberCode = membersData?.memberCode;
 
     useEffect(
         () => {
             dispatch(callApprovalDetailAPI({appCode}));
             dispatch(callAppLineDetailAPI({appCode}));
+            dispatch(callAppLineInfoAPI({appCode, memberCode}));
+            dispatch(callMyPageMemberAPI());
         },
         []
     );
+
+    // console.log('appLineDetail:', appLineDetail);
+    console.log('membersData:', membersData);
+    console.log('memberCode:', memberCode);
+
+
+
+ //appLineCode 찾는 로직 추가
+    const foundAppLineCode = appLineDetail?.find(
+        (appLine) =>
+        appLine?.accessor?.memberCode === memberCode && appLine?.approval?.appCode === appCode
+    );
+    const appLineCode = appLineInfo?.appLineCode;
+    console.log('appLineCode:', appLineCode);
+
 
     function formatDate(dateString) {
         const date = new Date(dateString);
@@ -31,8 +51,22 @@ function ApprovalAccessorPage () {
         return `${year}년 ${month}월 ${day}일`;
     }
 
-    const onClickApprovalAccessHandler = () => {}
-    const onClickApprovalReturnHandler = () => {}
+    const onClickApprovalAccessHandler = (appCode, memberCode) => {
+        dispatch(callApprovalAccessAPI({appCode, memberCode}));
+        console.log('appCode : ', appCode);
+        console.log('appLineCode : ', memberCode);
+        // 처리 완료 후 필요한 작업 수행
+        alert("결재 승인 처리가 완료되었습니다.");
+        navigate(`/approval`, {replace : true});
+        window.location.reload();
+    };
+    const onClickApprovalReturnHandler = (appCode, memberCode) => {
+        dispatch(callApprovalReturnAPI({appCode, memberCode}));
+        // 처리 완료 후 필요한 작업 수행
+        alert("결재 반려 처리가 완료되었습니다.");
+        navigate(`/approval`, {replace : true});
+        window.location.reload();
+    }
 
     return (
             <div className={ApprovalCSS}>
@@ -96,8 +130,8 @@ function ApprovalAccessorPage () {
                             </tbody>
                         </table>
                         <div className={ApprovalCSS.registAppLineDiv}>
-                            <div className={ApprovalCSS.accessBtn} onClick={onClickApprovalAccessHandler}><img src='../../image/access-btn.png'/></div>
-                            <div className={ApprovalCSS.returnBtn} onClick={onClickApprovalReturnHandler}><img src='../../image/deny-btn.png'/></div>
+                            <div className={ApprovalCSS.accessBtn} onClick={() => onClickApprovalAccessHandler(appCode, memberCode)}><img src='../../image/access-btn.png'/></div>
+                            <div className={ApprovalCSS.returnBtn} onClick={() => onClickApprovalReturnHandler(appCode, memberCode)}><img src='../../image/deny-btn.png'/></div>
                         </div>
                     </div>
                 </div>

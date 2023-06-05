@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getAppMemberInfo, postApproval, getApprovals, getApproval, putApproval, } from "../modules/ApprovalModule";
+import { getAppMemberInfo, postApproval, getApprovals, getApproval, putApproval } from "../modules/ApprovalModule";
 import {postLogin} from "../modules/MemberModule";
 
 
@@ -138,7 +138,50 @@ export const callApprovalDetailAPI = ({appCode}) => {
     }
 }
 
+// 결재 승인 처리
+export const callApprovalAccessAPI = ({appCode, memberCode}) => {
+    const requestURL = `${PRE_URL}/access/approvalUpdate?appCode=${appCode}&memberCode=${memberCode}`;
+  
+    return async (dispatch, getState) => {
+      try {
+        const response = await axios.put(requestURL, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + window.localStorage.getItem('accessToken')
+          }
+        });
+  
+        if (response.status === 200) {
+          console.log('[ApprovalAPICalls] : callApprovalAccessAPI result : ', response.data);
+          dispatch(putApproval(response.data));
+          // 처리 완료 후 필요한 작업 수행
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+};
 
-export const callApprovalAccessAPI = async (form) => {
-    
-  };
+// 결재 반려 처리
+export const callApprovalReturnAPI = ({appCode, memberCode}) => {
+    const requestURL = `${PRE_URL}/access/approvalReturn?appCode=${appCode}&memberCode=${memberCode}`;
+  
+    return async (dispatch, getState) => {
+      try {
+        const response = await axios.put(requestURL, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + window.localStorage.getItem('accessToken')
+          }
+        });
+  
+        if (response.status === 200) {
+          console.log('[ApprovalAPICalls] : callApprovalAccessAPI result : ', response.data);
+          dispatch(putApproval(response.data));
+          // 처리 완료 후 필요한 작업 수행
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+};
