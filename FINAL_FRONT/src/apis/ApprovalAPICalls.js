@@ -1,4 +1,5 @@
-import { getAppMemberInfo, postApproval, getApprovals, getApproval, putApproval, } from "../modules/ApprovalModule";
+import axios from "axios";
+import { getAppMemberInfo, postApproval, getApprovals, getApprovalCount, getApproval, putApproval } from "../modules/ApprovalModule";
 import {postLogin} from "../modules/MemberModule";
 
 
@@ -60,6 +61,21 @@ export const callApprovalWListAPI = ({ memberCode, currentPage = 1 }) => {
             console.log('memberCode : ', memberCode);
             console.log('requestURL : ', requestURL);
             dispatch(getApprovals(result));
+        }
+    }    
+}
+export const callApprovalsCountAPI = ({ memberCode, appStatus}) => {
+    const requestURL = `${PRE_URL}/count/${memberCode}/${appStatus}`;
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL).then(response => response.json());
+
+        if(result.status === 200) {
+            console.log('[ApprovalAPICalls] : callApprovalListAPI result : ', result);
+            console.log('memberCode : ', memberCode);
+            console.log('appStatus : ', appStatus);
+            console.log('requestURL : ', requestURL);
+            dispatch(getApprovalCount(result));
         }
     }    
 }
@@ -137,55 +153,51 @@ export const callApprovalDetailAPI = ({appCode}) => {
     }
 }
 
-// 결재 승인/반려 전 본인인증
-export const callIdentifyAccessorAPI = (form) => {
-
-    const requestURL = `${PRE_URL}/accessor-identify`;
-
+// 결재 승인 처리
+export const callApprovalAccessAPI = ({appCode, memberCode}) => {
+    const requestURL = `${PRE_URL}/access/approvalUpdate?appCode=${appCode}&memberCode=${memberCode}`;
+  
     return async (dispatch, getState) => {
-
-        const result = await fetch(requestURL, {
-            method : 'POST', // get으로 바꾼 뒤에 토큰을 가져와야하나? 흠,,,,,,
-            headers : {
-                'Content-Type' : 'application/json'
-            },
-            body : JSON.stringify(form)
-        })
-        .then(response => response.json());
-
-        console.log('[MemberAPICalls] callLoginAPI result : ', result);
-
-        if(result.status === 200){
-            /* 로그인 성공 시 발급 받은 accessToken을 클라이언트 측의 localStorage에 저장한다.
-            이후 토큰이 필요한 요청에는 저장 된 토큰을 넣어 요청하도록 한다. */
-            alert("본인 인증이 완료되었습니다.");
-            window.localStorage.setItem('accessToken', result.data.accessToken);
-        } else{
-            alert("본인 인증을 다시 해주세요.");
+      try {
+        const response = await axios.put(requestURL, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + window.localStorage.getItem('accessToken')
+          }
+        });
+  
+        if (response.status === 200) {
+          console.log('[ApprovalAPICalls] : callApprovalAccessAPI result : ', response.data);
+          dispatch(putApproval(response.data));
+          // 처리 완료 후 필요한 작업 수행
         }
-
-        dispatch(postLogin(result));
-        
+      } catch (error) {
+        console.error(error);
+      }
     }
-}
+};
 
-// 결재 승인/반려
-// 결재 승인/반려
-export const callAccessPutAPI = (formForAccessor) => {
-    const requestURL = `${PRE_URL}/access`;
+// 결재 반려 처리
+export const callApprovalReturnAPI = ({appCode, memberCode}) => {
+    const requestURL = `${PRE_URL}/access/approvalReturned?appCode=${appCode}&memberCode=${memberCode}`;
+  
     return async (dispatch, getState) => {
-        const result = await fetch(requestURL, {
-            method: 'PUT',
-            headers: {
-                "Authorization" : "Bearer " + window.localStorage.getItem('accessToken'),
-                "Content-Type": "application/json" // JSON 형식으로 전송함을 명시
-            },
-            body: JSON.stringify(formForAccessor) // 객체를 JSON 문자열로 변환하여 전송
-        }).then(response => response.json());
-
-        if(result.status === 200) {
-            console.log('[ApprovalAPICalls] :  callAccessPutAPI result : ', result);
-            dispatch(putApproval(result));
+      try {
+        const response = await axios.put(requestURL, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + window.localStorage.getItem('accessToken')
+          }
+        });
+  
+        if (response.status === 200) {
+          console.log('[ApprovalAPICalls] : callApprovalAccessAPI result : ', response.data);
+          dispatch(putApproval(response.data));
+          // 처리 완료 후 필요한 작업 수행
         }
+      } catch (error) {
+        console.error(error);
+      }
     }
-}
+};
+

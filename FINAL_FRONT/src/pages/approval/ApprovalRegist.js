@@ -71,7 +71,10 @@ function ApprovalRegist() {
         }
          dispatch(callApprovalRegistAPI(form));
     };
-    const onClickResetHandler = () => {};
+    const onClickResetHandler = () => {
+        alert("결재신청을 취소합니다.");
+        navigate("/approval", {replace: true})
+    };
 
     return (
         <div className={ApprovalCSS}>

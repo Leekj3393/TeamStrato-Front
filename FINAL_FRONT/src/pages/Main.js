@@ -143,8 +143,6 @@ console.log(imagesToShow); // 이 부분 추가
 
 
   //날씨
-
-  
   const Weather = () => {
     if (!weatherData) {
       return <div className="loading-text">날씨를 불러오는 중이에요 😚</div>;
@@ -159,34 +157,6 @@ console.log(imagesToShow); // 이 부분 추가
       </div>
     );
   };
-  //도넛차트
-  //도넛 차트
-// Chart.register(...registerables);
-// const data = {
-//   labels: ['출근', '결근', '지각', '퇴근'],
-//   datasets: [
-//     {
-//       label: '출근율',
-//       data: [10, 2, 1, 5],
-//       backgroundColor: [
-//         'rgba(75, 192, 192, 0.2)',
-//         'rgba(255, 99, 132, 0.2)',
-//         'rgba(255, 206, 86, 0.2)',
-//         'rgba(153, 102, 255, 0.2)'
-//       ],
-//       borderColor: [
-//         'rgba(75, 192, 192, 1)',
-//         'rgba(255, 99, 132, 1)',
-//         'rgba(255, 206, 86, 1)',
-//         'rgba(153, 102, 255, 1)'
-//       ],
-//       borderWidth: 1,
-//     },
-//   ],
-// };
-
-  //도넷
-
   //도넛차트
   Chart.register(...registerables);
   const dataTwo = {
@@ -213,7 +183,6 @@ console.log(imagesToShow); // 이 부분 추가
 };
 
   //
-
   const navigate = useNavigate();
   const { allsch }  = useSelector(state => state.calendarReducer);
 
@@ -260,6 +229,16 @@ const formatDateTime = (isoDateTime) => {
   const time = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   return `${date}, ${time}`;
 };
+//링크
+
+const handleClickMore = () => {
+  navigate('/calendar/allSch');
+}
+
+const handleClickMoreNotice = () => {
+  navigate('/notice');
+}
+
 
   return (
     <div className={MainCSS}>
@@ -275,7 +254,8 @@ const formatDateTime = (isoDateTime) => {
       <div className="todo1" style={{ flex: 1 }}>
         <div className="todoText1">🗓 일정</div>
         
-        <div className="todoText0">더보기 <img className="more" src="/image/더보기.png"/></div>
+        <div className="todoText0" onClick={handleClickMore}>더보기 <img className="more" src="/image/더보기.png"/></div>
+      
       </div>
       <div className="All">
       {allsch?.data?.slice(0, 2).map((calendar, index) => (
@@ -299,7 +279,13 @@ const formatDateTime = (isoDateTime) => {
       </div>
       <div className="board" style={{ display: "flex", flex: 1 }}>
         <div className="notic" style={{ flex: 1 }}>공지사항</div>
-        <div className="todoTextNotice">더보기<img className="more2" src="/image/더보기.png"/></div>
+       
+       
+       
+        <div className="todoTextNotice" onClick={handleClickMoreNotice}>
+      더보기<img className="more2" src="/image/더보기.png"/>
+    </div>
+       
         <div className="noticNemo"></div>
         <div className="boardMinibar1">
           <div className="notic1">
@@ -406,9 +392,33 @@ const formatDateTime = (isoDateTime) => {
   <img className="cartFront" src="/image/astronaut.png"/>
   <div className='cardName2'>스키장 장비 확인</div>
   </div>
-  <div class="card-face backMain1">
-    // Your different back content here
+  <div className="card-face backMain1" style={{overflowY: 'scroll'}}>
+  스키장 장비 이름: 스키 판톤<br/>
+  상태: 사용 가능<br/>
+  재고: 10개<br/><br/>
+
+  스키장 장비 이름: 스키 바인딩<br/>
+  상태: 사용 가능<br/>
+  재고: 15개<br/><br/>
+
+  스키장 장비 이름: 스키 부츠<br/>
+  상태: 사용 중<br/>
+  재고: 8개<br/><br/>
+
+  스키장 장비 이름: 스키 헬멧<br/>
+  상태: 사용 가능<br/>
+  재고: 20개<br/><br/>
+
+  스키장 장비 이름: 스키 장갑<br/>
+  상태: 사용 중<br/>
+  재고: 12개<br/><br/>
+  <div className='salaryMain2'>
+  자세한 장비 확인
+  <img className="more4" src="/image/더보기.png"/> 
   </div>
+</div>
+
+
 </div>
 
 <div className="card itemMain3">
@@ -417,7 +427,17 @@ const formatDateTime = (isoDateTime) => {
   <div className='cardName3'>서류 진행 사항</div>
   </div>
   <div class="card-face backMain2">
-    // Your different back content here
+  결재 이름: 휴가<br/>
+날짜: 2023년 6월 10일부터 <br/>2023년 6월 15일까지<br/>
+상태: 대기중<br/><br/>
+
+결재 이름: 업무 지원비 신청<br/>
+날짜: 2023년 7월 1일<br/>
+상태: 대기중<br/><br/>
+
+결재 이름: 프로젝트 예산 승인<br/>
+날짜: ~<br/>
+상태: 대기중<br/>
   </div>
 </div>
 
@@ -428,7 +448,6 @@ const formatDateTime = (isoDateTime) => {
 
   </div>
   <div class="card-face backMain3">
-  <div className='memberMain'><u></u>님의 근태</div>
   근태 상태: {workInfo[0]?.status || "오늘 근태 정보가 없습니다."}<br/>
   <span class="name-salry">출근 : </span> {workInfo[0]?.startTime ? formatDateTime(workInfo[0].startTime) : "출근 정보를 등록하세요"}<br/>
   <span class="name-salry">퇴근: </span> {workInfo[0]?.endTime ? formatDateTime(workInfo[0].endTime) : "퇴근 정보를 등록하세요"}<br/>
@@ -456,13 +475,7 @@ const formatDateTime = (isoDateTime) => {
     );
   })}
 </div>
-
-
-
 </div>
-
-
-
     </div>
     );
 

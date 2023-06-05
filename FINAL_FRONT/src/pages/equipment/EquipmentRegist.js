@@ -145,7 +145,7 @@ function EquipmentRegist()
                             <select
                                 className="select-box"
                                 name="categoryCode"
-                                onChange={ onChangeHandler}
+                                onChange={ onChangeHandler }
                                 >
                                     {category && category.map((c) =>( 
                                         <option value={ c.categoryCode }>{c.equCategory.categoryName} - {c.categoryName}</option>)

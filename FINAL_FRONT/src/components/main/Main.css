@@ -510,7 +510,7 @@ color: #3E6039;
 
 
 .backMain1 {
-
+  text-align: center;
   background: #ffffff;
   box-shadow: 0 0 10px rgb(212, 212, 212);
   transform: rotateY(180deg);
@@ -521,6 +521,7 @@ color: #3E6039;
 }
 
 .backMain2 {
+  text-align: center;
   background: #ffffff;
   box-shadow: 0 0 10px rgb(212, 212, 212);
   transform: rotateY(180deg);
