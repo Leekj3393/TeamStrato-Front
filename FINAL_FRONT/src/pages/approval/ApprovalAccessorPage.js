@@ -64,8 +64,8 @@ function ApprovalAccessorPage () {
         dispatch(callApprovalReturnAPI({appCode, memberCode}));
         // 처리 완료 후 필요한 작업 수행
         alert("결재 반려 처리가 완료되었습니다.");
-        navigate(`/approval`, {replace : true});
-        window.location.reload();
+        // navigate(`/approval`, {replace : true});
+        // window.location.reload();
     }
 
     return (

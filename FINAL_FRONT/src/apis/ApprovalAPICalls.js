@@ -164,7 +164,7 @@ export const callApprovalAccessAPI = ({appCode, memberCode}) => {
 
 // 결재 반려 처리
 export const callApprovalReturnAPI = ({appCode, memberCode}) => {
-    const requestURL = `${PRE_URL}/access/approvalReturn?appCode=${appCode}&memberCode=${memberCode}`;
+    const requestURL = `${PRE_URL}/access/approvalReturned?appCode=${appCode}&memberCode=${memberCode}`;
   
     return async (dispatch, getState) => {
       try {
