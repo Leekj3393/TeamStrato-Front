@@ -13,7 +13,6 @@ export const callMemberRoleAPI = () => {
         const result = await fetch(reqeustURL).then(response => response.json());
 
         if(result.status === 200) {
-            console.log('[MemberRoleAPICalls] : callMemberRoleAPI result : ', result);
             dispatch(getMemberrole(result));
         }
     }
