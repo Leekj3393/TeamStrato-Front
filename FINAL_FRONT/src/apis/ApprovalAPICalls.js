@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getAppMemberInfo, postApproval, getApprovals, getApprovalCount, getApproval, putApproval } from "../modules/ApprovalModule";
+import { getAppMemberInfo, postApproval, getApprovals, getApproval, getApprovalWait, getApprovalInProgress, getApprovalAccessed, getApprovalReturned, putApproval } from "../modules/ApprovalModule";
 import {postLogin} from "../modules/MemberModule";
 
 
@@ -64,62 +64,47 @@ export const callApprovalWListAPI = ({ memberCode, currentPage = 1 }) => {
         }
     }    
 }
-export const callApprovalsCountWaitAPI = ({memberCode}) => {
-    const requestURL = `${PRE_URL}/count/${memberCode}/wait`;
-
+export const callApprovalsCountAPI = ({ memberCode }) => {
+    const waitRequestURL = `${PRE_URL}/count/${memberCode}/wait`;
+    const inProgressRequestURL = `${PRE_URL}/count/${memberCode}/inProgress`;
+    const accessedRequestURL = `${PRE_URL}/count/${memberCode}/accessed`;
+    const returnedRequestURL = `${PRE_URL}/count/${memberCode}/returned`;
+  
     return async (dispatch, getState) => {
-        const result = await fetch(requestURL).then(response => response.json());
-
-        if(result.status === 200) {
-            console.log('[ApprovalAPICalls] : callApprovalListAPI result : ', result);
-            console.log('memberCode : ', memberCode);
-            console.log('requestURL : ', requestURL);
-            dispatch(getApprovalCount(result));
-        }
-    }    
-}
-export const callApprovalsCountInProgressAPI = ({memberCode}) => {
-    const requestURL = `${PRE_URL}/count/${memberCode}/inProgress`;
-
-    return async (dispatch, getState) => {
-        const result = await fetch(requestURL).then(response => response.json());
-
-        if(result.status === 200) {
-            console.log('[ApprovalAPICalls] : callApprovalListAPI result : ', result);
-            console.log('memberCode : ', memberCode);
-            console.log('requestURL : ', requestURL);
-            dispatch(getApprovalCount(result));
-        }
-    }    
-}
-export const callApprovalsCountAccessedAPI = ({memberCode}) => {
-    const requestURL = `${PRE_URL}/count/${memberCode}/accessed`;
-
-    return async (dispatch, getState) => {
-        const result = await fetch(requestURL).then(response => response.json());
-
-        if(result.status === 200) {
-            console.log('[ApprovalAPICalls] : callApprovalListAPI result : ', result);
-            console.log('memberCode : ', memberCode);
-            console.log('requestURL : ', requestURL);
-            dispatch(getApprovalCount(result));
-        }
-    }    
-}
-export const callApprovalsCountReturnedAPI = ({memberCode}) => {
-    const requestURL = `${PRE_URL}/count/${memberCode}/returned`;
-
-    return async (dispatch, getState) => {
-        const result = await fetch(requestURL).then(response => response.json());
-
-        if(result.status === 200) {
-            console.log('[ApprovalAPICalls] : callApprovalListAPI result : ', result);
-            console.log('memberCode : ', memberCode);
-            console.log('requestURL : ', requestURL);
-            dispatch(getApprovalCount(result));
-        }
-    }    
-}
+      const waitResult = await fetch(waitRequestURL).then(response => response.json());
+      const inProgressResult = await fetch(inProgressRequestURL).then(response => response.json());
+      const accessedResult = await fetch(accessedRequestURL).then(response => response.json());
+      const returnedResult = await fetch(returnedRequestURL).then(response => response.json());
+  
+      if (waitResult.status === 200) {
+        console.log('[ApprovalAPICalls] : callApprovalListAPI result : ', waitResult);
+        console.log('memberCode : ', memberCode);
+        console.log('requestURL : ', waitRequestURL);
+        dispatch(getApprovalWait(waitResult));
+      }
+  
+      if (inProgressResult.status === 200) {
+        console.log('[ApprovalAPICalls] : callApprovalListAPI result : ', inProgressResult);
+        console.log('memberCode : ', memberCode);
+        console.log('requestURL : ', inProgressRequestURL);
+        dispatch(getApprovalInProgress(inProgressResult));
+      }
+  
+      if (accessedResult.status === 200) {
+        console.log('[ApprovalAPICalls] : callApprovalListAPI result : ', accessedResult);
+        console.log('memberCode : ', memberCode);
+        console.log('requestURL : ', accessedRequestURL);
+        dispatch(getApprovalAccessed(accessedResult));
+      }
+  
+      if (returnedResult.status === 200) {
+        console.log('[ApprovalAPICalls] : callApprovalListAPI result : ', returnedResult);
+        console.log('memberCode : ', memberCode);
+        console.log('requestURL : ', returnedRequestURL);
+        dispatch(getApprovalReturned(returnedResult));
+      }
+    }
+  };
 
 /* 결재 검토중(진행중)인 문서 목록 조회 */
 export const callApprovalInProgressListAPI = ({ memberCode, currentPage = 1 }) => {
