@@ -68,7 +68,7 @@ function EquNavbar({url})
           url.includes('/equipment/regist') &&
             <div>
               <h2 className="EquTitle"> 장비 추가</h2>
-              <h2 className="EquSTitle"> 장비 정보 입력 </h2>
+              <h2 className="EquRSTitle"> 장비 정보 입력 </h2>
             </div>
           } 
 
@@ -79,6 +79,7 @@ function EquNavbar({url})
               <h2 className="EquTitle"> 장비 수정 / 삭제</h2>
               <h2 className="EquSTitle"> 장비 목록 </h2>
             </div>
+            <div className="search-input">
             <select className="type-selcet"
                     onChange={ onChangeTypeHandler }
             >
@@ -123,6 +124,7 @@ function EquNavbar({url})
                   className="search-Btn"
                   onClick={ onClickHandle }
             >검색</button>
+            </div>
           </>
         }
     </div>

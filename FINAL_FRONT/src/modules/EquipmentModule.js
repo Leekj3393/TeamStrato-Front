@@ -28,7 +28,7 @@ export const { equipment : { getEquipments , getEquipment , getCategory , postEq
 
 const equipmentReducer = handleActions({
     [GET_EQUIPMENTS] : (state,{ payload }) => payload,
-    [GET_EQUIPMENT] : (state , { payload }) => ({detail : payload}),
+    [GET_EQUIPMENT] : (state , { payload }) => ({...state ,detail : payload}),
     [GET_CATEGORY] : (state, { payload }) => ({category : payload }),
     [GET_MODIFY] : (state , { payload }) => ({equipments : payload}),
     [GET_CATEGORYS] : (state , { payload }) => ({...state , categorys : payload}),

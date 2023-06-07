@@ -1,10 +1,8 @@
 
 .EquTitle
 {
-    position: relative;
-    bottom: 800px;
-    left:800px; 
     font-family: 'SUITE-Regular';
+    margin-left: 600px;
     font-style: normal;
     font-weight: 600;
     font-size: 30px;
@@ -15,10 +13,8 @@
 
 .EquSTitle
 {
-    position: relative;
-    bottom: 800px;
-    left: 830px;
     font-family: 'SUITE-Regular';
+    margin-left: 640px;
     font-style: normal;
     font-weight: 600;
     font-size: 30px;
@@ -32,6 +28,12 @@
     left: 300px;
     width: 130px;
     height: 30px;
+}
+
+.search-input
+{
+    position: relative;
+    right: 360px;
 }
 
 .Select-Box 
@@ -64,8 +66,8 @@
 .type-selcet
 {
     position: relative;
-    bottom: 750px;
-    left: 380px;
+    bottom: 0px;
+    left: 390px;
     height: 40px;
     width: 100px;
 }
@@ -73,7 +75,6 @@
 .value
 {
     position: relative;
-    bottom: 750px;
     left: 400px;
     height: 40px;
     width: 190px;
@@ -82,8 +83,13 @@
 .search-Btn
 {
     position: relative;
-    bottom: 750px;
     left: 405px;
     height: 40px;
     width: 45px;
+}
+
+.EquRSTitle
+{
+    position: relative;
+    left: 590px;
 }

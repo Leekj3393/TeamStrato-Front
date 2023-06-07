@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { callNoticeRegistAPI } from '../../apis/NoticeAPICalls';
 import { calljobDeptListAPI } from '../../apis/MemberAPICalls';
 import { callApprovalMemberInfoAPI } from '../../apis/ApprovalAPICalls';
-
+import Swal from 'sweetalert2';
 
 function NoticeRegist() {
 
@@ -18,6 +18,17 @@ function NoticeRegist() {
     const [image, setImage] = useState(null);
     const [imageUrl, setImageUrl] = useState('');
     const ImageInput = useRef();
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', () => Swal.stopTimer())
+            toast.addEventListener('mouseleave', () => Swal.resumeTimer())
+        }
+      });
     
     function formatDate(dateString) {
         const date = new Date(dateString);
@@ -61,9 +72,13 @@ function NoticeRegist() {
 
     useEffect(
         () => {
-            if(regist?.status === 200) {
-                alert('공지사항이 등록되었습니다. 공지게시판 페이지로 이동합니다.');
-                navigate("/notice", {replace: true});
+            if(regist?.status === 200) 
+            {
+                Toast.fire({
+                    icon: 'success',
+                    title: '공지사항이 등록되었습니다. 공지게시판 페이지로 이동합니다.'
+                });    
+                navigate("/notice");            
             }
         },
         [regist]
@@ -76,17 +91,26 @@ function NoticeRegist() {
         if(!form?.noticeTitle || !form?.noticeContent || !form?.noticeType || !form?.memberCode) 
         {
             if(!form?.noticeTitle) {
-                alert("제목을 작성해주세요.");
+                Toast.fire({
+                    icon: 'error',
+                    title: '제목을 입력해주세요'
+                });
                 console.log('form : ', form);
                 return;
             } 
             else if(!form?.noticeContent) {
-                alert("내용을 작성해주세요.");
+                Toast.fire({
+                    icon: 'error',
+                    title: '내용을 입력해주세요'
+                });
                 console.log('form : ', form);
                 return;
             } 
             else if(!form?.noticeType) {
-                alert("공지사항 구분이 누락되었습니다.");
+                Toast.fire({
+                    icon: 'error',
+                    title: '게시글 분류를 입력해주세요'
+                });
                 console.log('form : ', form);
                 return;
             } 

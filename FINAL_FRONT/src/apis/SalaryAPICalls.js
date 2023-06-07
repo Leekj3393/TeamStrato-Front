@@ -70,7 +70,8 @@ export const callEmpSaveSal = (formData) =>
         const result = await fetch(requestURL, {
             method : 'POST',
             headers : {
-                "Content-Type" : "application/json"
+                "Content-Type" : "application/json",
+                "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
             },
             body: JSON.stringify(formData)
         }).then(resp => resp.json());
@@ -89,7 +90,13 @@ export const callReIncomeTex = (salary , overTime) =>
     
     return async(dispatch , getState) =>
     {
-        const result = await fetch(requestURL).then(resp => resp.json());
+        const result = await fetch(requestURL,{
+            method : 'GET',
+            headers : {
+                "Content-Type" : "application/json",
+                "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+            }
+        }).then(resp => resp.json());
         if(result.status === 200)
         {
             console.log("[callEmpSchDay] callReIncomeTex : {}" , result);
