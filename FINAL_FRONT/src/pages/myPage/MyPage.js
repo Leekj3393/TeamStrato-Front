@@ -434,6 +434,14 @@ function formatPhoneNumber(phone) {
   return formattedPhone;
 }
 
+function getBirthdate(residentNo) {
+  const yearPrefix = residentNo[6] <= "2" ? "19" : "20";
+  const year = yearPrefix + residentNo.slice(0, 2);
+  const month = residentNo.slice(2, 4);
+  const day = residentNo.slice(4, 6);
+  return `${year}년 ${month}월 ${day}일`;
+}
+
 
   return (
     <div className={MyPageCSS}>
@@ -570,8 +578,9 @@ function formatPhoneNumber(phone) {
 <tr>
 <th>생년월일</th>
 <td>
-{membersData ? `${membersData.residentNo.slice(0, 4)}년 ${membersData.residentNo.slice(4, 6)}월 ${membersData.residentNo.slice(6, 8)}일` : '직원 정보를 가져오는 중입니다.'}
+  {membersData ? getBirthdate(membersData.residentNo) : '직원 정보를 가져오는 중입니다.'}
 </td>
+
 
 
 
@@ -589,8 +598,11 @@ function formatPhoneNumber(phone) {
 <tr>
 <th>입사년월일</th>
 <td>
-{membersData ? `${membersData.residentNo.slice(0, 4)}년 ${membersData.residentNo.slice(4, 6)}월 ${membersData.residentNo.slice(6, 8)}일` : '직원 정보를 가져오는 중입니다.'}
+{membersData ? `${membersData.memberHireDate.slice(0, 4)}년 ${membersData.memberHireDate.slice(5, 7)}월 ${membersData.memberHireDate.slice(8, 10)}일` : '직원 정보를 가져오는 중입니다.'}
+
+
 </td>
+
 
 <th>직급</th>
 <td>{membersData ? membersData.job.jobName : '직원 정보를 가져오는 중입니다.'}</td>
@@ -637,7 +649,7 @@ function formatPhoneNumber(phone) {
             </tr>
             <tr>
                 <th>생년월일</th>
-                <td>  {membersData ? `${membersData.residentNo.slice(0, 4)}년 ${membersData.residentNo.slice(4, 6)}월 ${membersData.residentNo.slice(6, 8)}일` : '직원 정보를 가져오는 중입니다.'}</td>
+                <td>  {membersData ? getBirthdate(membersData.residentNo) : '직원 정보를 가져오는 중입니다.'}</td>
                 
                 
                 <th>급여 계좌</th>

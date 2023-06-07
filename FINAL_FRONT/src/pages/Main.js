@@ -292,9 +292,9 @@ const handleClickMoreNotice = () => {
 
           
           <div className="notic2">
-  {data && data.slice(0, 5).map((notice) => (  
+  {data && data.slice(0, 10).map((notice) => (  
     <tr key={notice.noticeCode}>
-      <th><li>{notice.noticeTitle}</li></th>
+      <th><li>▪ {notice.noticeTitle}</li></th>
       <div className={`circle${notice.noticeCode}`}></div>
       <th></th>
     </tr>
