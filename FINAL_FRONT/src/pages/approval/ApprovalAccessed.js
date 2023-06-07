@@ -28,8 +28,9 @@ function ApprovalAccessed() {
         dispatch(callApprovalMemberInfoAPI());
     }, 
     []);
-
+    
     useEffect(() => {
+        if(memberCode)
         dispatch(callApprovalAccessedListAPI({currentPage, memberCode}));
     }, 
     [currentPage, memberCode])

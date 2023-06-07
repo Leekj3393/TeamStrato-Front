@@ -30,6 +30,7 @@ function ApprovalInProgress() {
     []);
     
     useEffect(() => {
+        if(memberCode)
         dispatch(callApprovalInProgressListAPI({memberCode, currentPage}));
     }, 
     [currentPage, memberCode])
