@@ -1,41 +1,65 @@
-
-.imgbox{
-    position: relative;
-    bottom: 650px;
-    left: 300px;
+.Item-back
+{
+    display: flex;
+    background-color: rgb(248, 248, 248);
+    border-radius: 10px;
+    border: solid 1px black;
+    height: 350px;
+}
+.imgbox
+{
     background-color: black;
+    margin-top: 20px;
+    margin-left: 20px;
     width: 550px;
-    height: 265px;
+    height: 300px;
 }
 
 .imgbox img{
 
-    width: 533px;
-    height: 245px;
-    margin-left: 9px;
+    width: 520px;
+    height: 280px;
+    margin-left: 13px;
     margin-top: 9px;
 }
 
-.text-box1{
-    position: relative;
-    bottom: 850px;
-    left: 950px;
+.item-text-box
+{
+    font-size: 30px;
+    margin: 20px;
+    width: 670px;
+}
+
+.text-box1
+{
+   position: relative;
+   top: 80px;
+   left: 50px;
+   width: 200px;
 } 
 
 .text-box2{
     position: relative;
-    bottom: 865px;
-    left: 1200px;
+    top: 45px;
+    left: 280px;
+    width: 410px;
+    height: 30px;
+    font-size: 25px;
 }
 
 .text-box3{
-    position: relative;
-    bottom: 800px;
-    left: 950px;
+   position: relative;
+   top: 120px;
+   left: 50px;
+   width: 250px;
+   font-size: 28px;
 }
 
 .text-box4{
-  position: relative;
-    bottom : 815px;
-    left : 1200px;
+    position: relative;
+    top: 80px;
+    left: 320px;
+    width: 410px;
+    height: 30px;
+    font-size: 30px;
 }

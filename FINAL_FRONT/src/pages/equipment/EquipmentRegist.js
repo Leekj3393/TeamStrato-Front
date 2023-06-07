@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { callEquipmentCategory, callEquipmentRegist } from "../../apis/EquipmentAPICalls";
 import { useNavigate } from "react-router-dom";
 import EquipmentRegsitCSS from "./EquipmentRegistCSS.css";
-
+import Swal from 'sweetalert2';
 function EquipmentRegist()
 {
     const dispatch = useDispatch();
@@ -14,6 +14,17 @@ function EquipmentRegist()
     const data = useSelector(state => state.equipmentReducer);
     const category = data.category;
     const { regist } = useSelector(state => state.equipmentReducer);
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', () => Swal.stopTimer())
+            toast.addEventListener('mouseleave', () => Swal.resumeTimer())
+        }
+      });
 
     const [equipment , setEquipment] = useState({});
 
@@ -48,7 +59,10 @@ function EquipmentRegist()
         {
             if(regist?.status === 200)
             {
-                alert('장비 추가 결제 등록 완료');
+                Toast.fire({
+                    icon: 'success',
+                    title: '장비 추가요청 완료'
+                });
                 navigate('/equipment' , {replace : true});
             }
         },
@@ -84,7 +98,10 @@ function EquipmentRegist()
 
         if(!equipment.equipmentName || !equipment.categoryCode || !equipment.appTitle || !equipment.appContent || !image )
         {
-            alert('정보 전부 입력해주세요');
+            Toast.fire({
+                icon: 'error',
+                title: '모든 정보를 입력해주세요'
+            });
             return;
         }
         const formData = new FormData();

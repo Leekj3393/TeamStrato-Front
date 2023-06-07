@@ -42,7 +42,13 @@ export const callEquipmentCategory = () =>
     const requestURL = `${PRE_URL}/regist`;
 
     return async (dispatch,getState) =>{
-        const result = await fetch(requestURL).then(resp => resp.json());
+        const result = await fetch(requestURL,
+            {
+                method : 'GET',
+                headers : {
+                    "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+                }
+            }).then(resp => resp.json());
 
         if(result.status === 200)
         {
@@ -62,6 +68,9 @@ export const callEquipmentRegist = (formData) =>
         const result = await fetch(requestURL,
             {
                 method : 'POST',
+                headers : {
+                    "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+                },
                 body : formData
             }).then(resp => resp.json());
 
@@ -77,7 +86,12 @@ export const callsearch = ({type , value , currentPage = 1}) =>
     const requestURL = `${PRE_URL}/modify/serach?type=${type}&value=${value}&page=${currentPage}`;
 
     return async (dispatch,getState) =>{
-        const result = await fetch(requestURL).then(resp => resp.json());
+        const result = await fetch(requestURL, {
+            method : 'GET',
+            headers : {
+                "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+            }
+        }).then(resp => resp.json());
 
         if(result.status === 200)
         {
@@ -90,10 +104,17 @@ export const callsearch = ({type , value , currentPage = 1}) =>
 
 export const callAllEquiments = ({currentPage = 1}) =>
 {
+    console.log("h2");
     const requestURL = `${PRE_URL}/modify?page=${currentPage}`;
 
-    return async (dispatch,getState) =>{
-        const result = await fetch(requestURL).then(resp => resp.json());
+    return async (dispatch,getState) => {
+        const result = await fetch(requestURL,
+            {
+                method : 'GET',
+                headers : {
+                    "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+                }
+            }).then(resp => resp.json());
 
         if(result.status === 200)
         {
@@ -109,7 +130,12 @@ export const callCategory = (categoryCode) =>
     const requestURL = `${PRE_URL}/modify/${categoryCode}`;
 
     return async(dispatch,getState) => {
-        const result = await fetch(requestURL).then(resp => resp.json());
+        const result = await fetch(requestURL, {
+            method : 'GET',
+            headers : {
+                "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+            }
+        }).then(resp => resp.json());
 
         if(result.status === 200)
         {
@@ -127,6 +153,9 @@ export const callModifyEquipment = (modifyEquipment) =>
     {
         const result = await fetch(requestURL,{
             method : 'PUT',
+            headers : {
+                "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+            },
             body : modifyEquipment
         }).then(resp => resp.json());
 
@@ -145,6 +174,9 @@ export const callApprovalEquipment = (approvalFormData) =>
     {
         const result = await fetch(requestURL,{
             method : 'POST',
+            headers : {
+                "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+            },
             body : approvalFormData
         }).then(resp => resp.json());
 
@@ -163,7 +195,11 @@ export const callDelete = (items) =>
     {
         try
         {
-            const result = await axios.put(requestURL, items);
+            const result = await axios.put(requestURL, items,{
+                headers : {
+                    "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+                }
+            });
             if(result.status === 200)
             {
                 dispatch(putDelete(result));

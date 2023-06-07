@@ -31,3 +31,21 @@ export function isSafety() {
     const token = decodeJwt();
     return (token && token.exp * 1000 > Date.now() && token.auth[0]) === 'ROLE_SAFETY'
 }
+
+export function isFacilty()
+{
+    const token = decodeJwt();
+    return (token && token.exp * 1000 > Date.now() && token.auth[0]) === 'ROLE_FACILITY'
+}
+
+export function isPay()
+{
+    const token = decodeJwt();
+    return (token && token.exp * 1000 > Date.now() && token.auth[0]) === 'ROLE_PAYROLL'
+}
+
+export function isNotice()
+{
+    const token = decodeJwt();
+    return (token && token.exp * 1000 > Date.now() && token.auth[0]) === 'ROLE_BOARD'
+}

@@ -16,12 +16,13 @@ function EquipmentDetail()
     const [currentPage , setCurrentPage] = useState(1);
     const dispatch = useDispatch();
     const data = useSelector((state) => state.equipmentReducer);
+    const membersData = useSelector((state) => state.myPageReducer.membersData);
     const categoryCode = params.categoryCode;
     const equipment = data.detail;
 
     console.log('data :' , data)
     console.log("equipment",equipment)
-
+    console.log("membersData", membersData);
     useEffect(
         () =>
         {
@@ -54,14 +55,16 @@ function EquipmentDetail()
     }
 
     return(
-        <div>
+        <div className="eDetail-Ref">
             <div className="equipmentInfo">
                 { equ && <EquipmentDetailItem key={equ.equipmentCode} equ={equ}/>}
             </div>
-            <div className="buttonInfo">
-                <button className="regist" onClick={ onClickRegist }>장비 추가</button>
-                <button className="modify" onClick={ onClickModify }>장비 수정</button>
-            </div>
+            { membersData?.memberRole?.roleName === "ROLE_FACILITY" &&
+                <div className="buttonInfo">
+                    <button className="regist" onClick={ onClickRegist }>장비 추가</button>
+                    <button className="modify" onClick={ onClickModify }>장비 수정</button>
+                </div>
+            }
             <div className="equipmentList">
                 <table>
                     <thead>

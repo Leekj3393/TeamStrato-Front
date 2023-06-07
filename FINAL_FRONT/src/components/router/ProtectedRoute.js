@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
-import { isAdmin, isHr, isLogin, isSafety } from "../../utils/TokenUtils";
+import { isAdmin, isFacilty, isFaciltyCheck, isHr, isLogin, isNotice, isPay, isSafety } from "../../utils/TokenUtils";
 
-function ProtectedRoute({ loginCheck, authCheck, children, hrCheck, safetyCheck }) {
+function ProtectedRoute({ loginCheck, authCheck, children, hrCheck, safetyCheck , faciltyCheck , payCheck , noticeCheck}) {
 
     /* 직원 등록 */
     if(hrCheck) {
@@ -31,6 +31,21 @@ function ProtectedRoute({ loginCheck, authCheck, children, hrCheck, safetyCheck 
     /* 교육 사진 등록 */
     if(safetyCheck) {
         return isSafety() ? children : <Navigate to ="/education/photoRegist"/>
+    }
+
+    if(faciltyCheck)
+    {
+        return isFacilty() ? children : <Navigate to="/equipment"/>
+    }
+
+    if(payCheck)
+    {
+        return isPay() ? children : <Navigate to="/salary"/>
+    }
+
+    if(noticeCheck)
+    {
+        return isNotice() ? children : <Navigate to="/notice"/>
     }
 
     if(authCheck) {

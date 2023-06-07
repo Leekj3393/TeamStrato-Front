@@ -5,6 +5,7 @@ import PagingBar from "../../components/common/PagingBar";
 import EquipmentModifyDetail from "./EquipmentModifyDetail";
 import EquipmentModifyCSS from './EquipmentModifyCSS.css';
 import { useSearchParams } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 function EquipmentModify()
 {
@@ -22,9 +23,26 @@ function EquipmentModify()
     const [searchParams] = useSearchParams();
     const type = searchParams.get('type');
     const value = searchParams.get('value');
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', () => Swal.stopTimer())
+            toast.addEventListener('mouseleave', () => Swal.resumeTimer())
+        }
+      });
 
-    console.log('type : {} ' , type);
-    console.log('value : {} ' , value);
+
+      useEffect(
+        () =>
+        {
+            dispatch(callAllEquiments({currentPage}));
+        },
+        []
+      )
 
     useEffect(
         () =>
@@ -54,12 +72,18 @@ function EquipmentModify()
         {
             if(modify?.status === 200)
             {
-                alert("수정 완료");
+                Toast.fire({
+                    icon: 'success',
+                    title: '수정 완료'
+                });
                 window.location.reload();
             }
             else if(Edelete?.status === 200)
             {
-                alert("삭제 완료");
+                Toast.fire({
+                    icon: 'success',
+                    title: '삭제 완료'
+                });
                 window.location.reload();
             }
         },
@@ -106,7 +130,7 @@ function EquipmentModify()
     console.log("categorys : " , categorys);
 
     return(
-        <div className="Ref-div">
+        <div className="MRef-div">
             <div className="ModifyInfo">
                 { equ && <EquipmentModifyDetail key={equ.equipmentCode} equ={equ} category={categorys}/> }
             </div>
