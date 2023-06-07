@@ -6,6 +6,7 @@ import { callApprovalDetailAPI } from '../../apis/ApprovalAPICalls';
 import { callAppLineDetailAPI, callAppLineInfoAPI } from '../../apis/AppLineAPICalls';
 import { callApprovalAccessAPI, callApprovalReturnAPI } from '../../apis/ApprovalAPICalls';
 import { callMyPageMemberAPI } from "../../apis/MyPageAPICalls";
+import Swal from 'sweetalert2';
 
 function ApprovalAccessorPage () {
 
@@ -17,6 +18,19 @@ function ApprovalAccessorPage () {
     const params = useParams();
     const appCode = params.appCode;
     const memberCode = membersData?.memberCode;
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', () => Swal.stopTimer())
+            toast.addEventListener('mouseleave', () => Swal.resumeTimer())
+        }
+    });
+
 
     useEffect(
         () => {
@@ -51,14 +65,20 @@ function ApprovalAccessorPage () {
         console.log('appCode : ', appCode);
         console.log('appLineCode : ', memberCode);
         // 처리 완료 후 필요한 작업 수행
-        alert("결재 승인 처리가 완료되었습니다.");
+        Toast.fire({
+            icon: 'success',
+            title: '결재 승인 처리가 완료되었습니다. 결재 메인페이지로 이동합니다.'
+        })
         navigate(`/approval`, {replace : true});
         window.location.reload();
     };
     const onClickApprovalReturnHandler = (appCode, memberCode) => {
         dispatch(callApprovalReturnAPI({appCode, memberCode}));
         // 처리 완료 후 필요한 작업 수행
-        alert("결재 반려 처리가 완료되었습니다.");
+        Toast.fire({
+            icon: 'success',
+            title: '결재 반려 처리가 완료되었습니다. 결재 메인페이지로 이동합니다.'
+        })
         navigate(`/approval`, {replace : true});
         window.location.reload();
     }
