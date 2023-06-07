@@ -4,10 +4,11 @@ function EquipmentDetailItem({equ : { file , equipmentCode , equipmentName , equ
 {   
     console.log(file);
     return(
-        <>
+        <div className="Item-back">
             <div className="imgbox">
               <img src={ file.filePath } alt="이미지입니다 감사합니다"></img>
             </div>
+            <div className="item-text-box">
             <div className="text-box1">
                 <span>장비 코드 : </span>
                 <span>{ equipmentCode }</span>
@@ -24,8 +25,9 @@ function EquipmentDetailItem({equ : { file , equipmentCode , equipmentName , equ
                 <span>장비 장비 분류 : </span>
                 <span>{ equCategory.equCategory.categoryName +' '+ equCategory.categoryName }</span>
             </div>
+            </div>
             
-        </>
+        </div>
     );
 }
 

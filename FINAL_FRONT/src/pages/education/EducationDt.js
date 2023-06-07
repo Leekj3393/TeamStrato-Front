@@ -24,8 +24,6 @@ function EducationDt () {
 
     const classTime = Math.floor( playTime * 1000 );
 
-    console.log("classInfo", classInfo);
-
     useEffect(
         () => {
             dispatch(callEducationDetailAPI({edCode}));

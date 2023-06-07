@@ -125,8 +125,11 @@
 
 .contentImg
 {
-  width: 400px;
+  width: 90%;
   height: 300px;
+  margin-left: 40px;
+  margin-top: 15px;
+  border: solid 1px black;
 }
   
 .deleteBtnDiv {
@@ -220,8 +223,8 @@
 }
 
 .DetailTable {
-  position: absolute;
-  top: 80px;
+  position: relative;
+  top: 30px;
   left: 60px;
   width: 1100px;
 }
@@ -235,10 +238,16 @@
   height: min-content;
 }
 
-.col5, .col10 {
-  height: 300px;
+.col10
+{
   overflow: scroll;
 }
+
+.col5 {
+  height: 300px;
+  /* overflow: scroll; */
+}
+
 
 
 .detailAdminDiv {
@@ -253,4 +262,34 @@
   left: 150px;
   top: 1px;
   cursor: pointer;
+}
+
+.modifyBtn
+{
+  position: relative;
+  bottom: 30px;
+  left: 200px;
+  font-size: 20px;
+  width: 200px;
+  height: 30px
+}
+
+.saveBtn
+{
+  background-color: rgba(120, 190, 255, 0.5);
+  border-radius: 5px;
+  position: relative;
+  bottom: 25px;
+  left: 200px;
+  font-size: 20px;
+  text-align: center;
+  width: 100px;
+  height: 30px
+}
+
+.AttecthedRgPreview
+{
+  width: 300px;
+  height: 100px; 
+  padding: 40px;
 }

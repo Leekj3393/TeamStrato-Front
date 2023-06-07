@@ -135,7 +135,12 @@ export const callNoticesDeleteAPI = (checked) =>
     {
         try
         {
-            const result = await axios.put(requestURL, checked);
+            const result = await axios.put(requestURL, checked, {
+                method : 'PUT',
+                headers : {
+                    "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+                }
+            });
             if(result.status === 200)
             {
                 dispatch(putNoticeDelete(result));

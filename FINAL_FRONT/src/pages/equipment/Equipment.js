@@ -6,8 +6,6 @@ import { useNavigate } from "react-router-dom";
 import PagingBar from "../../components/common/PagingBar";
 
 
-
-
 function Equipment()
 {
     const dispatch = useDispatch();
@@ -43,10 +41,11 @@ function Equipment()
                         <th> 장비 등록 일 </th>
                         <th> 장비 상태 수정 일 </th>
                     </thead>
-                    <tbody>
+                    <tbody className="etbody">
                         {equimentList && equimentList.map((equ) => (
                             <tr 
                                 key={ equ.categoryCode }
+                                className="eTr"
                                 onClick={ () => onClickEquipmentHandler(equ.categoryCode)}>
                                 <td>{ equ.categoryCode }</td>
                                 <td>{ equ.equCategory.categoryName }</td>

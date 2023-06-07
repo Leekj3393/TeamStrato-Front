@@ -13,7 +13,7 @@ export const callMemberImageAPI = ({memberCode}) => {
         const result = await fetch(reqeustURL).then(response => response.json());
 
         if(result.status === 200) {
-            console.log('[MemberAPICalls] : callMemberImageAPI result : ', result);
+            
             dispatch(getMemberimage(result));
         }
     }

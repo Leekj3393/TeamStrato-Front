@@ -71,7 +71,7 @@ function EquipmentModifyDetail({equ : {  file , equipmentCode , equipmentName , 
 
     const onChageStatusHandler = (e) =>
     {
-        if(e.target.value === '수리요청' || e.target.value === '폐기요청' && equipmentStatus != e.target.value)
+        if(e.target.value === 'wait' && equipmentStatus != e.target.value)
         {
             setAppType(e.target.value);
             setModalOpen(true);
@@ -230,8 +230,8 @@ function EquipmentModifyDetail({equ : {  file , equipmentCode , equipmentName , 
                                         onChange={ onChageStatusHandler  }
                                         value={ form?.equipmentStatus ? form.equipmentStatus : equipmentStatus }>
                                             <option value="운영가능">운영가능</option>
-                                            <option value="수리요청">수리요청</option>
-                                            <option value="폐기요청">폐기요청</option>
+                                            <option value="wait">수리요청</option>
+                                            <option value="wait">폐기요청</option>
                                     </select>
                                 }
                             </td>                 

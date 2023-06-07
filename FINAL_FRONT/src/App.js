@@ -85,37 +85,26 @@ function App() {
           </Route>
 
           <Route path="/notice" element={<NoticeSubLayout />}>
-            <Route 
-              index element={
-                <ProtectedRoute loginCheck={true}>
-                  <Notice />
-                </ProtectedRoute>
-              } 
-            />
+            <Route index element={<Notice />} />
             <Route path="/notice/search/title/:noticeTitle" element={<Notice/>}/>
             <Route path="/notice/search/content/:noticeContent" element={<Notice/>}/>
             <Route 
               path="/notice/detail/:noticeCode" 
-              element={
-                <ProtectedRoute loginCheck={true}>
-                  <NoticeDetail />
-                </ProtectedRoute>
-              } 
-            />
+              element={<NoticeDetail/>}/>
             <Route 
               path="/notice/regist" 
               element={
-                // <ProtectedRoute authCheck={true}>
+                <ProtectedRoute noticeCheck={true}>
                   <NoticeRegist />
-                // </ProtectedRoute>
+                </ProtectedRoute>
               } 
             />
             <Route 
               path="/notice/deleted" 
               element={
-                // <ProtectedRoute authCheck={true}>
+                <ProtectedRoute noticeCheck={true}>
                   <NoticeDeletedList />
-                // </ProtectedRoute>
+                </ProtectedRoute>
               } 
             />
           </Route>
@@ -150,9 +139,9 @@ function App() {
           <Route path="/equipment" element={<EquipmentSubLayout/>}>
             <Route index element={<Equipment/>} />
             <Route path="detail/:categoryCode" element={<EquipmentDetail/>} />
-            <Route path="regist" element={<EquipmentRegist/>} />
-            <Route path="modify" element={<EquipmentModify/>} />
-            <Route path="modify/search" element={<EquipmentModify/>} />
+            <Route path="regist" element={<ProtectedRoute faciltyCheck={true}><EquipmentRegist/></ProtectedRoute>} />
+            <Route path="modify" element={<ProtectedRoute faciltyCheck={true}><EquipmentModify/></ProtectedRoute>} />
+            <Route path="modify/search" element={<ProtectedRoute faciltyCheck={true}><EquipmentModify/></ProtectedRoute>} />
           </Route>
           <Route path="/member" element={<MemberSubLayout/>}>
             <Route index element={<Member/>}/>
@@ -175,8 +164,8 @@ function App() {
           </Route>
           <Route path="/salary" element={<SalaryNavBarSubLayout/>} >
               <Route index element={<SalaryMain/>}/>
-              <Route path="regist" element={<SalaryRegist/>}/>
-              <Route path="detail/:memberCode" element={ <SalaryRegistDetail/>} />
+              <Route path="regist" element={<ProtectedRoute payCheck={true}><SalaryRegist/></ProtectedRoute>}/>
+              <Route path="detail/:memberCode" element={<ProtectedRoute payCheck={true}><SalaryRegistDetail/></ProtectedRoute>} />
           </Route>
         </Route>
       </Routes>

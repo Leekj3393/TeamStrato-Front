@@ -14,6 +14,7 @@ function NoticeDetail() {
     const [form , setForm] = useState({});
     const [image , setImage] = useState(null);
     const [imageUrl , setImageUrl] = useState('');
+    const membersData = useSelector((state) => state.myPageReducer.membersData);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const ImageInput = useRef();
@@ -100,7 +101,6 @@ function NoticeDetail() {
         formData.append("noticeCode",noticeDetail.noticeCode);
         dispatch(callModifyNotice(formData));
     }
-    
 
     const onClickDeleteHandler = () => {
     }
@@ -123,7 +123,10 @@ function NoticeDetail() {
         });
     }
 
+    // const onClickDeleteHandler = (e) =>
+    // {
 
+    // }
 
   return (
     <div className={NoticeCSS}>
@@ -142,7 +145,7 @@ function NoticeDetail() {
                                 <select  
                                     className={NoticeCSS.deptSelect} 
                                     name="noticeType" onChange={onChangeHandler} 
-                                    for='noticeType' value={noticeDetail?.noticeType}>
+                                    for='noticeType' value={form?.noticeType ? form.noticeType : noticeDetail?.noticeType}>
                                     <option name="noticeType" id=''>공통</option>
                                     <option name="noticeType" id='D1'>인사</option>
                                     <option name="noticeType" id='D2'>안전교육</option>
@@ -173,51 +176,55 @@ function NoticeDetail() {
                         }
                     </tr>
                     <tr>
-                        <th className={NoticeCSS.col5}>내용</th>
+                        <th className={NoticeCSS.col5}>내용</th>     
+                        {isModify === true &&  
+                                            <>  
+                                            {imageUrl &&
+                                                <img 
+                                                    src={imageUrl} 
+                                                    alt="preview"
+                                                    className="AttecthedRgPreview"
+                                                    style={{width: "285px", height: "300px"}}
+                                                />
+                                                }                                   
+                                                <input 
+                                                    style={{display : 'none'}}
+                                                    type="file"
+                                                    name="noticeImage"
+                                                    accept='image/jpg,image/png,image/jpeg,image/gif'
+                                                    ref={ImageInput}
+                                                    onChange={onChangeImageUpload}
+                                                />
+                                                <button 
+                                                    className='imgRgBtn'
+                                                    onClick={onClickImgageUpload}
+                                                    style={{}}
+                                                > 
+                                                파일 업로드
+                                                </button>
+                                            
+                                            </>
+                        }
                         { isModify === true ? <textarea
                                         placeholder='내용을 입력해주세요.'
                                         id='noticeContent'
                                         name='noticeContent'
                                         onChange={onChangeHandler}
+                                        style={{width : "485px" , height : " 300px" }} 
                                         /> : 
-                                    <td className={NoticeCSS.col10}>{form?.noticeContent ? form.noticeContent : noticeDetail?.noticeContent}</td> 
+                                    <td className={NoticeCSS.col10}>
+                                            <img className={NoticeCSS.contentImg} 
+                                                src={ imageUrl ? imageUrl : noticeDetail?.noticefiles[0]?.filePath ? noticeDetail.noticefiles[0].filePath : null} 
+                                                alt="게시판 이미지입니다"/>
+                                        <p>{form?.noticeContent ? form.noticeContent : noticeDetail?.noticeContent}</p>
+                                    </td> 
                         }
-                        {isModify === true ?  
-                            <>  
-                              {imageUrl &&
-                                <img 
-                                    src={imageUrl} 
-                                    alt="preview"
-                                    className="AttecthedRgPreview"
-                                    style={{width: "30px", height: "30px"}}
-                                />
-                                }                                   
-                                <input 
-                                    style={{display : 'none'}}
-                                    type="file"
-                                    name="noticeImage"
-                                    accept='image/jpg,image/png,image/jpeg,image/gif'
-                                    ref={ImageInput}
-                                    onChange={onChangeImageUpload}
-                                />
-                                <button 
-                                    className='imgRgBtn'
-                                    onClick={onClickImgageUpload}
-                                > 
-                                파일 업로드
-                                </button>
-                            </>
-                            : 
-                            <img className={NoticeCSS.contentImg} 
-                                src={ imageUrl ? imageUrl : noticeDetail?.noticefiles[0].filePath} 
-                                alt="게시판 이미지입니다"/>
-                        }       
                     </tr>
                 </table>
                 {isAdmin && <div className={NoticeCSS.detailAdminDiv}>
-                    {!isModify &&<div className={NoticeCSS.modifyBtn} onClick={onClickModifyHandler}> <img src='../../image/MODIFY-BTN.png'></img></div>}
-                    {isModify && <div className={NoticeCSS.modifyBtn} onClick={onClickModifySaveHandler}>저장</div>}
-                    { <div className={NoticeCSS.deleteBtn} onClick={onClickDeleteHandler}><img src='../../image/delete-btn.png'></img></div> }
+                    {!isModify && 
+                       membersData?.memberRole?.roleName === 'ROLE_BOARD' &&<div className={NoticeCSS.modifyBtn} onClick={onClickModifyHandler}> <img src='../../image/MODIFY-BTN.png'></img></div>}
+                    {isModify && <div className={NoticeCSS.saveBtn} onClick={onClickModifySaveHandler}>저장</div>}
                     {/* <div className={NoticeCSS.deleteBtn} onClick={onClickDeleteHandler}><img src='../../image/delete-btn.png'></img></div> */}
                     {/*여기가 오류가 떠요*/}
                 </div>}

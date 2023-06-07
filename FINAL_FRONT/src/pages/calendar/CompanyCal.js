@@ -13,45 +13,43 @@ import CalendarDeptUpdateModal from './DeptUpdateModal';
 function CompanyCal() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const loggedInMemberRole = useSelector(state => state.myPageReducer.membersData && state.myPageReducer.membersData.memberRole);
   const loggedInMember = useSelector(state => state.myPageReducer.membersData.memberCode);
   const department = useSelector(state => state.myPageReducer.membersData.department);
   const { companycal } = useSelector((state) => state.calendarReducer);
   const [calUpdateModalOpen, setUpdateCalendarModalOpen] = useState(false);
   const [calModalOpen, setCalendarModalOpen] = useState(false);
   const [calendarCode, setCalendarCode] = useState(null);
-  const isAdmin = true; /* 권한 추가시 const [isAdmin, setIsAdmin] = useState(false); 로 수정하고,
-                          useEffect(() => {
-  // 로그인 정보에서 isAdmin 값을 확인하고 업데이트
-  const isAdminUser = // 로그인 정보에서 isAdmin 값 확인하는 로직
-  setIsAdmin(isAdminUser); 추가
-}, []); */
+  const [isMaster, setIsMaster] = useState(false);
 
-  // const [state, setState] = useState({
-  //   department: department, // 현재 로그인된 객체의 memberCode로 설정
-  //   division: '부서',
-  // });
+  useEffect(() => {
+    const isMaster = loggedInMemberRole && loggedInMemberRole.roleName === 'ROLE_MASTER';
+    setIsMaster(isMaster);
+  }, [loggedInMemberRole]);
 
-  const [state, setState] = useState({
-    memberCode: loggedInMember, // 현재 로그인된 객체의 memberCode로 설정
-    division: "부서",
-    deptCode: department?.deptCode,
+  const [state, setState] = useState(() => {
+    return {
+      memberCode: loggedInMember,
+      division: "부서",
+      deptCode: department ? department.deptCode : undefined,
+    };
   });
 
   console.log("state에는 뭐가 있나: ", state);
   console.log("department에는 뭐가 있나: ", department);
   if (department) {
-    console.log("현재 로그인 유저의 부서 deptCode : ", department.deptCode);
-    console.log("현재 로그인 유저의 부서 이름 : ", department.deptName);
+    console.log("현재 로그인 유저의 부서 deptCode: ", department.deptCode);
+    console.log("현재 로그인 유저의 부서 이름: ", department.deptName);
   }
-  console.log("현재 로그인 유저의 코드 : ", loggedInMember);
+  console.log("현재 로그인 유저의 코드: ", loggedInMember);
+
+  console.log("현재 로그인 유저의 권한 이름은 뭔가요: ", loggedInMemberRole && loggedInMemberRole.roleName);
 
   useEffect(() => {
-    if (department) { // loggedInMember가 정의되어 있는지 확인
-      setState(prevState => ({
-        ...prevState,
-        department: department, // 로그인 정보가 변경되면 dpteCode를 업데이트
-      }));
-    }
+    setState(prevState => ({
+      ...prevState,
+      deptCode: department ? department.deptCode : undefined,
+    }));
   }, [department]);
 
   const personalCalClick = () => {
@@ -62,21 +60,23 @@ function CompanyCal() {
     dispatch(callCompanyCalAPI(state));
   }, [dispatch, state]);
 
-  console.log("state : ", state);
+  console.log("state: ", state);
 
   const companyCalClick = () => {
     dispatch(callCompanyCalAPI(state));
   };
-  console.log("캘린더 정보 calendarReducer : ", companycal);
+  console.log("캘린더 정보 calendarReducer: ", companycal);
 
   const InsertCalClick = () => {
-    setCalendarModalOpen(true);
+    if (isMaster) {
+      setCalendarModalOpen(true);
+    }
   };
 
   const eventClickHandler = (e) => {
     const calendarCode = e.event.id;
-    console.log("event = ", e.event);
-    console.log("calendarCode = ", calendarCode);
+    console.log("event: ", e.event);
+    console.log("calendarCode: ", calendarCode);
     setCalendarCode(calendarCode); // calendarCode 상태 업데이트
     setUpdateCalendarModalOpen(true); // 모달창 열기
   };
@@ -106,7 +106,8 @@ function CompanyCal() {
       <div className={CalendarCss}>
         <div className='personalCal' onClick={personalCalClick}>개인</div>
         <div className='companyCal' onClick={companyCalClick} style={{ backgroundColor: '#2A4090', color: 'white' }}>부서</div>
-        <div className='insertSch' onClick={InsertCalClick}>일정등록</div>
+        {/* 'MASTER' 권한이 있는 경우에 대한 처리 */}
+        {isMaster && <div className='insertSch' onClick={InsertCalClick}>일정등록</div>}
         <div id='Calendar'>
           <FullCalendar
             defaultView="dayGridMonth"
@@ -119,7 +120,7 @@ function CompanyCal() {
               end: department.end,
               color: department.color
             }))}
-            eventClick={isAdmin ? (e) => eventClickHandler(e) : null}
+            eventClick={isMaster ? eventClickHandler : null}
           />
         </div>
       </div>

@@ -925,6 +925,7 @@ opacity: 0.3;
 
 .image-item {
   margin-right: 10px; /* 오른쪽에 10px 간격을 줍니다. */
+  
 }
 
 .image-container {
@@ -945,7 +946,7 @@ opacity: 0.3;
 
 .eduName {
   margin-left: 270px;
-  margin-top: -10px; /* 원하는 간격으로 조절하세요. */
+  margin-top: -5px; /* 원하는 간격으로 조절하세요. */
 }
 
 .eduMain2{

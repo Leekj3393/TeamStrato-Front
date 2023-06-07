@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import NoticeCSS from './Notice.module.css';
-import { callNoticeListAPI, callNoticeSearchTitleListAPI, callNoticeSearchContentListAPI, callNoticesDeleteAPI } from "../../apis/NoticeAPICalls";
+import { callNoticeListAPI, callNoticeSearchTitleListAPI, callNoticeSearchContentListAPI, callNoticesDeleteAPI, callNoticeDetailAPI } from "../../apis/NoticeAPICalls";
 import PagingBar from "../../components/common/PagingBar";
 import { isAdmin } from "../../utils/TokenUtils"; /* isAdmin()!!!!! */
 import NoticeSearch from "./NoticeSearch";
+import Swal from 'sweetalert2';
 
 function Notice() {
 
@@ -18,12 +19,25 @@ function Notice() {
     const pageInfo = notices.pageInfo;
     const [currentPage, setCurrentPage] = useState(1);
     const [checked , setChecked] = useState(new Array());
+    const membersData = useSelector((state) => state.myPageReducer.membersData);
 
     /* 검색어 요청시 사용할 값 */
     const [searchParams] = useSearchParams();
     const search = searchParams.get('value');
 
     const [ filter, setFilter ] = useState('');
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', () => Swal.stopTimer())
+            toast.addEventListener('mouseleave', () => Swal.resumeTimer())
+        }
+      });
 
     function formatDate(dateString) {
         const date = new Date(dateString);
@@ -54,7 +68,10 @@ function Notice() {
         {
             if(pDelete?.status === 200)
             {
-                alert("선택 게시물들이 삭제되었습니다.");
+                Toast.fire({
+                    icon: 'success',
+                    title: '선택 게시물들이 삭제되었습니다.'
+                });
                 window.location.reload();
             }
         }
@@ -82,7 +99,7 @@ function Notice() {
     }
 
     const onClickSelectedNoticesDeleteHandler = () => {
-        // dispatch(callNoticesDeleteAPI(checked)); 
+        dispatch(callNoticesDeleteAPI(checked)); 
     }
 
     console.log("checked : {}" , checked);
@@ -140,9 +157,9 @@ function Notice() {
                 {isAdmin && <div className={NoticeCSS.deleteBtnDiv} onClick={onClickSelectedNoticesDeleteHandler}>
                     선택 삭제
                 </div>}
-                {isAdmin && <div className={NoticeCSS.goToRegistBtnDiv} onClick={onClickRegistPage}>
+                {isAdmin && membersData?.memberRole?.roleName === "ROLE_BOARD"  && <div className={NoticeCSS.goToRegistBtnDiv} onClick={onClickRegistPage}>
                     게시물 등록
-                    {/* <img src="../../image/regist-btn.png"/> */}
+                    {/*<img src="../../image/regist-btn.png"/>*/}
                 </div>}
                 {isAdmin() && <div className={NoticeCSS.goToDelListBtnDiv} onClick={onClickDelListPage}>
                     삭제 게시판

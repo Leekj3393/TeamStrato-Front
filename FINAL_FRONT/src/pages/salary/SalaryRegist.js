@@ -6,6 +6,7 @@ import SalaryRegistDetail from './SalaryRegistDetail';
 import SalaryFindEmpModal from './Modal/SalaryFindEmpModal';
 import { useNavigate } from 'react-router-dom';
 import PagingBar from '../../components/common/PagingBar';
+import Swal from 'sweetalert2';
 
 function SalaryRegist()
 {
@@ -13,13 +14,26 @@ function SalaryRegist()
     const [isModal , setIsModal] = useState(false);
     const [isClick , setIsClick] = useState(false);
     const [isModify , setIsModify] = useState(false);
+    const navigate = useNavigate();
     const { member } = useSelector((state) => state.SalaryReducer);
     const { sch } = useSelector((state) => state.SalaryReducer);
     const { reIncome } = useSelector((state) => state.SalaryReducer);
+    const { save } = useSelector((state) => state.SalaryReducer);
     const [form , setForm] = useState({});
     const [reSalary , setReSalary] = useState({});
     const [currntPage , setCurrentPage] = useState(1);
     const disptch = useDispatch();
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', () => Swal.stopTimer())
+            toast.addEventListener('mouseleave', () => Swal.resumeTimer())
+        }
+      });
 
     console.log("reSalary : {}", reSalary);
     console.log("reIncome : {}" , reIncome);
@@ -37,6 +51,21 @@ function SalaryRegist()
             setReSalary(reIncome?.data);
         },
         [reIncome]
+    )
+
+    useEffect(
+        () =>
+        {
+            if(save?.status === 200)
+            {
+                Toast.fire({
+                    icon: 'success',
+                    title: '급여 명세서 추가 완료'
+                });
+                navigate("/salary");
+            }
+        },
+        [save]
     )
 
     const onChangeSalary = (e) =>
@@ -82,13 +111,16 @@ function SalaryRegist()
         }
         else
         {
-            alert(`day : ${day ? day : '정보없음'} \nmember : ${member ? member : '정보없음'} \n 모든 정보를 입력해주세요`);
+            Toast.fire({
+                icon: 'error',
+                title: `day : ${day ? day : '정보없음'} \nmember : ${member ? member : '정보없음'} \n 모든 정보를 입력해주세요`
+            });
         }
     }
 
     const onClickSave = () =>
     {
-        if(!reSalary.salary)
+        if(!reSalary?.salary)
         {
             setForm({
                 memberCode : sch.member.memberCode,
