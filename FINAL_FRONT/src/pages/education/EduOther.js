@@ -15,7 +15,6 @@ function EduOther() {
     const [currentPage, setCurrentPage] = useState(1);
     const { classViewList } = useSelector((state) => state.classReducer);
     
-
     useEffect(
         () => {
             dispatch(callEducationOtherAPI({currentPage}));

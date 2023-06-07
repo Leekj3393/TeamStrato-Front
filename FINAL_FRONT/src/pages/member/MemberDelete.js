@@ -12,8 +12,6 @@ function MemberDelete (memberCode, setDeleteModalOpen) {
     const { memberDelete } = useSelector(state => state.memberReducer);
     const {memberCodes} = memberCode;
 
-    console.log("memberCode", memberCode);
-
     const closeModal =() => {
         setDeleteModalOpen(false);
     };

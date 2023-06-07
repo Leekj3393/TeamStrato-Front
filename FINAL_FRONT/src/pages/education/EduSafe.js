@@ -15,9 +15,6 @@ function EduSafe() {
     const [currentPage, setCurrentPage] = useState(1);
     const { classViewList } = useSelector((state) => state.classReducer);
     
-    console.log("data", data);
-    console.log("classViewList", classViewList);
-
     useEffect(
         () => {
             dispatch(callEducationSafetyAPI({currentPage}));

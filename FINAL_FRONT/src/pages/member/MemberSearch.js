@@ -7,9 +7,6 @@ function MemberSearch({filter}) {
     const navigate = useNavigate();
     const [search, setSearch] = useState('');
 
-    console.log("filter : {}", filter);
-    console.log("search : {}", search);
-
     useEffect(() => {
         setSearch('');
     }, [filter]); 
@@ -23,7 +20,6 @@ function MemberSearch({filter}) {
     const onEnterKeyHandler = (e) => {
         if(e.key === 'Enter') {
            if(filter === "memberName") {
-            console.log('Enter key : ', search);
                navigate(`/member/names/search?value=${search}`);
            } else if(filter ==="memberCode") {
                 navigate(`/member/codes/search?value=${search}`);

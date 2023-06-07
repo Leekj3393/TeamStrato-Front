@@ -25,9 +25,7 @@ function Member() {
 
      /* 로그인한 직원 정보 조회 */
      const { membersData } = useSelector(state => state.myPageReducer);
-
-    console.log("membersData의 값", membersData);
-    
+ 
     /* 검색 기능 구현 */
     useEffect(() => {
         if(filter === "memberName") {  
@@ -53,7 +51,7 @@ function Member() {
           const currentDate = new Date();
           const los = hireDates.map(date => {
             const employmentPeriod = getEmploymentPeriod(date, currentDate);
-            return Math.floor(employmentPeriod / 365); // Calculate length of service in years
+            return Math.floor(employmentPeriod / 365); 
           });
           setLengthOfService(los);
           
