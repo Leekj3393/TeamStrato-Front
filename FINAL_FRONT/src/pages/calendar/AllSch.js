@@ -40,7 +40,7 @@ function AllSch() {
                      페이지 {pageInfo?.currentPage} / {pageInfo?.maxPage}
                 </div>
 
-                <table className={AllSchCSS.schMainTable}>   {/* 게시판 시작 */}
+                <table className={AllSchCSS.schMainTable}>
                     <thead>
                     <tr className={AllSchCSS.schList}>
                         <th className={AllSchCSS.schTitle2}>일정 이름</th>
