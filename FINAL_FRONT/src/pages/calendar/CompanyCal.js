@@ -31,10 +31,12 @@ function CompanyCal() {
   //   division: '부서',
   // });
 
-  const [state, setState] = useState({
-    memberCode: loggedInMember, // 현재 로그인된 객체의 memberCode로 설정
-    division: "부서",
-    deptCode: department?.deptCode,
+  const [state, setState] = useState(() => {
+    return {
+      memberCode: loggedInMember,
+      division: "부서",
+      deptCode: department ? department.deptCode : undefined,
+    };
   });
 
   console.log("state에는 뭐가 있나: ", state);
@@ -46,12 +48,10 @@ function CompanyCal() {
   console.log("현재 로그인 유저의 코드 : ", loggedInMember);
 
   useEffect(() => {
-    if (department) { // loggedInMember가 정의되어 있는지 확인
-      setState(prevState => ({
-        ...prevState,
-        department: department, // 로그인 정보가 변경되면 dpteCode를 업데이트
-      }));
-    }
+    setState(prevState => ({
+      ...prevState,
+      deptCode: department ? department.deptCode : undefined,
+    }));
   }, [department]);
 
   const personalCalClick = () => {
