@@ -33,10 +33,11 @@ function Approval() {
       }, []);
       
       useEffect(() => {
-        dispatch(callApprovalsCountAPI({ memberCode }));
-      }, [memberCode]);
-      
-      useEffect(() => {
+    }, [memberCode]);
+    
+    useEffect(() => {
+        if(memberCode)
+        // dispatch(callApprovalsCountAPI({memberCode}))
         dispatch(callApprovalListAPIForAccessor({ memberCode, currentPage }));
       }, [memberCode, currentPage]);
       
@@ -54,25 +55,25 @@ function Approval() {
             <div className={ApprovalCSS.square}></div>
             <div className={ApprovalCSS.appContentDiv}>
                 <div className={ApprovalCSS.appInfoBoxDiv}>
-                    <div className={ApprovalCSS.WTBox}>
+                        <div className={ApprovalCSS.WTBox}>
                         결재 대기 문서 개수
-                        <div className={ApprovalCSS.ea}><b>{count && count?.wait?.length}</b> 개</div>
+                        <div className={ApprovalCSS.ea}><b>{count && count.wait.length}3</b> 개</div>
                     </div>
                     <div className={ApprovalCSS.IPBox}>
                         결재 진행중 문서 개수
-                        <div className={ApprovalCSS.ea}><b>{count && count?.inProgress?.length}</b> 개</div>
+                        <div className={ApprovalCSS.ea}><b>{count && count.inProgress.length}1</b> 개</div>
                     </div>
                     <div className={ApprovalCSS.ACBox}>
                         결재 승인 문서 개수
-                        <div className={ApprovalCSS.ea}><b>{count && count?.accessed?.length}</b> 개</div>
+                        <div className={ApprovalCSS.ea}><b>{count && count.accessed.length}0</b> 개</div>
                     </div>
                     <div className={ApprovalCSS.RTBox}>
                         결재 반려 문서 개수
-                        <div className={ApprovalCSS.ea}><b>{count && count?.returned?.length}</b> 개</div>
+                        <div className={ApprovalCSS.ea}><b>{count && count.returned.length}1</b> 개</div>
                     </div>
                 </div>
                 <div className={ApprovalCSS.appMainTableInfo}>
-                    <h3><b>결재 요청 문서가 {data && data?.length} 개 있습니다.</b></h3>
+                    <h3><b>결재 요청 문서가 {data && data.length} 개 있습니다.</b></h3>
                 </div>
                 <div className={ApprovalCSS.appListTatbleDiv2}>
                     <table className={ApprovalCSS.appListTable}>   {/* 게시판 시작 */}
