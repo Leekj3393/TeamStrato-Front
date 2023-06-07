@@ -345,11 +345,6 @@ useEffect(
         });
     }
 
-    // const onClickResetHandler = () => {
-
-    // }
-
-
     return(
         <div className={ApprovalCSS}>
             <div className={ApprovalCSS.square}></div>                           {/* 본문 하얀 네모 */}
