@@ -39,8 +39,6 @@ function EquNavbar({url})
     {
       navigate(`modify/search?type=${type}&value=${value}`);
     }
-    setType('equipmentName');
-    setValue("");
   }
 
   console.log("nav : {} " , type);
