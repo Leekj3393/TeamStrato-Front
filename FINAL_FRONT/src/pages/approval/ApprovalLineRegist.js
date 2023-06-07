@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { callAppLineInsertAPI,  callAppLine1InsertAPI, callAppLine2InsertAPI,  callAppLine3InsertAPI, callMemberListForAppAPI, callApprovalInfoForAppAPI } from '../../apis/AppLineAPICalls';
 import { callApprovalMemberInfoAPI, callApprovalDetailAPI } from '../../apis/ApprovalAPICalls';
 import { callMemberDetailAPI } from '../../apis/MemberAPICalls';
-
+import Swal from 'sweetalert2';
 
 function ApprovalLineRegist() {
 
@@ -33,7 +33,17 @@ function ApprovalLineRegist() {
     form3.appLineStatus = 'appWait';
     form3.appPriorYn = 'N';
     form3.appOrder = 3;
-    
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', () => Swal.stopTimer())
+            toast.addEventListener('mouseleave', () => Swal.resumeTimer())
+        }
+    });
     const [select, setSelect] = useState({});
     const [selected, setSelected] = useState({});
 
@@ -146,11 +156,18 @@ function ApprovalLineRegist() {
 useEffect에서 해당 값이 변화함이 감지 되면 200번 코드임을 확인한 뒤 alert('상신완료!!!! 전자결재 메인화면으로 이동!!');을 띄운다 */
 useEffect(
     () => {
-        if(regist2?.status === 200) {
-            alert('상신완료!!!! 전자결재 메인화면으로 이동!!');
+        if(regist2?.status === 200) {    
+            Toast.fire({
+                icon: 'success',
+                title: '결재 상신이 완료되었습니다. 결재 메인페이지로 이동합니다.'
+            })
             navigate("/approval", {replace : true});
         } else if(regist2?.state === 400) {
-            alert(regist2.message);
+            Toast.fire({
+                icon: 'error',
+                title: '결재 상신을 실패했습니다.'
+            })
+            return;
             console.log('form : ', form);
             console.log('regist2 : ', regist2);
         }
@@ -166,25 +183,46 @@ useEffect(
             || !form3.accessor?.memberCode || !form3.appPriorYn || !form3.appLineStatus
             ) {
             if (!firstAccessor && !form?.accessor.memberCode) {
-                alert("제1 결재선이 선택되지 않았습니다.");
+                Toast.fire({
+                    icon: 'error',
+                    title: '제1 결재선을 선택해주세요.'
+                  })
                 return;
             } else if (!secondAccessor && !form2.accessor.memberCode) {
-                alert("제2 결재선이 선택되지 않았습니다.");
+                Toast.fire({
+                    icon: 'error',
+                    title: '제2 결재선을 선택해주세요.'
+                  })
                 return;
             } else if (!finalAccessor && !form3.accessor.memberCode) {
-                alert("최종 결재선이 선택되지 않았습니다.");
+                Toast.fire({
+                    icon: 'error',
+                    title: '최종 결재선을 선택해주세요.'
+                  })
                 return;
             } else if ( !form?.appLineStatus) {
-                alert("1전결상태가 누락되었습니다.");
+                Toast.fire({
+                    icon: 'error',
+                    title: '결재 상태가 누락되었습니다..'
+                  })
                 return;
             } else if ( !form?.appPriorYn) {
-                alert("1전결여부가 누락되었습니다.");
+                Toast.fire({
+                    icon: 'error',
+                    title: '1전결 여부가 누락되었습니다..'
+                  })
                 return;
             } else if ( !form2?.appPriorYn) {
-                alert("2전결여부가 누락되었습니다.");
+                Toast.fire({
+                    icon: 'error',
+                    title: '2전결 여부가 누락되었습니다..'
+                  })
                 return;
             } else if ( !form3?.appPriorYn) {
-                alert("3전결여부가 누락되었습니다.");
+                Toast.fire({
+                    icon: 'error',
+                    title: '3전결 여부가 누락되었습니다..'
+                  })
                 return;
             }
         }
@@ -263,8 +301,10 @@ useEffect(
 
         // 선택된 직원의 정보를 해당 결재선 상태 변수에 저장
             setFirstAccessor(null);
-            alert('제1 결재선을 초기화합니다.');
-
+            Toast.fire({
+                icon: 'success',
+                title: '제1 결재선을 초기화합니다.'
+              })
         setSelect({
             ...select,
             [e.target.name]: e.target.value
@@ -277,7 +317,10 @@ useEffect(
 
         // 선택된 직원의 정보를 해당 결재선 상태 변수에 저장
             setSecondAccessor(null);
-            alert('제2 결재선을 초기화합니다.');
+            Toast.fire({
+                icon: 'success',
+                title: '제2 결재선을 초기화합니다.'
+              })
 
         setSelect({
             ...select,
@@ -291,7 +334,10 @@ useEffect(
 
         // 선택된 직원의 정보를 해당 결재선 상태 변수에 저장
             setFinalAccessor(null);
-            alert('최종 결재선을 초기화합니다.');
+            Toast.fire({
+                icon: 'success',
+                title: '최종 결재선을 초기화합니다.'
+              })
 
         setSelect({
             ...select,
@@ -299,8 +345,9 @@ useEffect(
         });
     }
 
-    // 요거를 어떻게 해야할지 모르겠다@@
-    const onClickResetHandler = () => {}
+    // const onClickResetHandler = () => {
+
+    // }
 
 
     return(
@@ -352,16 +399,6 @@ useEffect(
                         </div>
                     </div>
                 </div>
-                        <div className={ApprovalCSS.contentInfoDiv2}>
-                            <ul>설명서 모달로 만들면 좋겠다!!!
-                                <li>
-                                    ※선택된 직원은 조직도 목록에서 사라집니다.
-                                </li>
-                                <li>
-                                    ※선택된 결재선을 취소하려면 ~~ㅇ 모달 만들기
-                                </li>
-                            </ul>
-                        </div>
                 <div className={ApprovalCSS.selectedMemberDiv}>
                     <div className={ApprovalCSS.selectedMemberContent}>
                         <div className={ApprovalCSS.contentInfoDiv}>결재선</div>
@@ -427,7 +464,6 @@ useEffect(
                 <div className={ApprovalCSS.registFormDiv2}>
 
                     <button onClick={onClickInsertHandler}><img src='../image/app-regist-btn.png'></img></button>
-                    <button onClick={onClickResetHandler}><img src='../image/cancel-btn.png'></img></button>
 
                 </div>
             </div>

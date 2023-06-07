@@ -3,6 +3,7 @@ import ApprovalCSS from './Approval.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { callApprovalRegistAPI, callApprovalMemberInfoAPI } from '../../apis/ApprovalAPICalls';
+import Swal from 'sweetalert2';
 
 function ApprovalRegist() {
 
@@ -20,6 +21,17 @@ function ApprovalRegist() {
         return `${year}년 ${month}월 ${day}일`;
     }
 
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', () => Swal.stopTimer())
+            toast.addEventListener('mouseleave', () => Swal.resumeTimer())
+        }
+    });
 
     useEffect(
         () => {
@@ -30,7 +42,10 @@ function ApprovalRegist() {
     useEffect(
         () => {
             if(regist?.status === 200) {
-                alert('결재선 선택 페이지로 이동합니다.');
+            Toast.fire({
+                icon: 'success',
+                title: '결재선 선택 페이지로 이동합니다.'
+            })
                 navigate("/approval/appline", {replace: true});
             }
         },
@@ -56,23 +71,38 @@ function ApprovalRegist() {
             !form.appTitle || !form.appContent || !form.appType || !form.appStatus
         ) {
             if(!form.appTitle) {
-                alert("제목을 작성해주세요.");
+                Toast.fire({
+                    icon: 'error',
+                    title: '제목을 작성해주세요.'
+                })
                 return;
             } else if(!form.appContent) {
-                alert("제목을 작성해주세요.");
+                Toast.fire({
+                    icon: 'error',
+                    title: '내용을 작성해주세요.'
+                })
                 return;
             }  else if(!form.appType) {
-                alert("기안구분이 누락되었습니다.");
+                Toast.fire({
+                    icon: 'error',
+                    title: '구분 및 기안상태 항목을 체크해주세요'
+                })
                 return;
             } else {
-                alert("기안상태가 누락되었습니다.");
+                Toast.fire({
+                    icon: 'error',
+                    title: '구분 및 기안상태 항목을 체크해주세요'
+                })
                 return;
             }
         }
          dispatch(callApprovalRegistAPI(form));
     };
     const onClickResetHandler = () => {
-        alert("결재신청을 취소합니다.");
+        Toast.fire({
+            icon: 'info',
+            title: '기안 작성을 취소합니다. 결재 메인페이지로 이동합니다.'
+        })
         navigate("/approval", {replace: true})
     };
 

@@ -102,6 +102,9 @@ function NoticeDetail() {
         dispatch(callModifyNotice(formData));
     }
 
+    const onClickDeleteHandler = () => {
+    }
+
         /* 이미지 업로드 버튼 클릭 이벤트 */
         const onClickImgageUpload = () => {
             ImageInput.current.click();

@@ -33,7 +33,7 @@ export const callEducationSafetyAPI = ({currentPage = 1}) => {
         const result = await fetch(requestURL).then(response => response.json());
 
         if(result.status === 200) {
-            console.log('result', result);
+           
             dispatch(getSafety(result));
         }
 
@@ -50,7 +50,7 @@ export const callEducationDutyAPI = ({currentPage = 1}) => {
         const result = await fetch(requestURL).then(response => response.json());
 
         if(result.status === 200) {
-            console.log('result', result);
+            
             dispatch(getDuty(result));
         }
 
@@ -67,7 +67,7 @@ export const callEducationOtherAPI = ({currentPage = 1}) => {
         const result = await fetch(requestURL).then(response => response.json());
 
         if(result.status === 200) {
-            console.log('result', result);
+           
             dispatch(getEdOther(result));
         }
 
@@ -84,7 +84,7 @@ export const callEducationDetailAPI = ({edCode}) => {
         const result = await fetch(requestURL).then(response => response.json());
 
         if(result.status === 200) {
-            console.log('callEducationDetailAPI reuslt : {}', result);
+           
             dispatch(getEducation(result));
         }
 
@@ -107,7 +107,7 @@ export const callClassRegistAPI = ({edCode}) => {
         }).then(response => response.json());
 
         if(result.status === 200) {
-            console.log("callClassRegistAPI : {}", result);
+           
             dispatch(postClass(result));
         }
     }
@@ -128,7 +128,7 @@ export const callEducationUpdateAPI = ({edCode, classTime}) => {
         }).then(response => response.json());
 
         if(result.status === 200) {
-            console.log('[MemberAPICalls] : callMemberUpdateAPI result : ', result);
+           
             dispatch(putClass(result));
         }
     }
@@ -149,7 +149,7 @@ export const callClassViewAPI = () => {
         }).then(response => response.json());
 
         if(result.status === 200) {
-            console.log('callClassViewAPI result', result);
+            
             dispatch(getClassViewList(result));
         }
 
@@ -172,7 +172,7 @@ export const callClassInfoAPI = ({edCode}) => {
         }).then(response => response.json());
 
         if(result.status === 200) {
-            console.log('callClassViewAPI result', result);
+           
             dispatch(getClassInfo(result));
         }
 
@@ -195,7 +195,7 @@ export const callClassListAPI = ({currentPage = 1}) => {
         }).then(response => response.json());
 
         if(result.status === 200) {
-            console.log('result', result);
+           
             dispatch(getClassList(result));
         }
 
@@ -218,7 +218,7 @@ export const callEducationPhotoListAPI = ({currentPage = 1}) => {
         }).then(response => response.json());
 
         if(result.status === 200) {
-            console.log('callClassViewAPI result', result);
+            
             dispatch(getEducationPhoto(result));
         }
 
@@ -241,7 +241,7 @@ export const callEducationPhotoInsertAPI = (formData) => {
         }).then(response => response.json());
 
         if(result.status === 200) {
-            console.log('callClassViewAPI result', result);
+            
             dispatch(postEducationPhoto(result));
         }
 

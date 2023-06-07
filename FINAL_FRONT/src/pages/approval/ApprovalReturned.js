@@ -31,6 +31,7 @@ function ApprovalReturned() {
     []);
 
     useEffect(() => {
+        if(memberCode)
         dispatch(callApprovalReturnedListAPI({memberCode, currentPage}));
     }, 
     [currentPage, memberCode])
