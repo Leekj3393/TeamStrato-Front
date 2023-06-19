@@ -145,12 +145,12 @@ function ApprovalLineRegist() {
                 } else {
                     setExpandedItems([...expandedItems, item]);
                 }
-            };
+    };
             
-            useEffect(() => {
-                dispatch(callMemberDetailAPI({memberCode}));
-                dispatch(callMemberListForAppAPI());
-            }, []);
+    useEffect(() => {
+        dispatch(callMemberDetailAPI({memberCode}));
+        dispatch(callMemberListForAppAPI());
+    }, []);
             
 /* 서버 api 통신이 성공하면 받은 객체를 regist2 라는 키 값으로 저장한다. 
 useEffect에서 해당 값이 변화함이 감지 되면 200번 코드임을 확인한 뒤 alert('상신완료!!!! 전자결재 메인화면으로 이동!!');을 띄운다 */

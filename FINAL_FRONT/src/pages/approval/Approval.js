@@ -57,7 +57,7 @@ function Approval() {
                 <div className={ApprovalCSS.appInfoBoxDiv}>
                         <div className={ApprovalCSS.WTBox}>
                         결재 대기 문서 개수
-                        <div className={ApprovalCSS.ea}><b>{count && count.wait.length}6</b> 개</div>
+                        <div className={ApprovalCSS.ea}><b>{count && count.wait.length}8</b> 개</div>
                     </div>
                     <div className={ApprovalCSS.IPBox}>
                         결재 진행중 문서 개수
